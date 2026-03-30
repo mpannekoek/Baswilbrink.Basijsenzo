@@ -779,3 +779,11 @@ React will never use eval() in production mode"
 **Context**: Git identity configuration for local commit
 
 ---
+
+## Repository Cleanup
+**Timestamp**: 2026-03-30T17:38:05Z
+**User Input**: "yes remove them"
+**AI Response**: "Removed the tracked Windows `Zone.Identifier` metadata files, added ignore rules for those patterns, and prepared a cleanup commit so they are no longer present in the repository tip."
+**Context**: Repository cleanup after commit review
+
+---
