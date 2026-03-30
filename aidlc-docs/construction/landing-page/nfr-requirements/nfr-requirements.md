@@ -60,6 +60,12 @@ This unit covers the single public landing page for Bas IJs & Zo, including its 
   - production runtime command
   - committed Docker-related config files
   - lean and maintainable image structure
+- The delivery path must include an automated GitHub Actions workflow that builds and publishes the production Docker image to GitHub Container Registry (GHCR).
+- The publish workflow should support at least:
+  - push-based publishing from `main`
+  - stable image naming derived from the GitHub repository
+  - immutable commit-based tagging for traceability
+  - a moving `latest` tag for the default branch
 - This version does not require additional container hardening, image scanning workflow setup, or orchestration design.
 
 ## Out Of Scope

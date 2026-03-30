@@ -6,6 +6,7 @@ This infrastructure design covers the runtime and delivery shape for a single pu
 ## Infrastructure Summary
 - **Compute Model**: Single containerized Next.js application runtime
 - **Build Model**: Container image built from the application source
+- **Publish Model**: GitHub Actions workflow publishes the image to GHCR
 - **Delivery Style**: Production-oriented but practical Docker packaging
 - **Statefulness**: Stateless application container
 - **Data Storage**: None required for v1
@@ -32,7 +33,17 @@ This infrastructure design covers the runtime and delivery shape for a single pu
   - production image tags should not use unpinned `latest`
   - build path should be deterministic and repeatable
 
-### 3. Runtime Configuration Surface
+### 3. Image Publish Pipeline
+- **Purpose**: Publish the built runtime image to GitHub Container Registry
+- **Responsibilities**:
+  - authenticate to GHCR using GitHub Actions permissions
+  - generate repository-derived image names and tags
+  - publish commit-traceable and branch-default tags
+- **Notes**:
+  - workflow should be repository-local under `.github/workflows/`
+  - pipeline remains lightweight and does not expand into broader release orchestration
+
+### 4. Runtime Configuration Surface
 - **Purpose**: Supply environment-specific values without code changes
 - **Responsibilities**:
   - support runtime port configuration
@@ -41,7 +52,7 @@ This infrastructure design covers the runtime and delivery shape for a single pu
 - **Notes**:
   - keep required runtime variables minimal for v1
 
-### 4. Security Header Configuration
+### 5. Security Header Configuration
 - **Purpose**: Enforce required public-site security headers
 - **Responsibilities**:
   - apply CSP and related response headers at framework level
@@ -49,7 +60,7 @@ This infrastructure design covers the runtime and delivery shape for a single pu
 - **Notes**:
   - no separate API gateway or reverse proxy requirement is introduced here
 
-### 5. Static Asset Layer
+### 6. Static Asset Layer
 - **Purpose**: Deliver bundled application assets such as logo and images
 - **Responsibilities**:
   - package required local assets into the built app
@@ -63,6 +74,7 @@ This infrastructure design covers the runtime and delivery shape for a single pu
 - Avoid introducing a database, cache, queue, or background worker because the landing page does not need them.
 - Keep deployment generic enough to run on any container-capable host.
 - Treat Docker as the deployment baseline, not just a local development convenience.
+- Treat GHCR as the default image registry for automated publishing from GitHub.
 
 ## Security Considerations
 - Configure required HTTP security headers in the application.

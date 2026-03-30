@@ -12,6 +12,7 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 - `.gitignore`
 - `.dockerignore`
 - `Dockerfile`
+- `.github/workflows/publish-image.yml`
 - `next-env.d.ts`
 - `vitest.config.ts`
 - `public/logo.png`
@@ -56,3 +57,4 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 - Placeholder content remains centralized and easy to replace later.
 - The implementation keeps the earlier user-provided design reference as inspiration only; the final UI is re-anchored to black/orange branding and the real logo asset.
 - Docker remains production-oriented but practical, matching the approved scope.
+- GitHub Actions now provides an automated GHCR publish path for the Docker image.

@@ -64,6 +64,8 @@
   - production runtime command
   - committed Docker configuration
   - lean image structure
+  - GitHub Actions workflow for publishing the container image to GHCR
+  - repository-derived image tags with both mutable and immutable variants
 - **Excluded for v1**:
   - extra container-hardening work
   - dedicated image-scanning workflow setup

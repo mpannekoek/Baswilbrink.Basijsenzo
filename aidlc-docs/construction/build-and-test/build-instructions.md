@@ -48,6 +48,37 @@ docker run --rm -p 3000:3000 basijsenzo:local
 - Confirm the landing page loads
 - Confirm the logo, hero, opening hours, and review section render correctly
 
+## GitHub Actions GHCR Publish
+
+### 1. Verify Workflow File Exists
+- Confirm `.github/workflows/publish-image.yml` is present in the repository.
+
+### 2. Verify Workflow Triggers
+- Confirm the workflow is configured for:
+  - pushes to `main`
+  - optional manual dispatch
+  - version tags if release tagging is later adopted
+
+### 3. Verify Publish Permissions
+- Confirm the workflow uses:
+  - `contents: read`
+  - `packages: write`
+
+### 4. Verify Expected Image Naming
+- Expected registry target:
+  - `ghcr.io/mpannekoek/baswilbrink.basijsenzo`
+- Expected tags include:
+  - `latest` from `main`
+  - `sha-<commit>` for immutable traceability
+
+### 5. Verify Published Image
+- After a successful workflow run, inspect the GHCR package in GitHub.
+- Pull and run the image from GHCR:
+```bash
+docker pull ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
+docker run --rm -p 3000:3000 ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
+```
+
 ## Troubleshooting
 
 ### Build Fails During Dependency Install

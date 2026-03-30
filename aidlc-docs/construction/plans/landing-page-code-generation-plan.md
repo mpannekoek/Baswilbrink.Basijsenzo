@@ -31,6 +31,7 @@
   - `.gitignore`
   - `.dockerignore`
   - `Dockerfile`
+  - `.github/workflows/publish-image.yml`
   - `public/logo.png`
   - `src/app/layout.tsx`
   - `src/app/page.tsx`
@@ -113,6 +114,11 @@
 ### Step 12
 - [x] Verify the generated structure is ready for the later Build and Test stage
   - Story mapping: readiness support for all stories
+
+### Step 13
+- [x] Add GitHub Actions workflow support for publishing the production Docker image to GHCR
+  - include repository-derived image naming and default-branch publish tags
+  - Story mapping: supports deployment expectations for all stories
 
 ## Unit Generation Approach Summary
 - Build the app as a single App Router-based Next.js project under `src/`
