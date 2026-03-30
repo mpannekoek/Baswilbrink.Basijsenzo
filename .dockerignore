@@ -1,0 +1,8 @@
+.git
+.next
+node_modules
+aidlc-docs
+docs
+assets/design.jpg
+coverage
+npm-debug.log*

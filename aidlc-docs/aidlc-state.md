@@ -1,0 +1,42 @@
+# AI-DLC State Tracking
+
+## Project Information
+- **Project Type**: Greenfield
+- **Start Date**: 2026-03-30T07:54:30Z
+- **Current Stage**: CONSTRUCTION - Build and Test Review
+
+## Workspace State
+- **Existing Code**: No
+- **Reverse Engineering Needed**: No
+- **Workspace Root**: /home/martijn/dev/projects/baswilbrink/basijsenzo
+
+## Code Location Rules
+- **Application Code**: Workspace root (NEVER in aidlc-docs/)
+- **Documentation**: aidlc-docs/ only
+- **Structure patterns**: See code-generation.md Critical Rules
+
+## Extension Configuration
+| Extension | Enabled | Decided At |
+|---|---|---|
+| Baseline Security Rules | Yes | Requirements Analysis |
+
+## Stage Progress
+### 🔵 INCEPTION PHASE
+- [x] Workspace Detection
+- [ ] Reverse Engineering (not applicable)
+- [x] Requirements Analysis
+- [x] User Stories
+- [x] Workflow Planning
+- [x] Application Design
+- [ ] Units Generation
+
+### 🟢 CONSTRUCTION PHASE
+- [ ] Functional Design
+- [x] NFR Requirements
+- [x] NFR Design
+- [x] Infrastructure Design
+- [x] Code Generation
+- [ ] Build and Test
+
+### 🟡 OPERATIONS PHASE
+- [ ] Operations
