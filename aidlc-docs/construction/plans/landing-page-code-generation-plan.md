@@ -23,6 +23,7 @@
 
 ## Target Code Locations
 - **Application Code**:
+  - `README.md`
   - `src/web/package.json`
   - `src/web/tsconfig.json`
   - `src/web/next.config.ts`
@@ -120,12 +121,20 @@
   - include repository-derived image naming and default-branch publish tags
   - Story mapping: supports deployment expectations for all stories
 
+### Step 14
+- [x] Add a root `README.md` for the repository
+  - describe the project purpose and current scope
+  - explain that the Next.js application root is `src/web`
+  - include local development, test, build, and Docker commands
+  - Story mapping: maintainability and onboarding support for all stories
+
 ## Unit Generation Approach Summary
 - Build the app as a single App Router-based Next.js project rooted at `src/web`
 - Keep content static and typed for easy later replacement
 - Prefer modular section components over a single large page file
 - Keep Docker practical and production-oriented without expanding into broader platform engineering
 - Keep testing lightweight but meaningful for a single landing page
+- Include a root repository `README.md` for human-readable project onboarding and usage guidance
 - Do not generate web runtime code at repository root, repository-root `public`, or repository-root `src` outside `src/web`
 
 ## Single Source Of Truth

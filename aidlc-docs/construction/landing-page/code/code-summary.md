@@ -4,6 +4,7 @@
 The `landing-page` unit has been implemented as a greenfield Next.js App Router application using TypeScript and Tailwind CSS. A targeted regeneration pass moved the application root into `src/web` so the runtime entrypoints, assets, tests, package/config files, and Docker build surface now align with the approved repository structure.
 
 ## Created Application Files
+- `README.md`
 - `src/web/package.json`
 - `src/web/tsconfig.json`
 - `src/web/next.config.ts`
@@ -57,6 +58,7 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 - `cd src/web && npm run build` ✅
 
 ## Notes
+- Added a root repository `README.md` describing the project, the `src/web` app root, and the local run, build, test, and Docker workflow.
 - Placeholder content remains centralized and easy to replace later.
 - Follow-up regeneration moved the remaining rendered copy, metadata text, image alt text, and accessibility labels into the centralized content layer so section components no longer own editable page copy.
 - Follow-up regeneration also moved the full Next.js app boundary from the repository root to `src/web`, including package/config files, App Router entrypoints, tests, assets, Docker packaging, and the GHCR workflow build context.

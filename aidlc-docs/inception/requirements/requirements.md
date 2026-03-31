@@ -97,6 +97,8 @@ The landing page should include these core sections in a clear and practical ord
 - The App Router must live in `src/web/app`, static assets in `src/web/public`, and application modules in `src/web/components`, `src/web/lib`, `src/web/types`, and `src/web/tests`.
 - Web runtime and build configuration files must be colocated inside `src/web` rather than at the repository root or directly under `src`.
 - Repository-wide documentation remains in `aidlc-docs`, and repository-wide CI workflow files remain under `.github/workflows`.
+- The repository must include a root `README.md` that explains the project purpose, repository structure, and how to run, test, and build the web application from `src/web`.
+- The root `README.md` must document the `src/web` application root, the key local commands, and the Docker build and run flow at a human-readable repository level.
 - Use TypeScript across the codebase.
 - Use Tailwind CSS for styling and theming.
 - Keep the implementation modular enough that sections can be expanded or replaced later.
@@ -124,6 +126,7 @@ The landing page should include these core sections in a clear and practical ord
 ### NFR-4: Maintainability
 - The structure, naming, and styling approach should be understandable for future iteration.
 - The repository structure must clearly separate app-owned files from repository-wide documentation and automation.
+- The repository should provide a concise root `README.md` so future contributors can understand the project layout and local development workflow without reading internal AI-DLC artifacts first.
 - Repeated visual patterns should be organized cleanly.
 - Content editors should be able to update rendered copy in one place without editing section component markup.
 - The container setup should be straightforward for future local development and deployment workflows.
