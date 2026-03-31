@@ -36,8 +36,10 @@
 ## Content Pattern
 - **Pattern**: Static structured content model
 - **Application**:
-  - centralize page content in typed content/config objects
+  - centralize page content in typed content/config objects backed by one editable resource file or equivalent typed source
   - keep placeholder content realistic and easy to replace
+  - source section headings, helper text, CTA labels, navigation labels, image alt text, accessibility labels, and metadata copy from the same content layer
+  - avoid embedding editable visitor-facing strings directly in section components
   - avoid runtime fetching for core page content in v1
 - **Reasoning**: This supports maintainability, performance, and delivery simplicity.
 

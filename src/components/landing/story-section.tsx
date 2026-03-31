@@ -9,7 +9,7 @@ type StorySectionProps = {
 export function StorySection({ story }: StorySectionProps) {
   return (
     <SectionShell
-      description="Een dorps ijssalon moet niet alleen lekker ogen, maar ook vertrouwd voelen. Dit deel geeft die context."
+      description={story.description}
       eyebrow={story.eyebrow}
       id="verhaal"
       title={story.title}

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 
+import { siteContent } from "@/lib/content/site-content";
+
 export function getSiteMetadata(): Metadata {
+  const { metadata } = siteContent;
+
   return {
-    title: "Bas IJs & Zo | Dorps ijssalon met karakter",
-    description:
-      "Een warme, speelse en mobiele landing page voor Bas IJs & Zo met openingstijden, verhaal, contact en smaak van de week.",
-    metadataBase: new URL("https://www.basijsenzo.local"),
+    title: metadata.title,
+    description: metadata.description,
+    metadataBase: new URL(metadata.metadataBaseUrl),
     openGraph: {
-      title: "Bas IJs & Zo",
-      description:
-        "Dorps ijssalon met een warm welkom, duidelijke praktische info en een smaakvolle eerste indruk.",
+      title: metadata.openGraphTitle,
+      description: metadata.openGraphDescription,
       type: "website",
     },
   };

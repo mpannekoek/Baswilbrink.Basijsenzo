@@ -12,10 +12,10 @@ export function TasteOfWeekSection({
 }: TasteOfWeekSectionProps) {
   return (
     <SectionShell
-      description="Een compact podium voor iets nieuws, zonder dat het de rest van de pagina verdringt."
-      eyebrow="Smaak in de spotlights"
+      description={featuredTaste.sectionDescription}
+      eyebrow={featuredTaste.eyebrow}
       id="smaak"
-      title={featuredTaste.flavor}
+      title={featuredTaste.title}
       tone="dark"
     >
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -25,7 +25,7 @@ export function TasteOfWeekSection({
             {featuredTaste.accentLabel}
           </p>
           <p className="mt-4 text-3xl font-semibold leading-tight text-white">
-            Een smaak die meteen opvalt, maar warm blijft aanvoelen.
+            {featuredTaste.supportTitle}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {featuredTaste.pairings.map((item) => (
@@ -46,7 +46,7 @@ export function TasteOfWeekSection({
             <div className="grid gap-4">
               <div className="relative min-h-[14rem] overflow-hidden border border-white/12">
                 <Image
-                  alt="Romige Bas IJs & Zo smaak met oranje saus"
+                  alt={featuredTaste.imagePrimaryAlt}
                   className="object-cover"
                   fill
                   sizes="(min-width: 768px) 26vw, 100vw"
@@ -55,7 +55,7 @@ export function TasteOfWeekSection({
               </div>
               <div className="relative min-h-[10rem] overflow-hidden border border-white/12">
                 <Image
-                  alt="Frisse citroenijs-presentatie in de vitrine"
+                  alt={featuredTaste.imageSecondaryAlt}
                   className="object-cover"
                   fill
                   sizes="(min-width: 768px) 26vw, 100vw"
@@ -67,10 +67,10 @@ export function TasteOfWeekSection({
               <p className="text-base leading-7">{featuredTaste.description}</p>
               <div className="mt-6 border border-[rgba(20,20,20,0.1)] bg-white/72 p-4">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand-orange)]">
-                  Echte indruk
+                  {featuredTaste.impressionEyebrow}
                 </p>
                 <p className="mt-2 text-sm leading-6 text-[var(--ink-muted)]">
-                  Met echte beelden uit de vitrine voelt de smaak van de week minder bedacht en veel meer als een uitnodiging om langs te komen.
+                  {featuredTaste.impressionText}
                 </p>
               </div>
               </div>

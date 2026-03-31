@@ -17,6 +17,7 @@ export function LandingPage({ content }: LandingPageProps) {
     <div className="relative flex min-h-screen w-full flex-col bg-transparent" id="top">
       <HeaderBar
         brand={content.brand}
+        header={content.header}
         navItems={content.navItems}
         primaryActions={content.primaryActions}
       />
@@ -26,7 +27,7 @@ export function LandingPage({ content }: LandingPageProps) {
         <PracticalInfoSection
           contact={content.contact}
           hours={content.openingHours}
-          visitNotes={content.visitNotes}
+          practicalInfo={content.practicalInfo}
         />
         <TasteOfWeekSection featuredTaste={content.featuredTaste} />
         <StorySection story={content.story} />
@@ -34,9 +35,8 @@ export function LandingPage({ content }: LandingPageProps) {
         <VisitContactSection
           actions={content.primaryActions}
           contact={content.contact}
-          footerText={content.footerText}
-          footerTitle={content.footerTitle}
           socialLinks={content.socialLinks}
+          visitContact={content.visitContact}
         />
       </main>
       <SiteFooter footer={content.siteFooter} />

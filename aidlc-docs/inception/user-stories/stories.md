@@ -5,6 +5,7 @@
 - **Primary Organization**: Feature-based stories aligned to landing-page sections
 - **Validation Lens**: Journey-aware acceptance criteria that protect the end-to-end visitor experience
 - **Placeholder Policy**: Placeholder content is acceptable for version one, but the implementation must make future replacement straightforward
+- **Content Editability Policy**: Visitor-facing copy should be maintained through a centralized content resource instead of component-embedded strings
 - **Mobile Priority**: Mobile usability is a first-class acceptance concern across all stories
 
 ## INVEST Notes
@@ -28,6 +29,7 @@
 - Black and orange are visibly dominant brand anchors.
 - The page communicates a village-oriented local identity within the first screenful.
 - The hero includes at least one clear practical action, such as visit, call, or route/contact.
+- Hero, navigation, and CTA copy are structured so they can be updated without editing section component markup.
 - The first impression remains strong and readable on mobile screens.
 
 ## US-2: Fast Practical Information
@@ -43,7 +45,7 @@
 - Address or route-related information is available without deep scrolling.
 - The layout gives practical information enough emphasis relative to decorative content.
 - The practical-information section is comfortable to use on mobile without precision tapping or zooming.
-- Placeholder business details are presented in a structured way that is easy to replace later.
+- Placeholder business details are presented in a centralized structured resource that is easy to replace later.
 
 ## US-3: Local Story And Personality
 **As a** family-oriented or community-minded visitor  
@@ -69,7 +71,7 @@
 - The page includes a clearly identifiable "taste of the week" or equivalent featured product area.
 - The product spotlight feels playful and appetizing rather than purely informational.
 - The section is small enough to support a landing page, but prominent enough to add personality.
-- The content structure makes future flavor updates straightforward.
+- The content structure makes future flavor updates and related support copy straightforward without TSX edits.
 - The spotlight works well in the mobile layout without becoming visually cramped.
 
 ## US-5: Natural Social Proof
@@ -82,7 +84,7 @@
 **Acceptance Criteria**
 - The page includes a reviews or social-proof section.
 - Review presentation feels natural and trustworthy rather than overly promotional.
-- Placeholder reviews are clearly realistic in tone and structurally easy to swap for real approved reviews later.
+- Placeholder reviews are clearly realistic in tone and are centrally structured so real approved reviews can replace them later without component rewrites.
 - The review section supports the page's welcoming tone and does not overpower practical information.
 - The review layout remains legible and balanced on mobile.
 

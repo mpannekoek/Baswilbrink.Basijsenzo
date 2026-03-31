@@ -21,8 +21,10 @@ These logical components describe how the application should embody the approved
 ## Logical Component 3: Content Configuration Layer
 - **Purpose**: Keep content maintainable and easy to replace.
 - **Responsibilities**:
-  - centralize page copy and structured content
-  - separate placeholder data from section rendering
+  - centralize all rendered page text and structured content in one editable resource
+  - separate placeholder and approved content data from section rendering
+  - include section framing copy, CTA labels, navigation labels, image alt text, accessibility labels, and metadata text in the centralized content layer
+  - prevent component-embedded copy from becoming a second source of truth
   - support future swap to real business content without structural changes
 
 ## Logical Component 4: Brand System Layer

@@ -55,6 +55,7 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 
 ## Notes
 - Placeholder content remains centralized and easy to replace later.
+- Follow-up regeneration moved the remaining rendered copy, metadata text, image alt text, and accessibility labels into the centralized content layer so section components no longer own editable page copy.
 - The implementation keeps the earlier user-provided design reference as inspiration only; the final UI is re-anchored to black/orange branding and the real logo asset.
 - Docker remains production-oriented but practical, matching the approved scope.
 - GitHub Actions now provides an automated GHCR publish path for the Docker image.

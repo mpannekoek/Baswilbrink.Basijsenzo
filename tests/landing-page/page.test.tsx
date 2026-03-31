@@ -4,13 +4,15 @@ import { describe, expect, it } from "vitest";
 import { LandingPage } from "@/components/landing/landing-page";
 import { siteContent } from "@/lib/content/site-content";
 
+const escapeForRegex = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 describe("LandingPage", () => {
   it("renders the main hero messaging", () => {
     render(<LandingPage content={siteContent} />);
 
     expect(
       screen.getByRole("heading", {
-        name: /ambachtelijk ijs voor het hele dorp/i,
+        name: new RegExp(escapeForRegex(siteContent.hero.title), "i"),
       }),
     ).toBeInTheDocument();
   });
@@ -19,7 +21,8 @@ describe("LandingPage", () => {
     render(<LandingPage content={siteContent} />);
 
     expect(screen.getAllByTestId("practical-hours-list")[0]).toBeInTheDocument();
-    expect(screen.getAllByText(/4,8\/5/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(siteContent.reviewSummary.averageRating)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(siteContent.practicalInfo.routeLabel)[0]).toBeInTheDocument();
     expect(screen.getAllByTestId("social-instagram-link")[0]).toBeInTheDocument();
     expect(screen.getAllByTestId("social-facebook-link")[0]).toBeInTheDocument();
     expect(screen.getAllByTestId("site-footer-credit-link")[0]).toBeInTheDocument();
@@ -33,5 +36,6 @@ describe("LandingPage", () => {
     fireEvent.click(screen.getAllByTestId("mobile-menu-button")[0]);
 
     expect(screen.getByTestId("mobile-nav-panel")).toBeInTheDocument();
+    expect(screen.getByLabelText(siteContent.header.mobileNavAriaLabel)).toBeInTheDocument();
   });
 });

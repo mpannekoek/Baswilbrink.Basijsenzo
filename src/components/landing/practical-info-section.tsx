@@ -2,25 +2,29 @@ import { ActionPill } from "@/components/ui/action-pill";
 import { InfoCard } from "@/components/ui/info-card";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionShell } from "@/components/ui/section-shell";
-import type { ContactInfo, OpeningHoursEntry } from "@/types/site";
+import type {
+  ContactInfo,
+  OpeningHoursEntry,
+  PracticalInfoContent,
+} from "@/types/site";
 
 type PracticalInfoSectionProps = {
+  practicalInfo: PracticalInfoContent;
   hours: OpeningHoursEntry[];
   contact: ContactInfo;
-  visitNotes: string[];
 };
 
 export function PracticalInfoSection({
+  practicalInfo,
   hours,
   contact,
-  visitNotes,
 }: PracticalInfoSectionProps) {
   return (
     <SectionShell
-      description="Voor veel bezoekers is dit de belangrijkste informatie. Daarom staat alles hier rustig, scanbaar en mobielvriendelijk bij elkaar."
-      eyebrow="Praktisch & duidelijk"
+      description={practicalInfo.description}
+      eyebrow={practicalInfo.eyebrow}
       id="openingstijden"
-      title="Wanneer je binnen kunt lopen, vind je meteen."
+      title={practicalInfo.title}
       tone="light"
     >
       <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
@@ -29,12 +33,12 @@ export function PracticalInfoSection({
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-[var(--brand-black)]">
-                Openingstijden
+                {practicalInfo.hoursTitle}
               </p>
-              <p className="text-sm text-[var(--ink-muted)]">Voorbeeldtijden voor deze eerste versie</p>
+              <p className="text-sm text-[var(--ink-muted)]">{practicalInfo.hoursNote}</p>
             </div>
             <span className="bg-[var(--brand-orange)] px-4 py-2 text-sm font-semibold text-[var(--brand-black)]">
-              Vandaag extra zichtbaar
+              {practicalInfo.todayBadge}
             </span>
           </div>
 
@@ -58,7 +62,11 @@ export function PracticalInfoSection({
 
         <Reveal delayMs={140}>
           <div className="grid gap-4">
-          <InfoCard accent="Contact" body={contact.townLabel} title={contact.address}>
+          <InfoCard
+            accent={practicalInfo.contactAccent}
+            body={contact.townLabel}
+            title={contact.address}
+          >
             <div className="mt-4 flex flex-wrap gap-3">
               <ActionPill
                 dataTestId="practical-call-button"
@@ -69,19 +77,19 @@ export function PracticalInfoSection({
               <ActionPill
                 dataTestId="practical-route-button"
                 href={contact.routeHref}
-                label="Route plannen"
+                label={practicalInfo.routeLabel}
                 variant="secondary"
               />
             </div>
           </InfoCard>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {visitNotes.map((note, index) => (
+            {practicalInfo.visitHighlights.map((highlight) => (
               <InfoCard
-                accent={`Bezoek ${index + 1}`}
-                body={note}
-                key={note}
-                title={index === 0 ? "Loop gerust binnen" : index === 1 ? "Mobiel eerst" : "Makkelijk te beheren"}
+                accent={highlight.accent}
+                body={highlight.body}
+                key={highlight.title}
+                title={highlight.title}
               />
             ))}
           </div>

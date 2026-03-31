@@ -1,12 +1,14 @@
 # Application Design
 
 ## Summary
-The Bas IJs & Zo site is designed as a single-unit Next.js application with one primary landing page composed from modular section components and thin configuration/content services. The design deliberately avoids over-engineering while still making space for strong branding, mobile-first UX, secure public-site defaults, and Dockerized delivery.
+The Bas IJs & Zo site is designed as a single-unit Next.js application with one primary landing page composed from modular section components and thin configuration/content services. The design deliberately avoids over-engineering while still making space for strong branding, mobile-first UX, secure public-site defaults, Dockerized delivery, and a single editable content resource for all rendered page text.
 
 ## Core Design Decisions
 - Use one page-composition entry point that assembles all approved landing-page sections.
 - Keep sections modular so content and visual treatment can evolve independently.
 - Keep content and brand configuration centralized rather than scattered across components.
+- Treat all visitor-facing copy as content data, not as component-local literals. This includes section titles, descriptions, CTA labels, navigation labels, review text, image alt text, accessibility labels, and metadata text.
+- Expand the content model so section components render supplied text only; presentational components should not own page copy except for purely decorative symbols.
 - Use lightweight services/factories instead of introducing a backend or complex domain layer.
 - Treat security headers and deployment configuration as first-class design concerns because they are explicit requirements.
 
@@ -23,9 +25,9 @@ The Bas IJs & Zo site is designed as a single-unit Next.js application with one 
 - Shared primitives: `SectionShell`, `ActionPill`, `ReviewCard`, `InfoCard`
 
 ## Service Layer
-- `LandingPageContentService`: central content assembly
+- `LandingPageContentService`: central content assembly from a single editable resource file or equivalent typed source
 - `BrandAssetService`: logo and branded fallback configuration
-- `SiteMetadataService`: page metadata
+- `SiteMetadataService`: page metadata derived from the same content source or a tightly paired metadata resource
 - `SecurityConfigService`: public-site security defaults
 - `DeploymentConfigService`: Docker-oriented delivery assumptions
 
@@ -38,5 +40,5 @@ The Bas IJs & Zo site is designed as a single-unit Next.js application with one 
 ## Why This Design Fits
 - It supports a strong branded landing page without introducing unnecessary architectural weight.
 - It keeps mobile friendliness central by ensuring sections remain prop-driven and layout-focused.
-- It keeps placeholder content easy to replace later.
+- It keeps placeholder and final approved content easy to replace later from one maintained resource.
 - It creates a clean path into the upcoming NFR, infrastructure, and code-generation stages.

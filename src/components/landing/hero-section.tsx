@@ -59,7 +59,7 @@ export function HeroSection({ hero, actions }: HeroSectionProps) {
           <div className="grid gap-4 sm:grid-cols-[1fr_0.82fr]">
             <div className="relative min-h-[18rem] overflow-hidden">
               <Image
-                alt="De vitrine en het interieur van Bas IJs & Zo"
+                alt={hero.featureImageAlt}
                 className="object-cover object-center scale-[1.4]"
                 fill
                 sizes="(min-width: 640px) 40vw, 100vw"
@@ -69,19 +69,23 @@ export function HeroSection({ hero, actions }: HeroSectionProps) {
 
             <div className="border border-[rgba(20,20,20,0.08)] bg-[rgba(255,249,240,0.88)] p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-orange)]">
-                Vandaag belangrijk
+                {hero.quickInfo.eyebrow}
               </p>
               <dl className="mt-4 space-y-4">
                 <div>
-                  <dt className="text-sm text-[var(--ink-muted)]">Snelste vraag</dt>
+                  <dt className="text-sm text-[var(--ink-muted)]">
+                    {hero.quickInfo.questionLabel}
+                  </dt>
                   <dd className="mt-1 text-2xl font-semibold text-[var(--brand-black)]">
-                    Zijn we open?
+                    {hero.quickInfo.question}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-[var(--ink-muted)]">Snelste antwoord</dt>
+                  <dt className="text-sm text-[var(--ink-muted)]">
+                    {hero.quickInfo.answerLabel}
+                  </dt>
                   <dd className="mt-1 text-base leading-7 text-[var(--brand-black)]">
-                    De site zet openingstijden, route en belknoppen meteen vooraan.
+                    {hero.quickInfo.answer}
                   </dd>
                 </div>
               </dl>

@@ -7,10 +7,12 @@ This project does not need backend services or domain services in the traditiona
 - **Purpose**: Provide structured page content to the landing page.
 - **Responsibilities**:
   - Assemble placeholder content for hero, practical info, taste of the week, story, reviews, and footer actions
+  - Load or assemble a single editable content resource for all rendered page text
   - Keep content centralized and easy to replace later
+  - Provide section headings, helper copy, CTA labels, navigation labels, image alt text, and accessibility labels in addition to body copy
   - Support clean separation between content and UI layout
 - **Inputs**:
-  - Static content definitions
+  - Static content definitions or a single JSON-compatible resource file
 - **Outputs**:
   - `LandingPageContent`
 
@@ -30,8 +32,9 @@ This project does not need backend services or domain services in the traditiona
 - **Responsibilities**:
   - Provide title, description, and social-preview metadata
   - Keep metadata easy to update later
+  - Derive metadata copy from the same content source or a tightly paired metadata resource so page copy and SEO copy do not drift
 - **Inputs**:
-  - Static metadata content
+  - Static metadata content aligned to the landing-page content resource
 - **Outputs**:
   - `SiteMetadata`
 
@@ -60,5 +63,6 @@ This project does not need backend services or domain services in the traditiona
 ## Orchestration Pattern
 - `LandingPage` consumes content and brand configuration from lightweight services/factories.
 - Presentational sections remain mostly stateless and receive typed props.
+- Presentational sections should not hardcode visitor-facing text when that text belongs to the editable content resource.
 - Security and deployment configuration remain outside UI components.
 - The service layer is intentionally thin to avoid unnecessary abstraction for a single-page site.

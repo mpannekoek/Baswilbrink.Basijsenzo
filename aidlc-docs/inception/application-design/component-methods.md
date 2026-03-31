@@ -13,31 +13,31 @@ These method signatures describe high-level component and orchestration interfac
 
 ## HeaderBar
 - `function HeaderBar(props: { brand: BrandConfig; navItems: NavItem[]; primaryActions: ActionLink[] }): JSX.Element`
-  - Render brand mark, navigation anchors, and top-level actions.
+  - Render brand mark, navigation anchors, top-level actions, and menu accessibility copy using content-supplied labels.
 
 ## HeroSection
 - `function HeroSection(props: { hero: HeroContent; actions: ActionLink[] }): JSX.Element`
-  - Render the first-screen branded introduction and key actions.
+  - Render the first-screen branded introduction, key actions, supporting quick-info copy, and image alt text from the content model.
 
 ## PracticalInfoSection
 - `function PracticalInfoSection(props: { hours: OpeningHoursEntry[]; contact: ContactInfo; visitNotes: string[] }): JSX.Element`
-  - Render scannable practical information optimized for mobile and desktop.
+  - Render scannable practical information, helper labels, and visit-note framing copy optimized for mobile and desktop.
 
 ## TasteOfWeekSection
 - `function TasteOfWeekSection(props: { featuredTaste: TasteHighlight }): JSX.Element`
-  - Render the highlighted featured flavor block.
+  - Render the highlighted featured flavor block, its support copy, and related image alt text from centralized content.
 
 ## StorySection
 - `function StorySection(props: { story: StoryContent }): JSX.Element`
-  - Render the parlor history and community identity section.
+  - Render the parlor history and community identity section using content-supplied framing copy only.
 
 ## ReviewsSection
 - `function ReviewsSection(props: { reviews: ReviewQuote[]; summary: ReviewSummary }): JSX.Element`
-  - Render social-proof summary and individual review excerpts.
+  - Render social-proof summary, section framing copy, and individual review excerpts from the content model.
 
 ## VisitContactSection
 - `function VisitContactSection(props: { contact: ContactInfo; actions: ActionLink[] }): JSX.Element`
-  - Render closing contact cues and repeat primary visit actions.
+  - Render closing contact cues, route labels, and repeat primary visit actions from centralized content.
 
 ## SectionShell
 - `function SectionShell(props: { id?: string; eyebrow?: string; title: string; description?: string; tone?: "light" | "dark" | "accent" | "split"; children: React.ReactNode }): JSX.Element`
@@ -59,7 +59,7 @@ These method signatures describe high-level component and orchestration interfac
 
 ### Page Content Factory
 - `function getLandingPageContent(): LandingPageContent`
-  - Return all content used to render the landing page.
+  - Return all content used to render the landing page, including all visitor-facing UI copy, image alt text, accessibility labels, and metadata copy references.
 
 ### Brand Configuration Factory
 - `function getBrandConfig(): BrandConfig`
@@ -67,7 +67,7 @@ These method signatures describe high-level component and orchestration interfac
 
 ### Metadata Factory
 - `function getSiteMetadata(): SiteMetadata`
-  - Return SEO and document metadata for the page.
+  - Return SEO and document metadata for the page using the shared editable content resource or a tightly paired metadata structure.
 
 ### Security Header Configuration
 - `function getSecurityHeaders(): HeaderRule[]`
