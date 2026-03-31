@@ -1,10 +1,8 @@
 # dependencies
 /node_modules
-/src/web/node_modules
 
 # next
 /.next
-/src/web/.next
 /out
 
 # production
@@ -27,4 +25,3 @@ pnpm-debug.log*
 
 # test
 /coverage
-/src/web/coverage

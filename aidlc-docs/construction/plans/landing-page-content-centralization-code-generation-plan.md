@@ -17,17 +17,17 @@
   - tests should validate rendering against the centralized content source
 
 ## Target Code Locations
-- `src/types/site.ts`
-- `src/lib/content/site-content.ts`
-- `src/lib/site/metadata.ts`
-- `src/components/landing/header-bar.tsx`
-- `src/components/landing/hero-section.tsx`
-- `src/components/landing/practical-info-section.tsx`
-- `src/components/landing/taste-of-week-section.tsx`
-- `src/components/landing/story-section.tsx`
-- `src/components/landing/reviews-section.tsx`
-- `src/components/landing/visit-contact-section.tsx`
-- `tests/landing-page/page.test.tsx`
+- `src/web/types/site.ts`
+- `src/web/lib/content/site-content.ts`
+- `src/web/lib/site/metadata.ts`
+- `src/web/components/landing/header-bar.tsx`
+- `src/web/components/landing/hero-section.tsx`
+- `src/web/components/landing/practical-info-section.tsx`
+- `src/web/components/landing/taste-of-week-section.tsx`
+- `src/web/components/landing/story-section.tsx`
+- `src/web/components/landing/reviews-section.tsx`
+- `src/web/components/landing/visit-contact-section.tsx`
+- `src/web/tests/landing-page/page.test.tsx`
 - `aidlc-docs/construction/landing-page/code/code-summary.md`
 
 ## Numbered Generation Steps

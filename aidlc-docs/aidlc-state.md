@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-03-30T07:54:30Z
-- **Current Stage**: CONSTRUCTION - Build and Test Review
+- **Current Stage**: CONSTRUCTION - Code Generation Review
 
 ## Workspace State
 - **Existing Code**: No
@@ -11,9 +11,9 @@
 - **Workspace Root**: /home/martijn/dev/projects/baswilbrink/basijsenzo
 
 ## Code Location Rules
-- **Application Code**: Workspace root (NEVER in aidlc-docs/)
+- **Application Code**: `src/web` for the Next.js application root (NEVER in aidlc-docs/)
 - **Documentation**: aidlc-docs/ only
-- **Structure patterns**: See code-generation.md Critical Rules
+- **Structure patterns**: App Router in `src/web/app`, assets in `src/web/public`, and supporting modules under `src/web/components`, `src/web/lib`, `src/web/types`, and `src/web/tests`
 
 ## Extension Configuration
 | Extension | Enabled | Decided At |

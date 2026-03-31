@@ -19,7 +19,7 @@ This project does not need backend services or domain services in the traditiona
 ## Service 2: BrandAssetService
 - **Purpose**: Resolve logo usage and branded fallback behavior.
 - **Responsibilities**:
-  - Reference `public/logo.png` or equivalent application asset path
+  - Reference `src/web/public/logo.png` or equivalent application asset path within the Next.js app root
   - Provide fallback brand label and usage metadata
   - Keep branding decisions separate from section rendering
 - **Inputs**:

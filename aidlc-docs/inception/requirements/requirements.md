@@ -20,7 +20,7 @@ Create a polished, production-ready landing page that helps local customers and 
 - Use realistic placeholder Google review excerpts and ratings until approved real reviews are available.
 - Use realistic placeholder opening hours, contact details, and address for the first version.
 - Keep user-visible page copy maintainable through a centralized editable content resource rather than scattering text across UI components.
-- Prefer existing branding assets if found in the repository; an existing logo asset is available at `public/logo.png`.
+- Prefer existing branding assets if found in the repository; the logo asset should live at `src/web/public/logo.png` within the web application root.
 - Include clear calls to action for visiting, calling, and finding the location.
 - Use the earlier user-provided design inspiration as a reference for overall energy and layout direction, not as a literal template.
 
@@ -93,6 +93,10 @@ The landing page should include these core sections in a clear and practical ord
 
 ## Technical Requirements
 - Use Next.js with a maintainable app structure suitable for future expansion.
+- The repository must isolate the web application in `src/web` as a dedicated Next.js application root.
+- The App Router must live in `src/web/app`, static assets in `src/web/public`, and application modules in `src/web/components`, `src/web/lib`, `src/web/types`, and `src/web/tests`.
+- Web runtime and build configuration files must be colocated inside `src/web` rather than at the repository root or directly under `src`.
+- Repository-wide documentation remains in `aidlc-docs`, and repository-wide CI workflow files remain under `.github/workflows`.
 - Use TypeScript across the codebase.
 - Use Tailwind CSS for styling and theming.
 - Keep the implementation modular enough that sections can be expanded or replaced later.
@@ -119,6 +123,7 @@ The landing page should include these core sections in a clear and practical ord
 
 ### NFR-4: Maintainability
 - The structure, naming, and styling approach should be understandable for future iteration.
+- The repository structure must clearly separate app-owned files from repository-wide documentation and automation.
 - Repeated visual patterns should be organized cleanly.
 - Content editors should be able to update rendered copy in one place without editing section component markup.
 - The container setup should be straightforward for future local development and deployment workflows.
@@ -144,7 +149,7 @@ The landing page should include these core sections in a clear and practical ord
 - Exact business details are not yet available and will be represented with realistic placeholders.
 - Final approved Google review text is not yet available.
 - Final production photography and complete brand asset set are not yet available.
-- The existing `public/logo.png` may be usable, but suitability will be confirmed during design and implementation.
+- The logo asset is expected to be served from `src/web/public/logo.png`, but its suitability will still be confirmed during design and implementation.
 - The earlier user-provided sample reference expresses preferred visual energy, but not final brand colors or exact composition requirements.
 - Final hosting environment details beyond Docker containerization are not yet defined.
 

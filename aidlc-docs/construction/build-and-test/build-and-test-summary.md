@@ -2,12 +2,13 @@
 
 ## Build Status
 - **Build Tool**: npm / Next.js
+- **Application Root**: `src/web`
 - **Build Status**: Success
 - **Build Artifacts**:
-  - `.next/`
+  - `src/web/.next/`
   - standalone-compatible production output
 - **Build Verification**:
-  - `npm run build` passed
+  - `cd src/web && npm run build` passed
 
 ## Test Execution Summary
 

@@ -3,7 +3,8 @@
 ## Prerequisites
 - **Build Tool**: `npm` 11.9.0
 - **Runtime**: `node` 24.14.0
-- **Dependencies**: install from `package.json` and `package-lock.json`
+- **Application Root**: `src/web`
+- **Dependencies**: install from `src/web/package.json` and `src/web/package-lock.json`
 - **Environment Variables**:
   - optional: `PORT` for runtime override
 - **System Requirements**:
@@ -15,19 +16,19 @@
 
 ### 1. Install Dependencies
 ```bash
-npm install
+cd src/web && npm install
 ```
 
 ### 2. Build The Application
 ```bash
-npm run build
+cd src/web && npm run build
 ```
 
 ### 3. Verify Build Success
 - **Expected Output**: successful Next.js production build with static page generation
 - **Build Artifacts**:
-  - `.next/`
-  - `.next/standalone/` when standalone output is generated
+  - `src/web/.next/`
+  - `src/web/.next/standalone/` when standalone output is generated
 - **Common Acceptable Notes**:
   - build output lists `/` and `/_not-found` as static routes
 
@@ -35,7 +36,7 @@ npm run build
 
 ### 1. Build The Production Image
 ```bash
-docker build -t basijsenzo:local .
+docker build -t basijsenzo:local ./src/web
 ```
 
 ### 2. Run The Container
@@ -52,6 +53,9 @@ docker run --rm -p 3000:3000 basijsenzo:local
 
 ### 1. Verify Workflow File Exists
 - Confirm `.github/workflows/publish-image.yml` is present in the repository.
+- Confirm the workflow builds the web app from the `src/web` application root.
+- Confirm the Docker build context is `./src/web`.
+- Confirm the Dockerfile path is `./src/web/Dockerfile`.
 
 ### 2. Verify Workflow Triggers
 - Confirm the workflow is configured for:
@@ -85,13 +89,13 @@ docker run --rm -p 3000:3000 ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
 - **Cause**: packages missing or network unavailable
 - **Solution**:
   1. verify internet access
-  2. rerun `npm install`
-  3. ensure `package-lock.json` is present and not corrupted
+  2. rerun `cd src/web && npm install`
+  3. ensure `src/web/package-lock.json` is present and not corrupted
 
 ### Build Fails During Type Checking
 - **Cause**: TypeScript or Next.js config drift
 - **Solution**:
-  1. run `npm run lint`
+  1. run `cd src/web && npm run lint`
   2. inspect the reported file
   3. fix the type or config issue
-  4. rerun `npm run build`
+  4. rerun `cd src/web && npm run build`

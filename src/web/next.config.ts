@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-import { getSecurityHeaders } from "./src/lib/site/security-headers";
+import { getSecurityHeaders } from "./lib/site/security-headers";
 
 const nextConfig: NextConfig = {
   output: "standalone",

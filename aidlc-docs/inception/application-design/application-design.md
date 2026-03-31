@@ -1,15 +1,18 @@
 # Application Design
 
 ## Summary
-The Bas IJs & Zo site is designed as a single-unit Next.js application with one primary landing page composed from modular section components and thin configuration/content services. The design deliberately avoids over-engineering while still making space for strong branding, mobile-first UX, secure public-site defaults, Dockerized delivery, and a single editable content resource for all rendered page text.
+The Bas IJs & Zo site is designed as a single-unit Next.js application rooted in `src/web`, with one primary landing page composed from modular section components and thin configuration/content services. The design deliberately avoids over-engineering while still making space for strong branding, mobile-first UX, secure public-site defaults, Dockerized delivery, and a single editable content resource for all rendered page text.
 
 ## Core Design Decisions
+- Use `src/web` as the sole Next.js application boundary.
 - Use one page-composition entry point that assembles all approved landing-page sections.
+- Keep App Router entrypoints in `src/web/app` and colocate runtime assets and framework configuration inside `src/web`.
 - Keep sections modular so content and visual treatment can evolve independently.
 - Keep content and brand configuration centralized rather than scattered across components.
 - Treat all visitor-facing copy as content data, not as component-local literals. This includes section titles, descriptions, CTA labels, navigation labels, review text, image alt text, accessibility labels, and metadata text.
 - Expand the content model so section components render supplied text only; presentational components should not own page copy except for purely decorative symbols.
 - Use lightweight services/factories instead of introducing a backend or complex domain layer.
+- Keep repository-wide concerns such as AI-DLC docs and GitHub workflow files outside the app root.
 - Treat security headers and deployment configuration as first-class design concerns because they are explicit requirements.
 
 ## Main Components
@@ -35,6 +38,7 @@ The Bas IJs & Zo site is designed as a single-unit Next.js application with one 
 - Composition flows from `LandingPage` down into section components.
 - Shared primitives reduce duplication and keep branding consistent.
 - Static services/factories feed typed content and configuration into the page.
+- Build, test, and runtime commands execute with `src/web` as the application working directory.
 - No runtime backend, persistent data store, or API integration is required for v1.
 
 ## Why This Design Fits

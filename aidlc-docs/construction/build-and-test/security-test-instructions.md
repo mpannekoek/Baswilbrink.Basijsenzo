@@ -7,14 +7,14 @@ Validate the secure public-site defaults implemented for this version.
 
 ### 1. Dependency Audit
 ```bash
-npm audit
+cd src/web && npm audit
 ```
 
 ### 2. Response Header Verification
 Start the app:
 ```bash
-npm run build
-npm start
+cd src/web && npm run build
+cd src/web && npm start
 ```
 
 Then inspect headers:
@@ -30,7 +30,7 @@ Verify these headers are present:
 - `Referrer-Policy`
 
 ### 3. Docker Image Tag Review
-- Inspect [Dockerfile](/home/martijn/dev/projects/baswilbrink/basijsenzo/Dockerfile)
+- Inspect [Dockerfile](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/Dockerfile)
 - Confirm the base image does not use `latest`
 
 ### 4. Production Behavior Check

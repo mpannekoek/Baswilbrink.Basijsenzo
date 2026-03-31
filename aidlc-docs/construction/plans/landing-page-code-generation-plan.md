@@ -23,35 +23,35 @@
 
 ## Target Code Locations
 - **Application Code**:
-  - `package.json`
-  - `tsconfig.json`
-  - `next.config.ts`
-  - `postcss.config.mjs`
-  - `eslint.config.mjs`
-  - `.gitignore`
-  - `.dockerignore`
-  - `Dockerfile`
+  - `src/web/package.json`
+  - `src/web/tsconfig.json`
+  - `src/web/next.config.ts`
+  - `src/web/postcss.config.mjs`
+  - `src/web/eslint.config.mjs`
+  - `src/web/.gitignore`
+  - `src/web/.dockerignore`
+  - `src/web/Dockerfile`
   - `.github/workflows/publish-image.yml`
-  - `public/logo.png`
-  - `src/app/layout.tsx`
-  - `src/app/page.tsx`
-  - `src/app/globals.css`
-  - `src/app/favicon.ico` or equivalent generated asset if needed
-  - `src/components/landing/*`
-  - `src/components/ui/*`
-  - `src/lib/content/site-content.ts`
-  - `src/lib/site/metadata.ts`
-  - `src/lib/site/security-headers.ts`
-  - `src/types/site.ts`
+  - `src/web/public/logo.png`
+  - `src/web/app/layout.tsx`
+  - `src/web/app/page.tsx`
+  - `src/web/app/globals.css`
+  - `src/web/app/favicon.ico` or equivalent generated asset if needed
+  - `src/web/components/landing/*`
+  - `src/web/components/ui/*`
+  - `src/web/lib/content/site-content.ts`
+  - `src/web/lib/site/metadata.ts`
+  - `src/web/lib/site/security-headers.ts`
+  - `src/web/types/site.ts`
 - **Tests**:
-  - `tests/landing-page/*.test.tsx` or minimal equivalent test structure appropriate to the chosen toolchain
+  - `src/web/tests/landing-page/*.test.tsx` or minimal equivalent test structure appropriate to the chosen toolchain
 - **Documentation**:
   - `aidlc-docs/construction/landing-page/code/code-summary.md`
 
 ## Numbered Generation Steps
 
 ### Step 1
-- [x] Initialize the greenfield Next.js + TypeScript + Tailwind project structure in the workspace root
+- [x] Initialize the greenfield Next.js + TypeScript + Tailwind project structure inside `src/web`
   - Story mapping: foundation for `US-1` through `US-6`
 
 ### Step 2
@@ -70,7 +70,7 @@
   - Story mapping: `US-1`
 
 ### Step 5
-- [x] Implement typed site content and configuration models in `src/types` and `src/lib`
+- [x] Implement typed site content and configuration models in `src/web/types` and `src/web/lib`
   - include placeholder content for hero, practical info, taste of the week, story, reviews, and CTA links
   - Story mapping: `US-1` through `US-5`
 
@@ -94,7 +94,7 @@
 
 ### Step 8
 - [x] Compose the full landing page and global app shell
-  - implement `src/app/layout.tsx`, `src/app/page.tsx`, and global styling
+  - implement `src/web/app/layout.tsx`, `src/web/app/page.tsx`, and global styling in `src/web/app/globals.css`
   - apply the branded visual system with black/orange emphasis and inspiration from the earlier user-provided design reference
   - Story mapping: `US-1` through `US-6`
 
@@ -121,11 +121,12 @@
   - Story mapping: supports deployment expectations for all stories
 
 ## Unit Generation Approach Summary
-- Build the app as a single App Router-based Next.js project under `src/`
+- Build the app as a single App Router-based Next.js project rooted at `src/web`
 - Keep content static and typed for easy later replacement
 - Prefer modular section components over a single large page file
 - Keep Docker practical and production-oriented without expanding into broader platform engineering
 - Keep testing lightweight but meaningful for a single landing page
+- Do not generate web runtime code at repository root, repository-root `public`, or repository-root `src` outside `src/web`
 
 ## Single Source Of Truth
 This plan is the single source of truth for the `landing-page` code generation stage. The subsequent implementation step should follow this sequence directly.

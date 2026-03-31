@@ -847,3 +847,53 @@ for the affected files only."
 **Context**: Commit completed locally; remote push blocked by authentication and integration write access
 
 ---
+
+## Design Correction Review
+**Timestamp**: 2026-03-31T07:29:59Z
+**User Input**: "You need to prepare the exact design correction for option 2 - I want to use web/app, web/public etc."
+**AI Response**: "Prepared an initial design correction that moved the Next.js application root to `web/`, with `web/app` and `web/public` as the intended runtime locations."
+**Context**: Intermediate design correction proposal before finalizing the app root
+
+---
+
+## Design Correction Review
+**Timestamp**: 2026-03-31T07:29:59Z
+**User Input**: "Sorry it's still wrong, the next.js app root needs to be: <repo-root>/src/web/."
+**AI Response**: "Corrected the design proposal so `src/web` is the Next.js application root, with `src/web/app` for the App Router and `src/web/public` for static assets."
+**Context**: User correction of the intended repository structure
+
+---
+
+## Documentation Alignment
+**Timestamp**: 2026-03-31T07:29:59Z
+**User Input**: "take this exact correction and apply it to the AI-DLC design documents"
+**AI Response**: "Updated the AI-DLC requirements, application design, service-layer design, code-generation plans, build-and-test instructions, and state tracking rules so `src/web` is the canonical Next.js application root throughout the workflow artifacts."
+**Context**: Documentation-only alignment for the `src/web` application-root correction
+
+---
+
+## Code Generation Follow-Up
+**Timestamp**: 2026-03-31T07:29:59Z
+**User Input**: "The design has been updated. Please re-run code generation
+for the affected files only."
+**AI Response**: "Resumed the code-generation stage for a targeted follow-up, scoped the affected files for the `src/web` app-root correction, and began regenerating only the files required to move the Next.js application, config surface, assets, tests, and packaging flow into `src/web`."
+**Context**: Targeted code regeneration after the `src/web` repository-structure design correction
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-03-31T07:43:27Z
+**User Input**: "The design has been updated. Please re-run code generation
+for the affected files only."
+**AI Response**: "Targeted code regeneration completed for the `src/web` application-root correction. The Next.js app files, assets, tests, local package/config surface, Docker packaging path, and GHCR workflow build context were aligned to `src/web`. Verification passed with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Code generation follow-up completion prompt for review
+
+---
+
+## Repository Operation
+**Timestamp**: 2026-03-31T07:52:19Z
+**User Input**: "Make a commit of this changes"
+**AI Response**: "Reviewed the current worktree for the `src/web` root-alignment follow-up and started a single commit flow for the regenerated code and aligned AI-DLC artifacts."
+**Context**: User-requested local commit after targeted code regeneration
+
+---

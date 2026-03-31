@@ -4,7 +4,7 @@
 
 ### 1. Execute The Unit Test Suite
 ```bash
-npm test
+cd src/web && npm test
 ```
 
 ### 2. Review Test Results
@@ -14,14 +14,14 @@ npm test
   - practical information presence
   - review summary presence
 - **Current Test File**:
-  - `tests/landing-page/page.test.tsx`
+  - `src/web/tests/landing-page/page.test.tsx`
 
 ### 3. Fix Failing Tests
 If tests fail:
 1. review the failing assertion output
 2. inspect the affected component or content file
 3. update the test or implementation as needed
-4. rerun `npm test`
+4. rerun `cd src/web && npm test`
 
 ## Recommended Additional Unit Tests
 - verify CTA labels and hrefs

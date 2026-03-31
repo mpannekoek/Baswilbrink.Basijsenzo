@@ -14,8 +14,8 @@ Validate that the landing page stays visually rich while remaining comfortable o
 ### 1. Local Lighthouse-Style Pass
 Start the production app:
 ```bash
-npm run build
-npm start
+cd src/web && npm run build
+cd src/web && npm start
 ```
 
 Then run a Lighthouse audit in Chrome DevTools against `http://localhost:3000`.
@@ -30,7 +30,7 @@ Then run a Lighthouse audit in Chrome DevTools against `http://localhost:3000`.
 
 ### 3. Docker Runtime Check
 ```bash
-docker build -t basijsenzo:local .
+docker build -t basijsenzo:local ./src/web
 docker run --rm -p 3000:3000 basijsenzo:local
 ```
 
