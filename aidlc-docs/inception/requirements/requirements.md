@@ -19,6 +19,7 @@ Create a polished, production-ready landing page that helps local customers and 
 - Use realistic placeholder content where exact business details are still missing.
 - Use realistic placeholder Google review excerpts and ratings until approved real reviews are available.
 - Use realistic placeholder opening hours, contact details, and address for the first version.
+- Keep user-visible page copy maintainable through a centralized editable content resource rather than scattering text across UI components.
 - Prefer existing branding assets if found in the repository; an existing logo asset is available at `public/logo.png`.
 - Include clear calls to action for visiting, calling, and finding the location.
 - Use the earlier user-provided design inspiration as a reference for overall energy and layout direction, not as a literal template.
@@ -96,6 +97,7 @@ The landing page should include these core sections in a clear and practical ord
 - Use Tailwind CSS for styling and theming.
 - Keep the implementation modular enough that sections can be expanded or replaced later.
 - Keep content structures simple enough to support future replacement of placeholders with real business content.
+- All rendered page text should be sourced from a centralized content resource, including section headings, helper copy, CTA labels, navigation labels, image alt text, accessibility labels, and page metadata text.
 - Provide containerization support for the application using Docker.
 - The project should include a production-oriented Docker setup suitable for building and running the Next.js app in a container.
 
@@ -118,6 +120,7 @@ The landing page should include these core sections in a clear and practical ord
 ### NFR-4: Maintainability
 - The structure, naming, and styling approach should be understandable for future iteration.
 - Repeated visual patterns should be organized cleanly.
+- Content editors should be able to update rendered copy in one place without editing section component markup.
 - The container setup should be straightforward for future local development and deployment workflows.
 
 ### NFR-5: Security Baseline

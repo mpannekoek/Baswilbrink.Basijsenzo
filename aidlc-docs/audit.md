@@ -803,3 +803,47 @@ React will never use eval() in production mode"
 **Context**: User-requested commit and push after GHCR workflow implementation
 
 ---
+
+## Documentation Alignment
+**Timestamp**: 2026-03-31T06:34:07Z
+**User Input**: "Please update the right design documents to reflect this fix.
+Then check whether any upstream documents — requirements, user stories —
+also need to be updated."
+**AI Response**: "Updated the application-design and NFR-design artifacts to define a centralized editable content resource for all rendered page text, then updated requirements and user stories where the maintainability contract and acceptance criteria needed to make that expectation explicit."
+**Context**: Documentation-only alignment for centralized content management
+
+---
+
+## Code Generation Follow-Up
+**Timestamp**: 2026-03-31T06:38:57Z
+**User Input**: "The design has been updated. Please re-run code generation
+for the affected files only."
+**AI Response**: "Resumed the code-generation stage for a targeted follow-up, loaded the updated design and NFR artifacts, and prepared a limited regeneration pass for the content contract, affected landing-page components, metadata, and tests only."
+**Context**: Targeted code regeneration after design correction
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-03-31T06:42:19Z
+**User Input**: "The design has been updated. Please re-run code generation
+for the affected files only."
+**AI Response**: "Targeted code regeneration completed for the landing-page content centralization change. The typed content contract, centralized content source, affected landing-page components, metadata source, tests, and code summary were updated. Verification passed with `npm run lint` and `npm test -- --run`."
+**Context**: Code generation follow-up completion prompt for review
+
+---
+
+## Repository Operation
+**Timestamp**: 2026-03-31T06:49:09Z
+**User Input**: "Please commit and push all current changes to the repository."
+**AI Response**: "Reviewed the current git state, confirmed that the active worktree changes belong to the current content-centralization follow-up, and started a repository publish flow that will move the work from `main` to a dedicated `codex/...` branch before committing and pushing."
+**Context**: User-requested commit and push of the full current worktree
+
+---
+
+## Repository Operation
+**Timestamp**: 2026-03-31T06:53:01Z
+**User Input**: "Please commit and push all current changes to the repository."
+**AI Response**: "Created the local branch `codex-centralize-landing-page-content`, staged the full worktree, and created commit `fb98d72` with message `centralize landing page content`. The push could not be completed because HTTPS git authentication is not configured, `gh` is not installed, and the available GitHub app integration returned `403 Resource not accessible by integration` for remote branch creation."
+**Context**: Commit completed locally; remote push blocked by authentication and integration write access
+
+---

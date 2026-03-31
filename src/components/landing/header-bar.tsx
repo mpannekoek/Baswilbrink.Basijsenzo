@@ -4,20 +4,30 @@ import { useState } from "react";
 import Image from "next/image";
 
 import { ActionPill } from "@/components/ui/action-pill";
-import type { ActionLink, BrandConfig, NavItem } from "@/types/site";
+import type { ActionLink, BrandConfig, HeaderContent, NavItem } from "@/types/site";
 
 type HeaderBarProps = {
   brand: BrandConfig;
+  header: HeaderContent;
   navItems: NavItem[];
   primaryActions: ActionLink[];
 };
 
-export function HeaderBar({ brand, navItems, primaryActions }: HeaderBarProps) {
+export function HeaderBar({
+  brand,
+  header,
+  navItems,
+  primaryActions,
+}: HeaderBarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const menuLabel = isMobileMenuOpen
+    ? header.menuCloseLabel
+    : header.menuOpenLabel;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/12 bg-[rgba(15,15,15,0.92)] px-4 py-4 text-white backdrop-blur md:px-6">
@@ -43,7 +53,7 @@ export function HeaderBar({ brand, navItems, primaryActions }: HeaderBarProps) {
           <button
             aria-controls="mobile-navigation-panel"
             aria-expanded={isMobileMenuOpen}
-            aria-label={isMobileMenuOpen ? "Menu sluiten" : "Menu openen"}
+            aria-label={menuLabel}
             className="relative z-10 inline-flex h-12 w-12 shrink-0 items-center justify-center border border-white/12 bg-white/6 text-white transition hover:bg-white/10"
             data-testid="mobile-menu-button"
             onClick={() => {
@@ -51,7 +61,7 @@ export function HeaderBar({ brand, navItems, primaryActions }: HeaderBarProps) {
             }}
             type="button"
           >
-            <span className="sr-only">{isMobileMenuOpen ? "Menu sluiten" : "Menu openen"}</span>
+            <span className="sr-only">{menuLabel}</span>
             <span className="flex w-5 flex-col gap-1.5">
               <span className="h-0.5 w-full rounded-full bg-current" />
               <span className="h-0.5 w-full rounded-full bg-current" />
@@ -66,7 +76,10 @@ export function HeaderBar({ brand, navItems, primaryActions }: HeaderBarProps) {
             data-testid="mobile-nav-panel"
             id="mobile-navigation-panel"
           >
-            <nav aria-label="Mobiele hoofdnavigatie" className="flex flex-col gap-2 text-sm text-white/82">
+            <nav
+              aria-label={header.mobileNavAriaLabel}
+              className="flex flex-col gap-2 text-sm text-white/82"
+            >
               {navItems.map((item) => (
                 <a
                   className="border-b border-white/8 px-4 py-3 transition hover:bg-white/8 hover:text-white"
@@ -101,7 +114,10 @@ export function HeaderBar({ brand, navItems, primaryActions }: HeaderBarProps) {
             </div>
           </a>
 
-          <nav aria-label="Hoofdnavigatie" className="flex flex-wrap gap-2 text-sm text-white/74">
+          <nav
+            aria-label={header.navAriaLabel}
+            className="flex flex-wrap gap-2 text-sm text-white/74"
+          >
             {navItems.map((item) => (
               <a
                 className="border-b border-transparent px-3 py-2 transition hover:border-white/30 hover:bg-white/8 hover:text-white"

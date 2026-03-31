@@ -1,7 +1,7 @@
 # Components
 
 ## Design Scope
-This application is a single Next.js site with one primary landing page. The component model is intentionally lean: a small number of reusable shell and section components, plus simple data/config structures that support future content replacement.
+This application is a single Next.js site with one primary landing page. The component model is intentionally lean: a small number of reusable shell and section components, plus simple data/config structures that support future content replacement. All rendered page text should flow from a centralized editable content resource through typed content models rather than being embedded directly in section components.
 
 ## Component 1: RootLayout
 - **Purpose**: Provide document shell, global styling hooks, metadata, and shared page-level wrappers.
@@ -16,7 +16,7 @@ This application is a single Next.js site with one primary landing page. The com
 - **Purpose**: Compose the full landing-page experience from reusable sections and data models.
 - **Responsibilities**:
   - Arrange sections in the approved information order
-  - Pass structured content into presentational sections
+  - Pass structured section content into presentational sections
   - Keep page composition easy to evolve later
 - **Interface**:
   - `content: LandingPageContent`
@@ -27,6 +27,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Render logo or branded fallback wordmark
   - Support anchor navigation to major sections
   - Keep key actions visible and mobile-aware
+  - Render menu toggle labels, navigation labels, and other visitor-facing UI copy from the content model
 - **Interface**:
   - `brand: BrandConfig`
   - `navItems: NavItem[]`
@@ -38,6 +39,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Present key headline and supporting copy
   - Surface one or more direct actions such as call or route
   - Balance expressive visuals with readability
+  - Render supporting quick-info copy and image alt text from content instead of local literals
 - **Interface**:
   - `hero: HeroContent`
   - `actions: ActionLink[]`
@@ -48,6 +50,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Make practical information highly scannable
   - Support action-oriented contact affordances
   - Maintain clarity on small screens
+  - Render section headings, helper labels, visit-card titles, and route CTA text from centralized content
 - **Interface**:
   - `hours: OpeningHoursEntry[]`
   - `contact: ContactInfo`
@@ -59,6 +62,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Present featured flavor title, description, and accent styling
   - Keep the section visually appetizing without dominating the page
   - Support simple content swapping later
+  - Render supporting badges, image alt text, and helper copy from centralized content
 - **Interface**:
   - `featuredTaste: TasteHighlight`
 
@@ -68,6 +72,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Present the parlor story with a readable narrative structure
   - Reinforce trust and village character
   - Connect emotionally without slowing access to practical information
+  - Keep section-level framing copy in the content model rather than section-local strings
 - **Interface**:
   - `story: StoryContent`
 
@@ -77,6 +82,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Display review excerpts, scores, and reviewer labels
   - Preserve a trustworthy tone
   - Make later replacement with real reviews straightforward
+  - Render section framing copy from the shared content model
 - **Interface**:
   - `reviews: ReviewQuote[]`
   - `summary: ReviewSummary`
@@ -87,6 +93,7 @@ This application is a single Next.js site with one primary landing page. The com
   - Repeat important contact and location cues
   - Provide a strong but friendly last action point
   - Support footer-style site closure
+  - Render route labels, contact labels, and social follow prompts from centralized content
 - **Interface**:
   - `contact: ContactInfo`
   - `actions: ActionLink[]`
@@ -130,6 +137,13 @@ This application is a single Next.js site with one primary landing page. The com
 
 ### LandingPageContent
 - **Purpose**: Aggregate all page content into one typed object for composition.
+- **Required Coverage**:
+  - section headings and descriptions
+  - CTA labels and helper labels
+  - navigation labels
+  - review text and summary copy
+  - image alt text and accessibility labels
+  - footer copy and metadata copy references
 
 ### BrandConfig
 - **Purpose**: Hold logo path, fallback label, and brand metadata.
@@ -151,3 +165,6 @@ This application is a single Next.js site with one primary landing page. The com
 
 ### ReviewQuote / ReviewSummary
 - **Purpose**: Hold placeholder review data in a format that can later accept approved real data.
+
+### Site Metadata Content
+- **Purpose**: Hold page-title, description, and social-preview copy in a structure aligned with the same editable content source used by the landing page.

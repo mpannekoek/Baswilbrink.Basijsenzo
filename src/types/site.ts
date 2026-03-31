@@ -22,6 +22,19 @@ export type BrandConfig = {
   tagline: string;
 };
 
+export type HeaderContent = {
+  menuOpenLabel: string;
+  menuCloseLabel: string;
+  mobileNavAriaLabel: string;
+  navAriaLabel: string;
+};
+
+export type SectionIntroContent = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
+
 export type HeroContent = {
   eyebrow: string;
   title: string;
@@ -30,6 +43,14 @@ export type HeroContent = {
   asideTitle: string;
   asideText: string;
   detailChips: string[];
+  featureImageAlt: string;
+  quickInfo: {
+    eyebrow: string;
+    questionLabel: string;
+    question: string;
+    answerLabel: string;
+    answer: string;
+  };
 };
 
 export type OpeningHoursEntry = {
@@ -47,16 +68,33 @@ export type ContactInfo = {
   note: string;
 };
 
-export type TasteHighlight = {
+export type PracticalInfoContent = SectionIntroContent & {
+  hoursTitle: string;
+  hoursNote: string;
+  todayBadge: string;
+  contactAccent: string;
+  routeLabel: string;
+  visitHighlights: Array<{
+    accent: string;
+    title: string;
+    body: string;
+  }>;
+};
+
+export type TasteHighlight = Omit<SectionIntroContent, "description"> & {
+  sectionDescription: string;
   flavor: string;
   description: string;
   pairings: string[];
   accentLabel: string;
+  supportTitle: string;
+  imagePrimaryAlt: string;
+  imageSecondaryAlt: string;
+  impressionEyebrow: string;
+  impressionText: string;
 };
 
-export type StoryContent = {
-  eyebrow: string;
-  title: string;
+export type StoryContent = SectionIntroContent & {
   paragraphs: string[];
   timeline: Array<{
     label: string;
@@ -70,10 +108,17 @@ export type ReviewQuote = {
   rating: number;
 };
 
-export type ReviewSummary = {
+export type ReviewSummary = SectionIntroContent & {
   averageRating: string;
   sourceLabel: string;
   note: string;
+};
+
+export type VisitContactContent = SectionIntroContent & {
+  bodyText: string;
+  routeLabel: string;
+  contactTitle: string;
+  followTitle: string;
 };
 
 export type SiteFooterContent = {
@@ -84,20 +129,29 @@ export type SiteFooterContent = {
   creatorCta: string;
 };
 
+export type SiteMetadataContent = {
+  title: string;
+  description: string;
+  metadataBaseUrl: string;
+  openGraphTitle: string;
+  openGraphDescription: string;
+};
+
 export type LandingPageContent = {
+  metadata: SiteMetadataContent;
+  header: HeaderContent;
   brand: BrandConfig;
   navItems: NavItem[];
   socialLinks: SocialLink[];
   primaryActions: ActionLink[];
   hero: HeroContent;
+  practicalInfo: PracticalInfoContent;
   openingHours: OpeningHoursEntry[];
   contact: ContactInfo;
-  visitNotes: string[];
   featuredTaste: TasteHighlight;
   story: StoryContent;
   reviews: ReviewQuote[];
   reviewSummary: ReviewSummary;
-  footerTitle: string;
-  footerText: string;
+  visitContact: VisitContactContent;
   siteFooter: SiteFooterContent;
 };

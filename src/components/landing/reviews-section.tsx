@@ -11,10 +11,10 @@ type ReviewsSectionProps = {
 export function ReviewsSection({ reviews, summary }: ReviewsSectionProps) {
   return (
     <SectionShell
-      description="Sociaal bewijs werkt het best als het vriendelijk en geloofwaardig blijft. Daarom staat deze sectie stevig, maar niet schreeuwerig op de pagina."
-      eyebrow="Vertrouwen uit de buurt"
+      description={summary.description}
+      eyebrow={summary.eyebrow}
       id="reviews"
-      title="Sterke reacties, rustig gebracht."
+      title={summary.title}
       tone="dark"
     >
       <Reveal className="mb-6">
