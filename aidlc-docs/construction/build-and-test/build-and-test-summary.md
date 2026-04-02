@@ -3,23 +3,22 @@
 ## Build Status
 - **Build Tool**: npm / Next.js
 - **Application Root**: `src/web`
-- **Build Status**: Success
+- **Build Status**: Instruction set prepared; fresh execution still recommended after the latest review-cycle code changes
 - **Build Artifacts**:
   - `src/web/.next/`
   - standalone-compatible production output
-- **Build Verification**:
-  - `cd src/web && npm run build` passed
+- **Latest Known Verification**:
+  - `cd src/web && npm run build` passed during the earlier code-generation verification cycle
+  - no new build execution was performed during this Build and Test documentation refresh
 
 ## Test Execution Summary
 
 ### Unit Tests
-- **Total Tests**: 2
-- **Passed**: 2
-- **Failed**: 0
-- **Status**: Pass
+- **Total Tests**: 3
+- **Status**: Instruction set refreshed; rerun recommended after the latest review-cycle code changes
 
 ### Integration Tests
-- **Status**: Instructions prepared, not separately executed in this stage beyond successful production build and runtime-oriented design verification
+- **Status**: Instructions prepared, not executed in this stage
 
 ### Performance Tests
 - **Status**: Instructions prepared, manual audit still recommended
@@ -30,10 +29,10 @@
 - **Contract Tests**: N/A
 
 ## Overall Status
-- **Lint**: Pass
-- **Build**: Pass
-- **Unit Tests**: Pass
-- **Ready For Operations Placeholder**: Yes, from a construction-stage perspective
+- **Lint**: latest rerun not performed in this stage
+- **Build**: latest rerun not performed in this stage
+- **Unit Tests**: latest rerun not performed in this stage
+- **Ready For Operations Placeholder**: Pending user review of the refreshed build-and-test instructions
 
 ## Next Step
 Build and test instructions are complete. Ready to proceed to Operations stage?

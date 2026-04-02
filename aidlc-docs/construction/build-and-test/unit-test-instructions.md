@@ -8,9 +8,10 @@ cd src/web && npm test
 ```
 
 ### 2. Review Test Results
-- **Expected**: 2 tests pass, 0 failures
+- **Expected**: 3 tests pass, 0 failures
 - **Coverage Focus**:
   - hero rendering
+  - eager loading on the above-the-fold hero image
   - practical information presence
   - review summary presence
 - **Current Test File**:

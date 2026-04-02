@@ -30,7 +30,7 @@ Verify these headers are present:
 - `Referrer-Policy`
 
 ### 3. Docker Image Tag Review
-- Inspect [Dockerfile](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/Dockerfile)
+- Inspect `src/web/Dockerfile`
 - Confirm the base image does not use `latest`
 
 ### 4. Production Behavior Check
