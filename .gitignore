@@ -12,6 +12,7 @@
 
 # misc
 .DS_Store
+.codex
 *.pem
 *.Zone.Identifier
 *:Zone.Identifier
