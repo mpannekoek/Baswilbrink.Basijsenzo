@@ -15,6 +15,11 @@ describe("LandingPage", () => {
         name: new RegExp(escapeForRegex(siteContent.hero.title), "i"),
       }),
     ).toBeInTheDocument();
+
+    expect(screen.getByAltText(siteContent.hero.featureImageAlt)).toHaveAttribute(
+      "loading",
+      "eager",
+    );
   });
 
   it("renders practical information and review summary", () => {

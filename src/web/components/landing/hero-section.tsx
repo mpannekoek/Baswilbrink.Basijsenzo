@@ -62,6 +62,7 @@ export function HeroSection({ hero, actions }: HeroSectionProps) {
                 alt={hero.featureImageAlt}
                 className="object-cover object-center scale-[1.4]"
                 fill
+                loading="eager"
                 sizes="(min-width: 640px) 40vw, 100vw"
                 src="/basijs1.jpg"
               />

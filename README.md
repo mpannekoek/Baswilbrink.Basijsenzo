@@ -34,6 +34,14 @@ Install dependencies:
 cd src/web && npm install
 ```
 
+Or use the repository helper script:
+
+```bash
+./scripts/dev.sh
+```
+
+This installs dependencies for `src/web` and starts the Next.js development server from the app root.
+
 Start the development server:
 
 ```bash

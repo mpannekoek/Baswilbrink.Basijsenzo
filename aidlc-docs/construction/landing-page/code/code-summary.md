@@ -5,6 +5,7 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 
 ## Created Application Files
 - `README.md`
+- `scripts/dev.sh`
 - `src/web/package.json`
 - `src/web/tsconfig.json`
 - `src/web/next.config.ts`
@@ -58,6 +59,8 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 - `cd src/web && npm run build` ✅
 
 ## Notes
+- Added a repository-level `scripts/dev.sh` helper that runs `npm install` and `npm run dev` from `src/web` for local development.
+- Updated the hero LCP image to load eagerly so the above-the-fold primary visual does not trigger the Next.js LCP warning for lazy loading.
 - Added a root repository `README.md` describing the project, the `src/web` app root, and the local run, build, test, and Docker workflow.
 - Placeholder content remains centralized and easy to replace later.
 - Follow-up regeneration moved the remaining rendered copy, metadata text, image alt text, and accessibility labels into the centralized content layer so section components no longer own editable page copy.

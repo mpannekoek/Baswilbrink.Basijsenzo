@@ -940,3 +940,35 @@ for the affected files only."
 **Context**: User-requested local commit after README follow-up code generation
 
 ---
+
+## Session Continuity
+**Timestamp**: 2026-04-02T17:59:43Z
+**User Input**: "I started a AD-DLC flow in this repo. Let me know what to do next?"
+**AI Response**: "Resumed the existing AI-DLC workflow by loading the current state, recent audit history, prior inception/construction artifacts, and enabled extension rules. Determined that the workflow is paused at the Code Generation review gate for the `landing-page` unit and that the next required user action is to review the generated implementation and either request changes or approve continuation to Build and Test."
+**Context**: Session resumption and next-step guidance
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-02T18:05:44Z
+**User Input**: "Request Changes: I want a folder with a dev.sh script inside. This script needs to do a npm install and a npm run dev for the web app"
+**AI Response**: "Added a repository-level `scripts/dev.sh` helper that changes into `src/web`, runs `npm install`, and then runs `npm run dev`. Updated the root README and the construction code summary so the new local-development artifact is documented."
+**Context**: Code generation review change request for local development helper script
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-02T18:11:40Z
+**User Input**: "Request Changes: I have the following error: Image with src \"/basijs1.jpg\" was detected as the Largest Contentful Paint (LCP). Please add the `loading=\"eager\"` property if this image is above the fold. We need to fix this."
+**AI Response**: "Updated the hero section's above-the-fold `/basijs1.jpg` image to use `loading=\"eager\"` and added a landing-page test assertion so the LCP image keeps the intended eager-loading behavior."
+**Context**: Code generation review change request for hero LCP image loading behavior
+
+---
+
+## Repository Operation
+**Timestamp**: 2026-04-02T18:13:48Z
+**User Input**: "commit everything"
+**AI Response**: "Reviewed the worktree, excluded the empty transient `.codex` artifact from staging, and started a single local commit for the current README, audit, code summary, helper script, and hero-image loading changes."
+**Context**: User-requested local commit of current project changes
+
+---
