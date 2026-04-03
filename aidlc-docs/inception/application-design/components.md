@@ -1,170 +1,113 @@
 # Components
 
 ## Design Scope
-This application is a single Next.js site with one primary landing page. The component model is intentionally lean: a small number of reusable shell and section components, plus simple data/config structures that support future content replacement. All rendered page text should flow from a centralized editable content resource through typed content models rather than being embedded directly in section components.
+This design extends the existing `src/web` Next.js application with a protected admin area rooted at `/admin`. The component model separates public-site concerns from authentication, authorization, and dashboard-shell concerns while keeping the first portal slice intentionally lightweight.
 
 ## Component 1: RootLayout
-- **Purpose**: Provide document shell, global styling hooks, metadata, and shared page-level wrappers.
+- **Purpose**: Provide the global app shell, document structure, fonts, and shared site-wide configuration.
 - **Responsibilities**:
-  - Apply global font and theme scaffolding
-  - Inject site metadata and common layout structure
-  - Provide a consistent frame for the landing page
+  - Keep global site concerns shared between public and admin routes
+  - Expose metadata and common visual tokens
+  - Remain agnostic to admin-specific business logic
 - **Interface**:
   - `children: React.ReactNode`
 
-## Component 2: LandingPage
-- **Purpose**: Compose the full landing-page experience from reusable sections and data models.
+## Component 2: Auth Route Handler
+- **Purpose**: Expose Auth.js route handling within the App Router.
 - **Responsibilities**:
-  - Arrange sections in the approved information order
-  - Pass structured section content into presentational sections
-  - Keep page composition easy to evolve later
+  - Handle Microsoft sign-in and callback processing
+  - Delegate provider/session behavior to Auth.js configuration
+  - Keep provider wiring out of page components
 - **Interface**:
-  - `content: LandingPageContent`
+  - HTTP GET/POST handler interface as required by Auth.js
 
-## Component 3: HeaderBar
-- **Purpose**: Display the Bas IJs & Zo brand, lightweight navigation cues, and primary calls to action.
+## Component 3: AdminAccessGuard
+- **Purpose**: Protect `/admin` routes by enforcing authentication and allowlist authorization before rendering protected content.
 - **Responsibilities**:
-  - Render logo or branded fallback wordmark
-  - Support anchor navigation to major sections
-  - Keep key actions visible and mobile-aware
-  - Render menu toggle labels, navigation labels, and other visitor-facing UI copy from the content model
-- **Interface**:
-  - `brand: BrandConfig`
-  - `navItems: NavItem[]`
-  - `primaryActions: ActionLink[]`
-
-## Component 4: HeroSection
-- **Purpose**: Deliver the strongest first impression and immediate practical invitation.
-- **Responsibilities**:
-  - Present key headline and supporting copy
-  - Surface one or more direct actions such as call or route
-  - Balance expressive visuals with readability
-  - Render supporting quick-info copy and image alt text from content instead of local literals
-- **Interface**:
-  - `hero: HeroContent`
-  - `actions: ActionLink[]`
-
-## Component 5: PracticalInfoSection
-- **Purpose**: Present opening hours, address, phone, and quick visit-related details.
-- **Responsibilities**:
-  - Make practical information highly scannable
-  - Support action-oriented contact affordances
-  - Maintain clarity on small screens
-  - Render section headings, helper labels, visit-card titles, and route CTA text from centralized content
-- **Interface**:
-  - `hours: OpeningHoursEntry[]`
-  - `contact: ContactInfo`
-  - `visitNotes: string[]`
-
-## Component 6: TasteOfWeekSection
-- **Purpose**: Spotlight a featured taste in a playful, update-friendly format.
-- **Responsibilities**:
-  - Present featured flavor title, description, and accent styling
-  - Keep the section visually appetizing without dominating the page
-  - Support simple content swapping later
-  - Render supporting badges, image alt text, and helper copy from centralized content
-- **Interface**:
-  - `featuredTaste: TasteHighlight`
-
-## Component 7: StorySection
-- **Purpose**: Communicate history, local identity, and family-friendly warmth.
-- **Responsibilities**:
-  - Present the parlor story with a readable narrative structure
-  - Reinforce trust and village character
-  - Connect emotionally without slowing access to practical information
-  - Keep section-level framing copy in the content model rather than section-local strings
-- **Interface**:
-  - `story: StoryContent`
-
-## Component 8: ReviewsSection
-- **Purpose**: Present social proof in a believable and friendly format.
-- **Responsibilities**:
-  - Display review excerpts, scores, and reviewer labels
-  - Preserve a trustworthy tone
-  - Make later replacement with real reviews straightforward
-  - Render section framing copy from the shared content model
-- **Interface**:
-  - `reviews: ReviewQuote[]`
-  - `summary: ReviewSummary`
-
-## Component 9: VisitContactSection
-- **Purpose**: Close the page with route, contact, and visit encouragement.
-- **Responsibilities**:
-  - Repeat important contact and location cues
-  - Provide a strong but friendly last action point
-  - Support footer-style site closure
-  - Render route labels, contact labels, and social follow prompts from centralized content
-- **Interface**:
-  - `contact: ContactInfo`
-  - `actions: ActionLink[]`
-
-## Component 10: SectionShell
-- **Purpose**: Provide consistent spacing, heading treatment, and decorative framing for sections.
-- **Responsibilities**:
-  - Standardize section padding and max-width behavior
-  - Support visual variation through tokens or modifiers
-  - Reduce duplicated layout code
-- **Interface**:
-  - `id?: string`
-  - `eyebrow?: string`
-  - `title: string`
-  - `description?: string`
-  - `tone?: "light" | "dark" | "accent" | "split"`
-  - `children: React.ReactNode`
-
-## Component 11: ActionPill
-- **Purpose**: Provide reusable branded CTA styling.
-- **Responsibilities**:
-  - Render primary and secondary action links
-  - Maintain touch-friendly presentation across screen sizes
-  - Encode black/orange brand treatment consistently
-- **Interface**:
-  - `href: string`
-  - `label: string`
-  - `variant: "primary" | "secondary" | "ghost"`
-
-## Component 12: ReviewCard / InfoCard Primitives
-- **Purpose**: Encapsulate repeated card patterns for reviews, facts, and small highlights.
-- **Responsibilities**:
-  - Keep repeated UI structures consistent
-  - Reduce duplication in section composition
-  - Support future content expansion with minimal redesign
+  - Detect whether a session exists
+  - Redirect unauthenticated users into the sign-in flow
+  - Redirect unauthorized authenticated users to the access-denied page
+  - Allow authorized users to proceed to the admin layout
 - **Interface**:
   - `children: React.ReactNode`
-  - Variant-specific props as needed
+  - Optional route-context inputs if nested layouts require them
+
+## Component 4: AdminLayout
+- **Purpose**: Provide the shared layout frame for the admin area.
+- **Responsibilities**:
+  - Render the sidebar region and content region
+  - Surface signed-in context such as profile details and welcome summary
+  - Provide a consistent place for sign-out controls
+  - Support future nested admin routes without redesigning the shell
+- **Interface**:
+  - `children: React.ReactNode`
+  - `session: AdminSessionViewModel`
+  - `navigation: AdminNavItem[]`
+
+## Component 5: AdminSidebar
+- **Purpose**: Render the left-side admin navigation shell.
+- **Responsibilities**:
+  - Display one dummy navigation item in the first version
+  - Present branding cues suitable for an admin context
+  - Support later navigation expansion
+- **Interface**:
+  - `items: AdminNavItem[]`
+  - `currentPath?: string`
+
+## Component 6: AdminDashboardPage
+- **Purpose**: Render the first admin landing page at `/admin`.
+- **Responsibilities**:
+  - Show the lightweight placeholder content area
+  - Reinforce that the user has entered the protected portal successfully
+  - Avoid implementing deferred business functionality
+- **Interface**:
+  - `session: AdminSessionViewModel`
+
+## Component 7: AdminProfileCard
+- **Purpose**: Show the signed-in user’s basic profile information and welcome summary.
+- **Responsibilities**:
+  - Surface display name, email, or equivalent profile fields
+  - Confirm which account is currently active
+  - Support future enrichment if more admin context is needed
+- **Interface**:
+  - `session: AdminSessionViewModel`
+
+## Component 8: SignOutAction
+- **Purpose**: Provide a safe exit control for the admin area.
+- **Responsibilities**:
+  - Trigger sign-out through Auth.js
+  - Return the user to a sensible public or signed-out destination
+- **Interface**:
+  - `callbackUrl?: string`
+
+## Component 9: AccessDeniedPage
+- **Purpose**: Present a dedicated denial outcome for authenticated but unauthorized users.
+- **Responsibilities**:
+  - Explain that sign-in succeeded but access is not permitted
+  - Avoid exposing internal authorization details
+  - Provide a safe next action such as sign-out or return to the public site
+- **Interface**:
+  - Optional presentational props if copy is later externalized
 
 ## Supporting Non-Visual Structures
 
-### LandingPageContent
-- **Purpose**: Aggregate all page content into one typed object for composition.
+### AdminNavItem
+- **Purpose**: Represent admin navigation entries for the sidebar.
 - **Required Coverage**:
-  - section headings and descriptions
-  - CTA labels and helper labels
-  - navigation labels
-  - review text and summary copy
-  - image alt text and accessibility labels
-  - footer copy and metadata copy references
+  - label
+  - href
+  - optional icon or state metadata
 
-### BrandConfig
-- **Purpose**: Hold logo path, fallback label, and brand metadata.
+### AdminSessionViewModel
+- **Purpose**: Present the subset of Auth.js session data needed by admin UI components.
+- **Required Coverage**:
+  - display name
+  - email
+  - optional avatar image
+  - authorization-relevant identifiers where needed internally
 
-### ActionLink
-- **Purpose**: Represent CTA or navigation actions.
-
-### OpeningHoursEntry
-- **Purpose**: Represent day/time pairs.
-
-### ContactInfo
-- **Purpose**: Hold address, phone, and optional maps/reference links.
-
-### TasteHighlight
-- **Purpose**: Hold featured flavor content.
-
-### StoryContent
-- **Purpose**: Hold history/about copy blocks.
-
-### ReviewQuote / ReviewSummary
-- **Purpose**: Hold placeholder review data in a format that can later accept approved real data.
-
-### Site Metadata Content
-- **Purpose**: Hold page-title, description, and social-preview copy in a structure aligned with the same editable content source used by the landing page.
+### AllowedAccountConfig
+- **Purpose**: Represent the configured Microsoft accounts permitted to use the portal.
+- **Required Coverage**:
+  - allowlisted email/account identifiers
+  - configuration source abstraction suitable for environment-backed loading

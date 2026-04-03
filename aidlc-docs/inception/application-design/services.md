@@ -1,68 +1,74 @@
 # Services
 
 ## Service Philosophy
-This project does not need backend services or domain services in the traditional sense. The service layer is a lightweight application-orchestration layer used to keep content, branding, metadata, and delivery configuration separate from view components.
+The admin portal does not require a traditional backend domain layer in the first version, but it does require a clear application-service layer for authentication, authorization, configuration loading, and admin-shell composition. These services should stay thin and focused on orchestration rather than business-domain complexity.
 
-## Service 1: LandingPageContentService
-- **Purpose**: Provide structured page content to the landing page.
+## Service 1: AuthConfigurationService
+- **Purpose**: Centralize Auth.js configuration and provider wiring.
 - **Responsibilities**:
-  - Assemble placeholder content for hero, practical info, taste of the week, story, reviews, and footer actions
-  - Load or assemble a single editable content resource for all rendered page text
-  - Keep content centralized and easy to replace later
-  - Provide section headings, helper copy, CTA labels, navigation labels, image alt text, and accessibility labels in addition to body copy
-  - Support clean separation between content and UI layout
+  - Configure the Microsoft provider
+  - Apply secure session defaults suitable for the first admin slice
+  - Define callback behavior needed for authorization-aware session handling
+  - Keep provider credentials sourced from environment variables
 - **Inputs**:
-  - Static content definitions or a single JSON-compatible resource file
+  - Environment-backed auth secrets and Microsoft provider credentials
 - **Outputs**:
-  - `LandingPageContent`
+  - Auth.js configuration object
 
-## Service 2: BrandAssetService
-- **Purpose**: Resolve logo usage and branded fallback behavior.
+## Service 2: AllowedAccountService
+- **Purpose**: Resolve and interpret which Microsoft accounts are permitted to use the portal.
 - **Responsibilities**:
-  - Reference `src/web/public/logo.png` or equivalent application asset path within the Next.js app root
-  - Provide fallback brand label and usage metadata
-  - Keep branding decisions separate from section rendering
+  - Load allowlisted account identifiers from environment-backed configuration
+  - Normalize account identifiers for reliable comparisons
+  - Expose a simple authorization decision function to the route guard
 - **Inputs**:
-  - Static asset references
+  - Environment-backed allowlist configuration
 - **Outputs**:
-  - `BrandConfig`
+  - `AllowedAccountConfig`
+  - authorization decision helpers
 
-## Service 3: SiteMetadataService
-- **Purpose**: Centralize page metadata configuration.
+## Service 3: AdminAccessService
+- **Purpose**: Orchestrate protected-route access decisions.
 - **Responsibilities**:
-  - Provide title, description, and social-preview metadata
-  - Keep metadata easy to update later
-  - Derive metadata copy from the same content source or a tightly paired metadata resource so page copy and SEO copy do not drift
+  - Read the current session
+  - Distinguish between unauthenticated and unauthorized states
+  - Redirect unauthenticated users to sign-in
+  - Redirect disallowed users to the access-denied page
+  - Produce authorized session data for the admin shell
 - **Inputs**:
-  - Static metadata content aligned to the landing-page content resource
+  - Auth.js session
+  - allowlist data
+  - route context
 - **Outputs**:
-  - `SiteMetadata`
+  - access decisions
+  - redirect destinations
+  - authorized admin-session view model
 
-## Service 4: SecurityConfigService
-- **Purpose**: Centralize secure public-site configuration defaults.
+## Service 4: AdminNavigationService
+- **Purpose**: Provide the sidebar navigation model for the admin shell.
 - **Responsibilities**:
-  - Provide required HTTP security header definitions
-  - Support future framework-level security configuration
-  - Keep security requirements visible in one place
+  - Define the first dummy navigation item
+  - Keep navigation generation independent from layout rendering
+  - Support future expansion to multiple admin modules
 - **Inputs**:
-  - Static security policy definitions
+  - Static first-version navigation definitions
 - **Outputs**:
-  - Header configuration structures
+  - `AdminNavItem[]`
 
-## Service 5: DeploymentConfigService
-- **Purpose**: Encapsulate container-related delivery decisions.
+## Service 5: AdminSessionViewService
+- **Purpose**: Convert session data into safe, presentation-ready admin UI data.
 - **Responsibilities**:
-  - Define assumptions for Dockerized production build/run
-  - Keep deployment-related constants or docs organized
-  - Support build-and-test documentation later
+  - Select the profile fields needed by the admin layout
+  - Keep raw auth/session structures out of presentational components
+  - Support future enrichment without coupling components to Auth.js internals
 - **Inputs**:
-  - Runtime and build configuration choices
+  - Auth.js session object
 - **Outputs**:
-  - Container configuration references and build assumptions
+  - `AdminSessionViewModel`
 
 ## Orchestration Pattern
-- `LandingPage` consumes content and brand configuration from lightweight services/factories.
-- Presentational sections remain mostly stateless and receive typed props.
-- Presentational sections should not hardcode visitor-facing text when that text belongs to the editable content resource.
-- Security and deployment configuration remain outside UI components.
-- The service layer is intentionally thin to avoid unnecessary abstraction for a single-page site.
+- Auth.js handles provider protocol and session lifecycle.
+- `AdminAccessService` sits at the protected-route boundary and decides whether to redirect or render.
+- `AllowedAccountService` supplies the authorization rule used by the access layer.
+- `AdminSessionViewService` adapts raw session data for UI consumption.
+- `AdminLayout` and its child components remain mostly presentational once access control is satisfied.

@@ -1,20 +1,20 @@
 # Application Design Plan
 
 ## Plan Progress
-- [x] Review requirements and user stories
-- [x] Identify page-level components and responsibilities
-- [x] Define component interfaces at a high level
-- [x] Define service-layer responsibilities for content and page orchestration
+- [x] Review admin-portal requirements and user stories
+- [x] Identify protected-route, auth, and dashboard-shell components
+- [x] Define high-level component interfaces
+- [x] Define service-layer responsibilities for authentication, authorization, and session access
 - [x] Define component dependencies and communication patterns
 - [x] Validate design completeness and consistency
 
 ## Design Intent
-Create a simple but intentional application structure for a single-page Next.js site that:
-- keeps content-driven sections modular
-- preserves a strong branded hero and practical information hierarchy
-- supports mobile-first rendering
-- allows realistic placeholder content to be replaced later without structural rework
-- supports Dockerized production delivery without introducing unnecessary backend complexity
+Create a clean brownfield extension of the existing Next.js application that:
+- introduces a protected `/admin` route without disrupting the public landing page
+- keeps authentication, authorization, and admin-shell responsibilities clearly separated
+- uses environment-backed configuration for secrets and allowlist data
+- establishes a lightweight dashboard foundation that future portal modules can build on
+- preserves secure defaults and compatibility with the current deployment/testing model
 
 ## Mandatory Artifacts
 - [x] Generate `components.md` with component definitions and high-level responsibilities
@@ -24,4 +24,4 @@ Create a simple but intentional application structure for a single-page Next.js 
 - [x] Validate design completeness and consistency
 
 ## Clarification Questions
-No additional clarification questions were required for this stage. The approved requirements, stories, branding assets, and execution plan provide enough context to produce a compact high-level design.
+No additional clarification questions were required for this stage. The approved requirements, user stories, reverse-engineering context, and workflow plan provide enough direction for a high-level brownfield application design.

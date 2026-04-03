@@ -1,48 +1,45 @@
 # Application Design
 
 ## Summary
-The Bas IJs & Zo site is designed as a single-unit Next.js application rooted in `src/web`, with one primary landing page composed from modular section components and thin configuration/content services. The design deliberately avoids over-engineering while still making space for strong branding, mobile-first UX, secure public-site defaults, Dockerized delivery, and a single editable content resource for all rendered page text.
+The Bas IJs & Zo site remains a single Next.js application rooted in `src/web`, but now grows into a mixed public/protected application. The new design introduces a protected `/admin` boundary based on Auth.js, Microsoft personal-account login, environment-backed allowlist authorization, a dedicated access-denied outcome, and a lightweight dashboard shell that later portal capabilities can extend.
 
 ## Core Design Decisions
-- Use `src/web` as the sole Next.js application boundary.
-- Use one page-composition entry point that assembles all approved landing-page sections.
-- Keep App Router entrypoints in `src/web/app` and colocate runtime assets and framework configuration inside `src/web`.
-- Keep sections modular so content and visual treatment can evolve independently.
-- Keep content and brand configuration centralized rather than scattered across components.
-- Treat all visitor-facing copy as content data, not as component-local literals. This includes section titles, descriptions, CTA labels, navigation labels, review text, image alt text, accessibility labels, and metadata text.
-- Expand the content model so section components render supplied text only; presentational components should not own page copy except for purely decorative symbols.
-- Use lightweight services/factories instead of introducing a backend or complex domain layer.
-- Keep repository-wide concerns such as AI-DLC docs and GitHub workflow files outside the app root.
-- Treat security headers and deployment configuration as first-class design concerns because they are explicit requirements.
+- Keep `src/web` as the sole application boundary; do not create a second app for admin functionality.
+- Use App Router-compatible Auth.js route handling for sign-in and callback flow.
+- Keep authentication, authorization, and UI-shell concerns separated instead of mixing them into page components.
+- Enforce protected-route access before any admin layout or page content is rendered.
+- Load allowlisted account identifiers from environment-backed configuration in the first version.
+- Map raw session data into a dedicated admin-session view model before passing it to presentational components.
+- Treat the dashboard as a foundation shell, not as the place to prematurely implement later admin business logic.
+- Keep the admin visual language aligned with the existing brand, but more restrained and utility-oriented than the public marketing page.
 
 ## Main Components
-- `RootLayout`: global shell and metadata frame
-- `LandingPage`: top-level page composition
-- `HeaderBar`: logo, anchor navigation, and top actions
-- `HeroSection`: first impression and primary CTA area
-- `PracticalInfoSection`: hours, address, and contact emphasis
-- `TasteOfWeekSection`: featured flavor spotlight
-- `StorySection`: local story and history
-- `ReviewsSection`: social proof
-- `VisitContactSection`: final contact and route encouragement
-- Shared primitives: `SectionShell`, `ActionPill`, `ReviewCard`, `InfoCard`
+- `RootLayout`: shared global shell across public and admin routes
+- `Auth Route Handler`: Auth.js entrypoint for Microsoft sign-in flow
+- `AdminAccessGuard`: protected-route boundary enforcing auth and allowlist checks
+- `AdminLayout`: shared admin shell
+- `AdminSidebar`: left navigation region with one dummy item
+- `AdminDashboardPage`: first placeholder dashboard content page
+- `AdminProfileCard`: signed-in user summary
+- `SignOutAction`: safe sign-out affordance
+- `AccessDeniedPage`: dedicated unauthorized-access outcome
 
 ## Service Layer
-- `LandingPageContentService`: central content assembly from a single editable resource file or equivalent typed source
-- `BrandAssetService`: logo and branded fallback configuration
-- `SiteMetadataService`: page metadata derived from the same content source or a tightly paired metadata resource
-- `SecurityConfigService`: public-site security defaults
-- `DeploymentConfigService`: Docker-oriented delivery assumptions
+- `AuthConfigurationService`: Auth.js provider and session configuration
+- `AllowedAccountService`: allowlist loading and account authorization checks
+- `AdminAccessService`: protected-route orchestration and redirect decisions
+- `AdminNavigationService`: first-version sidebar navigation model
+- `AdminSessionViewService`: mapping of raw session data into UI-ready admin context
 
 ## Dependency Model
-- Composition flows from `LandingPage` down into section components.
-- Shared primitives reduce duplication and keep branding consistent.
-- Static services/factories feed typed content and configuration into the page.
-- Build, test, and runtime commands execute with `src/web` as the application working directory.
-- No runtime backend, persistent data store, or API integration is required for v1.
+- Public-site routes continue to depend on the existing landing-page composition.
+- Admin routes depend first on the protected access boundary, then on admin-layout composition.
+- Configuration and authorization logic stay in thin services/factories rather than leaking into presentational components.
+- The admin layout depends on mapped session data and static navigation models.
+- The current Docker/test/build setup remains a shared application-level concern rather than becoming admin-specific infrastructure.
 
 ## Why This Design Fits
-- It supports a strong branded landing page without introducing unnecessary architectural weight.
-- It keeps mobile friendliness central by ensuring sections remain prop-driven and layout-focused.
-- It keeps placeholder and final approved content easy to replace later from one maintained resource.
-- It creates a clean path into the upcoming NFR, infrastructure, and code-generation stages.
+- It introduces a secure admin boundary without fragmenting the existing codebase.
+- It keeps the first portal slice intentionally lightweight while still making future growth straightforward.
+- It preserves brownfield safety by minimizing disruption to the public site.
+- It gives the upcoming NFR and code-generation stages clear component and service boundaries for auth-sensitive work.

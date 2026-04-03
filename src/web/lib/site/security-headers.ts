@@ -1,11 +1,12 @@
 export function getSecurityHeaders(isDevelopment: boolean): Array<{ key: string; value: string }> {
   const scriptSrc = isDevelopment
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval';"
-    : "script-src 'self' 'unsafe-inline';";
+    ? "script-src 'self' 'unsafe-eval';"
+    : "script-src 'self';";
 
   return [
     {
       key: "Content-Security-Policy",
+      // Next.js font rendering still relies on inline style tags for generated font CSS.
       value: `default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; ${scriptSrc} connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';`,
     },
     {

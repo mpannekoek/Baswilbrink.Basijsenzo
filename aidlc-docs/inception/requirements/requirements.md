@@ -1,163 +1,144 @@
 # Requirements Document
 
 ## Intent Analysis Summary
-- **User Request**: Build a landing page from scratch for Bas IJs & Zo, a Dutch ice cream parlor, using Next.js, TypeScript, and Tailwind CSS.
-- **Request Type**: New Project
-- **Scope Estimate**: Single web application with a single high-quality landing page and supporting scaffold
-- **Complexity Estimate**: Moderate
+- **User Request**: Add an authenticated admin portal at `/admin` to the existing Bas IJs & Zo site using Auth.js with direct Microsoft login for personal Microsoft accounts only, enforce an allowlist of permitted accounts, show an access-denied page for unauthorized users, and provide a starter dashboard shell for later expansion.
+- **Request Type**: New Feature
+- **Scope Estimate**: Multiple components across routing, authentication, authorization, protected layout, and admin UI shell
+- **Complexity Estimate**: Complex
 - **Requirements Depth**: Standard
 
 ## Product Goal
-Create a polished, production-ready landing page that helps local customers and some tourists quickly understand when Bas IJs & Zo is open, where it is, what makes it special, and why it is trusted in the village. The experience should feel warm, playful, and family-friendly while remaining modern and easy to extend.
+Extend the existing public landing-page application with a protected internal admin area that gives allowed Bas IJs & Zo operators a secure starting point for future portal functionality. The first version should establish the authentication and authorization boundary, a clear denial path for unauthorized accounts, and a dashboard-style interface that can be expanded in later stages.
 
-## Primary Audiences
-- **Local customers**: Want practical information fast, such as opening hours, address, and contact details.
-- **Families and casual visitors**: Want a welcoming impression, a sense of atmosphere, and simple reasons to visit.
-- **Tourists**: Secondary audience; the first version remains Dutch-only.
+## Brownfield Context
+- The existing application is a Next.js site with one public landing page in `src/web`.
+- The new `/admin` functionality must coexist with the existing public experience without regressing the public landing page.
+- The admin feature should reuse the current technical foundation where sensible, but introduce clear separation between public and protected areas.
 
-## Confirmed Content Strategy
-- Use realistic placeholder content where exact business details are still missing.
-- Use realistic placeholder Google review excerpts and ratings until approved real reviews are available.
-- Use realistic placeholder opening hours, contact details, and address for the first version.
-- Keep user-visible page copy maintainable through a centralized editable content resource rather than scattering text across UI components.
-- Prefer existing branding assets if found in the repository; the logo asset should live at `src/web/public/logo.png` within the web application root.
-- Include clear calls to action for visiting, calling, and finding the location.
-- Use the earlier user-provided design inspiration as a reference for overall energy and layout direction, not as a literal template.
+## Primary Users
+- **Allowed admin users**: Specific Microsoft personal-account holders who are permitted to access the portal.
+- **Unauthorized Microsoft users**: Users who can complete Microsoft sign-in but are not on the configured allowlist and must be denied.
+- **Public site visitors**: Indirectly affected users who must continue to experience the public landing page unchanged.
+
+## Confirmed Decisions
+- Use Auth.js for authentication.
+- Use Microsoft login directly as the only sign-in method for the first version.
+- Support Microsoft personal accounts only.
+- Maintain the allowed-account list through environment variables or configuration in the first version rather than a database.
+- Redirect unauthenticated visitors to the Microsoft sign-in flow when they request `/admin`.
+- Redirect authenticated but unauthorized users to a dedicated access-denied page.
+- Use standard Auth.js session handling with secure defaults for the first version.
+- The initial admin dashboard should include:
+  - a left sidebar
+  - one dummy navigation item
+  - a dummy content area
+  - basic signed-in profile information
+  - a sign-out control and small welcome summary
+- The admin area should reuse the existing brand colors, but adopt a more restrained dashboard-style visual language.
+- Delivery expectation for this workflow is to plan and implement the first admin slice now if scope remains reasonable.
 
 ## Functional Requirements
 
-### FR-1: Application Scaffold
-- The project must be scaffolded as a new Next.js application.
-- The implementation must use TypeScript.
-- The styling system must use Tailwind CSS.
-- The scaffold must be clean, production-oriented, and easy to extend.
-- The application must be prepared to run in a Docker container for deployment.
+### FR-1: Protected Admin Entry Point
+- The application must expose a protected route at `/admin`.
+- Requests to `/admin` and any protected admin child routes must enforce authentication before showing protected content.
+- Unauthenticated requests to the protected admin area must redirect into the Microsoft sign-in flow.
 
-### FR-2: Landing Page Information Architecture
-The landing page should include these core sections in a clear and practical order:
-- **Hero / Welcome**: Brand presence, local tone, short introduction, immediate key actions.
-- **Practical Information**: Opening hours, address, phone/contact, and how to visit.
-- **Taste of the Week**: A small featured product spotlight with playful seasonal tone.
-- **About / History**: Short story of the parlor with village character and trust-building context.
-- **Reviews / Social Proof**: A natural-looking section with strong review highlights.
-- **Visit / Contact Footer Area**: Contact details, route cue, and useful closing actions.
+### FR-2: Authentication Provider
+- The first version must use Auth.js as the authentication framework.
+- The only supported provider for the first version must be Microsoft.
+- The implementation must be configured specifically for Microsoft personal accounts only.
+- The system must not expose alternative sign-in methods in the first version.
 
-### FR-3: Practical Information Clarity
-- Opening hours must be easy to scan.
-- Contact details must be prominent and easy to act on.
-- Address and visit guidance must be visible without requiring deep scrolling.
-- The page should support quick practical actions such as calling or getting directions.
+### FR-3: Authorization Allowlist
+- The application must contain logic that determines whether the signed-in Microsoft account is allowed to access the admin portal.
+- The first version must source the allowlist from configuration or environment variables rather than a persistent data store.
+- Authorization must be enforced server-side before protected admin content is rendered.
+- Users who authenticate successfully but are not allowlisted must not be able to access the protected admin area.
 
-### FR-4: Local Brand Storytelling
-- The page must communicate a strong local village feel.
-- The tone must feel warm, welcoming, and trustworthy.
-- The history section must help visitors understand the parlor's identity and community presence.
+### FR-4: Access Denied Flow
+- The application must provide a dedicated access-denied page for users who are authenticated but not authorized.
+- The access-denied experience must clearly communicate that sign-in succeeded but access is not permitted.
+- The access-denied page must offer a safe next action such as signing out or returning to the public site.
 
-### FR-5: Product Highlight
-- The page must include a small product-information area.
-- The initial version should prominently feature a "taste of the week."
-- The product section should be easy to update later without structural redesign.
+### FR-5: Admin Dashboard Shell
+- The `/admin` area must render a dashboard-style layout.
+- The layout must include a left sidebar navigation region.
+- The sidebar must include one dummy navigation item for the first version.
+- The main content region must render a dummy placeholder page or panel on the right.
+- The layout must be structured so additional admin routes and modules can be added later without redesigning the shell.
 
-### FR-6: Review Presentation
-- Reviews should be integrated as social proof in a natural and trustworthy way.
-- The initial implementation may use realistic placeholder review quotes, star ratings, and reviewer labels.
-- The section should be structured so real Google review content can be swapped in later.
+### FR-6: Signed-In User Context
+- The initial admin dashboard must show basic profile information for the signed-in user.
+- The initial admin dashboard must show a welcome summary or equivalent orientation text.
+- The admin area must provide a sign-out control.
 
-### FR-7: Branding
-- The design must prominently use black and orange because they are core brand colors.
-- The implementation should align to the existing design direction while adapting color usage to match the brand.
-- If the repository logo asset works well in the design, it should be used; otherwise, a code-based fallback brand treatment is acceptable.
+### FR-7: Visual Direction
+- The admin area should visually relate to the existing Bas IJs & Zo brand.
+- The admin interface should reuse the black/orange brand anchors where appropriate.
+- The dashboard should use a more restrained and utility-oriented style than the public marketing page.
+- The admin interface must prioritize clarity and usability over decorative presentation.
 
-### FR-8: Content Language
-- The first version should be Dutch only.
-- The copy should still be understandable in structure for occasional tourists through strong visual cues and practical layout.
+### FR-8: Brownfield Safety
+- The existing public landing page at `/` must remain intact and functional.
+- New admin functionality must not break the current public routing, content rendering, or responsive behavior.
+- The admin feature must fit the current `src/web` application structure rather than introducing a separate application.
 
 ## User Experience Requirements
-- The page must feel warm, local, playful, and family-friendly.
-- The page must also feel polished and modern rather than rustic or amateur.
-- The design should avoid generic template aesthetics and feel intentional to the brand.
-- The practical information must remain immediately understandable even within a more expressive visual design.
-- Mobile friendliness is a high-priority UX requirement, not a secondary optimization.
-
-## Design Requirements
-- The visual system should make black and orange dominant brand anchors.
-- The layout should feel inviting and lively, suitable for an ice cream parlor and village audience.
-- The design should balance expressive branding with readability and fast information access.
-- The page should use strong typography, layered backgrounds, and purposeful section variation rather than a flat default landing-page treatment.
-- The design may borrow inspiration from the earlier user-provided design reference in these specific ways:
-  - bold, high-contrast hero composition
-  - playful rounded action elements
-  - prominent product imagery as an emotional focal point
-  - energetic visual rhythm and layered decorative accents
-- The implementation should not copy the sample palette directly; the final palette must remain centered on black and orange to match Bas IJs & Zo branding.
+- Admin users should understand quickly whether they are signed in, denied, or successfully inside the dashboard.
+- The admin area should feel clearly distinct from the public marketing surface while still belonging to the same brand family.
+- The sidebar and content area should remain usable on desktop and reasonable on smaller screens.
+- Access-denied messaging should be direct and non-confusing.
 
 ## Technical Requirements
-- Use Next.js with a maintainable app structure suitable for future expansion.
-- The repository must isolate the web application in `src/web` as a dedicated Next.js application root.
-- The App Router must live in `src/web/app`, static assets in `src/web/public`, and application modules in `src/web/components`, `src/web/lib`, `src/web/types`, and `src/web/tests`.
-- Web runtime and build configuration files must be colocated inside `src/web` rather than at the repository root or directly under `src`.
-- Repository-wide documentation remains in `aidlc-docs`, and repository-wide CI workflow files remain under `.github/workflows`.
-- The repository must include a root `README.md` that explains the project purpose, repository structure, and how to run, test, and build the web application from `src/web`.
-- The root `README.md` must document the `src/web` application root, the key local commands, and the Docker build and run flow at a human-readable repository level.
-- Use TypeScript across the codebase.
-- Use Tailwind CSS for styling and theming.
-- Keep the implementation modular enough that sections can be expanded or replaced later.
-- Keep content structures simple enough to support future replacement of placeholders with real business content.
-- All rendered page text should be sourced from a centralized content resource, including section headings, helper copy, CTA labels, navigation labels, image alt text, accessibility labels, and page metadata text.
-- Provide containerization support for the application using Docker.
-- The project should include a production-oriented Docker setup suitable for building and running the Next.js app in a container.
+- The implementation must remain within the existing Next.js application in `src/web`.
+- The solution should follow current App Router conventions for protected routes, auth endpoints, and layout composition.
+- Auth configuration and secrets must be sourced from environment variables rather than hardcoded credentials.
+- The allowlist must be configurable without modifying component markup.
+- The admin shell should be organized so future portal modules can be added through route expansion or nested layouts.
+- The implementation should preserve the current Docker-based deployment approach.
+- The implementation should preserve compatibility with the existing lint, test, and build setup.
 
 ## Non-Functional Requirements
 
-### NFR-1: Extensibility
-- The codebase must be easy to extend with more pages or richer content later.
-- Content-heavy sections should be straightforward to update.
+### NFR-1: Security
+- Authentication and authorization checks must be treated as blocking gates to admin content.
+- Session handling must use secure defaults suitable for a protected internal portal.
+- Unauthorized users must be denied consistently and predictably.
 
-### NFR-2: Production Readiness
-- The initial scaffold and page should be suitable as a production-ready starting point.
-- The project should avoid unnecessary complexity in the first version.
-- The delivery setup should support predictable containerized deployment.
+### NFR-2: Maintainability
+- The auth setup, allowlist logic, and admin layout should be separated cleanly so they can evolve later.
+- The first version should create a clear foundation for future portal capabilities rather than a throwaway scaffold.
 
-### NFR-3: Responsiveness
-- The page must work well on both desktop and mobile.
-- Important practical information must remain accessible on small screens.
-- The design should be comfortable and effective on mobile-first viewing, since mobile usability is explicitly important to the project.
+### NFR-3: Extensibility
+- Future admin routes and modules should be addable without redesigning the base shell.
+- The first version should make it straightforward to replace configuration-based allowlists with persistent data later if needed.
 
-### NFR-4: Maintainability
-- The structure, naming, and styling approach should be understandable for future iteration.
-- The repository structure must clearly separate app-owned files from repository-wide documentation and automation.
-- The repository should provide a concise root `README.md` so future contributors can understand the project layout and local development workflow without reading internal AI-DLC artifacts first.
-- Repeated visual patterns should be organized cleanly.
-- Content editors should be able to update rendered copy in one place without editing section component markup.
-- The container setup should be straightforward for future local development and deployment workflows.
+### NFR-4: Usability
+- The admin shell must be immediately understandable.
+- The sign-in and denial flows must minimize ambiguity for both allowed and disallowed users.
 
-### NFR-5: Security Baseline
-- Baseline security extension rules are enabled for this project.
-- The web application must account for secure defaults relevant to a public informational site, including secure headers, supported dependency management, and safe handling of any future external content or integrations.
-
-### NFR-6: Containerization
-- The application should build and run reliably inside a Docker container.
-- The container setup should be appropriate for production use rather than a dev-only container.
-- Container-related files should avoid unnecessary bloat and support clean rebuilds.
+### NFR-5: Brownfield Reliability
+- The feature must integrate safely with the existing public site and should not degrade the current visitor experience.
 
 ## Security Requirements Derived From Enabled Extension
-- **SECURITY-04**: The application must set required HTTP security headers for HTML responses.
-- **SECURITY-09**: The production configuration must avoid exposing internal errors or debug details to end users.
-- **SECURITY-10**: Dependency management must use committed lock files and avoid unpinned production tooling patterns.
-- **SECURITY-10**: Any Dockerfile or container build configuration must avoid unpinned `latest` tags for production images.
-- **SECURITY-11**: The design should account for secure public-site defaults and future misuse considerations.
-- **SECURITY-01, SECURITY-02, SECURITY-05, SECURITY-06, SECURITY-07, SECURITY-08, SECURITY-12, SECURITY-13**: Not currently in scope for the first version unless later stages introduce data stores, authenticated flows, APIs, or infrastructure artifacts that make them applicable.
+- **SECURITY-04**: All HTML-serving admin routes must continue to emit the required HTTP security headers.
+- **SECURITY-08**: The admin area must enforce authentication and server-side authorization on every protected route.
+- **SECURITY-11**: The design must continue to consider abuse scenarios for the public entrypoint and the new admin entry path.
+- **SECURITY-12**: Authentication configuration must avoid hardcoded credentials, use secure session behavior, and handle sign-in/logout safely.
+- **SECURITY-10**: Any added dependencies or auth-related tooling must remain pinned through the committed lockfile.
+- **SECURITY-09**: Production behavior must not leak sensitive internal auth or authorization details to end users beyond the intended access-denied message.
+- **SECURITY-01, SECURITY-02, SECURITY-05, SECURITY-06, SECURITY-07**: Not currently in scope unless later stages add persistent storage, custom APIs, infrastructure resources, or network-policy definitions.
 
 ## Assumptions
-- Exact business details are not yet available and will be represented with realistic placeholders.
-- Final approved Google review text is not yet available.
-- Final production photography and complete brand asset set are not yet available.
-- The logo asset is expected to be served from `src/web/public/logo.png`, but its suitability will still be confirmed during design and implementation.
-- The earlier user-provided sample reference expresses preferred visual energy, but not final brand colors or exact composition requirements.
-- Final hosting environment details beyond Docker containerization are not yet defined.
+- Microsoft provider credentials and related Auth.js secrets will be supplied through environment variables.
+- The first version does not require a database.
+- The allowlist size is small enough for configuration-based management initially.
+- The first version establishes portal structure only; real admin business logic will be added later.
 
 ## Success Criteria
-- Visitors can quickly find opening hours, contact details, and location cues.
-- The site leaves a warm, trustworthy first impression aligned with Bas IJs & Zo.
-- The page clearly communicates local identity and product personality.
-- The project has a clean technical foundation for future expansion.
+- Allowed Microsoft personal-account users can sign in and reach `/admin`.
+- Non-allowlisted Microsoft users are redirected to a dedicated access-denied page.
+- Unauthenticated users requesting `/admin` are sent into the sign-in flow.
+- The `/admin` area renders a usable dashboard shell with sidebar, dummy navigation, dummy content, signed-in user context, and sign-out control.
+- The public landing page remains functional and visually intact.

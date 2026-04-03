@@ -1,74 +1,63 @@
 # Component Methods
 
 ## Note
-These method signatures describe high-level component and orchestration interfaces. Detailed business rules are intentionally deferred because this project does not require a separate functional-design stage.
+These method signatures describe high-level component and orchestration interfaces for the first admin slice. Detailed business rules remain intentionally lightweight because the current workflow skips a separate Functional Design stage.
 
 ## RootLayout
 - `function RootLayout(props: { children: React.ReactNode }): JSX.Element`
-  - Wrap the app with global HTML structure and shared visual scaffolding.
+  - Provide the global document shell for both public and protected routes.
 
-## LandingPage
-- `function LandingPage(props: { content: LandingPageContent }): JSX.Element`
-  - Compose the end-to-end landing page from structured content and sections.
+## Auth Route Handler
+- `export const GET = authHandler`
+- `export const POST = authHandler`
+  - Delegate provider auth flow and callback handling to the Auth.js runtime.
 
-## HeaderBar
-- `function HeaderBar(props: { brand: BrandConfig; navItems: NavItem[]; primaryActions: ActionLink[] }): JSX.Element`
-  - Render brand mark, navigation anchors, top-level actions, and menu accessibility copy using content-supplied labels.
+## AdminAccessGuard
+- `async function AdminAccessGuard(props: { children: React.ReactNode }): Promise<JSX.Element>`
+  - Resolve the current session, enforce authentication and allowlist authorization, and either render children or redirect.
 
-## HeroSection
-- `function HeroSection(props: { hero: HeroContent; actions: ActionLink[] }): JSX.Element`
-  - Render the first-screen branded introduction, key actions, supporting quick-info copy, and image alt text from the content model.
+## AdminLayout
+- `function AdminLayout(props: { children: React.ReactNode; session: AdminSessionViewModel; navigation: AdminNavItem[] }): JSX.Element`
+  - Render the shared admin shell with sidebar, profile context, and content region.
 
-## PracticalInfoSection
-- `function PracticalInfoSection(props: { hours: OpeningHoursEntry[]; contact: ContactInfo; visitNotes: string[] }): JSX.Element`
-  - Render scannable practical information, helper labels, and visit-note framing copy optimized for mobile and desktop.
+## AdminSidebar
+- `function AdminSidebar(props: { items: AdminNavItem[]; currentPath?: string }): JSX.Element`
+  - Render the first-version sidebar navigation and active-route affordances.
 
-## TasteOfWeekSection
-- `function TasteOfWeekSection(props: { featuredTaste: TasteHighlight }): JSX.Element`
-  - Render the highlighted featured flavor block, its support copy, and related image alt text from centralized content.
+## AdminDashboardPage
+- `function AdminDashboardPage(props: { session: AdminSessionViewModel }): JSX.Element`
+  - Render the placeholder dashboard content for the signed-in admin user.
 
-## StorySection
-- `function StorySection(props: { story: StoryContent }): JSX.Element`
-  - Render the parlor history and community identity section using content-supplied framing copy only.
+## AdminProfileCard
+- `function AdminProfileCard(props: { session: AdminSessionViewModel }): JSX.Element`
+  - Render the signed-in user summary and welcome context.
 
-## ReviewsSection
-- `function ReviewsSection(props: { reviews: ReviewQuote[]; summary: ReviewSummary }): JSX.Element`
-  - Render social-proof summary, section framing copy, and individual review excerpts from the content model.
+## SignOutAction
+- `function SignOutAction(props: { callbackUrl?: string }): JSX.Element`
+  - Trigger Auth.js sign-out and return the user to a safe destination.
 
-## VisitContactSection
-- `function VisitContactSection(props: { contact: ContactInfo; actions: ActionLink[] }): JSX.Element`
-  - Render closing contact cues, route labels, and repeat primary visit actions from centralized content.
+## AccessDeniedPage
+- `function AccessDeniedPage(): JSX.Element`
+  - Render the dedicated unauthorized-access outcome.
 
-## SectionShell
-- `function SectionShell(props: { id?: string; eyebrow?: string; title: string; description?: string; tone?: "light" | "dark" | "accent" | "split"; children: React.ReactNode }): JSX.Element`
-  - Provide shared section framing and heading structure.
+## Service / Factory Methods
 
-## ActionPill
-- `function ActionPill(props: { href: string; label: string; variant: "primary" | "secondary" | "ghost" }): JSX.Element`
-  - Render a reusable branded action control.
+### Auth Configuration Factory
+- `function createAuthConfig(): AuthConfig`
+  - Build the Auth.js configuration, provider wiring, session behavior, and callbacks.
 
-## ReviewCard
-- `function ReviewCard(props: { review: ReviewQuote }): JSX.Element`
-  - Render a single review excerpt with rating and reviewer metadata.
+### Allowed Accounts Loader
+- `function getAllowedAccounts(): AllowedAccountConfig`
+  - Load the configured allowlist from environment-backed configuration.
 
-## InfoCard
-- `function InfoCard(props: { title: string; body: string; accent?: string }): JSX.Element`
-  - Render compact informational card content such as fact blurbs or highlights.
+### Authorization Evaluator
+- `function isAllowedAdminAccount(input: { email?: string | null }): boolean`
+  - Determine whether the signed-in Microsoft account is permitted to access the portal.
 
-## Content / Service Methods
+### Admin Navigation Factory
+- `function getAdminNavigation(): AdminNavItem[]`
+  - Return the first-version sidebar navigation model.
 
-### Page Content Factory
-- `function getLandingPageContent(): LandingPageContent`
-  - Return all content used to render the landing page, including all visitor-facing UI copy, image alt text, accessibility labels, and metadata copy references.
-
-### Brand Configuration Factory
-- `function getBrandConfig(): BrandConfig`
-  - Return logo and fallback brand settings.
-
-### Metadata Factory
-- `function getSiteMetadata(): SiteMetadata`
-  - Return SEO and document metadata for the page using the shared editable content resource or a tightly paired metadata structure.
-
-### Security Header Configuration
-- `function getSecurityHeaders(): HeaderRule[]`
-  - Return required security-header definitions for the public site.
+### Session ViewModel Mapper
+- `function toAdminSessionViewModel(session: AuthSession): AdminSessionViewModel`
+  - Map raw Auth.js session data into UI-safe admin-session props.

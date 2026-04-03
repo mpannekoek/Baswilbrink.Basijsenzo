@@ -1,14 +1,14 @@
 # AI-DLC State Tracking
 
 ## Project Information
-- **Project Type**: Greenfield
+- **Project Type**: Brownfield
 - **Start Date**: 2026-03-30T07:54:30Z
-- **Current Stage**: OPERATIONS - Placeholder
+- **Current Stage**: CONSTRUCTION - NFR Requirements
 
 ## Workspace State
-- **Existing Code**: No
-- **Reverse Engineering Needed**: No
-- **Workspace Root**: /home/martijn/dev/projects/baswilbrink/basijsenzo
+- **Existing Code**: Yes
+- **Reverse Engineering Needed**: Yes
+- **Workspace Root**: /home/martijnpannekoek/dev/projects/baswilbrink/Baswilbrink.Basijsenzo
 
 ## Code Location Rules
 - **Application Code**: `src/web` for the Next.js application root (NEVER in aidlc-docs/)
@@ -23,7 +23,7 @@
 ## Stage Progress
 ### 🔵 INCEPTION PHASE
 - [x] Workspace Detection
-- [ ] Reverse Engineering (not applicable)
+- [x] Reverse Engineering
 - [x] Requirements Analysis
 - [x] User Stories
 - [x] Workflow Planning
@@ -39,4 +39,8 @@
 - [x] Build and Test
 
 ### 🟡 OPERATIONS PHASE
-- [x] Operations (placeholder acknowledged)
+- [ ] Operations (placeholder acknowledged)
+
+## Reverse Engineering Status
+- [x] Reverse Engineering - Completed on 2026-04-03T08:15:39Z
+- **Artifacts Location**: aidlc-docs/inception/reverse-engineering/

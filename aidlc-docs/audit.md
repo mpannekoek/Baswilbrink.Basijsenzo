@@ -318,6 +318,241 @@ NFR requirements assessment has identified a practical quality baseline for the 
 
 ## NFR Design
 **Timestamp**: 2026-03-30T09:10:29Z
+**User Input**: "I’m continuing the approved workflow into NFR Design."
+**AI Response**: "Advanced into NFR Design and prepared the corresponding plan and design artifacts."
+**Context**: Historical construction-stage continuity
+
+---
+
+## Workflow Restart
+**Timestamp**: 2026-04-03T08:13:35Z
+**User Input**: "start a new unit / new functionality workflow"
+**AI Response**: "Loaded the mandatory AI-DLC common rules, welcome message, question-format rules, and extension rules; detected that the repository now contains an implemented application; and restarted the workflow from brownfield Workspace Detection to begin a new functionality/unit cycle."
+**Context**: New workflow initialization for additional functionality
+
+---
+
+## Workspace Detection
+**Timestamp**: 2026-04-03T08:13:35Z
+**User Input**: "start a new unit / new functionality workflow"
+**AI Response**: "Workspace analysis found an existing Next.js/TypeScript application under `src/web`, npm build manifests, tests, Docker support, and prior AI-DLC artifacts. The workspace is now treated as brownfield, reverse engineering is required, and the next stage is Reverse Engineering."
+**Context**: Workspace Detection completion for new functionality workflow
+
+---
+
+## Reverse Engineering
+**Timestamp**: 2026-04-03T08:15:39Z
+**User Input**: "start a new unit / new functionality workflow"
+**AI Response**: "Analyzed the implemented `src/web` Next.js application, generated the full reverse-engineering artifact set under `aidlc-docs/inception/reverse-engineering/`, and documented the current business flows, architecture, code structure, API surface, dependencies, and quality posture for the brownfield baseline."
+**Context**: Reverse Engineering execution
+
+---
+
+## Reverse Engineering Approval Prompt
+**Timestamp**: 2026-04-03T08:15:39Z
+**User Input**: "start a new unit / new functionality workflow"
+**AI Response**: "Reverse Engineering completed with two blocking enabled-security findings in the current codebase: the production CSP allows `unsafe-inline`, and no rate-limiting or abuse-case handling is documented for the public entrypoint. Review of the reverse-engineering artifacts is required before Requirements Analysis."
+**Context**: Reverse Engineering review gate presented
+
+---
+
+## Reverse Engineering Approval Response
+**Timestamp**: 2026-04-03T08:19:49Z
+**User Input**: "Approve and Continue"
+**AI Response**: "Recorded the approval attempt, but did not advance the workflow because enabled extension rules make the current SECURITY-04 and SECURITY-11 findings blocking. The workflow remains at Reverse Engineering review until the user requests changes or remediates the blocking findings."
+**Context**: Reverse Engineering approval blocked by enabled security extension
+
+---
+
+## Reverse Engineering Change Request
+**Timestamp**: 2026-04-03T08:28:11Z
+**User Input**: "Request Changes"
+**AI Response**: "Tightened the CSP by removing inline scripts from production responses, added proxy-based request throttling for the public entrypoint, reran lint, tests, and production build successfully, and refreshed the reverse-engineering artifacts to reflect the remediated security posture."
+**Context**: Reverse Engineering remediation for blocking security findings
+
+---
+
+## Reverse Engineering Approval Prompt
+**Timestamp**: 2026-04-03T08:28:11Z
+**User Input**: "Request Changes"
+**AI Response**: "Reverse Engineering was updated after the requested changes. The earlier SECURITY-04 and SECURITY-11 blockers are now remediated and the analysis is ready for approval to proceed to Requirements Analysis."
+**Context**: Reverse Engineering review gate re-presented after remediation
+
+---
+
+## Reverse Engineering Approval
+**Timestamp**: 2026-04-03T09:14:32Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Recorded approval of the reverse-engineering analysis and advanced the workflow to Requirements Analysis."
+**Context**: Reverse Engineering approved
+
+---
+
+## Requirements Analysis
+**Timestamp**: 2026-04-03T09:14:32Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Loaded the current requirements, stories, personas, and reverse-engineering artifacts; determined that the request for a new unit or new functionality is too ambiguous for a safe requirements delta; and replaced the requirements clarification file with brownfield-specific questions covering feature type, goal, scope, affected users, data handling, and delivery expectations."
+**Context**: Requirements Analysis question generation
+
+---
+
+## Requirements Analysis
+**Timestamp**: 2026-04-03T10:10:24Z
+**User Input**: "I want to have a portal (endpoint: /admin) behind a user login. For the user login I want to use: Auth.js + Microsoft login directly. I only support microsoft personal accounts. The apps needs to have logic which microsoft accounts are allowed to login. I want to have an access denied page when the login fails. The portal needs to have a dashboard looking UI (left sidebar with 1 dummy nav item) and a dummy content page at the right. We will create logic there in later stadium of the project."
+**AI Response**: "Used the new context to reframe Requirements Analysis around an authenticated admin portal and replaced the generic clarification questions with admin-specific questions covering allowlist management, unauthenticated access behavior, access-denied handling, session expectations, initial dashboard contents, admin visual direction, and delivery expectations."
+**Context**: Requirements Analysis refinement from user-supplied feature context
+
+---
+
+## Requirements Analysis
+**Timestamp**: 2026-04-03T14:03:36Z
+**User Input**: "I'm done."
+**AI Response**: "Read the completed admin-portal requirements question file, validated most answers successfully, and detected one ambiguity in the dashboard-scope answer where two options were selected for a single-choice question. Created a targeted clarification file to resolve that ambiguity before generating the updated requirements document."
+**Context**: Requirements Analysis answers analyzed; clarification required
+
+---
+
+## Requirements Analysis Clarification
+**Timestamp**: 2026-04-03T14:07:08Z
+**User Input**: "I'm done"
+**AI Response**: "Read the clarification answer, resolved the dashboard-scope ambiguity in favor of including both profile information and sign-out/welcome summary, and generated the updated requirements document for the authenticated `/admin` portal."
+**Context**: Requirements Analysis clarification resolved
+
+---
+
+## Requirements Analysis Approval Prompt
+**Timestamp**: 2026-04-03T14:07:08Z
+**User Input**: "I'm done"
+**AI Response**: "# 🔍 Requirements Analysis Complete\n\nRequirements analysis has identified a complex brownfield feature addition:\n- Key functional requirements include a protected `/admin` route, Auth.js with Microsoft personal-account login only, configuration-based allowlist authorization, a dedicated access-denied page, and a starter dashboard shell with sidebar, dummy navigation, dummy content, profile context, and sign-out support.\n- Key non-functional requirements include secure server-side authorization, brownfield-safe integration with the existing public site, maintainable separation of auth and admin-shell concerns, and a restrained dashboard UI that still aligns with the Bas IJs & Zo brand.\n- Architectural considerations include staying within the existing `src/web` Next.js app, keeping credentials and allowlists in environment-backed configuration for the first version, and treating authentication and authorization boundaries as first-class security requirements.\n\n> **📋 <u>**REVIEW REQUIRED:**</u>**\n> Please examine the requirements document at: `aidlc-docs/inception/requirements/requirements.md`\n\n\n\n> **🚀 <u>**WHAT'S NEXT?**</u>**\n>\n> **You may:**\n>\n> 🔧 **Request Changes** -  Ask for modifications to the requirements if required based on your review \n> ✅ **Approve & Continue** - Approve requirements and proceed to **User Stories**\n\n---"
+**Context**: Requirements Analysis approval gate presented
+
+---
+
+## Requirements Analysis Approval
+**Timestamp**: 2026-04-03T14:19:36Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Recorded approval of the updated admin-portal requirements and advanced the workflow to User Stories planning."
+**Context**: Requirements Analysis approved
+
+---
+
+## User Stories Planning
+**Timestamp**: 2026-04-03T14:19:36Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Created a new admin-specific user-stories assessment and replaced the story generation plan with a fresh planning artifact focused on the `/admin` portal, including new questions about story breakdown, denied-user representation, acceptance-criteria depth, and dashboard-shell treatment."
+**Context**: User Stories planning artifacts created
+
+---
+
+## User Stories Planning Prompt
+**Timestamp**: 2026-04-03T14:19:36Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Please answer the `[Answer]:` fields in `aidlc-docs/inception/plans/story-generation-plan.md` so the admin-portal story methodology can be finalized before generation."
+**Context**: User Stories planning input requested
+
+---
+
+## User Stories Planning
+**Timestamp**: 2026-04-03T19:18:07Z
+**User Input**: "I'm done."
+**AI Response**: "Read the completed admin-portal story-plan answers, found no blocking ambiguity, updated the plan checkboxes, and finalized the story approach as hybrid capability-based stories with journey-aware acceptance criteria, balanced security-aware acceptance detail, and a lightweight placeholder dashboard outcome."
+**Context**: User Stories planning answers received
+
+---
+
+## User Stories Planning Approval Prompt
+**Timestamp**: 2026-04-03T19:18:07Z
+**User Input**: "I'm done."
+**AI Response**: "User Stories planning is ready for review and approval. The proposed approach uses hybrid capability-based stories, treats unauthorized-user behavior within acceptance criteria rather than a separate persona emphasis, keeps security-sensitive auth behavior explicit, and treats the dashboard as a lightweight foundation rather than a full feature area."
+**Context**: User Stories plan approval gate presented
+
+---
+
+## User Stories Planning Approval
+**Timestamp**: 2026-04-03T19:19:01Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Recorded approval of the admin-portal story-generation plan and advanced to story generation."
+**Context**: User Stories planning approved
+
+---
+
+## User Stories Generation
+**Timestamp**: 2026-04-03T19:19:01Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Executed the approved admin-portal story-generation plan, updated the plan checkboxes, and generated fresh `stories.md` and `personas.md` artifacts covering protected entry, allowlist denial, dashboard foundation, and signed-in context."
+**Context**: User Stories artifacts generated
+
+---
+
+## User Stories Approval Prompt
+**Timestamp**: 2026-04-03T19:19:01Z
+**User Input**: "Approve & Continue"
+**AI Response**: "# 📚 User Stories Complete\n\nUser stories generation has created an implementation-ready admin-portal story set:\n- Personas generated: 3 personas covering allowed admin users, unauthorized Microsoft sign-ins, and unauthenticated `/admin` requests\n- User stories created: 4 stories covering protected admin entry, unauthorized-account denial, dashboard foundation, and signed-in context/sign-out behavior\n- Story structure: hybrid capability-based stories with journey-aware acceptance criteria\n- Story quality: INVEST-aligned with explicit acceptance criteria and security-sensitive access behavior captured in the story set\n\n> **📋 <u>**REVIEW REQUIRED:**</u>**\n> Please examine the user stories and personas at: `aidlc-docs/inception/user-stories/stories.md` and `aidlc-docs/inception/user-stories/personas.md`\n\n\n\n> **🚀 <u>**WHAT'S NEXT?**</u>**\n>\n> **You may:**\n>\n> 🔧 **Request Changes** -  Ask for modifications to the stories or personas based on your review  \n> ✅ **Approve & Continue** - Approve user stories and proceed to **Workflow Planning**\n\n---"
+**Context**: User Stories review gate presented
+
+---
+
+## User Stories Approval
+**Timestamp**: 2026-04-03T19:22:01Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Recorded approval of the admin-portal user stories and advanced the workflow to Workflow Planning."
+**Context**: User Stories approved
+
+---
+
+## Workflow Planning
+**Timestamp**: 2026-04-03T19:22:01Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Created a new brownfield execution plan for the `/admin` portal slice covering stage selection, impact analysis, risk analysis, workflow visualization, and execute/skip decisions for Application Design, Units, NFR, Infrastructure, Code Planning, Code Generation, and Build and Test."
+**Context**: Workflow Planning artifacts created
+
+---
+
+## Workflow Planning Approval Prompt
+**Timestamp**: 2026-04-03T19:22:01Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Workflow planning is ready for review. The plan proposes executing Application Design, NFR Requirements, NFR Design, Code Planning, Code Generation, and Build and Test; it skips Units Planning, Units Generation, Functional Design, and Infrastructure Design for this first admin slice."
+**Context**: Workflow Planning review gate presented
+
+---
+
+## Workflow Planning Approval
+**Timestamp**: 2026-04-03T19:24:32Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Recorded approval of the brownfield execution plan and advanced the workflow to Application Design."
+**Context**: Workflow Planning approved
+
+---
+
+## Application Design
+**Timestamp**: 2026-04-03T19:24:32Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Created a new admin-portal application-design plan and replaced the application-design artifacts with a brownfield design covering the Auth.js route handler, protected access guard, allowlist-backed authorization services, dedicated access-denied page, and the starter admin dashboard shell."
+**Context**: Application Design artifacts created
+
+---
+
+## Application Design Approval Prompt
+**Timestamp**: 2026-04-03T19:24:32Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Application Design is ready for review. Units Generation remains skipped in the current plan unless the user explicitly adds it."
+**Context**: Application Design review gate presented
+
+---
+
+## Application Design Approval
+**Timestamp**: 2026-04-03T19:26:48Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Recorded approval of the admin-portal application design and advanced into Construction at the NFR Requirements stage."
+**Context**: Application Design approved
+
+---
+
+## NFR Requirements Planning
+**Timestamp**: 2026-04-03T19:26:48Z
+**User Input**: "Approve & Continue"
+**AI Response**: "Created `aidlc-docs/construction/plans/admin-portal-nfr-requirements-plan.md` with admin-specific clarification questions covering session strictness, browser/device support, accessibility, auth-related observability, and maintainability bias."
+**Context**: NFR Requirements plan and questions created
 **User Input**: "Continue."
 **AI Response**: "Created `aidlc-docs/construction/plans/landing-page-nfr-design-plan.md` and generated the NFR design artifacts `nfr-design-patterns.md` and `logical-components.md` without requiring additional clarification questions."
 **Context**: NFR Design artifacts created

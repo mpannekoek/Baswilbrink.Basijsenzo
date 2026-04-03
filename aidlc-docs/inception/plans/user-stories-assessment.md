@@ -1,25 +1,25 @@
 # User Stories Assessment
 
 ## Request Analysis
-- **Original Request**: Build a branded landing page from scratch for Bas IJs & Zo with Next.js, TypeScript, Tailwind CSS, strong practical information, local storytelling, social proof, and Docker-ready delivery.
+- **Original Request**: Add a protected `/admin` portal to the existing site using Auth.js with Microsoft personal-account login, allowlist authorization, an access-denied page, and a starter dashboard shell.
 - **User Impact**: Direct
-- **Complexity Level**: Medium
-- **Stakeholders**: Bas IJs & Zo business owner, local customers, families, casual visitors, and secondary tourist visitors
+- **Complexity Level**: Complex
+- **Stakeholders**: Bas IJs & Zo admin users, unauthorized Microsoft account holders, and maintainers of the current public website
 
 ## Assessment Criteria Met
 - [x] High Priority: New user-facing functionality
-- [x] High Priority: User experience and interface design are central to the request
-- [x] High Priority: Multiple audience types are involved
+- [x] High Priority: Security-sensitive authentication and authorization flow
+- [x] High Priority: Multiple user types and outcomes are involved
 - [x] High Priority: Acceptance criteria will materially improve implementation quality
-- [x] Benefits: Shared understanding of page goals, better section-level acceptance criteria, clearer persona targeting, and stronger validation before code generation
+- [x] Benefits: Clear admin-user and denied-user journeys, better auth-flow validation, stronger protected-route acceptance criteria, and better separation between shell scaffolding and future portal logic
 
 ## Decision
 **Execute User Stories**: Yes
 
-**Reasoning**: This request is not a pure technical scaffold. It is a customer-facing landing page where tone, practical information hierarchy, trust signals, and audience fit are all central to success. User stories will help translate the approved requirements into concrete, testable page outcomes for locals, families, and secondary tourist visitors. The value of clearer acceptance criteria outweighs the small overhead of story creation.
+**Reasoning**: This is not a simple technical plumbing change. The new `/admin` area introduces a distinct authenticated user experience, a denial path for disallowed users, and a protected dashboard shell that future work will build on. User stories add clear value by making the allowed-user, denied-user, and protected-entry workflows explicit and testable before implementation expands further.
 
 ## Expected Outcomes
-- Clear personas representing the most important visitor groups
-- User stories that map to the landing page's core sections and actions
-- Acceptance criteria that reduce ambiguity before design and implementation
-- Better alignment between content structure, UX priorities, and later code generation
+- Personas representing allowed admin users and disallowed sign-in attempts
+- Stories that cover sign-in, authorization, denial handling, and initial dashboard usage
+- Acceptance criteria that protect both security behavior and admin usability
+- Better alignment between requirements, future portal expansion, and implementation boundaries

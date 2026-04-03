@@ -1,37 +1,36 @@
 # Personas
 
-## Persona 1: Dorpsbezoeker Daan
-- **Type**: Local returning customer
-- **Profile**: Lives nearby, already knows the village, often checks practical details before deciding to stop by.
+## Persona 1: Beheerder Britt
+- **Type**: Allowed admin user
+- **Profile**: Runs or supports Bas IJs & Zo operations and needs access to a future admin portal through a personal Microsoft account that has been explicitly approved.
 - **Primary Needs**:
-  - Quickly see whether Bas IJs & Zo is open
-  - Find address and contact details without effort
-  - Feel that the place is local, trusted, and worth revisiting
-- **Device Context**: Often mobile-first while already outside or on the move
-- **Success Signal**: Can understand opening hours and decide to visit within a few seconds
+  - Reach the protected admin area without confusing extra steps
+  - Recognize immediately that sign-in succeeded and the portal is ready
+  - See enough account context to trust that the correct user is signed in
+  - Have a clear sign-out path
+- **Device Context**: Mostly desktop or laptop, but should still be able to access the shell on smaller screens
+- **Success Signal**: Can reach `/admin`, understand the dashboard shell, and confirm signed-in status within moments
 
-## Persona 2: Gezinsplanner Gina
-- **Type**: Family-oriented visitor
-- **Profile**: Plans a casual outing with children or relatives and wants a place that feels friendly, safe, and welcoming.
+## Persona 2: Niet-Toegestane Noor
+- **Type**: Authenticated but unauthorized Microsoft user
+- **Profile**: Can complete Microsoft sign-in, but is not part of the configured allowlist for the admin portal.
 - **Primary Needs**:
-  - Get a warm first impression
-  - Understand what makes the parlor special
-  - Spot a fun product highlight such as the taste of the week
-  - Feel reassured by other customers' positive experiences
-- **Device Context**: Uses both mobile and desktop, but often starts on mobile
-- **Success Signal**: Feels confident that the parlor is a good family stop and shares it with others
+  - Understand clearly that authentication succeeded but authorization failed
+  - Avoid being trapped in a confusing loop between sign-in and denial
+  - Have a clear next action such as signing out or returning to the public site
+- **Device Context**: Any device capable of completing Microsoft sign-in
+- **Success Signal**: Receives a direct, understandable denial outcome without seeing protected admin content
 
-## Persona 3: Bezoeker Ben
-- **Type**: Secondary out-of-town visitor
-- **Profile**: Not from the immediate area, may be passing through, and needs the page structure to make practical sense quickly even in Dutch.
+## Persona 3: Bezoeker Zonder Sessie Sam
+- **Type**: Unauthenticated user requesting a protected route
+- **Profile**: Opens `/admin` without an active session, either intentionally or accidentally.
 - **Primary Needs**:
-  - Understand the basics through strong layout and visual hierarchy
-  - Find route, contact, and opening information easily
-  - Gain trust through brand story and reviews
-- **Device Context**: Primarily mobile while traveling
-- **Success Signal**: Can orient quickly and decide whether to visit despite limited Dutch fluency
+  - Be redirected predictably into the intended sign-in flow
+  - Avoid seeing broken, partial, or misleading protected UI
+- **Device Context**: Any browser, often through a bookmarked or manually entered admin URL
+- **Success Signal**: Is redirected into the Microsoft sign-in flow with no ambiguity about how to continue
 
 ## Persona-to-Story Mapping
-- **Dorpsbezoeker Daan**: US-1, US-2, US-4, US-6
-- **Gezinsplanner Gina**: US-1, US-3, US-4, US-5, US-6
-- **Bezoeker Ben**: US-1, US-2, US-5, US-6
+- **Beheerder Britt**: US-1, US-3, US-4
+- **Niet-Toegestane Noor**: US-2
+- **Bezoeker Zonder Sessie Sam**: US-1
