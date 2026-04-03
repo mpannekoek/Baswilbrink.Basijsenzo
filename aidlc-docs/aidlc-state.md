@@ -5,7 +5,7 @@
 - **Start Date**: 2026-03-30T07:54:30Z
 - **Current Stage**: CONSTRUCTION - Code Generation Review
 - **Current Workflow Focus**: `admin-portal` first slice (`/admin` with Auth.js, Microsoft login, allowlist authorization, access-denied page, and starter dashboard shell)
-- **Next Required User Action**: Review the generated admin-portal code in `src/web` plus `aidlc-docs/construction/admin-portal/code/` and reply with either `Request Changes` or `Continue to Next Stage`
+- **Next Required User Action**: Review the latest `admin-portal` implementation in `src/web` plus `aidlc-docs/construction/admin-portal/code/`, with special attention to the custom `/admin/sign-in` flow, cancelled-login return path, CSP behavior, reveal behavior, and sign-out behavior. Reply with either `Request Changes` or `Continue to Next Stage`
 
 ## Workspace State
 - **Existing Code**: Yes
@@ -56,4 +56,9 @@
   - `aidlc-docs/construction/admin-portal/code/code-summary.md`
   - `aidlc-docs/construction/admin-portal/nfr-design/nfr-design-patterns.md`
   - `aidlc-docs/construction/admin-portal/nfr-design/logical-components.md`
+  - `src/web/app/admin/sign-in/page.tsx`
+  - `src/web/components/admin/admin-sign-in-panel.tsx`
+  - `src/web/lib/auth/config.ts`
+  - `src/web/lib/site/security-headers.ts`
+- **Latest Local Commit**: `15a0cd6` (`feat: add admin portal auth flow`)
 - **Next Planned Stage After Approval**: CONSTRUCTION - Build and Test
