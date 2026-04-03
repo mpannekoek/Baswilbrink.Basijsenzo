@@ -10,6 +10,13 @@
   --border-soft: rgba(17, 17, 17, 0.08);
   --border-strong: rgba(17, 17, 17, 0.16);
   --ink-muted: rgba(17, 17, 17, 0.68);
+  --admin-background: #f6f1e8;
+  --admin-panel: rgba(255, 250, 244, 0.94);
+  --admin-panel-strong: rgba(255, 247, 238, 0.98);
+  --admin-border: rgba(17, 17, 17, 0.1);
+  --admin-border-strong: rgba(17, 17, 17, 0.18);
+  --admin-ink-strong: #181511;
+  --admin-ink-soft: rgba(24, 21, 17, 0.72);
 }
 
 * {
@@ -29,6 +36,13 @@ body {
     linear-gradient(180deg, #ffe8ca 0%, var(--background) 22%, #fff9f2 100%);
   color: var(--brand-black);
   font-family: var(--font-body), sans-serif;
+}
+
+body:has(.admin-shell-grid),
+body:has([data-testid="admin-access-denied-panel"]) {
+  background:
+    radial-gradient(circle at top left, rgba(255, 98, 17, 0.12), transparent 24%),
+    linear-gradient(180deg, #f8f0e6 0%, var(--admin-background) 40%, #f2ece3 100%);
 }
 
 a {
@@ -70,6 +84,20 @@ button:focus-visible {
   opacity: 1;
   transform: translateY(0);
   filter: saturate(1);
+}
+
+.admin-shell-grid {
+  display: grid;
+}
+
+.admin-shell-panel {
+  backdrop-filter: blur(14px);
+}
+
+@media (min-width: 1024px) {
+  .admin-shell-grid {
+    grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

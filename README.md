@@ -50,6 +50,22 @@ cd src/web && npm run dev
 
 Open `http://localhost:3000`.
 
+### Admin Portal Environment
+
+The protected `/admin` slice relies on Auth.js with Microsoft personal-account sign-in. Set these
+environment variables before testing the admin route locally:
+
+```bash
+AUTH_SECRET=replace-with-a-long-random-secret
+AUTH_MICROSOFT_CLIENT_ID=your-microsoft-app-client-id
+AUTH_MICROSOFT_CLIENT_SECRET=your-microsoft-app-client-secret
+AUTH_ALLOWED_EMAILS=admin1@example.com,admin2@example.com
+```
+
+`AUTH_ALLOWED_EMAILS` is a comma-, space-, newline-, or semicolon-separated allowlist. The admin
+portal uses the Microsoft `consumers` tenant, so the first slice is limited to personal Microsoft
+accounts.
+
 ## Quality Checks
 
 Run linting:

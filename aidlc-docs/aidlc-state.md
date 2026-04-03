@@ -3,9 +3,9 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-03-30T07:54:30Z
-- **Current Stage**: CONSTRUCTION - Code Generation Plan Review
+- **Current Stage**: CONSTRUCTION - Code Generation Review
 - **Current Workflow Focus**: `admin-portal` first slice (`/admin` with Auth.js, Microsoft login, allowlist authorization, access-denied page, and starter dashboard shell)
-- **Next Required User Action**: Review `aidlc-docs/construction/plans/admin-portal-code-generation-plan.md` and reply with either `Request Changes` or `Continue to Next Stage`
+- **Next Required User Action**: Review the generated admin-portal code in `src/web` plus `aidlc-docs/construction/admin-portal/code/` and reply with either `Request Changes` or `Continue to Next Stage`
 
 ## Workspace State
 - **Existing Code**: Yes
@@ -50,9 +50,10 @@
 ## Current Resume Context
 - **Current Unit**: `admin-portal`
 - **Last Completed Stage**: CONSTRUCTION - NFR Design
-- **Current Review Gate**: CONSTRUCTION - Code Generation Plan
+- **Current Review Gate**: CONSTRUCTION - Code Generation
 - **Current Artifacts**:
   - `aidlc-docs/construction/plans/admin-portal-code-generation-plan.md`
+  - `aidlc-docs/construction/admin-portal/code/code-summary.md`
   - `aidlc-docs/construction/admin-portal/nfr-design/nfr-design-patterns.md`
   - `aidlc-docs/construction/admin-portal/nfr-design/logical-components.md`
-- **Next Planned Stage After Approval**: CONSTRUCTION - Code Generation Execution
+- **Next Planned Stage After Approval**: CONSTRUCTION - Build and Test

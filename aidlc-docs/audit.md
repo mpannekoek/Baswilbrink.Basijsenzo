@@ -1351,3 +1351,131 @@ for the affected files only."
 **Context**: Construction phase approval gate presented for Code Generation Part 1
 
 ---
+
+## Code Generation Plan Approval
+**Timestamp**: 2026-04-03T19:43:24Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Recorded approval of the `admin-portal` code-generation plan, kept the implementation inside `src/web`, and advanced the workflow into Code Generation execution."
+**Context**: Code Generation Part 1 approved
+
+---
+
+## Code Generation
+**Timestamp**: 2026-04-03T19:47:12Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Implemented the first `admin-portal` slice in `src/web` with Auth.js-based Microsoft personal-account sign-in, environment-backed allowlist authorization, a protected `/admin` route boundary, a dedicated access-denied page, a starter dashboard shell, admin-specific tests, and updated environment documentation. Verification completed successfully with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code Generation Part 2 implementation and verification
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-03T19:47:12Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Presented the generated `admin-portal` code for review and updated the workflow state so the next required user action is a `Request Changes` or `Continue to Next Stage` response for the application code in `src/web` and the markdown summary in `aidlc-docs/construction/admin-portal/code/`."
+**Context**: Construction phase approval gate presented for Code Generation
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T19:47:12Z
+**User Input**: "Request Changes: all the content below the hero is not visible anymore. See this image: [Image #1]"
+**AI Response**: "Investigated the landing-page render path, identified the reveal animation as the most likely regression surface for non-hero sections, and updated `src/web/app/globals.css` so reveal-wrapped content remains visible by default instead of depending on client-side observer activation. Verification passed again with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request for landing-page visibility regression
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T19:58:05Z
+**User Input**: "but now the whole reveal effect is gone. Is there a way to fix that?"
+**AI Response**: "Updated `src/web/components/ui/reveal.tsx` and `src/web/app/globals.css` so reveal-wrapped content stays visible on first paint, elements already near the viewport remain visible, and only deeper below-the-fold content enters the pending animated state after mount. Verified the result with `npm run lint`, `npm test`, `npm run build`, and a live full-page browser screenshot of the homepage."
+**Context**: Code generation review change request for safe reveal-effect restoration
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T22:03:28Z
+**User Input**: "remove all the reveal effect we will implement it later"
+**AI Response**: "Removed the shared reveal animation behavior from `src/web/components/ui/reveal.tsx`, deleted the related reveal CSS from `src/web/app/globals.css`, and verified the resulting static rendering with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request to remove landing-page reveal effects
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:33:12Z
+**User Input**: "Request Changes: The sign-off buttons don't work"
+**AI Response**: "Added a shared `SessionProvider` wrapper through `src/web/components/providers/auth-session-provider.tsx` and wired it into `src/web/app/layout.tsx` so the client-side NextAuth `signOut` helper has the required app-wide session context. Verification passed with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request for admin sign-out button behavior
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:36:27Z
+**User Input**: "It still doesn't work. It does nothing when I click on it."
+**AI Response**: "Replaced the client-side `next-auth/react` sign-out helper usage in `src/web/components/admin/sign-out-button.tsx` with direct browser navigation to `/api/auth/signout?callbackUrl=...`, updated the corresponding admin test, and re-verified the project with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request for non-responsive sign-out button click behavior
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:41:30Z
+**User Input**: "Request Changes: it looks like a lot of js functions are not working anymore. Is it possible that it has to do with [Image #1]?"
+**AI Response**: "Confirmed the browser-console issue was caused by the global Content Security Policy blocking Next.js inline runtime scripts. Updated `src/web/lib/site/security-headers.ts` so script and connect directives allow the app’s runtime and the Microsoft auth endpoints to function, while preserving the rest of the header baseline. Re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request for CSP-related client-side runtime failures
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:48:00Z
+**User Input**: "Request Changes: sign-out is now working again. You can change it back to the orginal working version."
+**AI Response**: "Restored the original `next-auth/react` `signOut({ callbackUrl })` implementation in `src/web/components/admin/sign-out-button.tsx`, aligned the admin test back to that behavior, and re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request to restore the original sign-out implementation after the CSP fix
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:50:50Z
+**User Input**: "Request Changes: Could you implement the reveal functionality again? I think this also had to do with CSP."
+**AI Response**: "Restored the shared reveal animation behavior in `src/web/components/ui/reveal.tsx` and `src/web/app/globals.css`. With the global CSP corrected, the reveal wrapper can again rely on the client-side Next.js runtime for its intersection-observer behavior. Re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request to restore landing-page reveal functionality after the CSP fix
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:53:53Z
+**User Input**: "Request Changes: is it possible to get rid of this screen [Image #1] and just go directly to the microsoft login page?"
+**AI Response**: "Replaced the unauthenticated admin redirect target with a dedicated `/admin/sign-in` auto-start route. That route immediately calls `signIn('azure-ad', { callbackUrl })` on mount, which skips the intermediate NextAuth provider-selection screen and moves straight into the Microsoft login flow. Re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request to bypass the intermediate auth provider screen for unauthenticated admin access
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T20:57:40Z
+**User Input**: "undo the latest Request Change."
+**AI Response**: "Reverted the temporary `/admin/sign-in` auto-start route and restored the previous unauthenticated redirect behavior back to `/api/auth/signin/azure-ad?callbackUrl=...`. Removed the temporary route files, updated the affected admin tests, and re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Reverted the latest code generation review change for direct-to-provider login
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T18:59:01Z
+**User Input**: "Request Changes: is it possible to fix the broken image in this screen? [Image #1]"
+**AI Response**: "Confirmed that the NextAuth Azure provider screen references `/azure.svg` and that the asset was missing from `src/web/public`. Added `src/web/public/azure.svg` so the provider logo resolves correctly on the sign-in screen."
+**Context**: Code generation review change request for missing Azure provider logo asset
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T21:04:12Z
+**User Input**: "Request Changes: is it possible to show a custom page with: a simple admin login page with a \"Sign in with Microsoft\" action"
+**AI Response**: "Added a custom `/admin/sign-in` page and switched unauthenticated admin redirects to that route. The page renders simple admin-login copy with one `Sign in with Microsoft` action that starts the Azure provider flow directly through `signIn('azure-ad', { callbackUrl })`. Updated the admin tests and re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request for a custom admin login page
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-03T21:06:41Z
+**User Input**: "Request Changes: if I cancel login at microsoft it redirects me to this page [Image #1]. is it possible to go my own admin login page?"
+**AI Response**: "Configured NextAuth to use the custom `/admin/sign-in` page for both sign-in and auth-error flows, then extended the custom login page to show a small error message when the Microsoft callback is cancelled or fails. Updated the tests and re-verified with `npm run lint`, `npm test`, and `npm run build`."
+**Context**: Code generation review change request for returning cancelled Microsoft logins to the custom admin login page
+
+---

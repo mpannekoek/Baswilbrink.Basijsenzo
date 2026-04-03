@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Baloo_2, Manrope } from "next/font/google";
 
+import { AuthSessionProvider } from "@/components/providers/auth-session-provider";
 import { getSiteMetadata } from "@/lib/site/metadata";
 
 import "./globals.css";
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="nl">
       <body className={`${displayFont.variable} ${bodyFont.variable}`}>
-        {children}
+        <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
   );
