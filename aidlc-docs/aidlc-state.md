@@ -3,9 +3,9 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-03-30T07:54:30Z
-- **Current Stage**: CONSTRUCTION - NFR Requirements Review
+- **Current Stage**: CONSTRUCTION - Code Generation Plan Review
 - **Current Workflow Focus**: `admin-portal` first slice (`/admin` with Auth.js, Microsoft login, allowlist authorization, access-denied page, and starter dashboard shell)
-- **Next Required User Action**: Review `aidlc-docs/construction/admin-portal/nfr-requirements/` and reply with either `Request Changes` or `Continue to Next Stage`
+- **Next Required User Action**: Review `aidlc-docs/construction/plans/admin-portal-code-generation-plan.md` and reply with either `Request Changes` or `Continue to Next Stage`
 
 ## Workspace State
 - **Existing Code**: Yes
@@ -34,8 +34,8 @@
 
 ### 🟢 CONSTRUCTION PHASE
 - [ ] Functional Design
-- [ ] NFR Requirements
-- [ ] NFR Design
+- [x] NFR Requirements
+- [x] NFR Design
 - [ ] Infrastructure Design
 - [ ] Code Generation
 - [ ] Build and Test
@@ -49,10 +49,10 @@
 
 ## Current Resume Context
 - **Current Unit**: `admin-portal`
-- **Last Completed Stage**: INCEPTION - Application Design
-- **Current Review Gate**: CONSTRUCTION - NFR Requirements
+- **Last Completed Stage**: CONSTRUCTION - NFR Design
+- **Current Review Gate**: CONSTRUCTION - Code Generation Plan
 - **Current Artifacts**:
-  - `aidlc-docs/construction/admin-portal/nfr-requirements/nfr-requirements.md`
-  - `aidlc-docs/construction/admin-portal/nfr-requirements/tech-stack-decisions.md`
-  - `aidlc-docs/construction/plans/admin-portal-nfr-requirements-plan.md`
-- **Next Planned Stage After Approval**: CONSTRUCTION - NFR Design
+  - `aidlc-docs/construction/plans/admin-portal-code-generation-plan.md`
+  - `aidlc-docs/construction/admin-portal/nfr-design/nfr-design-patterns.md`
+  - `aidlc-docs/construction/admin-portal/nfr-design/logical-components.md`
+- **Next Planned Stage After Approval**: CONSTRUCTION - Code Generation Execution
