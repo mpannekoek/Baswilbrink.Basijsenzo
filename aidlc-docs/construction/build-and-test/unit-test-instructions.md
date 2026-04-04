@@ -8,19 +8,21 @@ cd src/web && npm test
 ```
 
 ### 2. Review Test Results
-- **Expected**: 3 tests pass, 0 failures
+- **Expected**: 12 tests pass, 0 failures
 - **Coverage Focus**:
-  - hero rendering
-  - eager loading on the above-the-fold hero image
-  - practical information presence
-  - review summary presence
-- **Current Test File**:
+  - landing-page hero and practical-information rendering
+  - admin allowlist normalization and access decisions
+  - protected admin-shell rendering and current sidebar composition
+  - custom admin sign-in page action wiring
+  - access-denied recovery actions
+- **Current Test Files**:
   - `src/web/tests/landing-page/page.test.tsx`
+  - `src/web/tests/admin-portal/admin-portal.test.tsx`
 
 ### 3. Fix Failing Tests
 If tests fail:
 1. review the failing assertion output
-2. inspect the affected component or content file
+2. inspect the affected component, auth helper, or content file
 3. update the test or implementation as needed
 4. rerun `cd src/web && npm test`
 
@@ -28,4 +30,5 @@ If tests fail:
 - verify CTA labels and hrefs
 - verify opening-hours “today” emphasis
 - verify major sections render with expected headings
-- verify mobile-critical content remains present in the page output
+- verify admin layout redirects when auth config is missing
+- verify cancelled Microsoft login returns to `/admin/sign-in` with the expected error state

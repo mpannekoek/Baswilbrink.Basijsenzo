@@ -99,15 +99,41 @@ describe("admin portal helpers and components", () => {
     const sessionViewModel = toAdminSessionViewModel(createSession("bas@example.com"));
 
     render(
-      <AdminShell navigation={getAdminNavigation()} session={sessionViewModel}>
+      <AdminShell
+        currentDateTime="zaterdag 4 april 2026 om 11:52"
+        navigation={getAdminNavigation()}
+        session={sessionViewModel}
+      >
         <AdminDashboardHome session={sessionViewModel} />
       </AdminShell>,
     );
 
     expect(screen.getByTestId("admin-nav-dashboard-link")).toBeInTheDocument();
+    expect(screen.getByTestId("admin-nav-content-link")).toBeInTheDocument();
+    expect(screen.queryByTestId("admin-nav-orders-link")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("admin-nav-analytics-link")).not.toBeInTheDocument();
     expect(screen.getByTestId("admin-profile-card")).toBeInTheDocument();
     expect(screen.getByTestId("admin-dashboard-summary")).toBeInTheDocument();
     expect(screen.getByTestId("admin-signout-button")).toBeInTheDocument();
+  });
+
+  it("opens the sidebar as a full mobile menu", () => {
+    const sessionViewModel = toAdminSessionViewModel(createSession("bas@example.com"));
+
+    render(
+      <AdminShell
+        currentDateTime="zaterdag 4 april 2026 om 11:52"
+        navigation={getAdminNavigation()}
+        session={sessionViewModel}
+      >
+        <AdminDashboardHome session={sessionViewModel} />
+      </AdminShell>,
+    );
+
+    fireEvent.click(screen.getAllByTestId("admin-mobile-menu-button")[0]);
+
+    expect(screen.getByTestId("admin-mobile-menu-close")).toBeInTheDocument();
+    expect(screen.getAllByTestId("admin-nav-dashboard-link").length).toBeGreaterThan(0);
   });
 
   it("renders the access-denied panel with safe actions", () => {

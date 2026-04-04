@@ -29,11 +29,11 @@ export function AdminSignInPanel({ callbackUrl, error }: AdminSignInPanelProps) 
 
   return (
     <main className="flex min-h-screen items-center justify-center px-4 py-12">
-      <section className="admin-shell-panel w-full max-w-xl rounded-[2.4rem] border border-[color:var(--admin-border)] bg-[color:var(--admin-panel)] p-8 shadow-[0_30px_70px_rgba(17,17,17,0.12)] sm:p-10">
+      <section className="admin-shell-panel w-full max-w-xl border-y border-[var(--border-soft)] bg-[var(--surface)] px-6 py-8 sm:px-8 sm:py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--brand-orange)]">
           Admin portal
         </p>
-        <h1 className="mt-3 text-4xl font-semibold text-[color:var(--admin-ink-strong)]">
+        <h1 className="display-font mt-3 text-5xl leading-none text-[color:var(--admin-ink-strong)]">
           Beheeromgeving aanmelden
         </h1>
         <p className="mt-4 max-w-lg text-base leading-7 text-[color:var(--admin-ink-soft)]">
@@ -43,7 +43,7 @@ export function AdminSignInPanel({ callbackUrl, error }: AdminSignInPanelProps) 
 
         {errorMessage ? (
           <p
-            className="mt-6 rounded-2xl border border-[#d15a52] bg-[#fff1ef] px-4 py-3 text-sm font-medium text-[#b23e37]"
+            className="mt-6 border border-[#d15a52] bg-[#fff1ef] px-4 py-3 text-sm font-medium text-[#b23e37]"
             data-testid="admin-signin-error"
           >
             {errorMessage}
@@ -52,7 +52,7 @@ export function AdminSignInPanel({ callbackUrl, error }: AdminSignInPanelProps) 
 
         <div className="mt-8">
           <button
-            className="rounded-full bg-[color:var(--brand-black)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--brand-orange)]"
+            className="border border-[var(--brand-black)] bg-[var(--brand-black)] px-6 py-3 text-sm font-semibold text-white transition hover:border-[var(--brand-orange)] hover:bg-[var(--brand-orange)]"
             data-testid="admin-signin-button"
             disabled={isPending}
             type="button"

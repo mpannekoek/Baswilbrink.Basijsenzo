@@ -15,8 +15,18 @@ export default async function ProtectedAdminLayout({
     redirect(accessDecision.redirectTo);
   }
 
+  const currentDateTime = new Intl.DateTimeFormat("nl-NL", {
+    dateStyle: "full",
+    timeStyle: "short",
+    timeZone: "Europe/Amsterdam",
+  }).format(new Date());
+
   return (
-    <AdminShell navigation={getAdminNavigation()} session={accessDecision.sessionViewModel}>
+    <AdminShell
+      currentDateTime={currentDateTime}
+      navigation={getAdminNavigation()}
+      session={accessDecision.sessionViewModel}
+    >
       {children}
     </AdminShell>
   );

@@ -1,11 +1,15 @@
 # Build Instructions
 
 ## Prerequisites
-- **Build Tool**: `npm` 11.9.0
+- **Build Tool**: `npm` 11.11.0
 - **Runtime**: `node` 24.14.0
 - **Application Root**: `src/web`
 - **Dependencies**: install from `src/web/package.json` and `src/web/package-lock.json`
 - **Environment Variables**:
+  - `AUTH_SECRET` for Auth.js session signing
+  - `AUTH_MICROSOFT_CLIENT_ID` for Microsoft personal-account sign-in
+  - `AUTH_MICROSOFT_CLIENT_SECRET` for Microsoft personal-account sign-in
+  - `AUTH_ALLOWED_EMAILS` for allowlisted admin access
   - optional: `PORT` for runtime override
 - **System Requirements**:
   - Node.js 24+
@@ -31,6 +35,18 @@ cd src/web && npm run build
   - `src/web/.next/standalone/` when standalone output is generated
 - **Common Acceptable Notes**:
   - build output lists `/` and `/_not-found` as static routes
+  - build output lists `/admin`, `/admin/sign-in`, and `/api/auth/[...nextauth]` as dynamic routes
+
+### 4. Smoke-Test The Built Runtime
+```bash
+cd src/web && npm start
+```
+
+Verify:
+- `http://localhost:3000/` renders the public landing page
+- `http://localhost:3000/admin/sign-in` renders the custom admin sign-in page
+- `http://localhost:3000/admin` redirects unauthenticated users into `/admin/sign-in`
+- `http://localhost:3000/admin/access-denied` renders without runtime errors
 
 ## Docker Build
 
@@ -48,6 +64,8 @@ docker run --rm -p 3000:3000 basijsenzo:local
 - Open `http://localhost:3000`
 - Confirm the landing page loads
 - Confirm the logo, hero, opening hours, and review section render correctly
+- Confirm `/admin/sign-in` loads inside the containerized runtime
+- Confirm `/admin` redirects unauthenticated users to the custom sign-in page
 
 ## GitHub Actions GHCR Publish
 
@@ -99,3 +117,10 @@ docker run --rm -p 3000:3000 ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
   2. inspect the reported file
   3. fix the type or config issue
   4. rerun `cd src/web && npm run build`
+
+### Admin Routes Fail With Auth Configuration Errors
+- **Cause**: one or more required auth environment variables are missing or malformed
+- **Solution**:
+  1. verify `AUTH_SECRET`, `AUTH_MICROSOFT_CLIENT_ID`, `AUTH_MICROSOFT_CLIENT_SECRET`, and `AUTH_ALLOWED_EMAILS` are set
+  2. restart the dev or production server after updating the environment
+  3. retry `http://localhost:3000/admin/sign-in`

@@ -8,25 +8,20 @@ export function AdminProfileCard({ session }: AdminProfileCardProps) {
   return (
     <section
       aria-label="Ingelogd profiel"
-      className="admin-shell-panel rounded-[2rem] border border-[color:var(--admin-border)] bg-[color:var(--admin-panel)] p-5"
+      className="flex w-full min-w-0 items-center gap-3 lg:w-auto"
       data-testid="admin-profile-card"
     >
-      <div className="flex items-center gap-4">
-        <div
-          aria-hidden="true"
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--brand-orange)] text-sm font-bold text-white"
-        >
-          {session.initials}
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-orange)]">
-            Ingelogd als
-          </p>
-          <p className="mt-1 text-lg font-semibold text-[color:var(--admin-ink-strong)]">
-            {session.displayName}
-          </p>
-          <p className="text-sm text-[color:var(--admin-ink-soft)]">{session.email}</p>
-        </div>
+      <div
+        aria-hidden="true"
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--brand-orange)] bg-[color:var(--brand-orange)] text-xs font-bold text-white"
+      >
+        {session.initials}
+      </div>
+      <div className="min-w-0">
+        <p className="break-words text-sm font-semibold text-black">
+          {session.displayName}
+        </p>
+        <p className="break-all text-xs text-black/56">{session.email}</p>
       </div>
     </section>
   );
