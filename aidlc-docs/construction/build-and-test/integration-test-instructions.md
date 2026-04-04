@@ -1,7 +1,7 @@
 # Integration Test Instructions
 
 ## Purpose
-For this single-runtime web app, integration testing means validating that the built Next.js application, its static content, auth configuration, protected admin routes, and container packaging work together correctly.
+For this single-runtime web app, integration testing means validating that the built Next.js application, its auth configuration, protected admin routes, auth-error routing, and container packaging work together correctly.
 
 ## Test Scenarios
 
@@ -21,9 +21,9 @@ For this single-runtime web app, integration testing means validating that the b
   - the real logo loads from `src/web/public/logo.png`
 
 ### Scenario 2: Unauthenticated Admin Requests Use The Custom Sign-In Flow
-- **Description**: Verify protected admin entry sends unauthenticated users to the custom `/admin/sign-in` route instead of the generic provider-selection screen
+- **Description**: Verify protected admin entry sends unauthenticated users to the custom `/admin/sign-in` route
 - **Setup**:
-  - set `AUTH_SECRET`, `AUTH_MICROSOFT_CLIENT_ID`, `AUTH_MICROSOFT_CLIENT_SECRET`, and `AUTH_ALLOWED_EMAILS`
+  - set the required auth environment variables
   - run the built app locally
 - **Test Steps**:
   1. run `cd src/web && npm run build`
@@ -36,25 +36,24 @@ For this single-runtime web app, integration testing means validating that the b
   - the custom admin sign-in page renders cleanly
   - the sign-in button starts the Microsoft provider flow
 
-### Scenario 3: Cancelled Microsoft Login Returns To The Custom Sign-In Page
-- **Description**: Verify Microsoft-login cancellation or callback failure returns the user to the project-owned sign-in experience
+### Scenario 3: Unexpected Auth Problems Use The Auth-Error Route
+- **Description**: Verify configuration or route failures end at `/admin/auth-error` instead of `/admin/access-denied`
 - **Setup**:
-  - use the same local runtime as Scenario 2
+  - start the app with one required auth variable intentionally missing, or use a controlled callback failure case
 - **Test Steps**:
-  1. open `http://localhost:3000/admin/sign-in`
-  2. start Microsoft sign-in
-  3. cancel the Microsoft login flow
-  4. observe the returned page
+  1. open `http://localhost:3000/admin`
+  2. observe the destination route
+  3. open `http://localhost:3000/admin/auth-error`
+  4. confirm the page offers retry guidance and a safe return-home action
 - **Expected Results**:
-  - the browser returns to `/admin/sign-in`
-  - the page shows the small auth-error state
-  - no raw provider or framework error page is exposed
+  - unexpected auth failures do not reuse the access-denied page
+  - the page stays non-sensitive and project-owned
 
 ### Scenario 4: Allowlisted Account Reaches The Protected Shell
 - **Description**: Verify an allowlisted Microsoft account can reach the protected admin shell
 - **Setup**:
   - include the test account email in `AUTH_ALLOWED_EMAILS`
-  - run the production app locally
+  - set `NEXTAUTH_URL` and `AUTH_URL` to the real host
 - **Test Steps**:
   1. sign in with the allowlisted account
   2. confirm the app lands on `/admin`
@@ -76,20 +75,18 @@ For this single-runtime web app, integration testing means validating that the b
   - the denial page exposes only safe recovery actions
   - protected shell content never renders
 
-### Scenario 6: Docker Runtime Serves The Same Public And Admin Entry Experience
-- **Description**: Verify the Dockerized runtime serves the same routes successfully
+### Scenario 6: Production Host Callback Behavior
+- **Description**: Verify successful login and logout resolve against the real production host rather than localhost
 - **Setup**:
-  - Docker installed locally
+  - set `NEXTAUTH_URL`, `AUTH_URL`, and `AUTH_TRUST_HOST=true`
+  - run behind the same host or proxy model used in production
 - **Test Steps**:
-  1. run `docker build -t basijsenzo:local ./src/web`
-  2. run `docker run --rm -p 3000:3000 --env-file .env.local basijsenzo:local`
-  3. open `http://localhost:3000`
-  4. verify the public page behavior matches the local `npm start` experience
-  5. verify `/admin/sign-in` and the unauthenticated `/admin` redirect still work
+  1. sign in with an allowlisted account
+  2. confirm the post-login redirect returns to `https://basijsenzo.duckdns.org/admin`
+  3. click `Uitloggen`
+  4. confirm the browser returns to `https://basijsenzo.duckdns.org/`
 - **Expected Results**:
-  - container starts cleanly
-  - site loads successfully
-  - public and admin-entry routes behave the same as the local production runtime
+  - no redirect falls back to `localhost:3000` or `localhost:3030`
 
 ## Run Integration Checks
 
@@ -102,7 +99,15 @@ cd src/web && npm start
 ### Docker Runtime
 ```bash
 docker build -t basijsenzo:local ./src/web
-docker run --rm -p 3000:3000 --env-file .env.local basijsenzo:local
+docker run --rm -p 3000:3000 \
+  -e AUTH_SECRET=replace-me \
+  -e AUTH_MICROSOFT_CLIENT_ID=replace-me \
+  -e AUTH_MICROSOFT_CLIENT_SECRET=replace-me \
+  -e AUTH_ALLOWED_EMAILS=admin@example.com \
+  -e NEXTAUTH_URL=https://basijsenzo.duckdns.org \
+  -e AUTH_URL=https://basijsenzo.duckdns.org \
+  -e AUTH_TRUST_HOST=true \
+  basijsenzo:local
 ```
 
 ## Cleanup

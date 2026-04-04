@@ -1,7 +1,7 @@
 # E2E Test Instructions
 
 ## Purpose
-Run practical manual smoke tests for both the visitor journey and the first admin-portal journey.
+Run practical manual smoke tests for both the visitor journey and the current admin-portal auth-observability journey.
 
 ## Scenario 1: First-Time Visitor Flow
 1. open the homepage
@@ -20,39 +20,48 @@ Run practical manual smoke tests for both the visitor journey and the first admi
 4. confirm review cards and content blocks stack cleanly
 5. confirm the footer/contact actions remain easy to tap
 
-## Scenario 3: Route And Contact Smoke Check
-1. click the call CTA and verify the phone link format is correct
-2. click the route CTA and verify the map link opens correctly
-
-## Scenario 4: Admin Sign-In Entry
+## Scenario 3: Admin Sign-In Entry
 1. open `http://localhost:3000/admin`
 2. confirm you land on the custom `/admin/sign-in` page
 3. confirm the page shows one clear `Sign in with Microsoft` action
 4. start the Microsoft login flow
 
-## Scenario 5: Admin Login Cancellation
+## Scenario 4: Admin Login Cancellation Or Failure
 1. start from `http://localhost:3000/admin/sign-in`
 2. begin Microsoft login
-3. cancel the login at Microsoft
-4. confirm the app returns to `/admin/sign-in`
-5. confirm the inline error state is shown without exposing framework internals
+3. cancel the login at Microsoft or trigger a callback failure
+4. confirm the app returns to a project-owned error state
+5. confirm no raw provider or framework error page is exposed
 
-## Scenario 6: Authorized Admin Journey
+## Scenario 5: Authorized Admin Journey
 1. sign in with an allowlisted Microsoft account
 2. confirm the app lands on `/admin`
-3. confirm the dashboard shell shows the sidebar, profile summary, and placeholder content
+3. confirm the dashboard shell shows the sidebar, profile summary, and welcome content
 4. click the sign-out action
 5. confirm the browser returns to `/`
 
-## Scenario 7: Unauthorized Admin Journey
+## Scenario 6: Unauthorized Admin Journey
 1. sign in with a Microsoft account not present in `AUTH_ALLOWED_EMAILS`
 2. confirm the app redirects to `/admin/access-denied`
 3. confirm the denial page shows safe recovery actions only
 4. use the return-home or sign-out action and confirm recovery works
 
+## Scenario 7: Unexpected Auth Error Journey
+1. trigger an auth misconfiguration or controlled route failure
+2. confirm the app redirects to `/admin/auth-error`
+3. confirm the page offers retry guidance and a safe route back to the site
+4. retry sign-in after fixing the issue
+
+## Scenario 8: Production Host Redirect Check
+1. run the deployed app at `https://basijsenzo.duckdns.org`
+2. sign in successfully
+3. confirm the post-login redirect returns to the production `/admin` route
+4. click `Uitloggen`
+5. confirm the logout redirect returns to the production `/` route instead of localhost
+
 ## Expected Outcome
-- the page feels polished, warm, local, and mobile-friendly
-- practical information is easy to access
-- branding remains black/orange-led and does not drift toward the inspiration palette
-- the admin sign-in and denial flows stay project-owned and understandable
-- the protected shell appears only for allowlisted accounts
+- the landing page remains stable and mobile-friendly
+- successful admin login remains project-owned and predictable
+- unauthorized access uses `/admin/access-denied`
+- unexpected auth problems use `/admin/auth-error`
+- login and logout redirects resolve against the real production host when base-URL env vars are configured correctly

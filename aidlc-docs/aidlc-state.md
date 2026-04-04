@@ -3,9 +3,9 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-03-30T07:54:30Z
-- **Current Stage**: CONSTRUCTION - Code Generation Review Pending
-- **Current Workflow Focus**: Add production-useful authentication-flow diagnostics to the existing `admin-portal` so configuration issues, provider/callback failures, and authorization outcomes can be distinguished in logs instead of collapsing into the same visible denial experience.
-- **Next Required User Action**: Review the generated auth-observability code in `src/web` plus `aidlc-docs/construction/admin-portal/code/code-summary.md`, then respond with `Request Changes` or `Continue to Next Stage`.
+- **Current Stage**: OPERATIONS - Placeholder Acknowledged
+- **Current Workflow Focus**: Approved and verified auth-observability upgrade for the existing `admin-portal`, including structured auth-event logging, masked identifiers, dedicated `/admin/auth-error` handling, and production-safe login/logout redirect behavior guidance.
+- **Next Required User Action**: None. Session can be resumed later from `aidlc-docs/aidlc-state.md` for a new request or future Operations-phase expansion.
 
 ## Execution Plan Summary
 - **Total Stages**: 12
@@ -53,6 +53,7 @@
 - [x] `landing-page` infrastructure design delivered and documented
 - [x] `landing-page` content-centralization follow-up delivered
 - [x] `admin-portal` first slice delivered, reviewed, and verified
+- [x] `admin-portal` auth-observability upgrade delivered, reviewed, and verified
 
 ## Reverse Engineering Status
 - [x] Reverse Engineering - Completed on 2026-04-03T08:15:39Z
@@ -61,9 +62,9 @@
 ## Current Resume Context
 - **Current Unit**: `admin-portal`
 - **Last Delivered Unit**: `admin-portal`
-- **Last Completed Stage**: OPERATIONS - Placeholder acknowledgement for the previous admin-portal baseline
-- **Current Review Gate**: Code Generation output review pending
-- **Session Status**: Active. A new brownfield increment is in progress for admin authentication logging and production troubleshooting.
+- **Last Completed Stage**: OPERATIONS - Placeholder acknowledgement for the auth-observability increment
+- **Current Review Gate**: None
+- **Session Status**: Safe to close. Latest approved implementation and documentation have been written to disk.
 - **Current Artifacts**:
   - `aidlc-docs/aidlc-state.md`
   - `aidlc-docs/audit.md`
@@ -75,6 +76,7 @@
   - `aidlc-docs/construction/build-and-test/security-test-instructions.md`
   - `aidlc-docs/construction/build-and-test/e2e-test-instructions.md`
   - `aidlc-docs/construction/build-and-test/build-and-test-summary.md`
-- **Recommended Resume Prompt**: `Resume the AI-DLC workflow from aidlc-docs/aidlc-state.md and continue the admin-portal auth logging increment.`
-- **Latest Local Commit**: `15a0cd6` (`feat: add admin portal auth flow`)
-- **Next Planned Stage After Approval**: Build and Test for the auth-observability increment
+- **Recommended Resume Prompt**: `Resume the AI-DLC workflow from aidlc-docs/aidlc-state.md and continue from the latest approved admin-portal auth-observability state.`
+- **Latest Completed Feature Commit**: `6adea48` (`feat: add admin auth observability`)
+- **Latest Repository Commit**: use `git log -1 --oneline` after resuming to see the newest post-sync commit
+- **Next Planned Stage After Approval**: None

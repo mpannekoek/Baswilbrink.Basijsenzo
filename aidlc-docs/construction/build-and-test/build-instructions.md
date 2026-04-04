@@ -10,6 +10,9 @@
   - `AUTH_MICROSOFT_CLIENT_ID` for Microsoft personal-account sign-in
   - `AUTH_MICROSOFT_CLIENT_SECRET` for Microsoft personal-account sign-in
   - `AUTH_ALLOWED_EMAILS` for allowlisted admin access
+  - `NEXTAUTH_URL` for the production auth base URL
+  - `AUTH_URL` for the production auth base URL
+  - `AUTH_TRUST_HOST=true` when production host detection depends on proxy headers
   - optional: `PORT` for runtime override
 - **System Requirements**:
   - Node.js 24+
@@ -29,13 +32,13 @@ cd src/web && npm run build
 ```
 
 ### 3. Verify Build Success
-- **Expected Output**: successful Next.js production build with static page generation
+- **Expected Output**: successful Next.js production build with static and dynamic route reporting
 - **Build Artifacts**:
   - `src/web/.next/`
   - `src/web/.next/standalone/` when standalone output is generated
 - **Common Acceptable Notes**:
   - build output lists `/` and `/_not-found` as static routes
-  - build output lists `/admin`, `/admin/sign-in`, and `/api/auth/[...nextauth]` as dynamic routes
+  - build output lists `/admin`, `/admin/sign-in`, `/admin/auth-error`, and `/api/auth/[...nextauth]` as dynamic routes
 
 ### 4. Smoke-Test The Built Runtime
 ```bash
@@ -47,6 +50,7 @@ Verify:
 - `http://localhost:3000/admin/sign-in` renders the custom admin sign-in page
 - `http://localhost:3000/admin` redirects unauthenticated users into `/admin/sign-in`
 - `http://localhost:3000/admin/access-denied` renders without runtime errors
+- `http://localhost:3000/admin/auth-error` renders without runtime errors
 
 ## Docker Build
 
@@ -57,49 +61,23 @@ docker build -t basijsenzo:local ./src/web
 
 ### 2. Run The Container
 ```bash
-docker run --rm -p 3000:3000 basijsenzo:local
+docker run --rm -p 3000:3000 \
+  -e AUTH_SECRET=replace-me \
+  -e AUTH_MICROSOFT_CLIENT_ID=replace-me \
+  -e AUTH_MICROSOFT_CLIENT_SECRET=replace-me \
+  -e AUTH_ALLOWED_EMAILS=admin@example.com \
+  -e NEXTAUTH_URL=https://basijsenzo.duckdns.org \
+  -e AUTH_URL=https://basijsenzo.duckdns.org \
+  -e AUTH_TRUST_HOST=true \
+  basijsenzo:local
 ```
 
 ### 3. Verify Container Runtime
 - Open `http://localhost:3000`
 - Confirm the landing page loads
-- Confirm the logo, hero, opening hours, and review section render correctly
 - Confirm `/admin/sign-in` loads inside the containerized runtime
 - Confirm `/admin` redirects unauthenticated users to the custom sign-in page
-
-## GitHub Actions GHCR Publish
-
-### 1. Verify Workflow File Exists
-- Confirm `.github/workflows/publish-image.yml` is present in the repository.
-- Confirm the workflow builds the web app from the `src/web` application root.
-- Confirm the Docker build context is `./src/web`.
-- Confirm the Dockerfile path is `./src/web/Dockerfile`.
-
-### 2. Verify Workflow Triggers
-- Confirm the workflow is configured for:
-  - pushes to `main`
-  - optional manual dispatch
-  - version tags if release tagging is later adopted
-
-### 3. Verify Publish Permissions
-- Confirm the workflow uses:
-  - `contents: read`
-  - `packages: write`
-
-### 4. Verify Expected Image Naming
-- Expected registry target:
-  - `ghcr.io/mpannekoek/baswilbrink.basijsenzo`
-- Expected tags include:
-  - `latest` from `main`
-  - `sha-<commit>` for immutable traceability
-
-### 5. Verify Published Image
-- After a successful workflow run, inspect the GHCR package in GitHub.
-- Pull and run the image from GHCR:
-```bash
-docker pull ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
-docker run --rm -p 3000:3000 ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
-```
+- Confirm `/admin/auth-error` loads when visited directly
 
 ## Troubleshooting
 
@@ -118,9 +96,17 @@ docker run --rm -p 3000:3000 ghcr.io/mpannekoek/baswilbrink.basijsenzo:latest
   3. fix the type or config issue
   4. rerun `cd src/web && npm run build`
 
+### Successful Microsoft Login Redirects To The Wrong Host
+- **Cause**: production auth base URL is missing or inferred incorrectly
+- **Solution**:
+  1. set `NEXTAUTH_URL=https://basijsenzo.duckdns.org`
+  2. set `AUTH_URL=https://basijsenzo.duckdns.org`
+  3. set `AUTH_TRUST_HOST=true` when behind a reverse proxy
+  4. restart the container or runtime
+
 ### Admin Routes Fail With Auth Configuration Errors
 - **Cause**: one or more required auth environment variables are missing or malformed
 - **Solution**:
   1. verify `AUTH_SECRET`, `AUTH_MICROSOFT_CLIENT_ID`, `AUTH_MICROSOFT_CLIENT_SECRET`, and `AUTH_ALLOWED_EMAILS` are set
-  2. restart the dev or production server after updating the environment
-  3. retry `http://localhost:3000/admin/sign-in`
+  2. verify `NEXTAUTH_URL` and `AUTH_URL` point at the real production domain
+  3. restart the runtime after updating the environment
