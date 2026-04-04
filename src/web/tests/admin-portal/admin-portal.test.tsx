@@ -3,11 +3,14 @@ import type { Session } from "next-auth";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AccessDeniedPanel } from "@/components/admin/access-denied-panel";
+import { AuthErrorPanel } from "@/components/admin/auth-error-panel";
 import { AdminDashboardHome } from "@/components/admin/admin-dashboard-home";
 import { AdminSignInPanel } from "@/components/admin/admin-sign-in-panel";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { getAllowedAccountsFromEnv, parseAllowedAccountList } from "@/lib/auth/allowed-accounts";
+import { getAdminAuthErrorPath } from "@/lib/auth/config";
 import { resolveAdminAccess } from "@/lib/auth/admin-access";
+import { maskAuthIdentifier } from "@/lib/auth/logging";
 import { getAdminNavigation } from "@/lib/auth/navigation";
 import { toAdminSessionViewModel } from "@/lib/auth/session";
 
@@ -51,6 +54,7 @@ describe("admin portal helpers and components", () => {
   it("returns a sign-in redirect for unauthenticated access", () => {
     expect(
       resolveAdminAccess({
+        authErrorPath: getAdminAuthErrorPath("Default", "/admin"),
         session: null,
         allowedAccounts: new Set(["bas@example.com"]),
         isConfigured: true,
@@ -66,6 +70,7 @@ describe("admin portal helpers and components", () => {
   it("returns an access-denied redirect for non-allowlisted accounts", () => {
     expect(
       resolveAdminAccess({
+        authErrorPath: getAdminAuthErrorPath("Default", "/admin"),
         session: createSession("visitor@example.com"),
         allowedAccounts: new Set(["bas@example.com"]),
         isConfigured: true,
@@ -80,6 +85,7 @@ describe("admin portal helpers and components", () => {
 
   it("returns an authorized view model for allowlisted accounts", () => {
     const decision = resolveAdminAccess({
+      authErrorPath: getAdminAuthErrorPath("Default", "/admin"),
       session: createSession("bas@example.com"),
       allowedAccounts: new Set(["bas@example.com"]),
       isConfigured: true,
@@ -93,6 +99,27 @@ describe("admin portal helpers and components", () => {
       expect(decision.sessionViewModel.email).toBe("bas@example.com");
       expect(decision.sessionViewModel.displayName).toBe("Beheerder Britt");
     }
+  });
+
+  it("returns an auth-error redirect when auth is unavailable", () => {
+    expect(
+      resolveAdminAccess({
+        authErrorPath: getAdminAuthErrorPath("Configuration", "/admin"),
+        session: null,
+        allowedAccounts: new Set(["bas@example.com"]),
+        isConfigured: false,
+        signInPath: "/admin/sign-in?callbackUrl=%2Fadmin",
+        accessDeniedPath: "/admin/access-denied",
+      }),
+    ).toEqual({
+      kind: "unavailable",
+      redirectTo: "/admin/auth-error?callbackUrl=%2Fadmin&error=Configuration",
+    });
+  });
+
+  it("masks email addresses before they are used in auth logs", () => {
+    expect(maskAuthIdentifier("Martijn.Pannekoek@example.com")).toBe("m***@example.com");
+    expect(maskAuthIdentifier(null)).toBeNull();
   });
 
   it("renders the admin shell with navigation, profile details, and sign-out control", () => {
@@ -144,7 +171,18 @@ describe("admin portal helpers and components", () => {
 
     fireEvent.click(screen.getByTestId("access-denied-signout-button"));
 
-    expect(signOutMock).toHaveBeenCalledWith({ callbackUrl: "/" });
+    expect(signOutMock).toHaveBeenCalledWith({ callbackUrl: "http://localhost:3000/" });
+  });
+
+  it("renders the auth-error panel with retry guidance", () => {
+    render(<AuthErrorPanel callbackUrl="/admin" error="Configuration" />);
+
+    expect(screen.getByTestId("admin-auth-error-panel")).toBeInTheDocument();
+    expect(screen.getByTestId("auth-error-retry-link")).toHaveAttribute(
+      "href",
+      "/admin/sign-in?callbackUrl=%2Fadmin",
+    );
+    expect(screen.getByTestId("auth-error-home-link")).toHaveAttribute("href", "/");
   });
 
   it("renders the custom admin sign-in page and starts Microsoft sign-in", () => {

@@ -66,6 +66,19 @@ AUTH_ALLOWED_EMAILS=admin1@example.com,admin2@example.com
 portal uses the Microsoft `consumers` tenant, so the first slice is limited to personal Microsoft
 accounts.
 
+### Admin Auth Diagnostics
+
+The admin authentication flow now emits lightweight structured server logs for production
+troubleshooting. These logs:
+
+- are emitted to stdout or stderr for platform collection
+- distinguish unauthenticated, unauthorized, unavailable, authorized, and unexpected auth failures
+- use masked email identifiers only when user context is helpful
+- never log secrets, tokens, raw provider payloads, or full auth-sensitive query strings
+
+Unexpected authentication failures route to a dedicated `/admin/auth-error` experience, while
+authorization denial remains on `/admin/access-denied`.
+
 ## Quality Checks
 
 Run linting:

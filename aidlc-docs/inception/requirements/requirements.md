@@ -1,144 +1,131 @@
 # Requirements Document
 
 ## Intent Analysis Summary
-- **User Request**: Add an authenticated admin portal at `/admin` to the existing Bas IJs & Zo site using Auth.js with direct Microsoft login for personal Microsoft accounts only, enforce an allowlist of permitted accounts, show an access-denied page for unauthorized users, and provide a starter dashboard shell for later expansion.
-- **Request Type**: New Feature
-- **Scope Estimate**: Multiple components across routing, authentication, authorization, protected layout, and admin UI shell
-- **Complexity Estimate**: Complex
+- **User Request**: Add production-useful logging and failure diagnostics around the existing `admin-portal` authentication flow so auth problems can be understood when production currently falls through to the access-denied screen without enough visibility.
+- **Request Type**: Enhancement
+- **Scope Estimate**: Multiple components across auth configuration, auth route handling, protected access decisions, user-facing failure handling, and verification
+- **Complexity Estimate**: Moderate
 - **Requirements Depth**: Standard
 
 ## Product Goal
-Extend the existing public landing-page application with a protected internal admin area that gives allowed Bas IJs & Zo operators a secure starting point for future portal functionality. The first version should establish the authentication and authorization boundary, a clear denial path for unauthorized accounts, and a dashboard-style interface that can be expanded in later stages.
+Extend the existing Bas IJs & Zo `admin-portal` so authentication and authorization problems become diagnosable in production. The increment should preserve the current Microsoft-based sign-in flow while adding structured diagnostics, clearer failure-path separation, and a user-facing auth-error experience for unexpected failures.
 
 ## Brownfield Context
-- The existing application is a Next.js site with one public landing page in `src/web`.
-- The new `/admin` functionality must coexist with the existing public experience without regressing the public landing page.
-- The admin feature should reuse the current technical foundation where sensible, but introduce clear separation between public and protected areas.
+- The existing application is a Next.js site in `src/web` with a previously approved `admin-portal` slice already implemented.
+- The current admin auth flow includes Auth.js, Microsoft personal-account sign-in, allowlist authorization, a custom sign-in page, and an access-denied page.
+- The current production symptom is that multiple auth failure modes can end with the same visible denial experience, making root-cause diagnosis difficult.
+- The increment must fit the existing brownfield structure and avoid regressing the public site or the working parts of the admin experience.
 
 ## Primary Users
-- **Allowed admin users**: Specific Microsoft personal-account holders who are permitted to access the portal.
-- **Unauthorized Microsoft users**: Users who can complete Microsoft sign-in but are not on the configured allowlist and must be denied.
-- **Public site visitors**: Indirectly affected users who must continue to experience the public landing page unchanged.
+- **Admin operators**: Need a stable auth flow and a clearer message when an unexpected sign-in problem occurs.
+- **Developers and maintainers**: Need production-safe logs that explain whether failures come from configuration, provider callback behavior, unavailable auth setup, unauthenticated access, unauthorized access, or unexpected runtime issues.
+- **Unauthorized users**: Must continue to receive a safe denial experience without internal details leaking to the browser.
 
 ## Confirmed Decisions
-- Use Auth.js for authentication.
-- Use Microsoft login directly as the only sign-in method for the first version.
-- Support Microsoft personal accounts only.
-- Maintain the allowed-account list through environment variables or configuration in the first version rather than a database.
-- Redirect unauthenticated visitors to the Microsoft sign-in flow when they request `/admin`.
-- Redirect authenticated but unauthorized users to a dedicated access-denied page.
-- Use standard Auth.js session handling with secure defaults for the first version.
-- The initial admin dashboard should include:
-  - a left sidebar
-  - one dummy navigation item
-  - a dummy content area
-  - basic signed-in profile information
-  - a sign-out control and small welcome summary
-- The admin area should reuse the existing brand colors, but adopt a more restrained dashboard-style visual language.
-- Delivery expectation for this workflow is to plan and implement the first admin slice now if scope remains reasonable.
+- The increment should log all failed authentication or authorization outcomes plus unexpected auth-related errors.
+- The first version should emit structured server logs to stdout or stderr so the deployment platform can collect them.
+- Masked email identifiers may appear in logs; full email addresses must not be logged.
+- The UI should show a dedicated auth-error experience with a short, non-sensitive message and retry guidance for unexpected authentication failures.
+- The implementation should add lightweight checkpoint logging around auth flow start, callback handling, success, and failure, without logging secrets or raw provider payloads.
+- Baseline Security Rules remain enabled as blocking constraints for this increment.
 
 ## Functional Requirements
 
-### FR-1: Protected Admin Entry Point
-- The application must expose a protected route at `/admin`.
-- Requests to `/admin` and any protected admin child routes must enforce authentication before showing protected content.
-- Unauthenticated requests to the protected admin area must redirect into the Microsoft sign-in flow.
+### FR-1: Structured Authentication Event Logging
+- The application must emit structured server-side log events for authentication and authorization outcomes relevant to the `admin-portal`.
+- Log events must be machine-readable and suitable for deployment-platform log collection from stdout or stderr.
+- The logging design must distinguish expected access outcomes from unexpected failures.
 
-### FR-2: Authentication Provider
-- The first version must use Auth.js as the authentication framework.
-- The only supported provider for the first version must be Microsoft.
-- The implementation must be configured specifically for Microsoft personal accounts only.
-- The system must not expose alternative sign-in methods in the first version.
+### FR-2: Auth Flow Coverage Points
+- The implementation must log meaningful checkpoints that help reconstruct the authentication path.
+- At minimum, the checkpoint model must cover:
+  - auth flow entry or start
+  - callback or provider-return handling
+  - successful authenticated access
+  - unauthenticated redirect behavior
+  - unauthorized allowlist denial behavior
+  - configuration-unavailable behavior
+  - unexpected auth-related failures
+- The implementation must avoid logging secrets, raw tokens, or full provider payloads.
 
-### FR-3: Authorization Allowlist
-- The application must contain logic that determines whether the signed-in Microsoft account is allowed to access the admin portal.
-- The first version must source the allowlist from configuration or environment variables rather than a persistent data store.
-- Authorization must be enforced server-side before protected admin content is rendered.
-- Users who authenticate successfully but are not allowlisted must not be able to access the protected admin area.
+### FR-3: Production-Safe User Identification In Logs
+- When a user identifier is included in auth logs, it must use a masked email representation rather than the full Microsoft account email address.
+- The masking approach must preserve enough information to correlate repeated failures for the same account without exposing full PII in logs.
+- The implementation may also include request or event context that helps correlate related auth events.
 
-### FR-4: Access Denied Flow
-- The application must provide a dedicated access-denied page for users who are authenticated but not authorized.
-- The access-denied experience must clearly communicate that sign-in succeeded but access is not permitted.
-- The access-denied page must offer a safe next action such as signing out or returning to the public site.
+### FR-4: Dedicated Unexpected Auth Error Experience
+- The application must provide a dedicated user-facing auth-error experience for unexpected authentication failures.
+- The auth-error experience must use short, non-sensitive messaging and basic retry guidance.
+- The auth-error experience must be distinct from the existing access-denied experience so authorization failures and unexpected auth failures are no longer collapsed into the same user-facing screen.
 
-### FR-5: Admin Dashboard Shell
-- The `/admin` area must render a dashboard-style layout.
-- The layout must include a left sidebar navigation region.
-- The sidebar must include one dummy navigation item for the first version.
-- The main content region must render a dummy placeholder page or panel on the right.
-- The layout must be structured so additional admin routes and modules can be added later without redesigning the shell.
+### FR-5: Failure Cause Separation
+- The implementation must separate these auth outcomes at the application level:
+  - unauthenticated user
+  - authenticated but unauthorized user
+  - auth configuration unavailable or incomplete
+  - unexpected auth runtime or provider-related failure
+- Each outcome must map to the correct redirect, page, and logging behavior.
 
-### FR-6: Signed-In User Context
-- The initial admin dashboard must show basic profile information for the signed-in user.
-- The initial admin dashboard must show a welcome summary or equivalent orientation text.
-- The admin area must provide a sign-out control.
-
-### FR-7: Visual Direction
-- The admin area should visually relate to the existing Bas IJs & Zo brand.
-- The admin interface should reuse the black/orange brand anchors where appropriate.
-- The dashboard should use a more restrained and utility-oriented style than the public marketing page.
-- The admin interface must prioritize clarity and usability over decorative presentation.
-
-### FR-8: Brownfield Safety
-- The existing public landing page at `/` must remain intact and functional.
-- New admin functionality must not break the current public routing, content rendering, or responsive behavior.
-- The admin feature must fit the current `src/web` application structure rather than introducing a separate application.
+### FR-6: Brownfield-Safe Integration
+- The increment must remain inside the existing `src/web` Next.js application.
+- Existing public-site behavior at `/` must remain unchanged.
+- Existing successful admin sign-in behavior must continue to work after the logging and failure-handling changes are added.
 
 ## User Experience Requirements
-- Admin users should understand quickly whether they are signed in, denied, or successfully inside the dashboard.
-- The admin area should feel clearly distinct from the public marketing surface while still belonging to the same brand family.
-- The sidebar and content area should remain usable on desktop and reasonable on smaller screens.
-- Access-denied messaging should be direct and non-confusing.
+- Users should continue to see the current sign-in and access-denied experiences for expected auth outcomes.
+- Users encountering an unexpected auth failure should see a dedicated error screen or state that avoids internal details while still indicating that login did not complete normally.
+- The error experience should provide a sensible next action such as retrying sign-in or returning to a safe location.
 
 ## Technical Requirements
-- The implementation must remain within the existing Next.js application in `src/web`.
-- The solution should follow current App Router conventions for protected routes, auth endpoints, and layout composition.
-- Auth configuration and secrets must be sourced from environment variables rather than hardcoded credentials.
-- The allowlist must be configurable without modifying component markup.
-- The admin shell should be organized so future portal modules can be added through route expansion or nested layouts.
-- The implementation should preserve the current Docker-based deployment approach.
-- The implementation should preserve compatibility with the existing lint, test, and build setup.
+- The solution must follow the current App Router structure in `src/web`.
+- The implementation should reuse or extend the existing auth modules rather than scattering auth logging logic across unrelated UI code.
+- The logging implementation should be isolated in dedicated helpers or modules so future observability expansion is straightforward.
+- The logging output must be compatible with the current deployment model and must not require a new external logging service in this first version.
+- The solution must preserve compatibility with the current lint, test, and build setup.
 
 ## Non-Functional Requirements
 
 ### NFR-1: Security
-- Authentication and authorization checks must be treated as blocking gates to admin content.
-- Session handling must use secure defaults suitable for a protected internal portal.
-- Unauthorized users must be denied consistently and predictably.
+- Logging must not include secrets, tokens, raw provider payloads, or full email addresses.
+- Unexpected auth failures must remain generic in the UI and must not expose stack traces or internal framework details to end users.
+- Authentication and authorization decisions must remain server-side boundaries.
 
-### NFR-2: Maintainability
-- The auth setup, allowlist logic, and admin layout should be separated cleanly so they can evolve later.
-- The first version should create a clear foundation for future portal capabilities rather than a throwaway scaffold.
+### NFR-2: Observability
+- The auth flow must become diagnosable from deployment-platform logs without requiring an attached debugger.
+- Logs should make it possible to tell whether a failure was caused by missing configuration, redirect flow issues, callback problems, allowlist denial, or another unexpected runtime error.
+- The first version should stay lightweight and avoid introducing a full observability platform.
 
-### NFR-3: Extensibility
-- Future admin routes and modules should be addable without redesigning the base shell.
-- The first version should make it straightforward to replace configuration-based allowlists with persistent data later if needed.
+### NFR-3: Maintainability
+- Auth logging, access-decision logic, and user-facing failure pages should remain modular and clearly separated.
+- The logging approach should create a clean foundation for future additions such as request correlation, centralized logging, or alerting.
 
-### NFR-4: Usability
-- The admin shell must be immediately understandable.
-- The sign-in and denial flows must minimize ambiguity for both allowed and disallowed users.
+### NFR-4: Reliability
+- The increment must not break successful sign-in for allowlisted users.
+- The increment must not regress the current access-denied behavior for unauthorized users.
+- Failure handling should fail closed and route users to safe states when auth cannot be completed.
 
 ### NFR-5: Brownfield Reliability
-- The feature must integrate safely with the existing public site and should not degrade the current visitor experience.
+- The public landing page and existing site-wide runtime behavior must continue to function normally.
+- The Docker-based deployment model and existing verification workflow must continue to work after the change.
 
 ## Security Requirements Derived From Enabled Extension
-- **SECURITY-04**: All HTML-serving admin routes must continue to emit the required HTTP security headers.
-- **SECURITY-08**: The admin area must enforce authentication and server-side authorization on every protected route.
-- **SECURITY-11**: The design must continue to consider abuse scenarios for the public entrypoint and the new admin entry path.
-- **SECURITY-12**: Authentication configuration must avoid hardcoded credentials, use secure session behavior, and handle sign-in/logout safely.
-- **SECURITY-10**: Any added dependencies or auth-related tooling must remain pinned through the committed lockfile.
-- **SECURITY-09**: Production behavior must not leak sensitive internal auth or authorization details to end users beyond the intended access-denied message.
-- **SECURITY-01, SECURITY-02, SECURITY-05, SECURITY-06, SECURITY-07**: Not currently in scope unless later stages add persistent storage, custom APIs, infrastructure resources, or network-policy definitions.
+- **SECURITY-03**: Application-level logging is now in scope. Auth diagnostics must use structured server-side logging without secrets, tokens, or full PII.
+- **SECURITY-04**: All auth-related HTML routes, including any new auth-error route, must continue to emit the required HTTP security headers.
+- **SECURITY-08**: Protected admin routes must continue to enforce server-side authentication and authorization checks.
+- **SECURITY-09**: Production auth failure responses must not expose stack traces, framework internals, or sensitive configuration details.
+- **SECURITY-10**: Any logging-related dependencies or runtime changes must remain pinned through the committed lockfile and existing supply-chain controls.
+- **SECURITY-11**: Security-critical auth and access logic must remain isolated in dedicated modules, and the design must continue to consider auth misuse and failure scenarios.
+- **SECURITY-12**: Secrets and session handling must remain environment-backed and safely managed through the sign-in, failure, and sign-out flows.
+- **SECURITY-01, SECURITY-02, SECURITY-05, SECURITY-06, SECURITY-07**: Not currently in scope because this increment does not add persistence, network intermediaries, custom API parameter surfaces, IAM resources, or network infrastructure.
 
 ## Assumptions
-- Microsoft provider credentials and related Auth.js secrets will be supplied through environment variables.
-- The first version does not require a database.
-- The allowlist size is small enough for configuration-based management initially.
-- The first version establishes portal structure only; real admin business logic will be added later.
+- Deployment-platform logs from stdout or stderr are accessible in the production environment where the auth issue is occurring.
+- Microsoft provider credentials and Auth.js secrets continue to be supplied through environment variables.
+- The current auth failure symptom can be diagnosed adequately with structured logs and clearer failure-path separation without immediately adding a third-party monitoring service.
 
 ## Success Criteria
-- Allowed Microsoft personal-account users can sign in and reach `/admin`.
-- Non-allowlisted Microsoft users are redirected to a dedicated access-denied page.
-- Unauthenticated users requesting `/admin` are sent into the sign-in flow.
-- The `/admin` area renders a usable dashboard shell with sidebar, dummy navigation, dummy content, signed-in user context, and sign-out control.
-- The public landing page remains functional and visually intact.
+- Production logs clearly distinguish unauthenticated redirect, unauthorized allowlist denial, auth misconfiguration, and unexpected auth failures.
+- Logs contain masked identifiers when user identity needs to be referenced, and do not expose full email addresses, tokens, or secrets.
+- Unexpected authentication failures lead to a dedicated auth-error experience instead of being indistinguishable from access denial.
+- Allowlisted users can still sign in successfully and reach the existing `admin-portal`.
+- The public site and existing build, lint, and test flows remain functional.

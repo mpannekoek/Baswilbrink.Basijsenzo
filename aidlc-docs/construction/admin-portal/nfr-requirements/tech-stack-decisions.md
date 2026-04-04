@@ -1,82 +1,79 @@
 # Tech Stack Decisions - admin-portal
 
 ## Core Framework
-- **Decision**: Keep the admin portal inside the existing Next.js application
+- **Decision**: Keep the auth-observability increment inside the existing Next.js application in `src/web`
 - **Rationale**:
   - Matches the approved brownfield strategy
-  - Avoids unnecessary application fragmentation
-  - Lets public and protected routes share deployment, routing, and build infrastructure
+  - Avoids fragmenting the current admin auth flow into a second service
+  - Preserves existing routing, deployment, and build behavior
 
 ## Authentication Framework
-- **Decision**: Use Auth.js for the first admin slice
+- **Decision**: Keep Auth.js as the authentication framework and extend the current implementation with diagnostics
 - **Rationale**:
-  - Explicit product requirement
-  - Appropriate fit for provider-based auth inside App Router
-  - Provides a clean foundation for session handling and protected-route integration
+  - The working sign-in flow already exists on Auth.js
+  - The current problem is diagnosability, not framework fit
+  - Extending the existing integration reduces migration risk
 
-## Identity Provider Strategy
-- **Decision**: Use Microsoft login only, scoped to personal Microsoft accounts
-- **Rationale**:
-  - Explicit product requirement
-  - Keeps the first portal slice focused and avoids supporting multiple providers prematurely
-
-## Authorization Strategy
-- **Decision**: Use an environment-backed allowlist in the first version
-- **Rationale**:
-  - Matches approved requirements
-  - Avoids introducing a database before real portal logic exists
-  - Keeps future migration to persistent authorization data possible
-
-## Session Strategy
-- **Decision**: Use standard secure Auth.js defaults for v1
-- **Rationale**:
-  - Matches the approved NFR answer
-  - Keeps implementation practical while still using secure defaults suitable for a protected area
-
-## Browser Support Strategy
-- **Decision**: Support current major desktop and mobile browsers equally
-- **Rationale**:
-  - Matches the approved NFR answer
-  - Reduces surprises when admin users access the portal from non-desktop devices
-
-## Accessibility Strategy
-- **Decision**: Accept a minimal internal-accessibility target, while preserving basic semantic structure, keyboard reachability, and focus visibility where practical
-- **Rationale**:
-  - Matches the approved NFR answer
-  - Keeps scope aligned with an internal first version without endorsing broken interaction patterns
-
-## Observability Strategy
-- **Decision**: Keep observability lightweight in v1
+## Logging Strategy
+- **Decision**: Use lightweight structured server-side logs emitted to stdout or stderr
 - **Included**:
-  - framework-default error-safe behavior
-  - production-safe handling of auth and denial paths
-- **Excluded for v1**:
-  - full monitoring and alerting design
-  - expanded structured logging system for auth flow
+  - event-oriented auth logs
+  - masked user identifiers when relevant
+  - request path
+  - correlation or request ID when available
+- **Excluded for this increment**:
+  - local file logging
+  - external logging SaaS integration
+  - alerting or monitoring dashboards
+- **Rationale**:
+  - Matches the approved NFR answers
+  - Fits the current deployment model
+  - Provides production visibility without infrastructure expansion
+
+## Correlation Strategy
+- **Decision**: Include a correlation or request identifier when available, rather than relying only on timestamps
+- **Rationale**:
+  - Multi-step auth flows are easier to reconstruct when related events can be linked
+  - This improves diagnosability without requiring a full tracing platform
+
+## Privacy Strategy
+- **Decision**: Use masked email identifiers and never log tokens, secrets, raw provider payloads, or full query strings
+- **Rationale**:
+  - Matches the approved NFR answers and enforced security rules
+  - Preserves enough operator context while avoiding sensitive production log leakage
+
+## Failure Handling Strategy
+- **Decision**: Separate unexpected auth failures from unauthenticated and unauthorized outcomes
+- **Rationale**:
+  - The current production problem is that distinct auth failures can look the same
+  - Explicit failure classes improve both operator troubleshooting and user clarity
+
+## Logging Failure Strategy
+- **Decision**: Logging failures must not break auth flow handling
+- **Rationale**:
+  - Matches the approved reliability choice
+  - Prevents observability code from becoming a new auth outage source
+
+## Error UX Strategy
+- **Decision**: Provide a simple dedicated auth-error page or state with retry guidance and a safe navigation path
 - **Rationale**:
   - Matches the approved NFR answer
-  - Avoids operational overreach before the portal carries real business workflows
+  - Distinguishes unexpected auth failures from authorization denial without exposing internals
 
 ## Maintainability Strategy
-- **Decision**: Strongly separate auth config, allowlist logic, session mapping, and admin UI components
+- **Decision**: Keep auth logging and auth outcome classification in shared auth modules rather than embedding them into page components directly
 - **Rationale**:
-  - Matches the approved NFR answer
-  - Aligns with enabled security-extension expectations around security-critical module isolation
-  - Creates a cleaner path for later portal growth
+  - Aligns with the approved maintainability direction
+  - Supports consistent behavior across route handlers, protected routes, and UI pages
 
-## Security Strategy
-- **Decision**: Treat auth and authorization as first-class architecture boundaries
+## Dependency Strategy
+- **Decision**: Prefer implementing the logging increment with existing platform capabilities and no heavy new dependencies unless clearly necessary
 - **Rationale**:
-  - Multiple enabled security rules become directly in-scope with authenticated routes
-  - The portal must enforce server-side access control, secure session behavior, and safe denial responses
-
-## Deployment Compatibility Strategy
-- **Decision**: Preserve the existing deployment model and Docker path while adding auth dependencies
-- **Rationale**:
-  - The portal is an app extension, not a platform migration
-  - Keeps build and release workflows stable while the protected surface is introduced
+  - Minimizes supply-chain and runtime complexity
+  - Keeps the increment focused on behavior and diagnosability rather than platform expansion
 
 ## Testing Implications
-- **Decision**: Expand verification toward auth-sensitive route behavior while preserving existing public-site checks
+- **Decision**: Expand tests toward auth outcome classification, auth-error rendering, and safe logging expectations while preserving existing admin and public-site checks
 - **Rationale**:
-  - This unit introduces new protected/denied/signed-out states that are more important to test than deep infrastructure behavior
+  - This increment changes sensitive failure-path behavior
+  - Regression coverage is more valuable here than deeper infrastructure work

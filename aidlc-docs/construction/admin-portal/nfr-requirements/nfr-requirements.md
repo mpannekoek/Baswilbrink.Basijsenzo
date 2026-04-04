@@ -1,87 +1,81 @@
 # NFR Requirements - admin-portal
 
 ## Scope
-This unit covers the protected `/admin` portal inside the existing Bas IJs & Zo Next.js application, including Auth.js-based Microsoft sign-in, allowlist authorization, access-denied handling, session behavior, and the lightweight dashboard shell.
+This unit covers the existing `admin-portal` authentication flow inside the Bas IJs & Zo Next.js application, with focus on structured diagnostics, safe production logging, auth outcome separation, and the dedicated unexpected-auth-error experience.
 
 ## NFR Summary
-- **Session Security Baseline**: Standard secure Auth.js defaults for v1
-- **Browser/Device Support**: Equal support for current major desktop and mobile browsers
-- **Accessibility Target**: Minimal accessibility is acceptable for the first internal version
-- **Observability Baseline**: Keep auth observability simple and rely on framework defaults plus safe production behavior
-- **Maintainability Bias**: Strong separation between auth config, allowlist logic, session mapping, and UI components
+- **Observability Baseline**: Structured server logs only, collected through stdout or stderr, with no external monitoring platform added in this increment
+- **Correlation Context**: Include event timestamp, level, event name, request path, correlation or request ID when available, and masked user identifier when relevant
+- **Logging Failure Behavior**: Auth flow must continue safely even if a log event cannot be emitted
+- **User-Facing Error UX**: Simple dedicated auth-error experience with retry guidance and a safe route back to the site
+- **Privacy Boundary**: Never log tokens, secrets, raw provider payloads, or full query strings that may contain sensitive auth details
 
 ## Security
-- Authentication and authorization are core quality requirements for this unit, not optional refinements.
-- Protected admin routes must enforce authentication before rendering protected content.
-- Allowlist authorization must be enforced server-side before any admin shell or admin page content is rendered.
-- Auth credentials and secrets must come from environment-backed configuration rather than source code.
-- Session handling should use secure Auth.js defaults suitable for an authenticated admin portal.
-- Logout must transition the user to a safe non-protected state.
-- Access-denied behavior must avoid leaking unnecessary internal authorization details.
-
-## Authorization And Access Control
-- The admin area must operate with deny-by-default behavior.
-- Only explicitly allowlisted Microsoft personal accounts may enter the portal.
-- Unauthenticated requests to `/admin` must enter the sign-in path rather than seeing partial protected UI.
-- Authenticated but unauthorized users must be redirected consistently to the dedicated access-denied page.
-- Protected routes must continue to enforce authorization on every request path inside the admin boundary.
-
-## Session Behavior
-- The first version may use standard secure Auth.js session defaults rather than a custom stricter lifetime policy.
-- Session behavior must still be appropriate for an internal admin surface:
-  - secure cookies in production
-  - correct invalidation through sign-out
-  - no exposure of protected content after logout
-- The design should preserve a clean path to stricter session policies later if the portal grows in sensitivity.
-
-## Browser And Device Support
-- The admin portal should support current major desktop browsers.
-- The admin portal should also support current major mobile browsers.
-- The UX may still be desktop-biased in layout intent, but the first version must remain functional on mobile and smaller screens.
-- Protected flows must not rely on browser-specific behavior outside mainstream current browser support.
-
-## Accessibility
-- Minimal accessibility is accepted for the first internal version, but this does not remove the need for basic sound structure.
-- The admin shell should still use semantic structure where practical.
-- Interactive elements must remain keyboard reachable.
-- Visible focus states should be preserved.
-- Access-denied and sign-out flows should remain understandable to users navigating without a mouse.
-
-## Maintainability
-- Auth configuration, allowlist logic, session mapping, and admin UI components should remain clearly separated.
-- Environment-backed configuration should be organized so allowlist and secret changes do not require component rewrites.
-- The dashboard shell should be easy to extend with future routes and modules.
-- The admin portal should integrate into the existing app without entangling the public landing-page implementation.
-
-## Reliability
-- The addition of the admin portal must not regress the current public site.
-- Protected-route behavior should be predictable for unauthenticated, unauthorized, and authorized states.
-- The unit should build consistently in the existing local and containerized environments.
-- Error handling should fail safely for auth or configuration issues and avoid exposing sensitive implementation details.
+- Authentication and authorization remain security boundaries, not just UX conventions.
+- Structured auth logs must not contain secrets, tokens, raw callback payloads, or full email addresses.
+- Masked user identifiers may be logged only when they materially help diagnose an auth event.
+- Unexpected auth failures must remain generic in the browser and must not expose stack traces, framework internals, or missing-secret details to end users.
+- Protected admin routes must continue to enforce server-side authentication and authorization on every request.
 
 ## Observability
-- The first version keeps observability intentionally lightweight.
-- No full monitoring or alerting stack is required for this unit yet.
-- Auth-related behavior should rely on framework-safe defaults and production-safe behavior rather than extensive new instrumentation in v1.
+- The auth flow must become diagnosable from deployment-platform logs without attaching a debugger to production.
+- Structured log events should cover:
+  - auth flow entry or start
+  - callback or provider return handling
+  - successful authenticated access where useful as a checkpoint
+  - unauthenticated redirect decisions
+  - unauthorized allowlist denial decisions
+  - auth configuration unavailable decisions
+  - unexpected auth runtime failures
+- Each emitted auth log should favor concise structured fields over free-form text only.
+- Request path and a correlation or request ID should be included when available to make multi-step auth failures traceable.
+- No external monitoring or alerting system is required in this increment.
+
+## Reliability
+- Successful sign-in for allowlisted users must continue to work after logging and failure-separation changes are introduced.
+- If logging itself fails, the auth flow must continue safely without blocking sign-in, redirects, or safe denial behavior.
+- Unexpected auth failures should fail closed and route users to a safe non-protected state or dedicated auth-error path.
+- The implementation must continue to build and run in the current local and containerized environments.
+
+## Privacy And Data Handling
+- Masked email identifiers should be preferred when a per-user auth event needs to be correlated.
+- Full Microsoft account email addresses must not be written to logs in production behavior.
+- Full query strings must not be logged when they may contain auth-sensitive details such as callback parameters, codes, or transient error data.
+- Provider responses should be summarized through safe event metadata rather than raw payload logging.
+
+## Usability
+- The dedicated auth-error experience should clearly indicate that sign-in did not complete normally without implying authorization denial.
+- The error experience should give users a sensible retry action and a safe route back to the site.
+- Existing access-denied messaging should remain reserved for authenticated-but-unauthorized users only.
+
+## Maintainability
+- Logging logic should be isolated in shared auth-related helpers rather than scattered across unrelated UI components.
+- Auth outcome classification should remain centralized so sign-in, protected-route, and error-page behavior stays consistent.
+- The implementation should create a clean foundation for future observability improvements such as centralized logging or alerting without requiring those now.
+
+## Performance And Scope Control
+- The logging approach should remain lightweight and should not introduce heavy runtime dependencies for this increment.
+- Structured diagnostics should add minimal overhead to the auth path.
+- The increment should stay within the current Next.js application and deployment model.
 
 ## Delivery And Deployment
-- The admin portal must remain compatible with the current Next.js application deployment model.
-- Existing Docker-oriented delivery should continue to work after auth-related dependencies and routes are added.
-- New dependencies introduced for authentication must remain pinned through the committed lockfile.
-- The feature should preserve compatibility with the existing lint, test, and build workflows.
+- Structured logs must be emitted in a way that existing deployment-platform logging can collect without extra infrastructure work.
+- The solution must preserve compatibility with the current lint, test, build, and Docker workflows.
+- Any code or dependency changes must stay within the existing package-management and lockfile controls.
 
 ## Security Extension Applicability
-- **SECURITY-04**: In scope. Admin HTML routes must continue to emit the required security headers.
-- **SECURITY-08**: In scope. Protected routes require server-side authentication and authorization enforcement.
-- **SECURITY-09**: In scope. Production auth and denial behavior must not expose sensitive internals.
-- **SECURITY-10**: In scope. Added auth dependencies and delivery artifacts must remain pinned and auditable.
-- **SECURITY-11**: In scope. Security-critical auth and authorization logic must remain isolated, and the public entrypoint abuse controls must remain intact.
-- **SECURITY-12**: In scope. Sessions, secrets, and sign-in/sign-out behavior must follow secure credential-management practices.
-- **SECURITY-01, SECURITY-02, SECURITY-05, SECURITY-06, SECURITY-07**: Not currently in scope because this unit does not add persistence, custom APIs, IAM policy definitions, or network infrastructure.
+- **SECURITY-03**: In scope. Application-level logging is a primary requirement for this increment and must be structured and free of secrets and full PII.
+- **SECURITY-04**: In scope. Existing and any new auth-related HTML routes must continue to emit the required security headers.
+- **SECURITY-08**: In scope. Protected admin routes must continue to enforce server-side authentication and authorization.
+- **SECURITY-09**: In scope. Production auth failures must not expose sensitive internal details to end users.
+- **SECURITY-10**: In scope. Any implementation changes must remain compatible with pinned dependencies and documented verification.
+- **SECURITY-11**: In scope. Security-critical auth and logging logic must remain isolated in dedicated modules, and misuse or failure cases must be considered explicitly.
+- **SECURITY-12**: In scope. Secrets, sessions, and sign-in/sign-out flows must remain safely handled while diagnostics are added.
+- **SECURITY-01, SECURITY-02, SECURITY-05, SECURITY-06, SECURITY-07**: Not currently in scope because this increment does not add persistence, network intermediaries, custom API parameter surfaces, IAM resources, or network infrastructure.
 
 ## Out Of Scope
-- Database-backed allowlist management
-- Full admin observability or alerting stack
-- MFA enforcement beyond what the upstream Microsoft account may already provide
-- Expanded admin business logic beyond the starter shell
-- Additional infrastructure topology or separate admin deployment surface
+- External monitoring or alerting platforms
+- Log shipping infrastructure changes
+- Database-backed audit logging
+- Verbose provider payload inspection in production
+- Changes to the public landing-page UX unrelated to auth diagnostics

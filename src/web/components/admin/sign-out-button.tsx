@@ -11,6 +11,14 @@ interface SignOutButtonProps {
   testId?: string;
 }
 
+function resolveSignOutCallbackUrl(callbackUrl: string): string {
+  if (callbackUrl.startsWith("/") && typeof window !== "undefined") {
+    return new URL(callbackUrl, window.location.origin).toString();
+  }
+
+  return callbackUrl;
+}
+
 export function SignOutButton({
   callbackUrl = "/",
   className,
@@ -27,7 +35,7 @@ export function SignOutButton({
       type="button"
       onClick={() => {
         startTransition(() => {
-          void signOut({ callbackUrl });
+          void signOut({ callbackUrl: resolveSignOutCallbackUrl(callbackUrl) });
         });
       }}
     >

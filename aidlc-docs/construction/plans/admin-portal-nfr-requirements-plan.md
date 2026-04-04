@@ -1,8 +1,8 @@
 # NFR Requirements Plan - admin-portal
 
 ## Plan Progress
-- [x] Review approved requirements, user stories, and application design
-- [x] Identify relevant NFR themes for the protected admin portal
+- [x] Review approved auth-observability requirements and current admin auth implementation
+- [x] Identify relevant NFR themes for authentication diagnostics and production troubleshooting
 - [x] Collect user answers for NFR clarifications
 - [x] Analyze answers for ambiguity or contradiction
 - [x] Generate `aidlc-docs/construction/admin-portal/nfr-requirements/nfr-requirements.md`
@@ -10,63 +10,63 @@
 
 ## Unit Context
 - **Unit Name**: `admin-portal`
-- **Scope**: Protected `/admin` route with Auth.js, Microsoft personal-account sign-in, environment-backed allowlist authorization, access-denied flow, and a lightweight dashboard shell
+- **Scope**: Enhance the existing admin authentication flow with structured server-side diagnostics, masked user identifiers in logs, clearer separation of auth outcomes, and a dedicated unexpected-auth-error experience
 - **Relevant NFR Themes**:
-  - secure authentication and authorization behavior
-  - session handling and safe sign-out behavior
-  - brownfield-safe integration with the existing public site
-  - admin usability and accessibility baseline
-  - maintainability of auth/configuration boundaries
-  - compatibility with the current deployment model
+  - production-safe observability and diagnosability
+  - security and privacy boundaries for auth logs
+  - reliability of auth outcome classification and fail-closed behavior
+  - brownfield-safe compatibility with the current admin and public-site flows
+  - maintainability of shared auth helpers and logging utilities
+  - usability of user-facing auth failure recovery
 
 ## Questions
 
 ## Question 1
-What security baseline should I assume for admin sessions in this first version?
+How much request-correlation context should auth logs include in this first version?
 
-A) Standard secure Auth.js defaults are enough for v1
-B) Stricter session behavior with shorter session lifetime and more conservative defaults
-C) Convenience-first sessions are acceptable as long as sign-out works
-X) Other (please describe after [Answer]: tag below)
-
-[Answer]: A
-
-## Question 2
-What browser/device support expectation should I assume for the admin portal?
-
-A) Desktop-first for current major desktop browsers, with reasonable mobile fallback
-B) Equal support for current major desktop and mobile browsers
-C) Desktop-only practical support is acceptable for v1
+A) Include only timestamp, level, event name, and masked user identifier when available
+B) Include the above plus request path and a generated request or correlation ID when available (recommended)
+C) Include broad request metadata such as headers and full query strings for easier debugging
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: B
 
-## Question 3
-What accessibility target should I design for in this first admin slice?
+## Question 2
+What reliability expectation should I design for when auth logging itself fails?
 
-A) Good baseline accessibility with semantic structure, keyboard access, and visible focus states
-B) Aim explicitly for WCAG 2.1 AA-level accessibility where practical
-C) Minimal accessibility is acceptable for the first internal version
+A) Auth flow should continue safely even if logging cannot be emitted, without breaking sign-in or redirects (recommended)
+B) Auth flow should fail closed and stop the request if required logging cannot be written
+C) Logging failure can be ignored entirely with no explicit design treatment
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: C
+[Answer]: A
+
+## Question 3
+How visible should the dedicated unexpected-auth-error experience be for the user?
+
+A) A simple error page with retry guidance and a safe route back to the site is enough (recommended)
+B) A richer page with additional troubleshooting hints and contact guidance
+C) Keep the UI extremely minimal and rely almost entirely on the server logs
+X) Other (please describe after [Answer]: tag below)
+
+[Answer]: A
 
 ## Question 4
-How much auth-related observability should I assume in this version?
+What observability boundary should I assume for this increment?
 
-A) Keep it simple: rely on framework defaults and basic error-safe behavior only
-B) Add lightweight structured logging around allowlist denial and auth outcomes, without building a full monitoring system
-C) Add broader monitoring and alerting expectations for auth flow from the start
+A) Structured logs only, with no alerts or external monitoring platform in this version (recommended)
+B) Structured logs plus basic alerting hooks or health checks if they fit the current app
+C) Full monitoring and alerting expectations should be included now
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A
 
 ## Question 5
-What maintainability bias should I use for auth and configuration design?
+What privacy posture should I assume for auth logs beyond masking email addresses?
 
-A) Strong separation between auth config, allowlist logic, session mapping, and UI components
-B) Keep it very simple even if auth and UI logic are somewhat closer together
-C) Optimize for fastest delivery now and refactor later
+A) Never log tokens, secrets, raw provider payloads, or full query strings that may contain sensitive auth details (recommended)
+B) Allow temporary verbose provider debugging in production if it helps diagnose faster
+C) Allow full callback payload logging for the first version, then reduce later
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A

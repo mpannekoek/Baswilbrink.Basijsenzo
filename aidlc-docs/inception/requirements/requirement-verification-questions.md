@@ -1,80 +1,62 @@
-# Requirements Clarification Questions For Admin Portal
+# Requirements Clarification Questions For Authentication Logging
 
 Please answer the following questions by filling in the letter after each `[Answer]:` tag. If none of the listed options fit, choose `X` and describe your preference.
 
 ## Question 1
-How should the list of allowed Microsoft accounts be managed in this first version?
+Which authentication outcomes should be logged in this increment?
 
-A) Hardcode a small allowlist in environment variables or configuration for now
-B) Store the allowlist in application code as placeholders for the first version
-C) Persist the allowlist in a database or external store from the start
-D) I want you to recommend the best approach during design
+A) Only unexpected configuration, provider, or callback errors
+B) All failed auth or authorization outcomes plus unexpected errors (recommended)
+C) A full audit trail including successful sign-ins and sign-outs
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: A
+[Answer]: B
 
 ## Question 2
-What should happen when an unauthenticated user visits `/admin`?
+Where should the new logging go in the first version?
 
-A) Redirect directly to the Microsoft sign-in flow
-B) Show a simple admin login page with a "Sign in with Microsoft" action
-C) Show a neutral landing page first, then let the user choose to sign in
-D) Reuse the public site styling and place sign-in inline on the page
+A) Structured server logs to stdout or stderr so the deployment platform can collect them (recommended)
+B) Structured server logs plus a local file written by the application
+C) An external logging or monitoring service must be added immediately
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A
 
 ## Question 3
-What should happen when an authenticated Microsoft user is not on the allowlist?
+How much user identity information may appear in the logs?
 
-A) Deny access and redirect to a dedicated access-denied page
-B) Deny access and show the message inline on the login page
-C) Deny access and sign the user out immediately without explanation
-D) Let the user in, but hide protected content until later
+A) Full Microsoft account email addresses may be logged for debugging
+B) Only masked or hashed identifiers plus request or correlation context should be logged (recommended)
+C) No user identifier should be logged at all
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A
 
 ## Question 4
-What session scope should I assume for the first version?
+What should happen in the UI when authentication fails unexpectedly in production?
 
-A) Standard Auth.js session handling with secure defaults is enough
-B) Short-lived admin sessions with stricter expiration than defaults
-C) Persistent sign-in for convenience unless the user signs out
-D) I want you to recommend the best baseline for this admin portal
+A) Keep the current generic denial or sign-in behavior and rely on logs only
+B) Show a dedicated auth-error experience with a short non-sensitive message and retry guidance (recommended)
+C) Always redirect back to `/admin/sign-in` with a generic retry message
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: A
+[Answer]: B
 
 ## Question 5
-What should the initial admin dashboard contain besides layout scaffolding?
+Should I add minimal success checkpoints to help reconstruct where a failure happened?
 
-A) Only the shell: sidebar, one dummy nav item, and one dummy content panel
-B) The shell plus basic profile info for the signed-in user
-C) The shell plus a placeholder card set suggesting future modules
-D) The shell plus sign-out control and a small welcome summary
+A) No, log failure cases only
+B) Yes, log lightweight start, callback, success, and failure checkpoints without secrets (recommended)
+C) Yes, log detailed provider payloads and session objects
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: B and D
+[Answer]: B
 
 ## Question 6
-How should the new admin area relate visually to the current public landing page?
+Should security extension rules remain enforced for this project?
 
-A) Reuse the existing brand colors, but use a more restrained dashboard style
-B) Keep the same design language almost exactly, just adapted to an admin layout
-C) Build a separate admin visual language with only light brand references
-D) I want you to recommend the best balance between brand continuity and admin usability
-X) Other (please describe after [Answer]: tag below)
-
-[Answer]: A
-
-## Question 7
-What delivery expectation should I use for this workflow?
-
-A) Plan and implement the full first admin slice now if the scope is reasonable
-B) Define requirements and design first, then wait before coding
-C) Break this into multiple units because auth and dashboard should be separated
-D) Explore options first and recommend the best architecture before implementation
+A) Yes — enforce all SECURITY rules as blocking constraints (recommended for production-grade applications)
+B) No — skip all SECURITY rules (suitable for PoCs, prototypes, and experimental projects)
 X) Other (please describe after [Answer]: tag below)
 
 [Answer]: A

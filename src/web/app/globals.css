@@ -46,7 +46,8 @@ body {
 }
 
 body:has(.admin-shell-grid),
-body:has([data-testid="admin-access-denied-panel"]) {
+body:has([data-testid="admin-access-denied-panel"]),
+body:has([data-testid="admin-auth-error-panel"]) {
   background:
     radial-gradient(circle at top left, rgba(255, 98, 17, 0.12), transparent 22%),
     radial-gradient(circle at top right, rgba(17, 17, 17, 0.05), transparent 18%),

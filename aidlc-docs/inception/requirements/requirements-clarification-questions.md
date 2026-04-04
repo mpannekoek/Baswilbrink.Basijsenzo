@@ -1,17 +1,17 @@
-# Requirements Clarification Questions For Admin Portal
+# Requirements Clarification Questions For Authentication Logging
 
-I detected one ambiguity in the admin portal answers that needs to be resolved before generating the requirements document.
+I detected one security-related contradiction that needs clarification before the requirements can be finalized.
 
-## Ambiguity 1: Initial Dashboard Scope
-For Question 5, you answered `B and D`. Those options overlap, but the workflow requires one primary choice so the initial scope is explicit.
+## Contradiction 1: Identity logging vs enforced security rules
+You answered `A` for Question 3 in `requirement-verification-questions.md`, which allows full Microsoft account email addresses to appear in logs for debugging.  
+At the same time, you answered `A` for Question 6, which keeps the Baseline Security Rules enabled as blocking constraints. Those rules require production logging to avoid PII in log output.
 
-## Question 1
-What should the initial admin dashboard contain besides layout scaffolding?
+## Clarification Question 1
+How should authentication logs identify users while keeping the security extension enforced?
 
-A) The shell plus basic profile info for the signed-in user
-B) The shell plus sign-out control and a small welcome summary
-C) The shell plus both profile info and sign-out control/welcome summary
-D) Only the shell with no extra dashboard content
+A) Use masked email addresses in logs, such as `m***@example.com`
+B) Use a one-way hashed identifier derived from the email address
+C) Do not log user identifiers; log only request and auth event context
 X) Other (please describe after [Answer]: tag below)
 
-[Answer]: C
+[Answer]: A

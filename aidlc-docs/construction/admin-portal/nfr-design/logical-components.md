@@ -1,73 +1,76 @@
 # Logical Components - admin-portal
 
 ## Overview
-The admin portal does not introduce new infrastructure components in this stage. Its non-functional design is expressed through logical application-layer components inside the existing Next.js application.
+The auth-observability increment does not add new infrastructure components. Its non-functional design is expressed through application-layer logical components inside the existing Next.js application and current Auth.js integration.
 
 ## Logical Components
 
 ### 1. Auth Route Layer
-- **Purpose**: Host the Auth.js route handlers and Microsoft-provider flow.
+- **Purpose**: Host the Auth.js route handlers and provider callback flow.
 - **Responsibilities**:
   - process sign-in and callback requests
-  - keep provider wiring outside page components
-  - centralize auth runtime integration
+  - emit safe structured auth events at route-entry and failure boundaries
+  - avoid exposing raw provider failures directly to users
 
 ### 2. Auth Configuration Module
-- **Purpose**: Build provider, secret, session, and callback configuration.
+- **Purpose**: Build provider, secret, page-path, and auth-option configuration.
 - **Responsibilities**:
   - read environment-backed auth settings
-  - enforce safe defaults and callback structure
-  - avoid hardcoded credentials
+  - detect configuration-unavailable states
+  - support safe logging of configuration failure class without exposing secret values
 
-### 3. Allowed Account Module
-- **Purpose**: Interpret the configured allowlist for authorized admin access.
+### 3. Auth Logging Helper
+- **Purpose**: Centralize structured auth log emission.
 - **Responsibilities**:
-  - load allowed identities from environment-backed configuration
-  - normalize configured values for stable comparison
-  - fail closed when configuration is invalid
+  - build consistent log-event shapes
+  - attach request path and correlation context when available
+  - emit masked user identifiers only
+  - swallow internal logging failures so auth flow remains operational
 
-### 4. Admin Access Guard
+### 4. Auth Identity Masking Helper
+- **Purpose**: Convert raw user identifiers into safe log representations.
+- **Responsibilities**:
+  - mask email addresses consistently
+  - prevent accidental full-identifier leakage
+  - give operators enough context to correlate repeated failures
+
+### 5. Admin Access Guard
 - **Purpose**: Act as the protected-route orchestration boundary for `/admin`.
 - **Responsibilities**:
   - read the current server-side session
-  - distinguish unauthenticated and unauthorized states
-  - redirect into sign-in or access-denied flows before rendering protected content
+  - distinguish authorized, unauthenticated, unauthorized, unavailable, and unexpected-failure states
+  - trigger the correct redirect and matching log events before protected content is rendered
 
-### 5. Session View Model Mapper
-- **Purpose**: Convert raw Auth.js session data into UI-safe admin props.
+### 6. Auth Outcome Mapper
+- **Purpose**: Normalize raw auth and access results into explicit application-level outcomes.
 - **Responsibilities**:
-  - expose display name, email, and optional avatar fields
-  - keep raw auth structures out of presentational components
-  - limit UI coupling to auth-library internals
+  - keep redirect behavior and logging behavior aligned
+  - reserve access-denied for authorization failure only
+  - map unexpected failures to the dedicated auth-error route or state
 
-### 6. Admin Shell Layout
-- **Purpose**: Render the persistent protected layout after access is approved.
+### 7. Auth-Error Surface
+- **Purpose**: Handle unexpected authentication failures safely for end users.
 - **Responsibilities**:
-  - provide sidebar, header/profile region, and main content area
-  - preserve responsive behavior for desktop and mobile browsers
-  - host the sign-out control and welcome summary
-
-### 7. Access-Denied Surface
-- **Purpose**: Handle the authenticated-but-unauthorized outcome.
-- **Responsibilities**:
-  - explain denial clearly without exposing internal authorization logic
-  - provide safe next actions such as sign-out or return to the public site
-  - avoid loops or partial protected rendering
+  - present non-sensitive retry guidance
+  - provide a safe path back to sign-in or the public site
+  - stay visually and behaviorally distinct from access-denied
 
 ### 8. Existing Shared Runtime
-- **Purpose**: Continue supplying site-wide security headers, styling tokens, build settings, and deployment packaging.
+- **Purpose**: Continue supplying security headers, styling, build settings, and deployment packaging.
 - **Responsibilities**:
-  - keep admin routes inside the same application runtime
+  - keep admin routes and auth error routes inside the same application runtime
   - preserve compatibility with the current Next.js, Docker, and test setup
-  - avoid a separate admin deployment topology in v1
+  - avoid a second deployment surface or monitoring stack in this increment
 
 ## Design Constraints
-- No new persistence component is introduced for authorization.
+- No external monitoring platform is introduced.
+- No local file logging is introduced.
+- No database-backed audit log is introduced.
 - No new queue, cache, or messaging component is required.
-- No separate admin API service is required in this slice.
-- No additional infrastructure-design artifact is needed because the approved execution plan skips Infrastructure Design for `admin-portal`.
+- No additional infrastructure-design artifact is needed because the approved execution plan skips Infrastructure Design for this increment.
 
 ## Next-Stage Implementation Focus
-- Build the auth modules and route handlers first.
-- Implement the `/admin` access guard and access-denied route next.
-- Add the lightweight dashboard shell and session-aware UI last.
+- Build the shared auth logging and identifier-masking helpers first.
+- Refine the auth route and access guard to classify and log auth outcomes consistently.
+- Add the dedicated auth-error surface and align existing sign-in and denial flows with the new outcome model.
+- Expand tests around auth classification, auth-error rendering, and safe logging behavior last.
