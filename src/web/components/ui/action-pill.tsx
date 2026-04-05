@@ -6,11 +6,11 @@ type ActionPillProps = ActionLink & {
 
 const variantClasses: Record<ActionLink["variant"], string> = {
   primary:
-    "bg-[var(--brand-orange)] text-[var(--brand-black)] shadow-[0_12px_30px_rgba(255,98,17,0.28)] hover:bg-[var(--brand-orange-soft)]",
+    "rounded-full border border-[rgba(17,17,17,0.06)] bg-[var(--brand-orange)] text-[var(--brand-black)] shadow-[0_10px_24px_rgba(200,101,34,0.16)] hover:bg-[var(--brand-orange-soft)]",
   secondary:
-    "bg-white !text-[var(--brand-black)] shadow-[0_12px_28px_rgba(17,17,17,0.12)] ring-1 ring-black/10 hover:bg-[#fff3e6]",
+    "rounded-full border border-black/10 bg-[rgba(255,248,241,0.92)] !text-[var(--brand-black)] shadow-[0_10px_24px_rgba(17,17,17,0.08)] hover:bg-white",
   ghost:
-    "bg-transparent text-[var(--brand-black)] ring-1 ring-[var(--border-soft)] hover:bg-white/60",
+    "rounded-full bg-transparent text-[var(--brand-black)] ring-1 ring-[rgba(17,17,17,0.14)] hover:bg-black/[0.03]",
 };
 
 export function ActionPill({
@@ -22,7 +22,7 @@ export function ActionPill({
 }: ActionPillProps) {
   return (
     <a
-      className={`inline-flex min-h-12 items-center justify-center px-5 py-3 text-sm font-semibold transition duration-200 ${variantClasses[variant]}`}
+      className={`inline-flex min-h-11 items-center justify-center px-5 py-2.5 text-sm font-semibold tracking-[0.01em] transition duration-200 ${variantClasses[variant]}`}
       data-testid={dataTestId}
       href={href}
       onClick={onClick}

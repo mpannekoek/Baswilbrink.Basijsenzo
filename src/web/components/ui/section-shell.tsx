@@ -11,12 +11,14 @@ type SectionShellProps = {
 };
 
 const toneClasses: Record<NonNullable<SectionShellProps["tone"]>, string> = {
-  light: "bg-[var(--surface)] text-[var(--brand-black)]",
-  dark: "bg-[var(--brand-black)] text-[var(--surface)]",
+  light:
+    "bg-[linear-gradient(180deg,rgba(255,248,241,0.98),rgba(250,241,232,0.96))] text-[var(--brand-black)]",
+  dark:
+    "bg-[radial-gradient(circle_at_top_left,rgba(200,101,34,0.08),transparent_24%),linear-gradient(180deg,#141311_0%,#101010_100%)] text-[var(--surface)]",
   accent:
-    "bg-[linear-gradient(135deg,var(--brand-orange)_0%,#ffb55e_100%)] text-[var(--brand-black)]",
+    "bg-[radial-gradient(circle_at_top_right,rgba(200,101,34,0.12),transparent_22%),linear-gradient(180deg,#f8efe5_0%,#fff7f0_100%)] text-[var(--brand-black)]",
   split:
-    "bg-[linear-gradient(135deg,var(--surface)_0%,var(--surface)_52%,#ffd29e_52%,#ffd29e_100%)] text-[var(--brand-black)]",
+    "bg-[linear-gradient(135deg,#fff9f3_0%,#fff9f3_58%,#f1e2d1_58%,#f1e2d1_100%)] text-[var(--brand-black)]",
 };
 
 const eyebrowToneClasses: Record<NonNullable<SectionShellProps["tone"]>, string> = {
@@ -36,22 +38,28 @@ export function SectionShell({
 }: SectionShellProps) {
   return (
     <section
-      className={`w-full border-y border-[var(--border-soft)] px-4 py-10 md:px-6 md:py-12 ${toneClasses[tone]}`}
+      className={`relative w-full overflow-hidden border-b border-[var(--border-soft)] px-4 py-20 md:px-6 md:py-24 ${toneClasses[tone]}`}
       id={id}
     >
       <div className="mx-auto w-full max-w-[76rem]">
-        <Reveal className="mb-8">
+        <Reveal className="mb-12 max-w-[41rem]">
           {eyebrow ? (
-            <p className={`mb-3 text-xs font-semibold uppercase tracking-[0.24em] ${eyebrowToneClasses[tone]}`}>
+            <p
+              className={`mb-4 text-xs font-semibold uppercase tracking-[0.24em] ${eyebrowToneClasses[tone]}`}
+            >
               {eyebrow}
             </p>
           ) : null}
-          <h2 className="display-font text-3xl leading-none md:text-4xl">{title}</h2>
+          <h2 className="display-font balanced-text text-4xl leading-[0.96] md:text-5xl">
+            {title}
+          </h2>
           {description ? (
-            <p className="mt-4 text-base leading-7 text-current/78">{description}</p>
+            <p className="mt-5 max-w-[35rem] text-base leading-7 text-current/72 md:text-lg">
+              {description}
+            </p>
           ) : null}
         </Reveal>
-        <Reveal delayMs={120}>{children}</Reveal>
+        {children}
       </div>
     </section>
   );

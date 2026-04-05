@@ -94,14 +94,6 @@ export type TasteHighlight = Omit<SectionIntroContent, "description"> & {
   impressionText: string;
 };
 
-export type StoryContent = SectionIntroContent & {
-  paragraphs: string[];
-  timeline: Array<{
-    label: string;
-    value: string;
-  }>;
-};
-
 export type ReviewQuote = {
   name: string;
   quote: string;
@@ -149,7 +141,6 @@ export type LandingPageContent = {
   openingHours: OpeningHoursEntry[];
   contact: ContactInfo;
   featuredTaste: TasteHighlight;
-  story: StoryContent;
   reviews: ReviewQuote[];
   reviewSummary: ReviewSummary;
   visitContact: VisitContactContent;

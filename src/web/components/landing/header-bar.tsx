@@ -13,6 +13,25 @@ type HeaderBarProps = {
   primaryActions: ActionLink[];
 };
 
+function MenuIcon() {
+  return (
+    <span className="flex w-5 flex-col gap-1.5">
+      <span className="h-0.5 w-full rounded-full bg-current" />
+      <span className="h-0.5 w-full rounded-full bg-current" />
+      <span className="h-0.5 w-full rounded-full bg-current" />
+    </span>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <span aria-hidden="true" className="relative block h-5 w-5">
+      <span className="absolute left-1/2 top-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full bg-current" />
+      <span className="absolute left-1/2 top-1/2 h-0.5 w-5 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full bg-current" />
+    </span>
+  );
+}
+
 export function HeaderBar({
   brand,
   header,
@@ -30,112 +49,151 @@ export function HeaderBar({
     : header.menuOpenLabel;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/12 bg-[rgba(15,15,15,0.92)] px-4 py-4 text-white backdrop-blur md:px-6">
-      <div className="mx-auto w-full max-w-[76rem]">
-        <div className="flex items-center justify-between gap-4 lg:hidden">
-          <a
-            className="flex min-w-0 flex-1 items-center overflow-hidden pr-2 transition hover:opacity-90"
-            href="#top"
-            onClick={closeMobileMenu}
-          >
-            <div className="relative h-12 w-[9.5rem] shrink-0 overflow-hidden bg-[rgba(15,15,15,0.92)] px-2 py-1 sm:w-[11rem]">
-              <Image
-                alt={`${brand.fallbackLabel} logo`}
-                className="object-contain"
-                fill
-                priority
-                sizes="176px"
-                src={brand.logoSrc}
-              />
-            </div>
-          </a>
+    <>
+      <header className="sticky top-0 z-50 w-full border-b border-white/8 bg-[rgba(12,12,12,0.78)] px-4 py-3 text-white shadow-[0_14px_34px_rgba(0,0,0,0.18)] backdrop-blur-xl md:px-6">
+        <div className="mx-auto w-full max-w-[76rem]">
+          <div className="flex items-center justify-between gap-4 lg:hidden">
+            <a
+              className="flex min-w-0 flex-1 items-center overflow-hidden pr-2 transition hover:opacity-90"
+              href="#top"
+              onClick={closeMobileMenu}
+            >
+              <div className="relative h-12 w-[9.25rem] shrink-0 overflow-hidden sm:w-[10.5rem]">
+                <Image
+                  alt={`${brand.fallbackLabel} logo`}
+                  className="object-contain"
+                  fill
+                  priority
+                  sizes="176px"
+                  src={brand.logoSrc}
+                />
+              </div>
+            </a>
 
-          <button
-            aria-controls="mobile-navigation-panel"
-            aria-expanded={isMobileMenuOpen}
-            aria-label={menuLabel}
-            className="relative z-10 inline-flex h-12 w-12 shrink-0 items-center justify-center border border-white/12 bg-white/6 text-white transition hover:bg-white/10"
-            data-testid="mobile-menu-button"
-            onClick={() => {
-              setIsMobileMenuOpen((current) => !current);
-            }}
-            type="button"
-          >
-            <span className="sr-only">{menuLabel}</span>
-            <span className="flex w-5 flex-col gap-1.5">
-              <span className="h-0.5 w-full rounded-full bg-current" />
-              <span className="h-0.5 w-full rounded-full bg-current" />
-              <span className="h-0.5 w-full rounded-full bg-current" />
-            </span>
-          </button>
-        </div>
+            <button
+              aria-controls="mobile-navigation-panel"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={menuLabel}
+              className="relative z-10 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/6 text-white transition hover:bg-white/10"
+              data-testid="mobile-menu-button"
+              onClick={() => {
+                setIsMobileMenuOpen((current) => !current);
+              }}
+              type="button"
+            >
+              <span className="sr-only">{menuLabel}</span>
+              <MenuIcon />
+            </button>
+          </div>
 
-        {isMobileMenuOpen ? (
-          <div
-            className="mt-4 flex flex-col gap-4 border-t border-white/10 bg-black/18 pt-4 lg:hidden"
-            data-testid="mobile-nav-panel"
-            id="mobile-navigation-panel"
-          >
+          <div className="hidden lg:flex lg:items-center lg:justify-between lg:gap-10">
+            <a className="flex items-center gap-4 transition hover:opacity-90" href="#top">
+              <div className="relative h-14 w-[11.75rem] overflow-hidden">
+                <Image
+                  alt={`${brand.fallbackLabel} logo`}
+                  className="object-contain"
+                  fill
+                  priority
+                  sizes="188px"
+                  src={brand.logoSrc}
+                />
+              </div>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.22em] text-white/46">
+                  {brand.tagline}
+                </p>
+              </div>
+            </a>
+
             <nav
-              aria-label={header.mobileNavAriaLabel}
-              className="flex flex-col gap-2 text-sm text-white/82"
+              aria-label={header.navAriaLabel}
+              className="flex flex-wrap items-center gap-1 text-sm text-white/68"
             >
               {navItems.map((item) => (
                 <a
-                  className="border-b border-white/8 px-4 py-3 transition hover:bg-white/8 hover:text-white"
+                  className="rounded-full px-3 py-2 transition hover:bg-white/[0.07] hover:text-white"
                   href={item.href}
                   key={item.href}
-                  onClick={closeMobileMenu}
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <div className="flex flex-col gap-3">
-              {primaryActions.map((action) => (
-                <ActionPill key={action.label} {...action} onClick={closeMobileMenu} />
+            <div className="flex flex-wrap items-center gap-2">
+              {primaryActions.slice(0, 1).map((action) => (
+                <ActionPill key={action.label} {...action} />
               ))}
             </div>
           </div>
-        ) : null}
+        </div>
+      </header>
 
-        <div className="hidden lg:flex lg:items-center lg:justify-between lg:gap-5">
-          <a className="flex items-center transition hover:opacity-90" href="#top">
-            <div className="relative h-12 w-[11rem] overflow-hidden bg-[rgba(15,15,15,0.92)] px-2 py-1">
-              <Image
-                alt={`${brand.fallbackLabel} logo`}
-                className="object-contain"
-                fill
-                priority
-                sizes="176px"
-                src={brand.logoSrc}
-              />
-            </div>
-          </a>
-
-          <nav
-            aria-label={header.navAriaLabel}
-            className="flex flex-wrap gap-2 text-sm text-white/74"
-          >
-            {navItems.map((item) => (
+      {isMobileMenuOpen ? (
+        <div
+          className="fixed inset-0 z-[70] bg-[rgba(8,8,8,0.96)] backdrop-blur-xl lg:hidden"
+          data-testid="mobile-nav-panel"
+          id="mobile-navigation-panel"
+        >
+          <div className="mx-auto flex h-full w-full max-w-[76rem] flex-col px-4 py-3 md:px-6">
+            <div className="flex items-center justify-between gap-4">
               <a
-                className="border-b border-transparent px-3 py-2 transition hover:border-white/30 hover:bg-white/8 hover:text-white"
-                href={item.href}
-                key={item.href}
+                className="flex min-w-0 flex-1 items-center overflow-hidden pr-2 transition hover:opacity-90"
+                href="#top"
+                onClick={closeMobileMenu}
               >
-                {item.label}
+                <div className="relative h-12 w-[9.25rem] shrink-0 overflow-hidden sm:w-[10.5rem]">
+                  <Image
+                    alt={`${brand.fallbackLabel} logo`}
+                    className="object-contain"
+                    fill
+                    priority
+                    sizes="176px"
+                    src={brand.logoSrc}
+                  />
+                </div>
               </a>
-            ))}
-          </nav>
 
-          <div className="flex flex-wrap gap-3">
-            {primaryActions.map((action) => (
-              <ActionPill key={action.label} {...action} />
-            ))}
+              <button
+                aria-controls="mobile-navigation-panel"
+                aria-expanded={isMobileMenuOpen}
+                aria-label={header.menuCloseLabel}
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/6 text-white transition hover:bg-white/10"
+                data-testid="mobile-menu-close-button"
+                onClick={closeMobileMenu}
+                type="button"
+              >
+                <span className="sr-only">{header.menuCloseLabel}</span>
+                <CloseIcon />
+              </button>
+            </div>
+
+            <div className="mt-6 flex flex-1 flex-col overflow-y-auto rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.05)] p-4 shadow-[0_24px_60px_rgba(0,0,0,0.34)]">
+              <nav
+                aria-label={header.mobileNavAriaLabel}
+                className="flex flex-col gap-2 text-sm text-white/82"
+              >
+                {navItems.map((item) => (
+                  <a
+                    className="rounded-2xl px-4 py-3 transition hover:bg-white/8 hover:text-white"
+                    href={item.href}
+                    key={item.href}
+                    onClick={closeMobileMenu}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="mt-4 flex flex-col gap-3">
+                {primaryActions.map((action) => (
+                  <ActionPill key={action.label} {...action} onClick={closeMobileMenu} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      ) : null}
+    </>
   );
 }
