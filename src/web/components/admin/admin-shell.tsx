@@ -30,6 +30,19 @@ function HamburgerIcon() {
   );
 }
 
+function CloseIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+      <path
+        d="m6 6 12 12M18 6 6 18"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
 export function AdminShell({
   children,
   currentDateTime,
@@ -45,23 +58,9 @@ export function AdminShell({
           <AdminSidebar
             isMobile
             items={navigation}
-            onClose={() => setIsMobileSidebarOpen(false)}
             onNavigate={() => setIsMobileSidebarOpen(false)}
           />
         </div>
-      ) : null}
-
-      {!isMobileSidebarOpen ? (
-        <button
-          aria-controls="admin-mobile-sidebar"
-          aria-expanded={isMobileSidebarOpen}
-          className="fixed right-4 top-6 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-black shadow-[0_10px_24px_rgba(17,17,17,0.08)] lg:hidden"
-          data-testid="admin-mobile-menu-button"
-          type="button"
-          onClick={() => setIsMobileSidebarOpen(true)}
-        >
-          <HamburgerIcon />
-        </button>
       ) : null}
 
       <div className="hidden lg:block">
@@ -69,10 +68,33 @@ export function AdminShell({
       </div>
 
       <main className="bg-transparent pb-8 lg:pb-10">
-        <div className="grid gap-8">
-          <header className="sticky top-0 z-20 flex min-h-[4.5rem] flex-col gap-4 border-b border-black/10 bg-[rgba(255,246,236,0.88)] px-4 py-4 backdrop-blur sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <div className="grid gap-0 lg:gap-8">
+          <div
+            className="sticky top-0 z-30 flex items-center justify-between border-b border-white/10 bg-[color:var(--admin-sidebar-bg)] px-4 py-4 text-white shadow-[0_10px_24px_rgba(17,17,17,0.22)] sm:px-6 lg:hidden"
+            data-testid="admin-mobile-topbar"
+          >
+            <div className="min-w-0">
+              <p className="truncate text-base font-semibold text-white">Bas IJs &amp; Zo</p>
+              <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-white/56">
+                Control portal
+              </p>
+            </div>
+          </div>
+
+          <button
+            aria-controls="admin-mobile-sidebar"
+            aria-expanded={isMobileSidebarOpen}
+            className="fixed right-4 top-4 z-[60] flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/6 text-white lg:hidden"
+            data-testid={isMobileSidebarOpen ? "admin-mobile-menu-close" : "admin-mobile-menu-button"}
+            type="button"
+            onClick={() => setIsMobileSidebarOpen((current) => !current)}
+          >
+            {isMobileSidebarOpen ? <CloseIcon /> : <HamburgerIcon />}
+          </button>
+
+          <header className="sticky top-[4.625rem] z-20 flex min-h-[4.5rem] flex-col gap-4 border-b border-black/10 bg-[rgba(255,246,236,0.94)] px-4 py-4 backdrop-blur sm:px-6 lg:top-0 lg:z-20 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div className="min-w-0 flex-1">
-              <div className="min-w-0 pr-14 lg:pr-0">
+              <div className="min-w-0">
                 <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-black/44">
                   Admin dashboard
                 </p>
@@ -93,7 +115,7 @@ export function AdminShell({
             </div>
           </header>
 
-          <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+          <div className="px-4 pt-6 sm:px-6 lg:px-8 lg:pt-0">{children}</div>
         </div>
       </main>
     </div>

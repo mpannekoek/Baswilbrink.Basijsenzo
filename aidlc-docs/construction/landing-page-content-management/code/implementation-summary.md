@@ -5,6 +5,8 @@
 - Added protected admin content-management pages for grouped homepage text, opening hours, and the featured taste workflow.
 - Extended the featured taste workflow so the two homepage photos can also be updated from the admin page via public image paths.
 - Added upload controls for the two featured-taste photos so editors can upload replacement images directly from the admin page and then save the updated content without hand-editing paths.
+- Added a dedicated sticky black mobile topbar in the admin portal so the sidebar visual identity also stays present on smaller screens.
+- Refined the mobile admin shell so the hamburger and close controls share the exact same fixed position, while the light dashboard header also stays sticky beneath the black topbar.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
 
 ## Story Coverage

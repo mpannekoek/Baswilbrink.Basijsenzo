@@ -144,6 +144,7 @@ describe("admin portal helpers and components", () => {
     expect(screen.queryByTestId("admin-nav-analytics-link")).not.toBeInTheDocument();
     expect(screen.getByTestId("admin-profile-card")).toBeInTheDocument();
     expect(screen.getByTestId("admin-dashboard-summary")).toBeInTheDocument();
+    expect(screen.getAllByTestId("admin-mobile-topbar").length).toBeGreaterThan(0);
     expect(screen.getByTestId("admin-dashboard-opening-hours-panel-cta")).toHaveAttribute(
       "href",
       "/admin/content/opening-hours",
@@ -183,6 +184,9 @@ describe("admin portal helpers and components", () => {
         <AdminDashboardHome session={sessionViewModel} />
       </AdminShell>,
     );
+
+    expect(screen.getAllByTestId("admin-mobile-topbar").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Overzicht").length).toBeGreaterThan(0);
 
     fireEvent.click(screen.getAllByTestId("admin-mobile-menu-button")[0]);
 

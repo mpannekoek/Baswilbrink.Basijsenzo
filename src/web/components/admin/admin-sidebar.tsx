@@ -10,7 +10,6 @@ import type { AdminNavItem } from "@/types/admin";
 interface AdminSidebarProps {
   isMobile?: boolean;
   items: AdminNavItem[];
-  onClose?: () => void;
   onNavigate?: () => void;
 }
 
@@ -95,19 +94,6 @@ function StackIcon() {
   );
 }
 
-function CloseIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
-      <path
-        d="m6 6 12 12M18 6 6 18"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  );
-}
-
 function AdminNavIcon({ icon }: Pick<AdminNavItem, "icon">) {
   switch (icon) {
     case "dashboard":
@@ -126,7 +112,6 @@ function AdminNavIcon({ icon }: Pick<AdminNavItem, "icon">) {
 export function AdminSidebar({
   isMobile = false,
   items,
-  onClose,
   onNavigate,
 }: AdminSidebarProps) {
   const pathname = usePathname();
@@ -147,7 +132,7 @@ export function AdminSidebar({
 
   return (
     <aside
-      className={`admin-shell-panel border-b border-[color:var(--admin-sidebar-border)] bg-[color:var(--admin-sidebar-bg)] px-4 py-6 text-white lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:flex-col lg:border-r lg:border-b-0 lg:px-5 lg:py-6 ${isMobile ? "min-h-screen" : ""}`}
+      className={`admin-shell-panel border-b border-[color:var(--admin-sidebar-border)] bg-[color:var(--admin-sidebar-bg)] px-4 py-6 text-white lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:flex-col lg:border-r lg:border-b-0 lg:px-5 lg:py-6 ${isMobile ? "min-h-screen pt-[5.5rem]" : ""}`}
       id={isMobile ? "admin-mobile-sidebar" : undefined}
     >
       <div className="flex items-center justify-between gap-3">
@@ -162,16 +147,6 @@ export function AdminSidebar({
             </p>
           </div>
         </div>
-        {isMobile ? (
-          <button
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/6 text-white"
-            data-testid="admin-mobile-menu-close"
-            type="button"
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </button>
-        ) : null}
       </div>
 
       <nav aria-label="Admin navigatie" className="mt-8 lg:mt-10">

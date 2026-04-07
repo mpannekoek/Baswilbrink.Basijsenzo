@@ -147,9 +147,6 @@ export function ContentSectionEditorForm({
         >
           {isPending ? pendingLabel : saveLabel}
         </button>
-        <p className="text-sm text-[color:var(--admin-ink-soft)]">
-          Wijzigingen worden server-side gevalideerd en daarna direct opgeslagen.
-        </p>
       </div>
     </form>
   );
