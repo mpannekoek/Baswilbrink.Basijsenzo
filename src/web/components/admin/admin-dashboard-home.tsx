@@ -81,7 +81,7 @@ export function AdminDashboardHome({ session }: AdminDashboardHomeProps) {
         Welkom terug, {session.displayName}.
       </p>
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <OverviewPanel
           body="Pas per dag de zichtbare openingstijd aan en houd de publieke openingstijden actueel."
           ctaLabel="Openingstijden bewerken"
@@ -99,6 +99,15 @@ export function AdminDashboardHome({ session }: AdminDashboardHomeProps) {
           sectionId="smaak-van-de-week"
           testId="admin-dashboard-featured-taste-panel"
           title="Uitgelichte smaak"
+        />
+        <OverviewPanel
+          body="Beheer hier de sfeerbeelden van de homepage-slider en houd de visuele impressie actueel."
+          ctaLabel="Afbeeldingen beheren"
+          eyebrow="Afbeeldingen"
+          href="/admin/content/gallery"
+          sectionId="afbeeldingen"
+          testId="admin-dashboard-gallery-panel"
+          title="Homepage-slider"
         />
         <OverviewPanel
           body="Werk hier de overige homepage-teksten bij die niet onder openingstijden of de smaak van de week vallen."

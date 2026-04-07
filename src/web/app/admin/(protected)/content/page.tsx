@@ -17,7 +17,7 @@ export default async function AdminContentPage() {
     <ContentFormShell
       description={
         model
-          ? "Werk hier de meeste zichtbare homepage-teksten bij. URL's, afbeeldingen en andere code-gestuurde instellingen blijven buiten deze eerste versie."
+          ? "Werk hier de meeste zichtbare homepage-teksten bij. Smaakafbeeldingen en de slider beheer je op de aparte afbeeldingpagina's."
           : "De pagina kon de huidige content niet laden. Probeer het later opnieuw."
       }
       eyebrow="Content management"

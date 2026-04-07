@@ -11,7 +11,11 @@ const SCRIPT_PROTOCOL_PATTERN = /javascript:/i;
 const PUBLIC_IMAGE_PATH_PATTERN = /^\/[^\s]*$/;
 
 function isPublicImagePathField(fieldName: string): boolean {
-  return fieldName === "featuredTaste.imagePrimarySrc" || fieldName === "featuredTaste.imageSecondarySrc";
+  return (
+    fieldName === "featuredTaste.imagePrimarySrc" ||
+    fieldName === "featuredTaste.imageSecondarySrc" ||
+    /^galleryShowcase\.images\.\d+\.src$/.test(fieldName)
+  );
 }
 
 function hasUnsafeMarkup(value: string): boolean {

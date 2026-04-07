@@ -3,11 +3,13 @@ import { getAdminAccessDecision } from "@/lib/auth/admin-access";
 import {
   FEATURED_TASTE_FIELDS,
   FEATURED_TASTE_SECTIONS,
+  GALLERY_SHOWCASE_SECTIONS,
   GROUPED_CONTENT_SECTIONS,
   OPENING_HOURS_FIELDS,
 } from "./content-keys";
 import {
   toFeaturedTasteFormValues,
+  toGalleryShowcaseFormValues,
   toGroupedContentFormValues,
   toOpeningHoursFormValues,
 } from "./content-mappers";
@@ -62,5 +64,14 @@ export async function getFeaturedTastePageModel() {
   return {
     sections: FEATURED_TASTE_SECTIONS,
     values: toFeaturedTasteFormValues(getStoredContentSnapshot()),
+  };
+}
+
+export async function getGalleryShowcasePageModel() {
+  await ensureContentSeeded();
+
+  return {
+    sections: GALLERY_SHOWCASE_SECTIONS,
+    values: toGalleryShowcaseFormValues(getStoredContentSnapshot()),
   };
 }

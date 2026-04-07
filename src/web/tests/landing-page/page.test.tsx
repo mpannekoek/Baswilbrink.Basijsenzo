@@ -22,11 +22,16 @@ describe("LandingPage", () => {
     );
   });
 
-  it("renders practical information and review summary", () => {
+  it("renders practical information and the gallery showcase", () => {
     render(<LandingPage content={siteContent} />);
 
     expect(screen.getAllByTestId("practical-hours-list")[0]).toBeInTheDocument();
-    expect(screen.getAllByText(siteContent.reviewSummary.averageRating)[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("heading", {
+        name: new RegExp(escapeForRegex(siteContent.galleryShowcase.title), "i"),
+      }).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getAllByTestId("gallery-showcase-slider").length).toBeGreaterThan(0);
     expect(screen.getAllByText(siteContent.practicalInfo.routeLabel)[0]).toBeInTheDocument();
     expect(screen.getAllByTestId("social-instagram-link")[0]).toBeInTheDocument();
     expect(screen.getAllByTestId("social-facebook-link")[0]).toBeInTheDocument();

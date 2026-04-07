@@ -38,7 +38,7 @@ const repeatedCollectionPrefixes = [
   { collection: "socialLinks", prefix: "socialLinks" },
   { collection: "primaryActions", prefix: "primaryActions" },
   { collection: "visitHighlights", prefix: "practicalInfo.visitHighlights" },
-  { collection: "reviews", prefix: "reviews" },
+  { collection: "galleryImages", prefix: "galleryShowcase.images" },
   { collection: "featuredTastePairings", prefix: "featuredTaste.pairings" },
 ] as const;
 
@@ -96,7 +96,7 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
     [
       input("navItems.0.label", "Navigatie: Openingstijden", 40),
       input("navItems.1.label", "Navigatie: Smaak van de week", 40),
-      input("navItems.2.label", "Navigatie: Reviews", 40),
+      input("navItems.2.label", "Navigatie: Sfeerimpressie", 40),
       input("primaryActions.0.label", "CTA: Bel direct", 40),
       input("primaryActions.1.label", "CTA: Plan je route", 40),
       input("socialLinks.0.label", "Social link 1", 40),
@@ -164,25 +164,6 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
     ],
   ),
   defineSection(
-    "reviews",
-    "Reviews en samenvatting",
-    "Reacties van bezoekers en de samenvattende reviewsectie.",
-    [
-      input("reviews.0.name", "Review 1 naam", 60),
-      textarea("reviews.0.quote", "Review 1 quote", 220),
-      input("reviews.1.name", "Review 2 naam", 60),
-      textarea("reviews.1.quote", "Review 2 quote", 220),
-      input("reviews.2.name", "Review 3 naam", 60),
-      textarea("reviews.2.quote", "Review 3 quote", 220),
-      input("reviewSummary.eyebrow", "Reviewsamenvatting eyebrow", 80),
-      input("reviewSummary.title", "Reviewsamenvatting titel", 120),
-      textarea("reviewSummary.description", "Reviewsamenvatting beschrijving", 220),
-      input("reviewSummary.averageRating", "Gemiddelde score", 20),
-      input("reviewSummary.sourceLabel", "Bronlabel", 80),
-      textarea("reviewSummary.note", "Reviewsamenvatting notitie", 220),
-    ],
-  ),
-  defineSection(
     "visit-contact",
     "Laatste CTA en footer",
     "De afsluitende oproep, contactlabels en footercopy.",
@@ -236,6 +217,34 @@ export const FEATURED_TASTE_SECTIONS: ContentSectionConfig[] = [
   ),
 ];
 
+export const GALLERY_SHOWCASE_SECTIONS: ContentSectionConfig[] = [
+  defineSection(
+    "gallery-intro",
+    "Sfeerimpressie",
+    "De tekst van het groene introductieblok boven de slider.",
+    [
+      input("galleryShowcase.eyebrow", "Eyebrow", 80),
+      input("galleryShowcase.title", "Titel", 140),
+      textarea("galleryShowcase.description", "Beschrijving", 260),
+    ],
+  ),
+  defineSection(
+    "gallery-images",
+    "Slider-afbeeldingen",
+    "Beheer hier de afbeeldingen die in de homepage-slider verschijnen.",
+    [
+      input("galleryShowcase.images.0.src", "Slide 1 foto", 160),
+      input("galleryShowcase.images.0.alt", "Slide 1 alt-tekst", 160),
+      input("galleryShowcase.images.1.src", "Slide 2 foto", 160),
+      input("galleryShowcase.images.1.alt", "Slide 2 alt-tekst", 160),
+      input("galleryShowcase.images.2.src", "Slide 3 foto", 160),
+      input("galleryShowcase.images.2.alt", "Slide 3 alt-tekst", 160),
+      input("galleryShowcase.images.3.src", "Slide 4 foto", 160),
+      input("galleryShowcase.images.3.alt", "Slide 4 alt-tekst", 160),
+    ],
+  ),
+];
+
 export const OPENING_HOURS_FIELDS: ContentFieldConfig[] = defaultSiteContent.openingHours.map((entry, index) => ({
   label: entry.day,
   maxLength: 80,
@@ -245,10 +254,12 @@ export const OPENING_HOURS_FIELDS: ContentFieldConfig[] = defaultSiteContent.ope
 
 export const GROUPED_CONTENT_FIELDS = GROUPED_CONTENT_SECTIONS.flatMap((section) => section.fields);
 export const FEATURED_TASTE_FIELDS = FEATURED_TASTE_SECTIONS.flatMap((section) => section.fields);
+export const GALLERY_SHOWCASE_FIELDS = GALLERY_SHOWCASE_SECTIONS.flatMap((section) => section.fields);
 export const ALL_EDITABLE_FIELDS = [
   ...GROUPED_CONTENT_FIELDS,
   ...OPENING_HOURS_FIELDS,
   ...FEATURED_TASTE_FIELDS,
+  ...GALLERY_SHOWCASE_FIELDS,
 ];
 
 function parseFieldPath(fieldName: string): Array<number | string> {
@@ -262,6 +273,12 @@ function getRepeatedCollectionMatch(fieldName: string) {
   return [...repeatedCollectionPrefixes]
     .sort((left, right) => right.prefix.length - left.prefix.length)
     .find((candidate) => fieldName.startsWith(`${candidate.prefix}.`));
+}
+
+export function getFieldNameForStoredRepeatedValue(collection: string, itemKey: string): string {
+  const repeatedCollection = repeatedCollectionPrefixes.find((candidate) => candidate.collection === collection);
+
+  return repeatedCollection ? `${repeatedCollection.prefix}.${itemKey}` : `${collection}.${itemKey}`;
 }
 
 export function getFieldTestId(fieldName: string): string {

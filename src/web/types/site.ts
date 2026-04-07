@@ -96,16 +96,13 @@ export type TasteHighlight = Omit<SectionIntroContent, "description"> & {
   impressionText: string;
 };
 
-export type ReviewQuote = {
-  name: string;
-  quote: string;
-  rating: number;
+export type GallerySlide = {
+  alt: string;
+  src: string;
 };
 
-export type ReviewSummary = SectionIntroContent & {
-  averageRating: string;
-  sourceLabel: string;
-  note: string;
+export type GalleryShowcaseContent = SectionIntroContent & {
+  images: GallerySlide[];
 };
 
 export type VisitContactContent = SectionIntroContent & {
@@ -143,8 +140,7 @@ export type LandingPageContent = {
   openingHours: OpeningHoursEntry[];
   contact: ContactInfo;
   featuredTaste: TasteHighlight;
-  reviews: ReviewQuote[];
-  reviewSummary: ReviewSummary;
+  galleryShowcase: GalleryShowcaseContent;
   visitContact: VisitContactContent;
   siteFooter: SiteFooterContent;
 };

@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildInitialFieldValues,
   FEATURED_TASTE_FIELDS,
+  GALLERY_SHOWCASE_FIELDS,
   GROUPED_CONTENT_FIELDS,
   OPENING_HOURS_FIELDS,
 } from "@/lib/content/content-keys";
@@ -117,5 +118,23 @@ describe("content actions", () => {
     expect(result.status).toBe("error");
     expect(result.fieldErrors["featuredTaste.imagePrimarySrc"]).toContain("moet een publiek afbeeldingspad");
     expect(saveContentMutationMock).not.toHaveBeenCalled();
+  });
+
+  it("saves gallery showcase updates and triggers gallery revalidation", async () => {
+    const { saveGalleryShowcaseAction } = await import("@/lib/content/content-actions");
+    const formData = new FormData();
+    const values = buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS);
+
+    for (const [fieldName, value] of Object.entries(values)) {
+      formData.set(fieldName, value);
+    }
+
+    formData.set("galleryShowcase.title", "De toonbank laat meteen zien waarom je even wilt stoppen.");
+
+    const result = await saveGalleryShowcaseAction(undefined, formData);
+
+    expect(result.status).toBe("success");
+    expect(saveContentMutationMock).toHaveBeenCalledTimes(1);
+    expect(revalidatePathMock).toHaveBeenCalledWith("/admin/content/gallery");
   });
 });

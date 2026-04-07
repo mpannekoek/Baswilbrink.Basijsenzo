@@ -572,10 +572,90 @@ Please start by:
 
 ---
 
+## Code Generation Change Request
+**Timestamp**: 2026-04-07T17:44:26Z
+**User Input**: "Request Changes: kan je alles rondom reviews uit de app verwijderen. Ik wil in de afbeelding het groene behouden, alleen moet de tekst daar veranderd worden. Het gene met het rode vierkant moet weg. In plaats daarvan wil ik graag een slider met afbeeldingen. Ik zit zelf te denken aan swiper.js. De afbeeldingen moet in het admin portaal onder een eigen pagina beheerd kunnen worden."
+**AI Response**: "Accepted the larger change request and replaced the reviews feature with a Swiper-based gallery section, including a dedicated admin page for managing the slider images and intro text."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-07T17:55:32Z
+**User Input**: ""
+**AI Response**: "Removed the reviews feature from the app, added the new gallery slider and separate admin management page, verified lint, tests, and build, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
 ## Commit Request
 **Timestamp**: 2026-04-07T17:38:58Z
 **User Input**: "commit"
 **AI Response**: "Preparing a local commit for the latest mobile admin header and review follow-up changes."
+**Context**: Repository - Local commit requested
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-07T18:01:18Z
+**User Input**: "Request Changes: wat betreft de slider wil ik graag de 'Thumbs gallery loop'. Daarnaast wordt die op dit moment ook niet goed weergegeven (zie de afbeelding)."
+**AI Response**: "Accepted the slider refinement request and started replacing the current gallery with a proper Swiper thumbs gallery loop layout while fixing the broken rendering."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-07T18:04:47Z
+**User Input**: ""
+**AI Response**: "Replaced the homepage gallery with a Swiper thumbs gallery loop layout, fixed the gallery rendering and sizing styles, verified lint, tests, and build, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-07T18:06:04Z
+**User Input**: ""
+**AI Response**: "Added a legacy content fallback so stored nav label values of 'Reviews' normalize to 'Sfeerimpressie', re-ran lint, tests, and build successfully, and prepared the final review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-07T18:07:38Z
+**User Input**: "kan je de elementen waar het rode vierkant omheen staat weghalen (zie afbeelding)?"
+**AI Response**: "Accepted the request and started removing the gallery pagination dots and arrow controls from the homepage slider."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-07T18:08:46Z
+**User Input**: ""
+**AI Response**: "Removed the gallery arrow and pagination controls, simplified the Swiper module setup and styles, verified lint, tests, and build, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-07T18:10:41Z
+**User Input**: "Request Changes: Kan je de tekstvakken uitlijnen zoals afgebeeld op de afbeelding? Wil je dit even voor elke admin portal pagina checken?"
+**AI Response**: "Accepted the admin form alignment request and started checking the shared form layout used across the admin portal pages so the field blocks can be aligned consistently."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-07T18:12:00Z
+**User Input**: ""
+**AI Response**: "Adjusted the shared admin content form so fields align from the top and multiline textareas use consistent sizing, confirmed the opening-hours page did not need the same change, verified lint, tests, and build, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-07T18:13:50Z
+**User Input**: "commit"
+**AI Response**: "Preparing a local commit of all current working-tree changes, including the gallery showcase, admin image management, and admin UI refinements."
 **Context**: Repository - Local commit requested
 
 ---

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   buildPersistableFieldValues,
   FEATURED_TASTE_FIELDS,
+  GALLERY_SHOWCASE_FIELDS,
   GROUPED_CONTENT_FIELDS,
   OPENING_HOURS_FIELDS,
   type ContentFieldConfig,
@@ -14,9 +15,11 @@ import { INITIAL_CONTENT_ACTION_STATE, type ContentActionState } from "./content
 import {
   buildFieldValuesFromSnapshot,
   toFeaturedTasteFormValues,
+  toGalleryShowcaseFormValues,
   toGroupedContentFormValues,
   toOpeningHoursFormValues,
 } from "./content-mappers";
+import { storeGalleryShowcaseImageUpload } from "./gallery-showcase-image-upload";
 import { logContentEvent } from "./content-logging";
 import { storeFeaturedTasteImageUpload } from "./featured-taste-image-upload";
 import { getStoredContentSnapshot, saveContentMutation } from "./content-repository";
@@ -71,6 +74,7 @@ async function saveContentSection(options: {
     revalidatePath("/");
     revalidatePath("/admin");
     revalidatePath("/admin/content");
+    revalidatePath("/admin/content/gallery");
     revalidatePath("/admin/content/opening-hours");
     revalidatePath("/admin/content/taste-of-the-week");
 
@@ -147,6 +151,20 @@ export async function saveFeaturedTasteAction(
   });
 }
 
+export async function saveGalleryShowcaseAction(
+  previousState: ContentActionState = INITIAL_CONTENT_ACTION_STATE,
+  formData: FormData,
+) {
+  return saveContentSection({
+    currentPath: "/admin/content/gallery",
+    fields: GALLERY_SHOWCASE_FIELDS,
+    formData,
+    previousState,
+    successMessage: "De slider-content is opgeslagen.",
+    targetSection: "gallery-showcase",
+  });
+}
+
 export async function getLatestGroupedContentValues() {
   await ensureContentSeeded();
   return toGroupedContentFormValues(getStoredContentSnapshot());
@@ -162,14 +180,19 @@ export async function getLatestFeaturedTasteValues() {
   return toFeaturedTasteFormValues(getStoredContentSnapshot());
 }
 
-export interface FeaturedTasteImageUploadActionState {
+export async function getLatestGalleryShowcaseValues() {
+  await ensureContentSeeded();
+  return toGalleryShowcaseFormValues(getStoredContentSnapshot());
+}
+
+export interface ContentImageUploadActionState {
   fieldName: string | null;
   message: string | null;
   status: "error" | "idle" | "success";
   uploadedPath: string | null;
 }
 
-export const INITIAL_FEATURED_TASTE_IMAGE_UPLOAD_ACTION_STATE: FeaturedTasteImageUploadActionState = {
+export const INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE: ContentImageUploadActionState = {
   fieldName: null,
   message: null,
   status: "idle",
@@ -177,9 +200,9 @@ export const INITIAL_FEATURED_TASTE_IMAGE_UPLOAD_ACTION_STATE: FeaturedTasteImag
 };
 
 export async function uploadFeaturedTasteImageAction(
-  previousState: FeaturedTasteImageUploadActionState = INITIAL_FEATURED_TASTE_IMAGE_UPLOAD_ACTION_STATE,
+  previousState: ContentImageUploadActionState = INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
   formData: FormData,
-): Promise<FeaturedTasteImageUploadActionState> {
+): Promise<ContentImageUploadActionState> {
   void previousState;
 
   const fieldNameValue = formData.get("uploadFieldName");
@@ -229,6 +252,70 @@ export async function uploadFeaturedTasteImageAction(
       event: "featured_taste_image_upload_failed",
       level: "error",
       targetSection: "featured-taste-upload",
+    });
+
+    return {
+      fieldName,
+      message: error instanceof Error ? error.message : "Uploaden is niet gelukt. Probeer het opnieuw.",
+      status: "error",
+      uploadedPath: null,
+    };
+  }
+}
+
+export async function uploadGalleryShowcaseImageAction(
+  previousState: ContentImageUploadActionState = INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
+  formData: FormData,
+): Promise<ContentImageUploadActionState> {
+  void previousState;
+
+  const fieldNameValue = formData.get("uploadFieldName");
+  const fieldName =
+    typeof fieldNameValue === "string" && /^galleryShowcase\.images\.\d+\.src$/.test(fieldNameValue)
+      ? fieldNameValue
+      : null;
+  const fileValue = fieldName ? formData.get(`${fieldName}.file`) : null;
+
+  if (!fieldName || !(fileValue instanceof File)) {
+    return {
+      fieldName,
+      message: "De upload kon niet worden verwerkt. Probeer het opnieuw.",
+      status: "error",
+      uploadedPath: null,
+    };
+  }
+
+  try {
+    const actor = await requireContentAdminActor("/admin/content/gallery");
+    const upload = await storeGalleryShowcaseImageUpload({
+      fieldName,
+      file: fileValue,
+    });
+
+    logContentEvent({
+      actorIdentifier: actor.email,
+      details: {
+        contentType: fileValue.type,
+        fieldName,
+        sizeBytes: fileValue.size,
+      },
+      event: "gallery_showcase_image_uploaded",
+      level: "info",
+      targetSection: "gallery-showcase-upload",
+    });
+
+    return {
+      fieldName,
+      message: "Afbeelding geupload. Klik daarna nog op opslaan om deze in de slider te gebruiken.",
+      status: "success",
+      uploadedPath: upload.publicPath,
+    };
+  } catch (error) {
+    logContentEvent({
+      error,
+      event: "gallery_showcase_image_upload_failed",
+      level: "error",
+      targetSection: "gallery-showcase-upload",
     });
 
     return {

@@ -24,7 +24,7 @@ export const defaultSiteContent: LandingPageContent = {
   navItems: [
     { href: "#openingstijden", label: "Openingstijden" },
     { href: "#smaak", label: "Smaak van de week" },
-    { href: "#reviews", label: "Reviews" },
+    { href: "#impressie", label: "Sfeerimpressie" },
   ],
   socialLinks: [
     {
@@ -135,34 +135,29 @@ export const defaultSiteContent: LandingPageContent = {
     impressionText:
       "Met echte beelden uit de vitrine voelt deze smaak als een uitnodiging van de toonbank zelf, niet als losse promotietekst.",
   },
-  reviews: [
-    {
-      name: "Sanne uit de buurt",
-      quote:
-        "Je merkt meteen dat dit zo'n plek is waar mensen elkaar kennen. Heerlijk ijs, vriendelijke service en precies de juiste dorpssfeer.",
-      rating: 5,
-    },
-    {
-      name: "Tom & gezin",
-      quote:
-        "We zochten een gezellige stop voor de kinderen en bleven veel langer hangen dan gepland. Fijn ijs, vriendelijke mensen en een plek waar je graag terugkomt.",
-      rating: 5,
-    },
-    {
-      name: "Bezoeker onderweg",
-      quote:
-        "Zelfs zonder het dorp te kennen wist ik meteen waar ik moest zijn en wanneer het open was. Dat vertrouwen voel je ook ter plekke.",
-      rating: 4,
-    },
-  ],
-  reviewSummary: {
-    eyebrow: "Reviews uit de buurt",
-    title: "Warm, geloofwaardig en prettig dichtbij.",
+  galleryShowcase: {
+    eyebrow: "Uit de vitrine",
+    title: "De sfeer proef je hier al voordat je binnenstapt.",
     description:
-      "Goede reacties hoeven niet te schreeuwen. Een paar rustige quotes en een heldere waardering zeggen hier al genoeg.",
-    averageRating: "4,8/5",
-    sourceLabel: "Gevoel van vaste gasten",
-    note: "Een rustige samenvatting van de sfeer: vriendelijk, vertrouwd en precies het soort plek waar mensen anderen graag naartoe sturen.",
+      "Laat dit blok een korte, warme introductie zijn op de beelden eronder: ambachtelijk ijs, een volle vitrine en een plek waar je meteen zin krijgt om even te stoppen.",
+    images: [
+      {
+        alt: "Eerste sfeerfoto van de vitrine bij Bas IJs & Zo",
+        src: "/basijs1.jpg",
+      },
+      {
+        alt: "Tweede sfeerfoto van het schepijs bij Bas IJs & Zo",
+        src: "/basijs2.jpg",
+      },
+      {
+        alt: "Derde sfeerfoto van het ijs in de vitrine",
+        src: "/basijs3.jpg",
+      },
+      {
+        alt: "Extra sfeerfoto van de toonbank met ambachtelijk ijs",
+        src: "/basijs2.jpg",
+      },
+    ],
   },
   visitContact: {
     eyebrow: "Laatste zetje",

@@ -139,12 +139,14 @@ describe("admin portal helpers and components", () => {
     expect(screen.getByTestId("admin-nav-dashboard-link")).toBeInTheDocument();
     expect(screen.getByTestId("admin-nav-opening-hours-link")).toBeInTheDocument();
     expect(screen.getByTestId("admin-nav-featured-taste-link")).toBeInTheDocument();
+    expect(screen.getByTestId("admin-nav-gallery-link")).toBeInTheDocument();
     expect(screen.getByTestId("admin-nav-other-content-link")).toBeInTheDocument();
     expect(screen.queryByTestId("admin-nav-orders-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("admin-nav-analytics-link")).not.toBeInTheDocument();
     expect(screen.getByTestId("admin-profile-card")).toBeInTheDocument();
     expect(screen.getByTestId("admin-dashboard-summary")).toBeInTheDocument();
     expect(screen.getAllByTestId("admin-mobile-topbar").length).toBeGreaterThan(0);
+    expect(screen.getByTestId("admin-dashboard-gallery-panel")).toBeInTheDocument();
     expect(screen.getByTestId("admin-dashboard-opening-hours-panel-cta")).toHaveAttribute(
       "href",
       "/admin/content/opening-hours",
@@ -157,6 +159,10 @@ describe("admin portal helpers and components", () => {
       "href",
       "/admin/content",
     );
+    expect(screen.getByTestId("admin-dashboard-gallery-panel-cta")).toHaveAttribute(
+      "href",
+      "/admin/content/gallery",
+    );
     expect(screen.getByTestId("admin-signout-button")).toBeInTheDocument();
     expect(navigation[1]).toMatchObject({
       href: "/admin/content/opening-hours",
@@ -167,6 +173,10 @@ describe("admin portal helpers and components", () => {
       testId: "admin-nav-featured-taste-link",
     });
     expect(navigation[3]).toMatchObject({
+      href: "/admin/content/gallery",
+      testId: "admin-nav-gallery-link",
+    });
+    expect(navigation[4]).toMatchObject({
       href: "/admin/content",
       testId: "admin-nav-other-content-link",
     });

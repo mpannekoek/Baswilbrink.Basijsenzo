@@ -24,6 +24,13 @@ export function getAdminNavigation(): AdminNavItem[] {
       testId: "admin-nav-featured-taste-link",
     },
     {
+      href: "/admin/content/gallery",
+      icon: "images",
+      label: "Afbeeldingen",
+      description: "Open direct de editor voor de homepage-slider en sfeerbeelden",
+      testId: "admin-nav-gallery-link",
+    },
+    {
       href: "/admin/content",
       icon: "stack",
       label: "Overig",

@@ -1,7 +1,7 @@
+import { GalleryShowcaseSection } from "@/components/landing/gallery-showcase-section";
 import { HeaderBar } from "@/components/landing/header-bar";
 import { HeroSection } from "@/components/landing/hero-section";
 import { PracticalInfoSection } from "@/components/landing/practical-info-section";
-import { ReviewsSection } from "@/components/landing/reviews-section";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { TasteOfWeekSection } from "@/components/landing/taste-of-week-section";
 import { VisitContactSection } from "@/components/landing/visit-contact-section";
@@ -34,7 +34,7 @@ export function LandingPage({ content }: LandingPageProps) {
           practicalInfo={content.practicalInfo}
         />
         <TasteOfWeekSection featuredTaste={content.featuredTaste} />
-        <ReviewsSection reviews={content.reviews} summary={content.reviewSummary} />
+        <GalleryShowcaseSection galleryShowcase={content.galleryShowcase} />
         <VisitContactSection
           actions={content.primaryActions}
           contact={content.contact}

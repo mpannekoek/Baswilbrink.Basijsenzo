@@ -94,6 +94,28 @@ function StackIcon() {
   );
 }
 
+function ImagesIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+      <rect x="4.75" y="6.25" width="10.5" height="10.5" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="m7.5 14.5 2.8-3 2.4 2.4 1.8-1.9 2.75 3"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M17 8.75h1.25a1 1 0 0 1 1 1v7.5a1 1 0 0 1-1 1H9.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.5"
+      />
+      <circle cx="10.25" cy="9.5" r="1.1" fill="currentColor" />
+    </svg>
+  );
+}
+
 function AdminNavIcon({ icon }: Pick<AdminNavItem, "icon">) {
   switch (icon) {
     case "dashboard":
@@ -104,6 +126,8 @@ function AdminNavIcon({ icon }: Pick<AdminNavItem, "icon">) {
       return <SparklesIcon />;
     case "stack":
       return <StackIcon />;
+    case "images":
+      return <ImagesIcon />;
     default:
       return <ContentIcon />;
   }

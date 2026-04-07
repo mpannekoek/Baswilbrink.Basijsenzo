@@ -5,6 +5,8 @@ import {
   buildInitialFieldValues,
   buildPersistableFieldValues,
   FEATURED_TASTE_FIELDS,
+  GALLERY_SHOWCASE_FIELDS,
+  getFieldNameForStoredRepeatedValue,
   GROUPED_CONTENT_FIELDS,
   OPENING_HOURS_FIELDS,
   setFieldValueInContent,
@@ -23,7 +25,7 @@ function buildStoredValueMap(snapshot: StoredContentSnapshot): Map<string, strin
   }
 
   for (const entry of snapshot.repeatedEntries) {
-    storedValues.set(`${entry.collection}.${entry.itemKey}`, entry.value);
+    storedValues.set(getFieldNameForStoredRepeatedValue(entry.collection, entry.itemKey), entry.value);
   }
 
   return storedValues;
@@ -49,6 +51,12 @@ export function toLandingPageContent(snapshot: StoredContentSnapshot): LandingPa
     setFieldValueInContent(content, field.name, values[field.name] ?? "");
   }
 
+  const legacyGalleryNavLabel = content.navItems[2]?.label.trim().toLowerCase();
+
+  if (legacyGalleryNavLabel === "reviews" && defaultSiteContent.navItems[2]) {
+    content.navItems[2].label = defaultSiteContent.navItems[2].label;
+  }
+
   return content;
 }
 
@@ -62,6 +70,10 @@ export function toOpeningHoursFormValues(snapshot: StoredContentSnapshot): Conte
 
 export function toFeaturedTasteFormValues(snapshot: StoredContentSnapshot): ContentFieldValues {
   return buildFieldValuesFromSnapshot(FEATURED_TASTE_FIELDS, snapshot);
+}
+
+export function toGalleryShowcaseFormValues(snapshot: StoredContentSnapshot): ContentFieldValues {
+  return buildFieldValuesFromSnapshot(GALLERY_SHOWCASE_FIELDS, snapshot);
 }
 
 export function buildDefaultPersistableValues() {

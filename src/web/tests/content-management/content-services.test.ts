@@ -6,6 +6,7 @@ import {
   buildInitialFieldValues,
   buildPersistableFieldValues,
   FEATURED_TASTE_FIELDS,
+  GALLERY_SHOWCASE_FIELDS,
   GROUPED_CONTENT_FIELDS,
 } from "@/lib/content/content-keys";
 import { defaultSiteContent } from "@/lib/content/default-site-content";
@@ -31,6 +32,7 @@ describe("content services", () => {
 
     expect(content.hero.title).toBe(defaultSiteContent.hero.title);
     expect(content.featuredTaste.flavor).toBe(defaultSiteContent.featuredTaste.flavor);
+    expect(content.galleryShowcase.images[0]?.src).toBe(defaultSiteContent.galleryShowcase.images[0]?.src);
     expect(content.openingHours[0]?.hours).toBe(defaultSiteContent.openingHours[0]?.hours);
   });
 
@@ -100,5 +102,67 @@ describe("content services", () => {
 
     expect(updatedContent.featuredTaste.imagePrimarySrc).toBe("/basijs1.jpg");
     expect(updatedContent.featuredTaste.imageSecondarySrc).toBe("/basijs2.jpg");
+  });
+
+  it("persists gallery showcase image updates", () => {
+    const client = createContentDatabaseClient(":memory:");
+
+    seedContentStore(buildDefaultPersistableValues(), client);
+
+    const nextValues = {
+      ...buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS),
+      "galleryShowcase.images.0.src": "/basijs3.jpg",
+      "galleryShowcase.images.0.alt": "Nieuwe eerste sliderfoto",
+      "galleryShowcase.title": "Nieuwe galerijtitel",
+    };
+
+    saveContentMutation(
+      {
+        actor: {
+          displayName: "Beheerder Bas",
+          email: "admin@example.com",
+        },
+        afterSnapshot: JSON.stringify(nextValues),
+        beforeSnapshot: JSON.stringify(buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS)),
+        fieldValues: buildPersistableFieldValues(GALLERY_SHOWCASE_FIELDS, nextValues),
+        targetSection: "gallery-showcase",
+      },
+      client,
+    );
+
+    const updatedContent = toLandingPageContent(getStoredContentSnapshot(client));
+
+    expect(updatedContent.galleryShowcase.title).toBe("Nieuwe galerijtitel");
+    expect(updatedContent.galleryShowcase.images[0]?.src).toBe("/basijs3.jpg");
+    expect(updatedContent.galleryShowcase.images[0]?.alt).toBe("Nieuwe eerste sliderfoto");
+  });
+
+  it("normalizes the legacy reviews nav label to sfeerimpressie", () => {
+    const client = createContentDatabaseClient(":memory:");
+
+    seedContentStore(buildDefaultPersistableValues(), client);
+
+    const nextValues = {
+      ...buildInitialFieldValues(GROUPED_CONTENT_FIELDS),
+      "navItems.2.label": "Reviews",
+    };
+
+    saveContentMutation(
+      {
+        actor: {
+          displayName: "Beheerder Bas",
+          email: "admin@example.com",
+        },
+        afterSnapshot: JSON.stringify(nextValues),
+        beforeSnapshot: JSON.stringify(buildInitialFieldValues(GROUPED_CONTENT_FIELDS)),
+        fieldValues: buildPersistableFieldValues(GROUPED_CONTENT_FIELDS, nextValues),
+        targetSection: "grouped-content",
+      },
+      client,
+    );
+
+    const updatedContent = toLandingPageContent(getStoredContentSnapshot(client));
+
+    expect(updatedContent.navItems[2]?.label).toBe(defaultSiteContent.navItems[2]?.label);
   });
 });
