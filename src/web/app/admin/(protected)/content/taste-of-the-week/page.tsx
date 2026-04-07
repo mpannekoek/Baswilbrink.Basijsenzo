@@ -17,7 +17,7 @@ export default async function AdminFeaturedTastePage() {
     <ContentFormShell
       description={
         model
-          ? "Houd hier de uitgelichte smaak en de bijbehorende korte aanbevelingen actueel."
+          ? "Houd hier de uitgelichte smaak, de twee foto's en de bijbehorende korte aanbevelingen actueel."
           : "De content voor de smaak van de week kon niet worden geladen. Probeer het later opnieuw."
       }
       eyebrow="Content management"

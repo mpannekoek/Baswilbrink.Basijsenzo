@@ -88,6 +88,8 @@ export type TasteHighlight = Omit<SectionIntroContent, "description"> & {
   pairings: string[];
   accentLabel: string;
   supportTitle: string;
+  imagePrimarySrc: string;
+  imageSecondarySrc: string;
   imagePrimaryAlt: string;
   imageSecondaryAlt: string;
   impressionEyebrow: string;

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useActionState } from "react";
 
 import { INITIAL_CONTENT_ACTION_STATE, type ContentActionState } from "@/lib/content/content-action-state";
@@ -22,15 +23,21 @@ interface ContentSectionEditorFormProps {
   saveLabel: string;
   sections: ContentSectionConfig[];
   statusTestId: string;
+  controlledFields?: Partial<Record<string, { onChange: (value: string) => void; value: string }>>;
+  fieldExtensions?: Partial<Record<string, ReactNode>>;
 }
 
 function FieldControl({
+  controlledField,
   field,
   fieldError,
+  fieldExtension,
   initialValue,
 }: {
+  controlledField?: { onChange: (value: string) => void; value: string };
   field: ContentFieldConfig;
   fieldError?: string;
+  fieldExtension?: ReactNode;
   initialValue: string;
 }) {
   const testId = getFieldTestId(field.name);
@@ -42,22 +49,25 @@ function FieldControl({
         <textarea
           className="min-h-28 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition focus:border-[color:var(--brand-orange)] focus:ring-2 focus:ring-[rgba(255,117,24,0.16)]"
           data-testid={testId}
-          defaultValue={initialValue}
           id={field.name}
           maxLength={field.maxLength}
           name={field.name}
+          onChange={controlledField ? (event) => controlledField.onChange(event.target.value) : undefined}
+          {...(controlledField ? { value: controlledField.value } : { defaultValue: initialValue })}
         />
       ) : (
         <input
           className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition focus:border-[color:var(--brand-orange)] focus:ring-2 focus:ring-[rgba(255,117,24,0.16)]"
           data-testid={testId}
-          defaultValue={initialValue}
           id={field.name}
           maxLength={field.maxLength}
           name={field.name}
+          onChange={controlledField ? (event) => controlledField.onChange(event.target.value) : undefined}
           type="text"
+          {...(controlledField ? { value: controlledField.value } : { defaultValue: initialValue })}
         />
       )}
+      {fieldExtension ? <div>{fieldExtension}</div> : null}
       {fieldError ? (
         <span className="text-sm text-[#8a2f11]" data-testid={`${testId}-error`}>
           {fieldError}
@@ -69,6 +79,8 @@ function FieldControl({
 
 export function ContentSectionEditorForm({
   action,
+  controlledFields,
+  fieldExtensions,
   formTestId,
   initialValues,
   pendingLabel,
@@ -114,8 +126,10 @@ export function ContentSectionEditorForm({
           <div className="grid gap-4 md:grid-cols-2">
             {section.fields.map((field) => (
               <FieldControl
+                controlledField={controlledFields?.[field.name]}
                 field={field}
                 fieldError={state.fieldErrors[field.name]}
+                fieldExtension={fieldExtensions?.[field.name]}
                 initialValue={initialValues[field.name] ?? ""}
                 key={field.name}
               />

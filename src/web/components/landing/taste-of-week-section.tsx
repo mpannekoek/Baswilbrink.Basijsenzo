@@ -51,7 +51,7 @@ export function TasteOfWeekSection({
                     className="object-cover"
                     fill
                     sizes="(min-width: 768px) 26vw, 100vw"
-                    src="/basijs2.jpg"
+                    src={featuredTaste.imagePrimarySrc}
                   />
                 </div>
                 <div className="relative min-h-[10rem] overflow-hidden rounded-[26px] border border-white/20">
@@ -60,7 +60,7 @@ export function TasteOfWeekSection({
                     className="object-cover"
                     fill
                     sizes="(min-width: 768px) 26vw, 100vw"
-                    src="/basijs3.jpg"
+                    src={featuredTaste.imageSecondarySrc}
                   />
                 </div>
               </div>

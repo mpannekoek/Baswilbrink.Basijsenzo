@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { buildInitialFieldValues, GROUPED_CONTENT_FIELDS, OPENING_HOURS_FIELDS } from "@/lib/content/content-keys";
+import {
+  buildInitialFieldValues,
+  FEATURED_TASTE_FIELDS,
+  GROUPED_CONTENT_FIELDS,
+  OPENING_HOURS_FIELDS,
+} from "@/lib/content/content-keys";
 
 const {
   ensureContentSeededMock,
@@ -94,5 +99,23 @@ describe("content actions", () => {
     expect(saveContentMutationMock).toHaveBeenCalledTimes(1);
     expect(revalidatePathMock).toHaveBeenCalledWith("/");
     expect(revalidatePathMock).toHaveBeenCalledWith("/admin/content/opening-hours");
+  });
+
+  it("rejects featured-taste photo paths that are not local public assets", async () => {
+    const { saveFeaturedTasteAction } = await import("@/lib/content/content-actions");
+    const formData = new FormData();
+    const values = buildInitialFieldValues(FEATURED_TASTE_FIELDS);
+
+    for (const [fieldName, value] of Object.entries(values)) {
+      formData.set(fieldName, value);
+    }
+
+    formData.set("featuredTaste.imagePrimarySrc", "https://example.com/ice-cream.jpg");
+
+    const result = await saveFeaturedTasteAction(undefined, formData);
+
+    expect(result.status).toBe("error");
+    expect(result.fieldErrors["featuredTaste.imagePrimarySrc"]).toContain("moet een publiek afbeeldingspad");
+    expect(saveContentMutationMock).not.toHaveBeenCalled();
   });
 });

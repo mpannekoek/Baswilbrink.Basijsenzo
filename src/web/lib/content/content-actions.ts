@@ -18,6 +18,7 @@ import {
   toOpeningHoursFormValues,
 } from "./content-mappers";
 import { logContentEvent } from "./content-logging";
+import { storeFeaturedTasteImageUpload } from "./featured-taste-image-upload";
 import { getStoredContentSnapshot, saveContentMutation } from "./content-repository";
 import { ensureContentSeeded } from "./content-seed";
 import { validateContentFieldValues } from "./content-validation";
@@ -159,4 +160,82 @@ export async function getLatestOpeningHoursValues() {
 export async function getLatestFeaturedTasteValues() {
   await ensureContentSeeded();
   return toFeaturedTasteFormValues(getStoredContentSnapshot());
+}
+
+export interface FeaturedTasteImageUploadActionState {
+  fieldName: string | null;
+  message: string | null;
+  status: "error" | "idle" | "success";
+  uploadedPath: string | null;
+}
+
+export const INITIAL_FEATURED_TASTE_IMAGE_UPLOAD_ACTION_STATE: FeaturedTasteImageUploadActionState = {
+  fieldName: null,
+  message: null,
+  status: "idle",
+  uploadedPath: null,
+};
+
+export async function uploadFeaturedTasteImageAction(
+  previousState: FeaturedTasteImageUploadActionState = INITIAL_FEATURED_TASTE_IMAGE_UPLOAD_ACTION_STATE,
+  formData: FormData,
+): Promise<FeaturedTasteImageUploadActionState> {
+  void previousState;
+
+  const fieldNameValue = formData.get("uploadFieldName");
+  const fieldName =
+    fieldNameValue === "featuredTaste.imagePrimarySrc" || fieldNameValue === "featuredTaste.imageSecondarySrc"
+      ? fieldNameValue
+      : null;
+  const fileValue = fieldName ? formData.get(`${fieldName}.file`) : null;
+
+  if (!fieldName || !(fileValue instanceof File)) {
+    return {
+      fieldName,
+      message: "De upload kon niet worden verwerkt. Probeer het opnieuw.",
+      status: "error",
+      uploadedPath: null,
+    };
+  }
+
+  try {
+    const actor = await requireContentAdminActor("/admin/content/taste-of-the-week");
+    const upload = await storeFeaturedTasteImageUpload({
+      fieldName,
+      file: fileValue,
+    });
+
+    logContentEvent({
+      actorIdentifier: actor.email,
+      details: {
+        contentType: fileValue.type,
+        fieldName,
+        sizeBytes: fileValue.size,
+      },
+      event: "featured_taste_image_uploaded",
+      level: "info",
+      targetSection: "featured-taste-upload",
+    });
+
+    return {
+      fieldName,
+      message: "Foto geupload. Klik daarna nog op opslaan om deze op de homepage te gebruiken.",
+      status: "success",
+      uploadedPath: upload.publicPath,
+    };
+  } catch (error) {
+    logContentEvent({
+      error,
+      event: "featured_taste_image_upload_failed",
+      level: "error",
+      targetSection: "featured-taste-upload",
+    });
+
+    return {
+      fieldName,
+      message: error instanceof Error ? error.message : "Uploaden is niet gelukt. Probeer het opnieuw.",
+      status: "error",
+      uploadedPath: null,
+    };
+  }
 }

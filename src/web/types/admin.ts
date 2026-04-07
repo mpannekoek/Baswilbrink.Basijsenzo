@@ -1,6 +1,6 @@
 export interface AdminNavItem {
   href: string;
-  icon: "dashboard" | "content";
+  icon: "clock" | "dashboard" | "sparkles" | "stack";
   label: string;
   description: string;
   testId: string;

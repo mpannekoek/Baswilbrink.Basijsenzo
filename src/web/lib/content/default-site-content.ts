@@ -127,8 +127,10 @@ export const defaultSiteContent: LandingPageContent = {
     pairings: ["Lekker op een hoorntje", "Ook fijn in een beker", "Mooi met een extra wafeltje"],
     accentLabel: "Deze week extra geliefd",
     supportTitle: "Fris, romig en net eigenwijs genoeg voor een tweede bol.",
-    imagePrimaryAlt: "Romige Bas IJs & Zo smaak met oranje saus",
-    imageSecondaryAlt: "Frisse citroenijs-presentatie in de vitrine",
+    imagePrimarySrc: "/basijs2.jpg",
+    imageSecondarySrc: "/basijs3.jpg",
+    imagePrimaryAlt: "Foto van de smaak van de week in de vitrine",
+    imageSecondaryAlt: "Tweede foto van de smaak van de week",
     impressionEyebrow: "Uit de vitrine",
     impressionText:
       "Met echte beelden uit de vitrine voelt deze smaak als een uitnodiging van de toonbank zelf, niet als losse promotietekst.",

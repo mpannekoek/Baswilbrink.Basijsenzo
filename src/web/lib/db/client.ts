@@ -7,7 +7,7 @@ import { drizzle, type BetterSQLite3Database } from "drizzle-orm/better-sqlite3"
 import { applyContentSchema } from "./schema";
 import * as schema from "./schema";
 
-const DEFAULT_DATABASE_PATH = path.join(process.cwd(), "data", "content.db");
+const DEFAULT_DATABASE_PATH = path.join(/* turbopackIgnore: true */ process.cwd(), "data", "content.db");
 
 function resolveDatabasePath(env = process.env): string {
   const configuredPath = env.CONTENT_DB_PATH?.trim();
@@ -18,7 +18,7 @@ function resolveDatabasePath(env = process.env): string {
 
   return path.isAbsolute(configuredPath)
     ? configuredPath
-    : path.resolve(process.cwd(), configuredPath);
+    : path.resolve(/* turbopackIgnore: true */ process.cwd(), configuredPath);
 }
 
 function ensureDatabaseDirectory(databasePath: string): void {

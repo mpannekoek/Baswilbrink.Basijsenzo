@@ -194,7 +194,6 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
       input("visitContact.routeLabel", "Laatste CTA routelabel", 40),
       input("visitContact.contactTitle", "Contacttitel", 80),
       input("visitContact.followTitle", "Volgtitel", 80),
-      input("siteFooter.copyrightText", "Footer copyright", 120),
     ],
   ),
 ];
@@ -214,6 +213,15 @@ export const FEATURED_TASTE_SECTIONS: ContentSectionConfig[] = [
       input("featuredTaste.supportTitle", "Ondersteunende titel", 140),
       input("featuredTaste.impressionEyebrow", "Impressie eyebrow", 80),
       textarea("featuredTaste.impressionText", "Impressietekst", 220),
+    ],
+  ),
+  defineSection(
+    "taste-images",
+    "Foto's",
+    "Gebruik publieke afbeeldingspaden uit de app, bijvoorbeeld /basijs2.jpg.",
+    [
+      input("featuredTaste.imagePrimarySrc", "Primaire foto", 160),
+      input("featuredTaste.imageSecondarySrc", "Secundaire foto", 160),
     ],
   ),
   defineSection(

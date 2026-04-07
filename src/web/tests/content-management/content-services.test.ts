@@ -2,7 +2,12 @@ import { describe, expect, it } from "vitest";
 
 import { contentAuditEntries } from "@/lib/db/schema";
 import { createContentDatabaseClient } from "@/lib/db/client";
-import { buildPersistableFieldValues, GROUPED_CONTENT_FIELDS } from "@/lib/content/content-keys";
+import {
+  buildInitialFieldValues,
+  buildPersistableFieldValues,
+  FEATURED_TASTE_FIELDS,
+  GROUPED_CONTENT_FIELDS,
+} from "@/lib/content/content-keys";
 import { defaultSiteContent } from "@/lib/content/default-site-content";
 import {
   buildDefaultPersistableValues,
@@ -64,5 +69,36 @@ describe("content services", () => {
     expect(auditEntries).toHaveLength(1);
     expect(auditEntries[0]?.targetSection).toBe("grouped-content");
     expect(auditEntries[0]?.actorIdentifier).toBe("admin@example.com");
+  });
+
+  it("persists featured-taste photo updates", () => {
+    const client = createContentDatabaseClient(":memory:");
+
+    seedContentStore(buildDefaultPersistableValues(), client);
+
+    const nextValues = {
+      ...buildInitialFieldValues(FEATURED_TASTE_FIELDS),
+      "featuredTaste.imagePrimarySrc": "/basijs1.jpg",
+      "featuredTaste.imageSecondarySrc": "/basijs2.jpg",
+    };
+
+    saveContentMutation(
+      {
+        actor: {
+          displayName: "Beheerder Bas",
+          email: "admin@example.com",
+        },
+        afterSnapshot: JSON.stringify(nextValues),
+        beforeSnapshot: JSON.stringify(buildInitialFieldValues(FEATURED_TASTE_FIELDS)),
+        fieldValues: buildPersistableFieldValues(FEATURED_TASTE_FIELDS, nextValues),
+        targetSection: "featured-taste",
+      },
+      client,
+    );
+
+    const updatedContent = toLandingPageContent(getStoredContentSnapshot(client));
+
+    expect(updatedContent.featuredTaste.imagePrimarySrc).toBe("/basijs1.jpg");
+    expect(updatedContent.featuredTaste.imageSecondarySrc).toBe("/basijs2.jpg");
   });
 });

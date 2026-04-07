@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -39,6 +41,60 @@ function ContentIcon() {
   );
 }
 
+function ClockIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M12 8.75v3.75l2.75 1.75"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+function SparklesIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+      <path
+        d="M12 4.5 13.4 9l4.6 1.4-4.6 1.4L12 16.3l-1.4-4.5L6 10.4 10.6 9 12 4.5Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+      <path
+        d="m18.5 4.5.55 1.8 1.8.55-1.8.55-.55 1.8-.55-1.8-1.8-.55 1.8-.55.55-1.8ZM6 15.25l.7 2.2 2.2.7-2.2.7-.7 2.2-.7-2.2-2.2-.7 2.2-.7.7-2.2Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+function StackIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+      <path
+        d="M4.75 8.25 12 4.75l7.25 3.5L12 11.75l-7.25-3.5Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M6.75 12 12 14.5 17.25 12M6.75 15.75 12 18.25l5.25-2.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
 function CloseIcon() {
   return (
     <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
@@ -56,10 +112,14 @@ function AdminNavIcon({ icon }: Pick<AdminNavItem, "icon">) {
   switch (icon) {
     case "dashboard":
       return <DashboardIcon />;
-    case "content":
-      return <ContentIcon />;
+    case "clock":
+      return <ClockIcon />;
+    case "sparkles":
+      return <SparklesIcon />;
+    case "stack":
+      return <StackIcon />;
     default:
-      return null;
+      return <ContentIcon />;
   }
 }
 
@@ -70,6 +130,20 @@ export function AdminSidebar({
   onNavigate,
 }: AdminSidebarProps) {
   const pathname = usePathname();
+  const [currentHash, setCurrentHash] = useState("");
+
+  useEffect(() => {
+    const syncHash = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+
+    return () => {
+      window.removeEventListener("hashchange", syncHash);
+    };
+  }, []);
 
   return (
     <aside
@@ -106,7 +180,11 @@ export function AdminSidebar({
         </p>
         <ul className="grid gap-3">
           {items.map((item) => {
-            const isActive = pathname === item.href;
+            const [itemPathname, itemHash = ""] = item.href.split("#");
+            const normalizedItemHash = itemHash ? `#${itemHash}` : "";
+            const isActive =
+              pathname === itemPathname &&
+              (normalizedItemHash ? currentHash === normalizedItemHash : currentHash === "");
 
             return (
               <li key={`${item.testId}-${item.label}`}>

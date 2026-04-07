@@ -7,8 +7,8 @@ const configuredDatabasePath = process.env.CONTENT_DB_PATH?.trim();
 const databasePath = configuredDatabasePath
   ? path.isAbsolute(configuredDatabasePath)
     ? configuredDatabasePath
-    : path.resolve(process.cwd(), configuredDatabasePath)
-  : path.resolve(process.cwd(), "data", "content.db");
+    : path.resolve(/* turbopackIgnore: true */ process.cwd(), configuredDatabasePath)
+  : path.resolve(/* turbopackIgnore: true */ process.cwd(), "data", "content.db");
 
 export default defineConfig({
   dialect: "sqlite",

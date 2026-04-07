@@ -8,6 +8,11 @@ export interface ContentValidationResult {
 
 const HTML_TAG_PATTERN = /<\/?[a-z][\s\S]*>/i;
 const SCRIPT_PROTOCOL_PATTERN = /javascript:/i;
+const PUBLIC_IMAGE_PATH_PATTERN = /^\/[^\s]*$/;
+
+function isPublicImagePathField(fieldName: string): boolean {
+  return fieldName === "featuredTaste.imagePrimarySrc" || fieldName === "featuredTaste.imageSecondarySrc";
+}
 
 function hasUnsafeMarkup(value: string): boolean {
   return HTML_TAG_PATTERN.test(value) || SCRIPT_PROTOCOL_PATTERN.test(value);
@@ -36,6 +41,11 @@ export function validateContentFieldValues(
 
     if (hasUnsafeMarkup(normalizedValue)) {
       fieldErrors[field.name] = `${field.label} mag geen HTML of scripts bevatten.`;
+      continue;
+    }
+
+    if (isPublicImagePathField(field.name) && !PUBLIC_IMAGE_PATH_PATTERN.test(normalizedValue)) {
+      fieldErrors[field.name] = `${field.label} moet een publiek afbeeldingspad zijn dat begint met /.`;
       continue;
     }
 
