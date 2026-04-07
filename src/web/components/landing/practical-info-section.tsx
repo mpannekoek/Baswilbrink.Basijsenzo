@@ -126,10 +126,6 @@ export function PracticalInfoSection({
                 />
               ))}
             </div>
-
-            <p className="rounded-[26px] border border-dashed border-[var(--border-strong)] px-5 py-4 text-sm leading-6 text-[var(--ink-muted)]">
-              {contact.note}
-            </p>
           </div>
         </Reveal>
       </div>

@@ -44,7 +44,7 @@ export function AuthErrorPanel({ callbackUrl = ADMIN_HOME_PATH, error }: AuthErr
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
-            className="border border-[var(--brand-black)] bg-[var(--brand-black)] px-5 py-3 text-sm font-semibold text-white transition hover:border-[var(--brand-orange)] hover:bg-[var(--brand-orange)]"
+            className="inline-flex items-center justify-center rounded-md border border-[var(--brand-orange)] bg-[var(--brand-orange)] px-5 py-3 text-sm font-semibold text-[var(--surface)] transition hover:border-[var(--brand-orange-soft)] hover:bg-[var(--brand-orange-soft)] hover:text-[var(--surface)] visited:text-[var(--surface)]"
             data-testid="auth-error-retry-link"
             href={getAdminSignInPath(callbackUrl)}
           >

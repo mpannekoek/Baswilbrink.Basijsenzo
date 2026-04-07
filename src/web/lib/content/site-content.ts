@@ -61,7 +61,7 @@ export const siteContent: LandingPageContent = {
     asideTitle: "Smaak van deze week",
     asideText:
       "Zwarte sinaasappel met knapperige karamelstukjes. Fris van toon, romig in de basis en precies uitgesproken genoeg voor een tweede bol.",
-    detailChips: ["Dagvers schepijs", "Snel bellen of route plannen", "Gezellig dorps adres"],
+    detailChips: [],
     featureImageAlt: "De vitrine en het interieur van Bas IJs & Zo",
     quickInfo: {
       eyebrow: "Snel geregeld",

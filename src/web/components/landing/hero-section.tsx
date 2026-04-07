@@ -20,7 +20,7 @@ export function HeroSection({ hero, actions, socialLinks }: HeroSectionProps) {
       <div className="pointer-events-none absolute bottom-10 right-[12%] hidden h-[24rem] w-[24rem] rounded-full bg-[rgba(200,101,34,0.14)] blur-[120px] lg:block" />
       <div className="pointer-events-none absolute bottom-0 right-[22%] hidden h-[22rem] w-px rotate-[24deg] bg-[linear-gradient(180deg,rgba(200,101,34,0)_0%,rgba(200,101,34,0.34)_42%,rgba(200,101,34,0)_100%)] lg:block" />
 
-      <div className="mx-auto grid w-full max-w-[76rem] gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(25rem,0.98fr)] lg:items-end">
+      <div className="mx-auto grid w-full max-w-[76rem] gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(25rem,0.98fr)] lg:items-start">
         <div className="relative z-10 max-w-[42rem] text-white">
           <p className="mb-6 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-orange)]">
             {hero.eyebrow}
@@ -36,16 +36,18 @@ export function HeroSection({ hero, actions, socialLinks }: HeroSectionProps) {
             ))}
           </div>
 
-          <ul className="mt-12 flex flex-wrap gap-3">
-            {hero.detailChips.map((chip) => (
-              <li
-                className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/68"
-                key={chip}
-              >
-                {chip}
-              </li>
-            ))}
-          </ul>
+          {hero.detailChips.length > 0 ? (
+            <ul className="mt-12 flex flex-wrap gap-3">
+              {hero.detailChips.map((chip) => (
+                <li
+                  className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/68"
+                  key={chip}
+                >
+                  {chip}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
         <div className="relative z-10">
