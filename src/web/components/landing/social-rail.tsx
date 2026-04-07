@@ -3,13 +3,18 @@ import type { SocialLink } from "@/types/site";
 type SocialRailProps = {
   socialLinks: SocialLink[];
   iconOnly?: boolean;
+  bare?: boolean;
 };
 
-function InstagramIcon() {
+type SocialIconProps = {
+  className?: string;
+};
+
+function InstagramIcon({ className = "h-5 w-5" }: SocialIconProps) {
   return (
     <svg
       aria-hidden="true"
-      className="h-5 w-5"
+      className={className}
       fill="none"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
@@ -21,11 +26,11 @@ function InstagramIcon() {
   );
 }
 
-function FacebookIcon() {
+function FacebookIcon({ className = "h-5 w-5" }: SocialIconProps) {
   return (
     <svg
       aria-hidden="true"
-      className="h-5 w-5"
+      className={className}
       fill="currentColor"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
@@ -38,19 +43,26 @@ function FacebookIcon() {
 const iconMap = {
   Instagram: InstagramIcon,
   Facebook: FacebookIcon,
-} satisfies Record<SocialLink["label"], () => ReturnType<typeof InstagramIcon>>;
+} satisfies Record<SocialLink["label"], (props: SocialIconProps) => ReturnType<typeof InstagramIcon>>;
 
-export function SocialRail({ socialLinks, iconOnly = false }: SocialRailProps) {
+export function SocialRail({
+  socialLinks,
+  iconOnly = false,
+  bare = false,
+}: SocialRailProps) {
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className={bare ? "flex flex-wrap items-center gap-4" : "flex flex-wrap items-center gap-3"}>
       {socialLinks.map((link) => {
         const Icon = iconMap[link.label];
+        const iconClassName = bare ? "h-7 w-7 sm:h-8 sm:w-8" : "h-5 w-5";
 
         return (
           <a
             aria-label={link.label}
             className={
-              iconOnly
+              bare
+                ? "inline-flex items-center justify-center text-white/72 transition hover:text-[var(--brand-orange)]"
+                : iconOnly
                 ? "inline-flex h-11 w-11 items-center justify-center border border-[rgba(17,17,17,0.14)] bg-white/72 text-[var(--brand-black)] transition hover:border-[var(--brand-orange)] hover:bg-white"
                 : "inline-flex min-h-11 items-center gap-2 border border-[rgba(17,17,17,0.14)] bg-white/72 px-3 py-2 text-sm font-medium text-[var(--brand-black)] transition hover:border-[var(--brand-orange)] hover:bg-white"
             }
@@ -61,7 +73,7 @@ export function SocialRail({ socialLinks, iconOnly = false }: SocialRailProps) {
             target="_blank"
             title={link.label}
           >
-            <Icon />
+            <Icon className={iconClassName} />
             {iconOnly ? null : <span>{link.label}</span>}
           </a>
         );

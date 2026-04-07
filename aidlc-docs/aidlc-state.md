@@ -4,7 +4,7 @@
 - **Project Type**: Brownfield
 - **Start Date**: 2026-03-30T07:54:30Z
 - **Current Stage**: OPERATIONS - Placeholder Acknowledged
-- **Current Workflow Focus**: Approved and verified auth-observability upgrade for the existing `admin-portal`, including structured auth-event logging, masked identifiers, dedicated `/admin/auth-error` handling, and production-safe login/logout redirect behavior guidance.
+- **Current Workflow Focus**: Brownfield homepage redesign for the existing `landing-page`, preserving the current Next.js architecture while upgrading the UI rhythm, content quality, and practical-information hierarchy for Bas IJs & Zo.
 - **Next Required User Action**: None. Session can be resumed later from `aidlc-docs/aidlc-state.md` for a new request or future Operations-phase expansion.
 
 ## Execution Plan Summary
@@ -52,6 +52,7 @@
 - [x] `landing-page` baseline delivered and documented
 - [x] `landing-page` infrastructure design delivered and documented
 - [x] `landing-page` content-centralization follow-up delivered
+- [x] `landing-page` premium homepage redesign delivered and verified
 - [x] `admin-portal` first slice delivered, reviewed, and verified
 - [x] `admin-portal` auth-observability upgrade delivered, reviewed, and verified
 
@@ -60,14 +61,15 @@
 - **Artifacts Location**: aidlc-docs/inception/reverse-engineering/
 
 ## Current Resume Context
-- **Current Unit**: `admin-portal`
-- **Last Delivered Unit**: `admin-portal`
-- **Last Completed Stage**: OPERATIONS - Placeholder acknowledgement for the auth-observability increment
+- **Current Unit**: `landing-page`
+- **Last Delivered Unit**: `landing-page`
+- **Last Completed Stage**: Build and Test verification for the homepage redesign increment
 - **Current Review Gate**: None
 - **Session Status**: Safe to close. Latest approved implementation and documentation have been written to disk.
 - **Current Artifacts**:
   - `aidlc-docs/aidlc-state.md`
   - `aidlc-docs/audit.md`
+  - `aidlc-docs/construction/landing-page/code/code-summary.md`
   - `aidlc-docs/construction/admin-portal/code/code-summary.md`
   - `aidlc-docs/construction/plans/build-and-test-plan.md`
   - `aidlc-docs/construction/build-and-test/build-instructions.md`
@@ -76,7 +78,7 @@
   - `aidlc-docs/construction/build-and-test/security-test-instructions.md`
   - `aidlc-docs/construction/build-and-test/e2e-test-instructions.md`
   - `aidlc-docs/construction/build-and-test/build-and-test-summary.md`
-- **Recommended Resume Prompt**: `Resume the AI-DLC workflow from aidlc-docs/aidlc-state.md and continue from the latest approved admin-portal auth-observability state.`
+- **Recommended Resume Prompt**: `Resume the AI-DLC workflow from aidlc-docs/aidlc-state.md and continue from the latest verified landing-page redesign state.`
 - **Latest Completed Feature Commit**: `6adea48` (`feat: add admin auth observability`)
 - **Latest Repository Commit**: use `git log -1 --oneline` after resuming to see the newest post-sync commit
 - **Next Planned Stage After Approval**: None

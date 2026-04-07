@@ -1,39 +1,45 @@
 import Image from "next/image";
+
+import { SocialRail } from "@/components/landing/social-rail";
 import { ActionPill } from "@/components/ui/action-pill";
-import type { ActionLink, HeroContent } from "@/types/site";
+import type { ActionLink, HeroContent, SocialLink } from "@/types/site";
 
 type HeroSectionProps = {
   hero: HeroContent;
   actions: ActionLink[];
+  socialLinks: SocialLink[];
 };
 
-export function HeroSection({ hero, actions }: HeroSectionProps) {
+export function HeroSection({ hero, actions, socialLinks }: HeroSectionProps) {
   return (
-    <section className="relative w-full overflow-hidden border-b border-[var(--border-soft)] bg-[linear-gradient(135deg,#141414_0%,#141414_54%,#ff7a1a_54%,#ffb35d_100%)] px-4 py-10 md:px-6 md:py-12">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.28),transparent_58%)]" />
-      <div className="mx-auto grid w-full max-w-[76rem] gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="text-white">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-orange)]">
+    <section className="relative isolate w-full overflow-hidden bg-[linear-gradient(180deg,#151311_0%,#151311_78%,#1a1512_100%)] px-4 pb-16 pt-14 text-white md:px-6 md:pb-24 md:pt-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_58%)]" />
+      <div className="pointer-events-none absolute left-[-10rem] top-20 h-72 w-72 rounded-full bg-[rgba(200,101,34,0.12)] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-4rem] right-[-8rem] h-80 w-80 rounded-full bg-[rgba(200,101,34,0.1)] blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(128deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0)_52%,rgba(200,101,34,0.22)_52%,rgba(200,101,34,0.14)_72%,rgba(200,101,34,0.04)_100%)] lg:block" />
+      <div className="pointer-events-none absolute bottom-10 right-[12%] hidden h-[24rem] w-[24rem] rounded-full bg-[rgba(200,101,34,0.14)] blur-[120px] lg:block" />
+      <div className="pointer-events-none absolute bottom-0 right-[22%] hidden h-[22rem] w-px rotate-[24deg] bg-[linear-gradient(180deg,rgba(200,101,34,0)_0%,rgba(200,101,34,0.34)_42%,rgba(200,101,34,0)_100%)] lg:block" />
+
+      <div className="mx-auto grid w-full max-w-[76rem] gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(25rem,0.98fr)] lg:items-end">
+        <div className="relative z-10 max-w-[42rem] text-white">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-orange)]">
             {hero.eyebrow}
           </p>
-          <h1 className="display-font text-5xl leading-[0.92] sm:text-6xl lg:text-7xl">
-            {hero.title}{" "}
-            <span className="text-[var(--brand-orange)]">{hero.highlight}</span>
+          <h1 className="display-font balanced-text max-w-[15ch] text-5xl leading-[0.9] text-white sm:text-6xl md:max-w-[11ch] lg:text-[5.2rem]">
+            {hero.title} <span className="text-[var(--brand-orange)]">{hero.highlight}</span>
           </h1>
-          <p className="mt-6 text-lg leading-8 text-white/78">
-            {hero.description}
-          </p>
+          <p className="mt-8 max-w-[34rem] text-lg leading-8 text-white/72">{hero.description}</p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap gap-3">
             {actions.map((action) => (
               <ActionPill key={action.label} {...action} />
             ))}
           </div>
 
-          <ul className="mt-8 flex flex-wrap gap-3">
+          <ul className="mt-12 flex flex-wrap gap-3">
             {hero.detailChips.map((chip) => (
               <li
-                className="border border-white/14 bg-white/8 px-4 py-2 text-sm text-white/78"
+                className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/68"
                 key={chip}
               >
                 {chip}
@@ -42,54 +48,31 @@ export function HeroSection({ hero, actions }: HeroSectionProps) {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <div className="relative overflow-hidden border border-[rgba(20,20,20,0.08)] bg-[rgba(255,249,240,0.94)] p-6 text-[var(--brand-black)]">
-            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[rgba(255,98,17,0.18)]" />
-            <div className="absolute right-12 top-12 h-5 w-5 rounded-full bg-[var(--brand-orange)]" />
-            <div className="relative">
+        <div className="relative z-10">
+          <div className="grid gap-5 lg:ml-auto lg:max-w-[35rem]">
+            <div className="flex justify-end">
+              <SocialRail bare iconOnly socialLinks={socialLinks} />
+            </div>
+
+            <div className="relative min-h-[25rem] overflow-hidden rounded-[34px] border border-white/10">
+              <Image
+                alt={hero.featureImageAlt}
+                className="object-cover object-[center_42%] scale-[1.22] sm:scale-[1.12] lg:scale-100"
+                fill
+                loading="eager"
+                sizes="(min-width: 1024px) 38vw, 100vw"
+                src="/basijs1.jpg"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0.04)_0%,rgba(17,17,17,0.18)_42%,rgba(17,17,17,0.74)_100%)]" />
+            </div>
+
+            <div className="rounded-[30px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-orange)]">
                 {hero.asideTitle}
               </p>
-              <p className="mt-3 text-lg font-semibold leading-7">
+              <p className="mt-3 max-w-[30rem] text-[0.95rem] leading-7 text-white/72">
                 {hero.asideText}
               </p>
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-[1fr_0.82fr]">
-            <div className="relative min-h-[18rem] overflow-hidden">
-              <Image
-                alt={hero.featureImageAlt}
-                className="object-cover object-center scale-[1.4]"
-                fill
-                loading="eager"
-                sizes="(min-width: 640px) 40vw, 100vw"
-                src="/basijs1.jpg"
-              />
-            </div>
-
-            <div className="border border-[rgba(20,20,20,0.08)] bg-[rgba(255,249,240,0.88)] p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-orange)]">
-                {hero.quickInfo.eyebrow}
-              </p>
-              <dl className="mt-4 space-y-4">
-                <div>
-                  <dt className="text-sm text-[var(--ink-muted)]">
-                    {hero.quickInfo.questionLabel}
-                  </dt>
-                  <dd className="mt-1 text-2xl font-semibold text-[var(--brand-black)]">
-                    {hero.quickInfo.question}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm text-[var(--ink-muted)]">
-                    {hero.quickInfo.answerLabel}
-                  </dt>
-                  <dd className="mt-1 text-base leading-7 text-[var(--brand-black)]">
-                    {hero.quickInfo.answer}
-                  </dd>
-                </div>
-              </dl>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import { ActionPill } from "@/components/ui/action-pill";
 import { SocialRail } from "@/components/landing/social-rail";
+import { ActionPill } from "@/components/ui/action-pill";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionShell } from "@/components/ui/section-shell";
 import type {
@@ -22,58 +22,57 @@ export function VisitContactSection({
   actions,
   socialLinks,
 }: VisitContactSectionProps) {
+  const creamyPanelClass =
+    "rounded-[32px] border border-[rgba(200,101,34,0.14)] bg-[linear-gradient(135deg,rgba(255,246,237,0.96)_0%,rgba(246,228,205,0.9)_100%)] p-7 text-[var(--brand-black)] shadow-[0_16px_34px_rgba(17,17,17,0.08)]";
+
   return (
     <SectionShell
       description={visitContact.description}
       eyebrow={visitContact.eyebrow}
       id="bezoek"
       title={visitContact.title}
-      tone="accent"
+      tone="dark"
     >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-6 lg:grid-cols-[1.18fr_0.82fr]">
         <Reveal>
-          <div>
-          <p className="text-lg leading-8 text-[var(--brand-black)]/82">
-            {visitContact.bodyText}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {actions.map((action) => (
-              <ActionPill key={action.label} {...action} />
-            ))}
-            <ActionPill
-              dataTestId="visit-route-button"
-              href={contact.routeHref}
-              label={visitContact.routeLabel}
-              variant="ghost"
-            />
-          </div>
+          <div className={creamyPanelClass}>
+            <p className="max-w-[35rem] text-lg leading-8 text-[var(--brand-black)]/82">
+              {visitContact.bodyText}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {actions.map((action) => (
+                <ActionPill key={action.label} {...action} />
+              ))}
+              <ActionPill
+                dataTestId="visit-route-button"
+                href={contact.routeHref}
+                label={visitContact.routeLabel}
+                variant="ghost"
+              />
+            </div>
           </div>
         </Reveal>
 
         <Reveal delayMs={140}>
-          <div className="border border-[rgba(20,20,20,0.12)] bg-white/74 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-orange)]">
-            {visitContact.contactTitle}
-          </p>
-          <p className="mt-4 text-2xl font-semibold text-[var(--brand-black)]">
-            {contact.address}
-          </p>
-          <p className="mt-2 text-sm leading-6 text-[var(--ink-muted)]">
-            {contact.townLabel}
-          </p>
-          <a
-            className="mt-6 inline-flex text-lg font-semibold text-[var(--brand-black)] underline decoration-[var(--brand-orange)] underline-offset-4"
-            data-testid="visit-call-link"
-            href={contact.phoneHref}
-          >
-            {contact.phoneLabel}
-          </a>
-          <div className="mt-6 border-t border-[rgba(20,20,20,0.1)] pt-4">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-black)]/56">
-              {visitContact.followTitle}
+          <div className={creamyPanelClass}>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-orange)]">
+              {visitContact.contactTitle}
             </p>
-            <SocialRail iconOnly socialLinks={socialLinks} />
-          </div>
+            <p className="mt-4 text-2xl font-semibold text-[var(--brand-black)]">{contact.address}</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--brand-black)]/66">{contact.townLabel}</p>
+            <a
+              className="mt-6 inline-flex text-lg font-semibold text-[var(--brand-black)] underline decoration-[var(--brand-orange)] underline-offset-4"
+              data-testid="visit-call-link"
+              href={contact.phoneHref}
+            >
+              {contact.phoneLabel}
+            </a>
+            <div className="mt-6 border-t border-[rgba(17,17,17,0.08)] pt-4">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-black)]/52">
+                {visitContact.followTitle}
+              </p>
+              <SocialRail bare iconOnly socialLinks={socialLinks} />
+            </div>
           </div>
         </Reveal>
       </div>

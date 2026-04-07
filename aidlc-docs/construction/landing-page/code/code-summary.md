@@ -1,7 +1,7 @@
 # Code Summary - landing-page
 
 ## Implementation Overview
-The `landing-page` unit has been implemented as a greenfield Next.js App Router application using TypeScript and Tailwind CSS. A targeted regeneration pass moved the application root into `src/web` so the runtime entrypoints, assets, tests, package/config files, and Docker build surface now align with the approved repository structure.
+The `landing-page` unit has been implemented as a Next.js App Router application using TypeScript and Tailwind CSS inside `src/web`. A later brownfield redesign pass kept the existing route and component architecture intact while refining the homepage into a warmer, more premium small-business experience with stronger black/orange restraint, better section rhythm, more realistic Dutch copy, and clearer practical information hierarchy.
 
 ## Created Application Files
 - `README.md`
@@ -63,6 +63,9 @@ The `landing-page` unit has been implemented as a greenfield Next.js App Router 
 - Updated the hero LCP image to load eagerly so the above-the-fold primary visual does not trigger the Next.js LCP warning for lazy loading.
 - Added a root repository `README.md` describing the project, the `src/web` app root, and the local run, build, test, and Docker workflow.
 - Placeholder content remains centralized and easy to replace later.
+- The homepage redesign intentionally reused the existing landing-page slice (`src/web/components/landing`, `src/web/components/ui`, and `src/web/lib/content/site-content.ts`) instead of introducing a parallel demo page or new architecture.
+- The quick-info section now highlights the current weekday at runtime for the Europe/Amsterdam timezone instead of relying on a hardcoded "today" row.
+- CTA copy is now aligned to the approved practical actions: `Bel direct` and `Plan je route`.
 - Follow-up regeneration moved the remaining rendered copy, metadata text, image alt text, and accessibility labels into the centralized content layer so section components no longer own editable page copy.
 - Follow-up regeneration also moved the full Next.js app boundary from the repository root to `src/web`, including package/config files, App Router entrypoints, tests, assets, Docker packaging, and the GHCR workflow build context.
 - The implementation keeps the earlier user-provided design reference as inspiration only; the final UI is re-anchored to black/orange branding and the real logo asset.

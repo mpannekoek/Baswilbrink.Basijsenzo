@@ -2,13 +2,13 @@ import type { LandingPageContent } from "@/types/site";
 
 export const siteContent: LandingPageContent = {
   metadata: {
-    title: "Bas IJs & Zo | Dorps ijssalon met karakter",
+    title: "Bas IJs & Zo | Ambachtelijk ijs in het hart van het dorp",
     description:
-      "Een warme, speelse en mobiele landing page voor Bas IJs & Zo met openingstijden, verhaal, contact en smaak van de week.",
+      "Bas IJs & Zo is de warme dorpsijssalon voor ambachtelijk ijs, duidelijke openingstijden en een gezellig bezoek in het hart van het dorp.",
     metadataBaseUrl: "https://www.basijsenzo.local",
     openGraphTitle: "Bas IJs & Zo",
     openGraphDescription:
-      "Dorps ijssalon met een warm welkom, duidelijke praktische info en een smaakvolle eerste indruk.",
+      "Warm, ambachtelijk en vertrouwd: Bas IJs & Zo brengt smaak van de week, praktische info en dorpsgezelligheid samen op een rustige homepage.",
   },
   header: {
     menuOpenLabel: "Menu openen",
@@ -19,12 +19,11 @@ export const siteContent: LandingPageContent = {
   brand: {
     logoSrc: "/logo.png",
     fallbackLabel: "Bas IJs & Zo",
-    tagline: "Dorps ijswinkel met een warm welkom",
+    tagline: "Ambachtelijk ijs in het hart van het dorp",
   },
   navItems: [
     { href: "#openingstijden", label: "Openingstijden" },
     { href: "#smaak", label: "Smaak van de week" },
-    { href: "#verhaal", label: "Ons verhaal" },
     { href: "#reviews", label: "Reviews" },
   ],
   socialLinks: [
@@ -47,63 +46,63 @@ export const siteContent: LandingPageContent = {
       dataTestId: "header-call-button",
     },
     {
-      href: "#bezoek",
-      label: "Plan je bezoek",
+      href: "https://maps.google.com/?q=Dorpsstraat+12+6678+AB+Voorbeelddorp",
+      label: "Plan je route",
       variant: "secondary",
       dataTestId: "header-visit-button",
     },
   ],
   hero: {
     eyebrow: "Bas IJs & Zo in dorpssfeer",
-    title: "Ambachtelijk ijs voor het hele dorp,",
-    highlight: "met een schep vrolijkheid erbij.",
+    title: "Ambachtelijk ijs voor",
+    highlight: "een klein ommetje dat altijd de moeite waard is.",
     description:
-      "Een warme, lokale ijssalon waar je snel je openingstijden vindt, iets nieuws proeft en meteen voelt waarom families en vaste gasten hier graag terugkomen.",
+      "Van een snelle stop na school tot een rustig rondje op zondag: bij Bas IJs & Zo draait het om echt schepijs, een vriendelijke begroeting en een plek waar je graag nog even blijft staan.",
     asideTitle: "Smaak van deze week",
     asideText:
-      "Zwarte sinaasappel met knapperige karamelstukjes. Fris, romig en precies zo uitgesproken als onze kleuren.",
-    detailChips: ["Mobiel vriendelijk", "Dorps gevoel", "Voorbeeldcontent klaar om te vervangen"],
+      "Zwarte sinaasappel met knapperige karamelstukjes. Fris van toon, romig in de basis en precies uitgesproken genoeg voor een tweede bol.",
+    detailChips: ["Dagvers schepijs", "Snel bellen of route plannen", "Gezellig dorps adres"],
     featureImageAlt: "De vitrine en het interieur van Bas IJs & Zo",
     quickInfo: {
-      eyebrow: "Vandaag belangrijk",
-      questionLabel: "Snelste vraag",
-      question: "Zijn we open?",
-      answerLabel: "Snelste antwoord",
+      eyebrow: "Snel geregeld",
+      questionLabel: "Wat je meteen ziet",
+      question: "Openingstijden, adres en telefoonnummer",
+      answerLabel: "Waarom dat fijn is",
       answer: "De site zet openingstijden, route en belknoppen meteen vooraan.",
     },
   },
   practicalInfo: {
     eyebrow: "Praktisch & duidelijk",
-    title: "Wanneer je binnen kunt lopen, vind je meteen.",
+    title: "Vandaag langskomen? Alles staat meteen op een rij.",
     description:
-      "Voor veel bezoekers is dit de belangrijkste informatie. Daarom staat alles hier rustig, scanbaar en mobielvriendelijk bij elkaar.",
+      "Voor een lokale zaak telt vooral duidelijkheid. Daarom zie je hier eerst wanneer we open zijn, waar je ons vindt en hoe je zonder zoeken vertrekt.",
     hoursTitle: "Openingstijden",
-    hoursNote: "Voorbeeldtijden voor deze eerste versie",
-    todayBadge: "Vandaag extra zichtbaar",
-    contactAccent: "Contact",
+    hoursNote: "Bel rond feestdagen of bij twijfel even voor de zekerheid.",
+    todayBadge: "Vandaag",
+    contactAccent: "Adres & contact",
     routeLabel: "Route plannen",
     visitHighlights: [
       {
-        accent: "Bezoek 1",
-        title: "Loop gerust binnen",
-        body: "Loop binnen voor een snelle tussenstop of neem het hele gezin mee.",
+        accent: "Snel",
+        title: "Zo gevonden",
+        body: "Je ziet direct waar we zitten, wanneer we open zijn en hoe je het snelst rijdt.",
       },
       {
-        accent: "Bezoek 2",
-        title: "Mobiel eerst",
-        body: "Route, belknop en openingstijden blijven ook op mobiel direct zichtbaar.",
+        accent: "Lokaal",
+        title: "Vertrouwd adres",
+        body: "Midden in het dorp, met ruimte voor een spontaan ijsje of een vaste stop na het eten.",
       },
       {
-        accent: "Bezoek 3",
-        title: "Makkelijk te beheren",
-        body: "De eerste versie gebruikt realistische voorbeeldteksten totdat de definitieve gegevens zijn ingevuld.",
+        accent: "Gezellig",
+        title: "Even blijven hangen",
+        body: "Een plek waar gezinnen, buren en passanten elkaar makkelijk tegenkomen op een zomerse avond.",
       },
     ],
   },
   openingHours: [
     { day: "Maandag", hours: "Gesloten" },
     { day: "Dinsdag", hours: "12:00 - 20:00" },
-    { day: "Woensdag", hours: "12:00 - 20:00", isToday: true },
+    { day: "Woensdag", hours: "12:00 - 20:00" },
     { day: "Donderdag", hours: "12:00 - 20:30" },
     { day: "Vrijdag", hours: "12:00 - 21:00" },
     { day: "Zaterdag", hours: "11:30 - 21:00" },
@@ -113,84 +112,69 @@ export const siteContent: LandingPageContent = {
     phoneLabel: "024 - 000 00 00",
     phoneHref: "tel:+31240000000",
     address: "Dorpsstraat 12, 6678 AB Voorbeelddorp",
-    townLabel: "Makkelijk te vinden in het hart van het dorp",
+    townLabel: "Makkelijk te vinden in het hart van het dorp, vlak bij de dagelijkse loop van buurt en bezoekers.",
     routeHref: "https://maps.google.com/?q=Dorpsstraat+12+6678+AB+Voorbeelddorp",
-    note: "Voorbeeldgegevens voor deze eerste versie. Definitieve contactinfo kan later direct in de contentfile worden vervangen.",
+    note: "Bel bij grotere bestellingen of controleer rond feestdagen even de actuele openingstijd.",
   },
   featuredTaste: {
-    eyebrow: "Smaak in de spotlights",
+    eyebrow: "Smaak van de week",
     title: "Zwarte Sinaasappel & Karamel",
     sectionDescription:
-      "Een compact podium voor iets nieuws, zonder dat het de rest van de pagina verdringt.",
+      "Een kleine seizoensspecial verdient net wat meer aandacht, zonder dat de pagina er druk van wordt.",
     description:
-      "Een speelse combinatie van diepe sinaasappeltonen, zachte room en krokante karamel. Lokaal genoeg voor een vaste favoriet, verrassend genoeg voor een omweg.",
+      "Een volle roombasis met diepe sinaasappeltonen en krokante karamel. Bekend genoeg om direct lekker te voelen, verrassend genoeg om speciaal voor om te rijden.",
     flavor: "Zwarte Sinaasappel & Karamel",
-    pairings: ["Lekker op een hoorntje", "Ook fijn als beker", "Past goed bij een extra wafeltje"],
-    accentLabel: "Nieuw deze week",
-    supportTitle: "Een smaak die meteen opvalt, maar warm blijft aanvoelen.",
+    pairings: ["Lekker op een hoorntje", "Ook fijn in een beker", "Mooi met een extra wafeltje"],
+    accentLabel: "Deze week extra geliefd",
+    supportTitle: "Fris, romig en net eigenwijs genoeg voor een tweede bol.",
     imagePrimaryAlt: "Romige Bas IJs & Zo smaak met oranje saus",
     imageSecondaryAlt: "Frisse citroenijs-presentatie in de vitrine",
-    impressionEyebrow: "Echte indruk",
+    impressionEyebrow: "Uit de vitrine",
     impressionText:
-      "Met echte beelden uit de vitrine voelt de smaak van de week minder bedacht en veel meer als een uitnodiging om langs te komen.",
-  },
-  story: {
-    eyebrow: "Een plek waar mensen blijven hangen",
-    title: "Bas IJs & Zo voelt als het dorp in zomerse vorm.",
-    description:
-      "Een dorps ijssalon moet niet alleen lekker ogen, maar ook vertrouwd voelen. Dit deel geeft die context.",
-    paragraphs: [
-      "Bas IJs & Zo draait om een vriendelijke glimlach, herkenbare gezichten en ijs waar je meteen zin in krijgt. Niet groot of afstandelijk, maar juist dichtbij en vertrouwd.",
-      "De eerste indruk moet voelen als een bezoek aan een fijne dorpsplek: vrolijk, duidelijk en verzorgd. Daarom staat praktische informatie hier net zo centraal als sfeer en verhaal.",
-    ],
-    timeline: [
-      { label: "Dorpsgevoel", value: "Warm, lokaal en laagdrempelig" },
-      { label: "Familieproof", value: "Speels zonder onrustig te worden" },
-      { label: "Makkelijk te beheren", value: "Content staat centraal en is snel te vervangen" },
-    ],
+      "Met echte beelden uit de vitrine voelt deze smaak als een uitnodiging van de toonbank zelf, niet als losse promotietekst.",
   },
   reviews: [
     {
       name: "Sanne uit de buurt",
       quote:
-        "Je merkt meteen dat dit zo'n plek is waar mensen elkaar kennen. Fijn ijs, vriendelijke service en precies de juiste dorpssfeer.",
+        "Je merkt meteen dat dit zo'n plek is waar mensen elkaar kennen. Heerlijk ijs, vriendelijke service en precies de juiste dorpssfeer.",
       rating: 5,
     },
     {
       name: "Tom & gezin",
       quote:
-        "We zochten vooral een gezellige stop voor de kinderen en bleven veel langer hangen dan gepland. Overzichtelijke site, leuke smaak van de week en goede sfeer.",
+        "We zochten een gezellige stop voor de kinderen en bleven veel langer hangen dan gepland. Fijn ijs, vriendelijke mensen en een plek waar je graag terugkomt.",
       rating: 5,
     },
     {
       name: "Bezoeker onderweg",
       quote:
-        "Zelfs zonder het dorp te kennen wist ik snel waar ik moest zijn en wanneer het open was. Dat vertrouwen voel je ook op de pagina.",
+        "Zelfs zonder het dorp te kennen wist ik meteen waar ik moest zijn en wanneer het open was. Dat vertrouwen voel je ook ter plekke.",
       rating: 4,
     },
   ],
   reviewSummary: {
-    eyebrow: "Vertrouwen uit de buurt",
-    title: "Sterke reacties, rustig gebracht.",
+    eyebrow: "Reviews uit de buurt",
+    title: "Warm, geloofwaardig en prettig dichtbij.",
     description:
-      "Sociaal bewijs werkt het best als het vriendelijk en geloofwaardig blijft. Daarom staat deze sectie stevig, maar niet schreeuwerig op de pagina.",
+      "Goede reacties hoeven niet te schreeuwen. Een paar rustige quotes en een heldere waardering zeggen hier al genoeg.",
     averageRating: "4,8/5",
-    sourceLabel: "Google reviews als inspiratie",
-    note: "Voorbeeldquotes voor de eerste versie. De structuur is klaar om later echte, goedgekeurde reviews in te voegen.",
+    sourceLabel: "Gevoel van vaste gasten",
+    note: "Een rustige samenvatting van de sfeer: vriendelijk, vertrouwd en precies het soort plek waar mensen anderen graag naartoe sturen.",
   },
   visitContact: {
-    eyebrow: "Bezoek Bas IJs & Zo",
-    title: "Zin in een dorps omweg met goed ijs?",
+    eyebrow: "Laatste zetje",
+    title: "Zin in een ijsje? Bel even of rijd gewoon langs.",
     description:
-      "Laatste zetje voor bezoekers die meteen willen bellen, rijden of binnenlopen.",
+      "Voor bezoekers die eigenlijk al bijna onderweg zijn, mag het laatste blok vooral duidelijk en uitnodigend zijn.",
     bodyText:
-      "Bel, plan je route of loop gewoon binnen. De pagina is zo opgezet dat bezoekers snel hun informatie vinden en jij later zonder gedoe echte gegevens kunt invullen.",
-    routeLabel: "Open route",
+      "Bel direct voor een vraag, open je route en stap daarna gewoon binnen. Bas IJs & Zo is bedoeld als een fijne dorpsstop: makkelijk, warm en zonder gedoe.",
+    routeLabel: "Plan je route",
     contactTitle: "Adres & contact",
     followTitle: "Volg ons",
   },
   siteFooter: {
-    copyrightText: "© 2026 Bas IJs & Zo! Alle rechten voorbehouden.",
+    copyrightText: "© 2026 Bas IJs & Zo. Alle rechten voorbehouden.",
     creatorIntro: "Website gemaakt door",
     creatorName: "Martijn Pannekoek",
     creatorHref: "https://martijnpannekoek.duckdns.org/",

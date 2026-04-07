@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/landing/hero-section";
 import { PracticalInfoSection } from "@/components/landing/practical-info-section";
 import { ReviewsSection } from "@/components/landing/reviews-section";
 import { SiteFooter } from "@/components/landing/site-footer";
-import { StorySection } from "@/components/landing/story-section";
 import { TasteOfWeekSection } from "@/components/landing/taste-of-week-section";
 import { VisitContactSection } from "@/components/landing/visit-contact-section";
 import type { LandingPageContent } from "@/types/site";
@@ -23,14 +22,17 @@ export function LandingPage({ content }: LandingPageProps) {
       />
 
       <main className="flex flex-col">
-        <HeroSection actions={content.primaryActions} hero={content.hero} />
+        <HeroSection
+          actions={content.primaryActions}
+          hero={content.hero}
+          socialLinks={content.socialLinks}
+        />
         <PracticalInfoSection
           contact={content.contact}
           hours={content.openingHours}
           practicalInfo={content.practicalInfo}
         />
         <TasteOfWeekSection featuredTaste={content.featuredTaste} />
-        <StorySection story={content.story} />
         <ReviewsSection reviews={content.reviews} summary={content.reviewSummary} />
         <VisitContactSection
           actions={content.primaryActions}

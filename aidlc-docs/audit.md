@@ -1935,3 +1935,633 @@ for the affected files only."
 **Context**: Codebase inspection of admin authentication flow logging behavior
 
 ---
+
+## Homepage Redesign Request
+**Timestamp**: 2026-04-05T11:31:15Z
+**User Input**: "You are working inside an EXISTING codebase.
+
+Your task is to redesign and improve the existing homepage / landing page for a Dutch local ice cream shop called “Bas IJs & Zo” while respecting the current project structure.
+
+IMPORTANT:
+- Do NOT create a new project
+- Do NOT rebuild the whole app from scratch
+- Do NOT replace the codebase architecture
+- Do NOT ignore existing components, styling conventions, or file structure
+- First inspect the existing codebase and understand how the current homepage is built
+- Reuse existing components where sensible
+- Only introduce new components when clearly necessary
+- Keep changes focused, clean, and production-ready
+
+--------------------------------
+PRIMARY GOAL
+--------------------------------
+
+Improve the UI quality of the existing homepage so it feels professionally designed, polished, and premium.
+
+This is NOT a generic template redesign.
+This must feel like a custom-designed small business website.
+
+--------------------------------
+PROJECT-AWARE INSTRUCTIONS
+--------------------------------
+
+Before making changes:
+1. Inspect the current homepage implementation
+2. Inspect the current layout, shared components, styling setup, and asset usage
+3. Identify which files should actually be edited
+4. Make the smallest set of high-impact changes needed
+
+When implementing:
+- Preserve the existing routing and app structure
+- Preserve working functionality
+- Do not break existing imports
+- Do not introduce unnecessary dependencies
+- Follow the existing coding style
+- Follow the existing component patterns where possible
+
+If the project already uses:
+- Tailwind -> continue using Tailwind
+- shadcn/ui -> continue using shadcn/ui
+- existing UI primitives -> reuse them
+- existing logo/assets -> use them instead of placeholders where available
+
+--------------------------------
+DESIGN INTENT
+--------------------------------
+
+The brand should feel:
+- Warm
+- Local village atmosphere
+- Friendly and familiar
+- Artisanal / ambachtelijk
+- Trustworthy and practical
+
+The UI must feel:
+- Calm and spacious
+- Premium but approachable
+- Not corporate
+- Not startup SaaS
+- Not bootstrap-like
+
+Avoid:
+- Generic layouts
+- Default-looking Tailwind sections
+- Repetitive card blocks
+- Cramped spacing
+- Harsh gradients
+- Anything that looks AI-generated or templated
+
+--------------------------------
+BRANDING (STRICT)
+--------------------------------
+
+- Primary colors: black and orange
+- Use black as the dominant base
+- Use orange only as an accent color for CTAs, highlights, and important UI elements
+- Do NOT overuse orange
+- Avoid neon orange
+- Keep the palette refined and premium
+
+Logo requirements:
+- Place the logo in the top-left of the header
+- Use the existing logo asset from the codebase if available
+- Keep the header minimal, clean, and well-aligned
+- Do NOT center the logo
+
+Color usage:
+- 80% neutral (black, white, soft gray)
+- 20% orange accents
+- Strong contrast, but elegant
+- Buttons may use orange, but not every element
+- Avoid large aggressive orange surfaces unless subtle and tasteful
+
+--------------------------------
+PAGE CONTENT / STRUCTURE
+--------------------------------
+
+Improve the existing homepage with these sections or their current equivalents:
+
+1. HERO
+- Strong headline about ambachtelijk ijs
+- Short supporting copy
+- CTA buttons:
+  - “Bel direct”
+  - “Plan je route”
+- Strong visual hierarchy
+
+2. QUICK INFO
+- Opening hours
+- Highlight TODAY clearly
+- Address
+- Phone number
+- Route link
+
+3. SMAAK VAN DE WEEK
+- Featured flavor section/card
+- Short description
+- Give this section a slightly more special visual treatment
+
+4. ABOUT / SFEER
+- Cozy local story
+- Emphasize gezellig, vertrouwd, dorps gevoel
+
+5. REVIEWS
+- Clean testimonial presentation
+- Rating summary feel
+- Warm and trustworthy
+
+6. FINAL CTA
+- Encourage visiting or calling
+- Repeat key practical info
+
+--------------------------------
+LAYOUT QUALITY RULES
+--------------------------------
+
+- Do not make every section look the same
+- Vary layout rhythm
+- Use whitespace intentionally
+- Improve typography hierarchy
+- Improve alignment and visual balance
+- Prioritize polish over adding many features
+
+--------------------------------
+IMPLEMENTATION RULES
+--------------------------------
+
+- Work within the existing codebase
+- Edit the relevant existing files instead of creating parallel demo files
+- If a new component is needed, place it where it best fits the current structure
+- Keep naming consistent with the project
+- Keep the implementation maintainable and realistic
+
+--------------------------------
+AI-DLC EXECUTION MODE
+--------------------------------
+
+Step 1:
+Inspect the existing codebase and identify the current homepage, header, styling approach, and assets.
+
+Step 2:
+Plan the minimal set of files to update.
+
+Step 3:
+Implement the redesign within the existing structure.
+
+Step 4:
+Polish spacing, typography, colors, alignment, and responsiveness.
+
+Step 5:
+Do a final pass to remove anything that looks generic or templated.
+
+--------------------------------
+CONTENT
+--------------------------------
+
+- Language: Dutch
+- Tone: warm, friendly, local
+- Keep text concise and readable
+- Use realistic content
+- Prefer existing real content from the codebase where available
+
+--------------------------------
+OUTPUT
+--------------------------------
+
+- First briefly state which files you will edit and why
+- Then make the changes in the existing codebase
+- Do not create a new standalone demo page unless absolutely necessary
+- Keep the result production-ready"
+**AI Response**: "Resumed the existing AI-DLC project in brownfield mode, loaded the required common rules plus the enabled baseline security extension, inspected the current homepage implementation under `src/web`, identified the landing-page content model and section/component structure, stated the minimal edit set, and implemented a focused redesign without changing routing or project architecture."
+**Context**: Brownfield landing-page redesign implementation
+
+---
+
+## Homepage Redesign Verification
+**Timestamp**: 2026-04-05T11:40:18Z
+**User Input**: "You are working inside an EXISTING codebase.
+
+Your task is to redesign and improve the existing homepage / landing page for a Dutch local ice cream shop called “Bas IJs & Zo” while respecting the current project structure.
+
+IMPORTANT:
+- Do NOT create a new project
+- Do NOT rebuild the whole app from scratch
+- Do NOT replace the codebase architecture
+- Do NOT ignore existing components, styling conventions, or file structure
+- First inspect the existing codebase and understand how the current homepage is built
+- Reuse existing components where sensible
+- Only introduce new components when clearly necessary
+- Keep changes focused, clean, and production-ready
+
+--------------------------------
+PRIMARY GOAL
+--------------------------------
+
+Improve the UI quality of the existing homepage so it feels professionally designed, polished, and premium.
+
+This is NOT a generic template redesign.
+This must feel like a custom-designed small business website.
+
+--------------------------------
+PROJECT-AWARE INSTRUCTIONS
+--------------------------------
+
+Before making changes:
+1. Inspect the current homepage implementation
+2. Inspect the current layout, shared components, styling setup, and asset usage
+3. Identify which files should actually be edited
+4. Make the smallest set of high-impact changes needed
+
+When implementing:
+- Preserve the existing routing and app structure
+- Preserve working functionality
+- Do not break existing imports
+- Do not introduce unnecessary dependencies
+- Follow the existing coding style
+- Follow the existing component patterns where possible
+
+If the project already uses:
+- Tailwind -> continue using Tailwind
+- shadcn/ui -> continue using shadcn/ui
+- existing UI primitives -> reuse them
+- existing logo/assets -> use them instead of placeholders where available
+
+--------------------------------
+DESIGN INTENT
+--------------------------------
+
+The brand should feel:
+- Warm
+- Local village atmosphere
+- Friendly and familiar
+- Artisanal / ambachtelijk
+- Trustworthy and practical
+
+The UI must feel:
+- Calm and spacious
+- Premium but approachable
+- Not corporate
+- Not startup SaaS
+- Not bootstrap-like
+
+Avoid:
+- Generic layouts
+- Default-looking Tailwind sections
+- Repetitive card blocks
+- Cramped spacing
+- Harsh gradients
+- Anything that looks AI-generated or templated
+
+--------------------------------
+BRANDING (STRICT)
+--------------------------------
+
+- Primary colors: black and orange
+- Use black as the dominant base
+- Use orange only as an accent color for CTAs, highlights, and important UI elements
+- Do NOT overuse orange
+- Avoid neon orange
+- Keep the palette refined and premium
+
+Logo requirements:
+- Place the logo in the top-left of the header
+- Use the existing logo asset from the codebase if available
+- Keep the header minimal, clean, and well-aligned
+- Do NOT center the logo
+
+Color usage:
+- 80% neutral (black, white, soft gray)
+- 20% orange accents
+- Strong contrast, but elegant
+- Buttons may use orange, but not every element
+- Avoid large aggressive orange surfaces unless subtle and tasteful
+
+--------------------------------
+PAGE CONTENT / STRUCTURE
+--------------------------------
+
+Improve the existing homepage with these sections or their current equivalents:
+
+1. HERO
+- Strong headline about ambachtelijk ijs
+- Short supporting copy
+- CTA buttons:
+  - “Bel direct”
+  - “Plan je route”
+- Strong visual hierarchy
+
+2. QUICK INFO
+- Opening hours
+- Highlight TODAY clearly
+- Address
+- Phone number
+- Route link
+
+3. SMAAK VAN DE WEEK
+- Featured flavor section/card
+- Short description
+- Give this section a slightly more special visual treatment
+
+4. ABOUT / SFEER
+- Cozy local story
+- Emphasize gezellig, vertrouwd, dorps gevoel
+
+5. REVIEWS
+- Clean testimonial presentation
+- Rating summary feel
+- Warm and trustworthy
+
+6. FINAL CTA
+- Encourage visiting or calling
+- Repeat key practical info
+
+--------------------------------
+LAYOUT QUALITY RULES
+--------------------------------
+
+- Do not make every section look the same
+- Vary layout rhythm
+- Use whitespace intentionally
+- Improve typography hierarchy
+- Improve alignment and visual balance
+- Prioritize polish over adding many features
+
+--------------------------------
+IMPLEMENTATION RULES
+--------------------------------
+
+- Work within the existing codebase
+- Edit the relevant existing files instead of creating parallel demo files
+- If a new component is needed, place it where it best fits the current structure
+- Keep naming consistent with the project
+- Keep the implementation maintainable and realistic
+
+--------------------------------
+AI-DLC EXECUTION MODE
+--------------------------------
+
+Step 1:
+Inspect the existing codebase and identify the current homepage, header, styling approach, and assets.
+
+Step 2:
+Plan the minimal set of files to update.
+
+Step 3:
+Implement the redesign within the existing structure.
+
+Step 4:
+Polish spacing, typography, colors, alignment, and responsiveness.
+
+Step 5:
+Do a final pass to remove anything that looks generic or templated.
+
+--------------------------------
+CONTENT
+--------------------------------
+
+- Language: Dutch
+- Tone: warm, friendly, local
+- Keep text concise and readable
+- Use realistic content
+- Prefer existing real content from the codebase where available
+
+--------------------------------
+OUTPUT
+--------------------------------
+
+- First briefly state which files you will edit and why
+- Then make the changes in the existing codebase
+- Do not create a new standalone demo page unless absolutely necessary
+- Keep the result production-ready"
+**AI Response**: "Verified the homepage redesign with `cd src/web && npm test`, `cd src/web && npm run build`, and `cd src/web && npm run lint`. All passed. Security extension compliance for this increment: SECURITY-03 compliant because no sensitive data logging was added and application-level logging concerns were unchanged; SECURITY-04 compliant because the redesign stayed within the existing Next.js web surface and did not remove the established security-header configuration; SECURITY-10 compliant because no new dependencies or unpinned toolchain changes were introduced; remaining baseline infrastructure-oriented rules were N/A for this UI-only increment because no storage, network intermediary, secret, IAM, or deployment-topology changes were made."
+**Context**: Build and test verification plus extension compliance summary for landing-page redesign
+
+---
+
+## Homepage Redesign Refinement Request
+**Timestamp**: 2026-04-05T11:48:59Z
+**User Input**: "Request Changes: Refine the implementation inside the existing codebase.
+Do not rebuild the page from scratch.
+Improve spacing, typography, hierarchy, and header/logo placement.
+Make the black/orange branding feel premium and restrained.
+Remove anything that still looks like a generic template."
+**AI Response**: "Refined the existing homepage implementation in place by simplifying the sticky header, improving logo alignment, reducing header CTA noise, tightening button styling, calming the hero composition, softening orange usage across the visual system, and rebalancing spacing and typography in the story, taste-of-the-week, reviews, and final CTA sections. Re-verified successfully with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Brownfield landing-page refinement pass after redesign feedback
+
+---
+
+## Hero Background Accent Request
+**Timestamp**: 2026-04-05T12:08:11Z
+**User Input**: "Request Changes: is it possible to do something with orange in the background of the hero? You had that in the prvious design."
+**AI Response**: "Adjusted the existing hero in place to restore a restrained orange background presence through soft right-side gradient and glow layers behind the visual column, without reintroducing a loud split-template look. Re-verified with `cd src/web && npm run lint` and `cd src/web && npm run build`."
+**Context**: Focused hero-background refinement within the existing landing-page implementation
+
+---
+
+## Hero Diagonal Background Request
+**Timestamp**: 2026-04-05T12:10:48Z
+**User Input**: "kan je toch de diagonale terug brengen?"
+**AI Response**: "Updated the existing hero background so the orange diagonal returns across the right side of the section, but in a softer and more premium form than the earlier hard split. Re-verified with `cd src/web && npm run lint` and `cd src/web && npm run build`."
+**Context**: Focused hero-diagonal refinement within the existing landing-page implementation
+
+---
+
+## Final CTA And Story Removal Request
+**Timestamp**: 2026-04-05T17:36:02Z
+**User Input**: "Kan je de achtergrond met de diagonaal bij 'SFEER & VERHAAL' toepassen bij het 'LAATSTE ZETJE'. Daarna mag je alles omtrend 'Ons verhaal' weghalen. Deze info hoeft niet op de landingspage."
+**AI Response**: "Applied the diagonal `split`-style section background to `Laatste zetje`, removed the `Ons verhaal` section from the homepage composition and navigation, deleted the obsolete `story-section` landing component, and removed the related landing-page content/type fields so no homepage references remained. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page simplification and section-background refinement
+
+---
+
+## Final CTA And Reviews Order Request
+**Timestamp**: 2026-04-05T17:43:17Z
+**User Input**: "Draai 'LAATSTE ZETJE' en 'REVIEWS UIT DE BUURT' maar even om"
+**AI Response**: "Swapped the existing `Laatste zetje` and `Reviews uit de buurt` sections in the landing-page composition so the final CTA now appears before the review block. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page section-order refinement
+
+---
+
+## Section Order Revert Request
+**Timestamp**: 2026-04-05T17:43:51Z
+**User Input**: "sorry zet maar terug"
+**AI Response**: "Reverted the landing-page section order so `Reviews uit de buurt` appears before `Laatste zetje` again. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page section-order revert
+
+---
+
+## Section Background Swap Request
+**Timestamp**: 2026-04-05T17:44:32Z
+**User Input**: "Kan je de ook alleen die twee achtergronden omwisselen?"
+**AI Response**: "Swapped only the section backgrounds of `Reviews uit de buurt` and `Laatste zetje` by exchanging their `SectionShell` tones while keeping the content and section order unchanged. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page section-background swap
+
+---
+
+## Section Readability Fix Request
+**Timestamp**: 2026-04-05T17:45:36Z
+**User Input**: "Kan je dan ook het kleurgebruik van de content op die twee achtergronden aanpassen? Het is nu niet leesbaar."
+**AI Response**: "Adjusted the content styling for the swapped `Reviews uit de buurt` and `Laatste zetje` backgrounds so text and cards now match their new section tones. `Reviews` now uses light summary/review cards with dark text, and `Laatste zetje` now uses a light contact panel for stronger contrast on the dark section background. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page readability fix after section-background swap
+
+---
+
+## Final CTA Cream Background Request
+**Timestamp**: 2026-04-05T17:48:44Z
+**User Input**: "kan je bij laatste zetje de twee blokken dezelfde cremerige achtergrond kleur geven als bij smaak van de week (Zwarte Sinaasappel & Karamel)?"
+**AI Response**: "Updated both `Laatste zetje` content panels to use the same creamy gradient card treatment as the main `Smaak van de week` panel, so the section now feels visually consistent with that palette reference. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page final CTA panel color refinement
+
+---
+
+## Footer Light Theme Request
+**Timestamp**: 2026-04-05T17:49:39Z
+**User Input**: "Kan je dan de footer weer de lichte kleur geven? Ook rekening houden met de tekst."
+**AI Response**: "Changed the footer back to a light creamy gradient treatment and updated its text/link colors to preserve readable contrast on the lighter background. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page footer theme and contrast refinement
+
+---
+
+## Footer Theme Revert Request
+**Timestamp**: 2026-04-05T17:50:59Z
+**User Input**: "Maak je laatste wijziging maar ongedaan."
+**AI Response**: "Reverted the footer from the light creamy variant back to the earlier dark footer treatment, restoring the previous text and link contrast scheme. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page footer-theme rollback
+
+---
+
+## Mobile Logo Tagline Removal Request
+**Timestamp**: 2026-04-05T17:52:14Z
+**User Input**: "Kan je in de mobiele versie in de logo de tekst 'AMBACHTELIJK IJS IN HET HART VAN HET DORP' weghalen."
+**AI Response**: "Removed the mobile-only tagline text next to the logo in the existing header component while leaving the desktop header untouched. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile header refinement
+
+---
+
+## Mobile Navigation Overlay Request
+**Timestamp**: 2026-04-05T18:02:50Z
+**User Input**: "Kan je in de mobiele versie het navigatie menu renderen over de hele pagina? Dus over de main content heen?"
+**AI Response**: "Changed the mobile navigation from an inline expanding panel to a fixed full-page overlay beneath the sticky header, so it now renders over the main content instead of pushing it down. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile navigation overlay refinement
+
+---
+
+## Mobile Navigation Overlay Fix Request
+**Timestamp**: 2026-04-05T18:07:27Z
+**User Input**: "Het werkt niet kijk de foto maar: [Image #1]. Ik wil ook een sluiten knop op dezelfde plek als de hamburger icoon. Om het menu weer te sluiten."
+**AI Response**: "Updated the mobile navigation to render as a true full-screen overlay with its own top row, duplicated logo placement, and an explicit close button in the same top-right position as the hamburger icon. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile navigation overlay correction and close-button refinement
+
+---
+
+## Mobile Navigation Fullscreen Overlay Follow-up
+**Timestamp**: 2026-04-05T18:10:09Z
+**User Input**: "zoals je kan zien werkt het nog niet. Het menu moet over de hele pagina vallen."
+**AI Response**: "Moved the mobile navigation overlay outside the sticky header component so it no longer renders inside the header stacking context and now covers the full viewport as an actual page-level overlay. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile navigation fullscreen overlay correction
+
+---
+
+## Mobile Hero Title Alignment Request
+**Timestamp**: 2026-04-05T18:11:28Z
+**User Input**: "Kan je in de mobile versie in de hero de tekst 'Ambachtelijk ijs voor een klein ommetje dat altijd de moeite waard is.' centreren?"
+**AI Response**: "Centered the main hero heading on mobile only while preserving the existing left-aligned desktop layout. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile hero typography refinement
+
+---
+
+## Mobile Hero Title Alignment Revert Request
+**Timestamp**: 2026-04-05T18:13:33Z
+**User Input**: "maak dat laatste maar ongedaan"
+**AI Response**: "Reverted the previous mobile-only hero title centering change and restored the original left-aligned heading styling. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile hero typography revert
+
+---
+
+## Mobile Hero Title Width Request
+**Timestamp**: 2026-04-05T18:14:40Z
+**User Input**: "kan je de tekst op de mobiele versie wat breeder trekken? Meer worrden op 1 regel?"
+**AI Response**: "Widened the mobile hero heading measure so more words fit on each line while preserving the existing desktop heading width. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile hero typography width refinement
+
+---
+
+## Mobile Hero Title Width Follow-up
+**Timestamp**: 2026-04-05T18:15:30Z
+**User Input**: "Kan dat nog ruimer?"
+**AI Response**: "Expanded the mobile hero heading measure further so the title breaks into fewer lines on small screens, while keeping tablet and desktop widths unchanged. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page mobile hero typography width follow-up
+
+---
+
+## Hero Social Links Request
+**Timestamp**: 2026-04-05T18:17:13Z
+**User Input**: "Kan je in de hero boven de foto de socials facebook en instagram toevoegen?"
+**AI Response**: "Added the existing Facebook and Instagram social links to the hero above the photo by reusing the shared `SocialRail` component and wiring the existing `socialLinks` content into the hero section. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero social links refinement
+
+---
+
+## Hero Social Links Minimal Styling Request
+**Timestamp**: 2026-04-05T18:18:40Z
+**User Input**: "Ik wil alleen het facebook logo en instagram logo. Geen extra borders, backgrounds etc."
+**AI Response**: "Simplified the hero social links to bare Facebook and Instagram icons only by adding a minimal shared `SocialRail` variant and removing the label, border, and panel styling from the hero placement. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero social links styling simplification
+
+---
+
+## Hero Social Links Size Request
+**Timestamp**: 2026-04-05T18:19:51Z
+**User Input**: "maak de logo's nu maar groter, zodat het mooi in verhouding komt met de rest van de hero"
+**AI Response**: "Scaled up the bare hero social icons so they sit in better proportion with the rest of the hero while keeping the shared styled social variants elsewhere unchanged. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero social links proportion refinement
+
+---
+
+## Bottom Social Links Minimal Styling Request
+**Timestamp**: 2026-04-05T18:21:55Z
+**User Input**: "Kan je dat ook in de footer doen? Dus borders, background etc weghalen van de socials."
+**AI Response**: "Applied the same bare social icon treatment to the lower contact area social links by switching that `SocialRail` usage to the shared minimal variant, while leaving the rest of the footer and layout unchanged. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page lower social links styling simplification
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-05T18:23:04Z
+**User Input**: "Commit alles maar"
+**AI Response**: "Reviewed the working tree, confirmed the tracked changes belong to the landing-page redesign and related AI-DLC documentation updates, and prepared a single commit covering the full change set."
+**Context**: Version control request
+
+---
+
+## Hero Taste Card Placement Request
+**Timestamp**: 2026-04-05T17:53:40Z
+**User Input**: "Kan je in de hero de smaak van de week uit de foto halen en er boven zetten?"
+**AI Response**: "Moved the `Smaak van de week` card out of the image overlay and placed it as a separate panel above the hero photo within the existing right-hand hero column. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero content arrangement refinement
+
+---
+
+## Hero Taste Card Minimal Styling Request
+**Timestamp**: 2026-04-05T17:56:09Z
+**User Input**: "Haal de hele achtergrond en rand van smaak van de week maar weg"
+**AI Response**: "Removed the background, border, and card treatment from the `Smaak van de week` block in the hero so only the text styling remains above the photo. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero taste-of-the-week styling simplification
+
+---
+
+## Hero Taste Card Style Match Request
+**Timestamp**: 2026-04-05T17:57:33Z
+**User Input**: "maak het toch maar hetzelfde als het blokje 'snel geregeld' die ook in de hero staat"
+**AI Response**: "Restored the `Smaak van de week` block in the hero using the same translucent panel styling as the `Snel geregeld` block so the right-hand hero column feels consistent again. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero taste-of-the-week style alignment
+
+---
+
+## Hero Panel Order Simplification Request
+**Timestamp**: 2026-04-05T17:58:43Z
+**User Input**: "Zet de smaak van deze week maar onder de foto en haal het snel geregeld maar weg"
+**AI Response**: "Simplified the hero right column by removing the `Snel geregeld` panel entirely and moving `Smaak van deze week` to the panel below the photo. Re-verified with `cd src/web && npm run lint`, `cd src/web && npm test`, and `cd src/web && npm run build`."
+**Context**: Landing-page hero simplification
+
+---
