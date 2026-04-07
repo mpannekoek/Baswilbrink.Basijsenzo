@@ -52,7 +52,7 @@ export function HeroSection({ hero, actions, socialLinks }: HeroSectionProps) {
 
         <div className="relative z-10">
           <div className="grid gap-5 lg:ml-auto lg:max-w-[35rem]">
-            <div className="flex justify-end">
+            <div className="hidden justify-end lg:flex">
               <SocialRail bare iconOnly socialLinks={socialLinks} />
             </div>
 

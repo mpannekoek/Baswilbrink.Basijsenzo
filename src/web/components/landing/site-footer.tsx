@@ -6,7 +6,7 @@ type SiteFooterProps = {
 
 export function SiteFooter({ footer }: SiteFooterProps) {
   return (
-    <footer className="border-t border-[rgba(17,17,17,0.12)] bg-[linear-gradient(135deg,#eaa05e_0%,#dd7f3a_44%,var(--brand-orange)_100%)] px-4 py-8 text-[var(--brand-black)] md:px-6 md:py-10">
+    <footer className="border-t border-[rgba(17,17,17,0.12)] bg-[linear-gradient(135deg,#eaa05e_0%,#dd7f3a_44%,var(--brand-orange)_100%)] px-4 py-5 text-[var(--brand-black)] md:px-6 md:py-6">
       <div className="mx-auto w-full max-w-[76rem]">
         <div className="flex flex-col gap-3 text-center text-sm md:text-left md:text-base">
           <p className="text-[var(--brand-black)]/78">{footer.copyrightText}</p>

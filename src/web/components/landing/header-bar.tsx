@@ -3,14 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import { SocialRail } from "@/components/landing/social-rail";
 import { ActionPill } from "@/components/ui/action-pill";
-import type { ActionLink, BrandConfig, HeaderContent, NavItem } from "@/types/site";
+import type { ActionLink, BrandConfig, HeaderContent, NavItem, SocialLink } from "@/types/site";
 
 type HeaderBarProps = {
   brand: BrandConfig;
   header: HeaderContent;
   navItems: NavItem[];
   primaryActions: ActionLink[];
+  socialLinks: SocialLink[];
 };
 
 function MenuIcon() {
@@ -37,6 +39,7 @@ export function HeaderBar({
   header,
   navItems,
   primaryActions,
+  socialLinks,
 }: HeaderBarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -189,6 +192,10 @@ export function HeaderBar({
                 {primaryActions.map((action) => (
                   <ActionPill key={action.label} {...action} onClick={closeMobileMenu} />
                 ))}
+              </div>
+
+              <div className="mt-6 flex justify-center border-t border-white/10 pt-5">
+                <SocialRail bare bareColor="orange" iconOnly socialLinks={socialLinks} />
               </div>
             </div>
           </div>

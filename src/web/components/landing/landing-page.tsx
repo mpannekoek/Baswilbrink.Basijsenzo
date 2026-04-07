@@ -19,6 +19,7 @@ export function LandingPage({ content }: LandingPageProps) {
         header={content.header}
         navItems={content.navItems}
         primaryActions={content.primaryActions}
+        socialLinks={content.socialLinks}
       />
 
       <main className="flex flex-col">

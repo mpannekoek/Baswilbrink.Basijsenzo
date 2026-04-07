@@ -4,6 +4,7 @@ type SocialRailProps = {
   socialLinks: SocialLink[];
   iconOnly?: boolean;
   bare?: boolean;
+  bareColor?: "white" | "orange";
 };
 
 type SocialIconProps = {
@@ -49,7 +50,13 @@ export function SocialRail({
   socialLinks,
   iconOnly = false,
   bare = false,
+  bareColor = "white",
 }: SocialRailProps) {
+  const bareItemClassName =
+    bareColor === "orange"
+      ? "inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(200,101,34,0.3)] bg-[rgba(200,101,34,0.12)] transition hover:bg-[rgba(255,255,255,0.12)] hover:text-white"
+      : "inline-flex items-center justify-center text-white/72 transition hover:text-[var(--brand-orange)]";
+
   return (
     <div className={bare ? "flex flex-wrap items-center gap-4" : "flex flex-wrap items-center gap-3"}>
       {socialLinks.map((link) => {
@@ -61,7 +68,7 @@ export function SocialRail({
             aria-label={link.label}
             className={
               bare
-                ? "inline-flex items-center justify-center text-white/72 transition hover:text-[var(--brand-orange)]"
+                ? bareItemClassName
                 : iconOnly
                 ? "inline-flex h-11 w-11 items-center justify-center border border-[rgba(17,17,17,0.14)] bg-white/72 text-[var(--brand-black)] transition hover:border-[var(--brand-orange)] hover:bg-white"
                 : "inline-flex min-h-11 items-center gap-2 border border-[rgba(17,17,17,0.14)] bg-white/72 px-3 py-2 text-sm font-medium text-[var(--brand-black)] transition hover:border-[var(--brand-orange)] hover:bg-white"
@@ -70,6 +77,7 @@ export function SocialRail({
             href={link.href}
             key={link.label}
             rel="noreferrer"
+            style={bare && bareColor === "orange" ? { color: "var(--brand-orange)" } : undefined}
             target="_blank"
             title={link.label}
           >
