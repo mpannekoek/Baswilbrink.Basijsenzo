@@ -124,11 +124,12 @@ describe("admin portal helpers and components", () => {
 
   it("renders the admin shell with navigation, profile details, and sign-out control", () => {
     const sessionViewModel = toAdminSessionViewModel(createSession("bas@example.com"));
+    const navigation = getAdminNavigation();
 
     render(
       <AdminShell
         currentDateTime="zaterdag 4 april 2026 om 11:52"
-        navigation={getAdminNavigation()}
+        navigation={navigation}
         session={sessionViewModel}
       >
         <AdminDashboardHome session={sessionViewModel} />
@@ -141,7 +142,20 @@ describe("admin portal helpers and components", () => {
     expect(screen.queryByTestId("admin-nav-analytics-link")).not.toBeInTheDocument();
     expect(screen.getByTestId("admin-profile-card")).toBeInTheDocument();
     expect(screen.getByTestId("admin-dashboard-summary")).toBeInTheDocument();
+    expect(screen.getByTestId("admin-dashboard-content-link")).toHaveAttribute("href", "/admin/content");
+    expect(screen.getByTestId("admin-dashboard-opening-hours-link")).toHaveAttribute(
+      "href",
+      "/admin/content/opening-hours",
+    );
+    expect(screen.getByTestId("admin-dashboard-featured-taste-link")).toHaveAttribute(
+      "href",
+      "/admin/content/taste-of-the-week",
+    );
     expect(screen.getByTestId("admin-signout-button")).toBeInTheDocument();
+    expect(navigation[1]).toMatchObject({
+      href: "/admin/content",
+      testId: "admin-nav-content-link",
+    });
   });
 
   it("opens the sidebar as a full mobile menu", () => {

@@ -10,10 +10,10 @@ export function getAdminNavigation(): AdminNavItem[] {
       testId: "admin-nav-dashboard-link",
     },
     {
-      href: "/admin",
+      href: "/admin/content",
       icon: "content",
       label: "Content",
-      description: "Pagina-inhoud en publicatiestatus",
+      description: "Homepage-teksten, openingstijden en smaak van de week",
       testId: "admin-nav-content-link",
     },
   ];

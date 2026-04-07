@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-import { siteContent } from "@/lib/content/site-content";
+import { getLandingMetadataContent } from "@/lib/content/public-content";
 
-export function getSiteMetadata(): Metadata {
-  const { metadata } = siteContent;
+export async function getSiteMetadata(): Promise<Metadata> {
+  const metadata = await getLandingMetadataContent();
 
   return {
     title: metadata.title,

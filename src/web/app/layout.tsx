@@ -17,7 +17,9 @@ const bodyFont = Manrope({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-export const metadata: Metadata = getSiteMetadata();
+export async function generateMetadata(): Promise<Metadata> {
+  return getSiteMetadata();
+}
 
 export default function RootLayout({
   children,

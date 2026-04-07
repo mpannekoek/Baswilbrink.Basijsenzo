@@ -1,6 +1,8 @@
 import { LandingPage } from "@/components/landing/landing-page";
-import { siteContent } from "@/lib/content/site-content";
+import { getLandingPageContent } from "@/lib/content/public-content";
 
-export default function Home() {
-  return <LandingPage content={siteContent} />;
+export default async function Home() {
+  const content = await getLandingPageContent();
+
+  return <LandingPage content={content} />;
 }
