@@ -57,6 +57,9 @@
   - `src/web/tests/landing-page/page.test.tsx`
   - `src/web/tests/admin-portal/admin-portal.test.tsx`
 - **New files/directories expected to be created**:
+  - `deploy/compose.yml`
+  - `deploy/deploy.sh`
+  - `.github/workflows/deploy-azure-vps.yml`
   - `src/web/drizzle.config.ts`
   - `src/web/drizzle/`
   - `src/web/lib/db/client.ts`
@@ -92,6 +95,9 @@
 - [x] Step 8: Update `src/web/lib/auth/navigation.ts` and `src/web/app/admin/(protected)/page.tsx` so the portal clearly exposes the new content-management entry points while keeping the existing protected admin shell and Auth.js access boundary intact.
 - [x] Step 9: Add or update automated tests in `src/web/tests/landing-page/`, `src/web/tests/admin-portal/`, and `src/web/tests/content-management/` to cover public DB-backed rendering, protected admin reads/writes, validation failures, and audit/revalidation behavior where practical in the current test setup.
 - [x] Step 10: Create `aidlc-docs/construction/landing-page-content-management/code/implementation-summary.md` summarizing the final code changes, story coverage, test additions, and any follow-up notes needed for Build and Test.
+- [x] Step 11: Add deployment artifacts for the existing published container flow by creating `deploy/compose.yml`, `deploy/deploy.sh`, and `.github/workflows/deploy-azure-vps.yml`, ensuring the VPS deploy path can pull the requested GHCR image, persist SQLite and upload data, enforce required runtime env validation, and run `docker compose up` non-interactively.
+- [x] Step 12: Adjust the deployment compose defaults so the application is exposed on host port `3001` by default while the container continues listening on port `3000`.
+- [x] Step 13: Add beginner-friendly inline documentation to `deploy/deploy.sh` so the VPS deployment flow is easier to understand without changing its behavior.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

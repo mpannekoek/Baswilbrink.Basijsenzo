@@ -13,6 +13,9 @@
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
+- Added repo-root deployment artifacts for VPS rollout: a `deploy/compose.yml`, a `deploy/deploy.sh` runner, and a `deploy-azure-vps.yml` workflow that syncs those files to the server and deploys a specific GHCR image tag.
+- Updated the deployment compose defaults so the VPS publishes the app on host port `3001` unless `APP_PORT` is explicitly overridden.
+- Added beginner-friendly inline documentation to `deploy/deploy.sh` so the remote deployment flow is easier to understand for Bash newcomers without changing its behavior.
 
 ## Story Coverage
 - [x] Story 1: Public landing-page content rendering
@@ -40,12 +43,18 @@
 - Tests:
   - `src/web/tests/content-management/*`
   - `src/web/tests/admin-portal/admin-portal.test.tsx`
+- Deployment:
+  - `deploy/compose.yml`
+  - `deploy/deploy.sh`
+  - `.github/workflows/deploy-azure-vps.yml`
 
 ## Verification
 - `npm run db:seed`
 - `npm run lint`
 - `npm test`
 - `npm run build`
+- `bash -n deploy/deploy.sh`
+- `docker compose -f deploy/compose.yml config` with placeholder env values
 
 ## Notes
 - The SQLite path resolver now uses Turbopack ignore annotations around `process.cwd()` so standalone builds do not emit the previous project-wide tracing warning.
@@ -55,3 +64,4 @@
 - The featured-taste editor now includes upload buttons for both photos; uploads are validated to JPG, PNG, WEBP, or AVIF and stored under `public/uploads/featured-taste`.
 - Review cards and review summary content are removed from the app and replaced by gallery slider content plus a separate gallery image collection.
 - The homepage slider now uses Swiper React's `Thumbs` pattern together with FreeMode, A11y, and Autoplay, following the official Swiper React docs: `https://swiperjs.com/react`.
+- The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.

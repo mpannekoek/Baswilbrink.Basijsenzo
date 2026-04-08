@@ -260,6 +260,200 @@ Please start by:
 
 ---
 
+## Code Generation Review Request
+**Timestamp**: 2026-04-08T06:25:00Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- next-env.d.ts: src/web/next-env.d.ts
+
+# Files mentioned by the user:
+
+## deploy-azure-vps.yml: /home/martijn/dev/projects/baswilbrink/deploy-azure-vps.yml
+
+## My request for Codex:
+Request Changes: create in the repo root a new folder with the name 'deploy'. Inside that folder I want a 'deploy.sh' (which I will run with github actions on my VPS) and a 'compose.yml' which will be used by the docker compose up command. Create the github actions 'deploy-azure-vps.yml' as well (I put an example as attachment in this chat)."
+**AI Response**: "Resumed the existing AI-DLC workflow at CONSTRUCTION > Code Generation Review for landing-page-content-management, loaded the mandatory common and stage rules plus the enabled security baseline, reviewed the current publish-image and container setup, and started planning deployment artifact changes for this review cycle."
+**Context**: CONSTRUCTION - Code Generation review change request
+
+---
+
+## Code Generation Change Implementation
+**Timestamp**: 2026-04-08T06:32:41Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- next-env.d.ts: src/web/next-env.d.ts
+
+# Files mentioned by the user:
+
+## deploy-azure-vps.yml: /home/martijn/dev/projects/baswilbrink/deploy-azure-vps.yml
+
+## My request for Codex:
+Request Changes: create in the repo root a new folder with the name 'deploy'. Inside that folder I want a 'deploy.sh' (which I will run with github actions on my VPS) and a 'compose.yml' which will be used by the docker compose up command. Create the github actions 'deploy-azure-vps.yml' as well (I put an example as attachment in this chat)."
+**AI Response**: "Implemented the requested deployment artifacts by creating deploy/compose.yml, deploy/deploy.sh, and .github/workflows/deploy-azure-vps.yml, updated .gitignore to ignore deploy/.env secrets, extended the code-generation plan with the deployment step, and refreshed the implementation summary and workflow state."
+**Context**: CONSTRUCTION - Code Generation review change implementation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-08T06:32:41Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- next-env.d.ts: src/web/next-env.d.ts
+
+# Files mentioned by the user:
+
+## deploy-azure-vps.yml: /home/martijn/dev/projects/baswilbrink/deploy-azure-vps.yml
+
+## My request for Codex:
+Request Changes: create in the repo root a new folder with the name 'deploy'. Inside that folder I want a 'deploy.sh' (which I will run with github actions on my VPS) and a 'compose.yml' which will be used by the docker compose up command. Create the github actions 'deploy-azure-vps.yml' as well (I put an example as attachment in this chat)."
+**AI Response**: "Prepared the revised Code Generation review prompt after implementing the VPS deployment artifacts and local validation steps, while keeping the unit in review status until the user approves or requests more changes."
+**Context**: CONSTRUCTION - Code Generation review gate reopened
+
+---
+
+## Code Generation Review Request
+**Timestamp**: 2026-04-08T07:33:37Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: deploy/compose.yml
+
+## Open tabs:
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .env.local: src/web/.env.local
+- .gitignore: .gitignore
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: you need to expose the container on the host machine on port 3001 (instead of 3000)"
+**AI Response**: "Accepted the code-generation review change request, inspected the current deploy compose configuration, and started the minimal deployment update to publish the container on host port 3001 by default while keeping the container port at 3000."
+**Context**: CONSTRUCTION - Code Generation review change request
+
+---
+
+## Code Generation Change Implementation
+**Timestamp**: 2026-04-08T07:33:37Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: deploy/compose.yml
+
+## Open tabs:
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .env.local: src/web/.env.local
+- .gitignore: .gitignore
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: you need to expose the container on the host machine on port 3001 (instead of 3000)"
+**AI Response**: "Updated deploy/compose.yml so the default published host port is 3001 while the container still listens on 3000, recorded the adjustment in the active code-generation plan and implementation summary, and verified the compose output resolves to 3001:3000 with placeholder environment values."
+**Context**: CONSTRUCTION - Code Generation review change implementation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-08T07:33:37Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: deploy/compose.yml
+
+## Open tabs:
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .env.local: src/web/.env.local
+- .gitignore: .gitignore
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: you need to expose the container on the host machine on port 3001 (instead of 3000)"
+**AI Response**: "Prepared the updated Code Generation review result after the port mapping change and kept the unit at the review gate pending user approval or further changes."
+**Context**: CONSTRUCTION - Code Generation review gate reopened
+
+---
+
+## Code Generation Review Request
+**Timestamp**: 2026-04-08T07:35:40Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: deploy/deploy.sh
+
+## Open tabs:
+- deploy.sh: deploy/deploy.sh
+- compose.yml: deploy/compose.yml
+- .env.local: src/web/.env.local
+- .gitignore: .gitignore
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: I'm new in bash files. Help me to understand [deploy.sh](deploy/deploy.sh) with writing good documentation into the file."
+**AI Response**: "Accepted the code-generation review change request, inspected the current deploy.sh script, and started a documentation-only update to explain the deployment flow in-place without changing the script behavior."
+**Context**: CONSTRUCTION - Code Generation review change request
+
+---
+
+## Code Generation Change Implementation
+**Timestamp**: 2026-04-08T07:36:39Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: deploy/deploy.sh
+
+## Open tabs:
+- deploy.sh: deploy/deploy.sh
+- compose.yml: deploy/compose.yml
+- .env.local: src/web/.env.local
+- .gitignore: .gitignore
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: I'm new in bash files. Help me to understand [deploy.sh](deploy/deploy.sh) with writing good documentation into the file."
+**AI Response**: "Documented deploy/deploy.sh in place with beginner-friendly comments that explain the purpose of each section, the main Bash patterns used, the expected inputs, and the Docker Compose deployment flow, while keeping the script behavior unchanged and verifying it with bash -n."
+**Context**: CONSTRUCTION - Code Generation review change implementation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-08T07:36:39Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: deploy/deploy.sh
+
+## Open tabs:
+- deploy.sh: deploy/deploy.sh
+- compose.yml: deploy/compose.yml
+- .env.local: src/web/.env.local
+- .gitignore: .gitignore
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: I'm new in bash files. Help me to understand [deploy.sh](deploy/deploy.sh) with writing good documentation into the file."
+**AI Response**: "Prepared the updated Code Generation review result after the documentation-only deploy.sh pass and kept the unit at the review gate pending user approval or further changes."
+**Context**: CONSTRUCTION - Code Generation review gate reopened
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-08T07:38:47Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: .github/workflows/deploy-azure-vps.yml
+
+## Open tabs:
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .gitignore: .gitignore
+- .env.local: src/web/.env.local
+
+## My request for Codex:
+commit"
+**AI Response**: "Prepared the current deployment and workflow-tracking changes for commit while keeping the AI-DLC unit at the code-generation review gate."
+**Context**: Repository maintenance - commit requested
+
+---
+
 ## User Stories Review Prompt
 **Timestamp**: 2026-04-07T12:40:40Z
 **User Input**: "Approve & Continue"

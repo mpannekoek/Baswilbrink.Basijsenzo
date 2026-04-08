@@ -9,7 +9,7 @@
 
 ## Current Status
 - **Unit**: `landing-page-content-management`
-- **State**: Code generation is complete and awaiting review before proceeding to Build and Test
+- **State**: Code generation review changes are complete, including VPS deployment artifacts, and the unit is awaiting review before proceeding to Build and Test
 
 ## Workspace State
 - **Existing Code**: Yes

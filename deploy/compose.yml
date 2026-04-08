@@ -1,0 +1,33 @@
+services:
+  app:
+    image: ${IMAGE_REFERENCE:?IMAGE_REFERENCE is required}
+    container_name: ${COMPOSE_PROJECT_NAME:-basijsenzo}-app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3001}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      CONTENT_DB_PATH: /app/data/content.db
+      NEXTAUTH_URL: ${NEXTAUTH_URL:?NEXTAUTH_URL is required}
+      AUTH_SECRET: ${AUTH_SECRET:?AUTH_SECRET is required}
+      AUTH_MICROSOFT_CLIENT_ID: ${AUTH_MICROSOFT_CLIENT_ID:?AUTH_MICROSOFT_CLIENT_ID is required}
+      AUTH_MICROSOFT_CLIENT_SECRET: ${AUTH_MICROSOFT_CLIENT_SECRET:?AUTH_MICROSOFT_CLIENT_SECRET is required}
+      AUTH_ALLOWED_EMAILS: ${AUTH_ALLOWED_EMAILS:?AUTH_ALLOWED_EMAILS is required}
+    volumes:
+      - type: bind
+        source: ${DEPLOY_DATA_DIR:?DEPLOY_DATA_DIR is required}
+        target: /app/data
+      - type: bind
+        source: ${DEPLOY_UPLOADS_DIR:?DEPLOY_UPLOADS_DIR is required}
+        target: /app/public/uploads
+    # The 'logging' section configures how logs are handled for this service.
+    # - 'driver: json-file' specifies that logs will be stored in JSON format files.
+    # - 'max-size: "10m"' limits the maximum size of each log file to 10 megabytes.
+    # - 'max-file: "5"' keeps up to 5 log files before older logs are deleted.
+    # This helps manage disk usage by rotating and limiting log file sizes.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
