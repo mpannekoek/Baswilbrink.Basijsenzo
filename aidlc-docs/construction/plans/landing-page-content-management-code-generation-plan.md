@@ -98,6 +98,7 @@
 - [x] Step 11: Add deployment artifacts for the existing published container flow by creating `deploy/compose.yml`, `deploy/deploy.sh`, and `.github/workflows/deploy-azure-vps.yml`, ensuring the VPS deploy path can pull the requested GHCR image, persist SQLite and upload data, enforce required runtime env validation, and run `docker compose up` non-interactively.
 - [x] Step 12: Adjust the deployment compose defaults so the application is exposed on host port `3001` by default while the container continues listening on port `3000`.
 - [x] Step 13: Add beginner-friendly inline documentation to `deploy/deploy.sh` so the VPS deployment flow is easier to understand without changing its behavior.
+- [x] Step 14: Update the GitHub workflow checkout action versions to a Node 24-compatible release so the repository no longer relies on `actions/checkout@v4`.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

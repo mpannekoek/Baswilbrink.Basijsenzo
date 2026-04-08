@@ -16,6 +16,7 @@
 - Added repo-root deployment artifacts for VPS rollout: a `deploy/compose.yml`, a `deploy/deploy.sh` runner, and a `deploy-azure-vps.yml` workflow that syncs those files to the server and deploys a specific GHCR image tag.
 - Updated the deployment compose defaults so the VPS publishes the app on host port `3001` unless `APP_PORT` is explicitly overridden.
 - Added beginner-friendly inline documentation to `deploy/deploy.sh` so the remote deployment flow is easier to understand for Bash newcomers without changing its behavior.
+- Updated the GitHub workflow checkout steps from `actions/checkout@v4` to `actions/checkout@v6` to align the repository with Node 24-compatible GitHub Actions runtimes.
 
 ## Story Coverage
 - [x] Story 1: Public landing-page content rendering

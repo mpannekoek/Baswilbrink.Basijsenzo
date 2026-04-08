@@ -454,6 +454,86 @@ commit"
 
 ---
 
+## Code Generation Review Request
+**Timestamp**: 2026-04-08T07:45:53Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: .github/workflows/deploy-azure-vps.yml
+
+## Open tabs:
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- publish-image.yml: .github/workflows/publish-image.yml
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .gitignore: .gitignore
+
+## My request for Codex:
+Request Changes: I get this warning in github actions: Warning: Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+**AI Response**: "Checked the warning against current official GitHub sources, confirmed that newer actions/checkout versions support Node 24, and started a workflow update to replace actions/checkout@v4 in the repo workflows."
+**Context**: CONSTRUCTION - Code Generation review change request
+
+---
+
+## Code Generation Change Implementation
+**Timestamp**: 2026-04-08T07:47:12Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: .github/workflows/deploy-azure-vps.yml
+
+## Open tabs:
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- publish-image.yml: .github/workflows/publish-image.yml
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .gitignore: .gitignore
+
+## My request for Codex:
+Request Changes: I get this warning in github actions: Warning: Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+**AI Response**: "Updated both repository workflows from actions/checkout@v4 to actions/checkout@v6 after checking current official GitHub release information for Node 24 support, and verified both workflow files still parse as valid YAML."
+**Context**: CONSTRUCTION - Code Generation review change implementation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-08T07:47:12Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: .github/workflows/deploy-azure-vps.yml
+
+## Open tabs:
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- publish-image.yml: .github/workflows/publish-image.yml
+- compose.yml: deploy/compose.yml
+- deploy.sh: deploy/deploy.sh
+- .gitignore: .gitignore
+
+## My request for Codex:
+Request Changes: I get this warning in github actions: Warning: Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+**AI Response**: "Prepared the updated Code Generation review result after upgrading the checkout action versions to Node 24-compatible releases and kept the unit at the review gate pending user approval or further changes."
+**Context**: CONSTRUCTION - Code Generation review gate reopened
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-08T07:49:15Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: aidlc-docs/audit.md
+
+## Open tabs:
+- audit.md: aidlc-docs/audit.md
+- landing-page-content-management-code-generation-plan.md: aidlc-docs/construction/plans/landing-page-content-management-code-generation-plan.md
+- publish-image.yml: .github/workflows/publish-image.yml
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- deploy.sh: deploy/deploy.sh
+
+## My request for Codex:
+commit"
+**AI Response**: "Prepared the workflow runtime compatibility changes and matching AI-DLC tracking updates for commit while keeping the unit at the code-generation review gate."
+**Context**: Repository maintenance - commit requested
+
+---
+
 ## User Stories Review Prompt
 **Timestamp**: 2026-04-07T12:40:40Z
 **User Input**: "Approve & Continue"
