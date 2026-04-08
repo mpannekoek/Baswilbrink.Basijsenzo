@@ -17,6 +17,7 @@
 - Updated the deployment compose defaults so the VPS publishes the app on host port `3001` unless `APP_PORT` is explicitly overridden.
 - Added beginner-friendly inline documentation to `deploy/deploy.sh` so the remote deployment flow is easier to understand for Bash newcomers without changing its behavior.
 - Updated the GitHub workflow checkout steps from `actions/checkout@v4` to `actions/checkout@v6` to align the repository with Node 24-compatible GitHub Actions runtimes.
+- Refreshed `README.md` so it now reflects the admin CMS, SQLite/Drizzle setup, database scripts, and GitHub Actions VPS deployment workflow.
 
 ## Story Coverage
 - [x] Story 1: Public landing-page content rendering

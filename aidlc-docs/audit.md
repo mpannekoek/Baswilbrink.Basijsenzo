@@ -534,6 +534,112 @@ commit"
 
 ---
 
+## Code Generation Review Request
+**Timestamp**: 2026-04-08T09:07:45Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: README.md
+
+## Active selection of the file:
+aidlc-docs
+## Open tabs:
+- README.md: README.md
+- compose.yml: deploy/compose.yml
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- deploy.sh: deploy/deploy.sh
+- publish-image.yml: .github/workflows/publish-image.yml
+
+## My request for Codex:
+Request Changes: update the [README.md](README.md) and remove all the mentions about aidlc-docs."
+**AI Response**: "Accepted the code-generation review change request, inspected README.md for aidlc-docs references, and started a README cleanup pass to remove those mentions while leaving the rest of the repository documentation intact."
+**Context**: CONSTRUCTION - Code Generation review change request
+
+---
+
+## Code Generation Change Implementation
+**Timestamp**: 2026-04-08T09:11:56Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: README.md
+
+## Open tabs:
+- README.md: README.md
+- audit.md: aidlc-docs/audit.md
+- landing-page-content-management-code-generation-plan.md: aidlc-docs/construction/plans/landing-page-content-management-code-generation-plan.md
+- AGENTS.md: AGENTS.md
+- .gitignore: .gitignore
+
+## My request for Codex:
+Request Changes: please check [README.md](README.md) if everything else is up to date."
+**AI Response**: "Reviewed README.md against the current repository structure, package scripts, content system, and deployment workflow, then updated it to reflect the admin CMS, SQLite and Drizzle setup, database commands, deploy directory, GitHub Actions workflows, and the current VPS port mapping."
+**Context**: CONSTRUCTION - Code Generation review change implementation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-08T09:11:56Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: README.md
+
+## Open tabs:
+- README.md: README.md
+- audit.md: aidlc-docs/audit.md
+- landing-page-content-management-code-generation-plan.md: aidlc-docs/construction/plans/landing-page-content-management-code-generation-plan.md
+- AGENTS.md: AGENTS.md
+- .gitignore: .gitignore
+
+## My request for Codex:
+Request Changes: please check [README.md](README.md) if everything else is up to date."
+**AI Response**: "Prepared the updated Code Generation review result after the README refresh and kept the unit at the review gate pending user approval or further changes."
+**Context**: CONSTRUCTION - Code Generation review gate reopened
+
+---
+
+## Code Generation Change Implementation
+**Timestamp**: 2026-04-08T09:08:16Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: README.md
+
+## Active selection of the file:
+aidlc-docs
+## Open tabs:
+- README.md: README.md
+- compose.yml: deploy/compose.yml
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- deploy.sh: deploy/deploy.sh
+- publish-image.yml: .github/workflows/publish-image.yml
+
+## My request for Codex:
+Request Changes: update the [README.md](README.md) and remove all the mentions about aidlc-docs."
+**AI Response**: "Removed the README mentions of aidlc-docs from the repository-structure and additional-documentation sections, verified that no aidlc-docs or AI-DLC references remain in README.md, and kept the change limited to README plus workflow bookkeeping."
+**Context**: CONSTRUCTION - Code Generation review change implementation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-08T09:08:16Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: README.md
+
+## Active selection of the file:
+aidlc-docs
+## Open tabs:
+- README.md: README.md
+- compose.yml: deploy/compose.yml
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- deploy.sh: deploy/deploy.sh
+- publish-image.yml: .github/workflows/publish-image.yml
+
+## My request for Codex:
+Request Changes: update the [README.md](README.md) and remove all the mentions about aidlc-docs."
+**AI Response**: "Prepared the updated Code Generation review result after the README cleanup and kept the unit at the review gate pending user approval or further changes."
+**Context**: CONSTRUCTION - Code Generation review gate reopened
+
+---
+
 ## User Stories Review Prompt
 **Timestamp**: 2026-04-07T12:40:40Z
 **User Input**: "Approve & Continue"

@@ -1,14 +1,17 @@
 # Bas IJs & Zo
 
-Repository for the Bas IJs & Zo landing page project.
+Repository for the Bas IJs & Zo website and admin content-management project.
 
 ## Overview
 
-This project contains a single Next.js application for a Dutch ice cream parlor landing page. The implementation uses:
+This project contains a single Next.js application for a Dutch ice cream parlor website with a protected admin portal for managing editable homepage content. The implementation uses:
 
 - Next.js App Router
 - TypeScript
 - Tailwind CSS
+- Auth.js with Microsoft sign-in for the admin portal
+- SQLite + Drizzle ORM for editable content storage
+- Swiper for the homepage gallery experience
 - Docker for production-oriented containerization
 - Vitest and Testing Library for lightweight UI verification
 
@@ -20,11 +23,12 @@ Key locations:
 
 - [`src/web/app`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/app): Next.js App Router entrypoints
 - [`src/web/components`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/components): landing-page and shared UI components
-- [`src/web/lib`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/lib): content, metadata, and security helpers
+- [`src/web/lib`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/lib): content, metadata, auth, database, and security helpers
 - [`src/web/types`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/types): shared TypeScript models
 - [`src/web/public`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/public): static assets
-- [`src/web/tests`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/tests): test setup and landing-page tests
-- [`aidlc-docs`](/home/martijn/dev/projects/baswilbrink/basijsenzo/aidlc-docs): AI-DLC planning, design, audit, and build/test artifacts
+- [`src/web/tests`](/home/martijn/dev/projects/baswilbrink/basijsenzo/src/web/tests): test setup plus landing-page, admin, and content-management tests
+- [`deploy`](/home/martijn/dev/projects/baswilbrink/basijsenzo/deploy): VPS deploy script and Docker Compose definition
+- [`.github/workflows`](/home/martijn/dev/projects/baswilbrink/basijsenzo/.github/workflows): image publish and VPS deployment workflows
 
 ## Local Development
 
@@ -49,6 +53,8 @@ cd src/web && npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+The public site reads editable content from SQLite. On first run, the app seeds default content automatically if the content store is empty.
 
 ### Admin Portal Environment
 
@@ -93,6 +99,24 @@ Run tests:
 cd src/web && npm test
 ```
 
+Generate Drizzle files:
+
+```bash
+cd src/web && npm run db:generate
+```
+
+Apply database migrations:
+
+```bash
+cd src/web && npm run db:migrate
+```
+
+Seed default content manually:
+
+```bash
+cd src/web && npm run db:seed
+```
+
 Create a production build:
 
 ```bash
@@ -119,6 +143,15 @@ Run the container:
 docker run --rm -p 3000:3000 basijsenzo:local
 ```
 
-## Additional Documentation
+For the admin portal to work in a container, provide the same auth-related environment variables documented above.
 
-Build, test, and design artifacts are tracked in [`aidlc-docs`](/home/martijn/dev/projects/baswilbrink/basijsenzo/aidlc-docs).
+## Production Deployment
+
+Container publishing and VPS deployment are handled through GitHub Actions:
+
+- [`.github/workflows/publish-image.yml`](/home/martijn/dev/projects/baswilbrink/basijsenzo/.github/workflows/publish-image.yml): builds and publishes the production image to GHCR
+- [`.github/workflows/deploy-azure-vps.yml`](/home/martijn/dev/projects/baswilbrink/basijsenzo/.github/workflows/deploy-azure-vps.yml): deploys a selected image tag to the VPS
+- [`deploy/deploy.sh`](/home/martijn/dev/projects/baswilbrink/basijsenzo/deploy/deploy.sh): runs on the VPS and executes the Docker Compose deployment
+- [`deploy/compose.yml`](/home/martijn/dev/projects/baswilbrink/basijsenzo/deploy/compose.yml): defines the production container, bind mounts, and runtime environment
+
+The VPS deployment defaults to publishing the container on host port `3001` while the application itself continues listening on container port `3000`.

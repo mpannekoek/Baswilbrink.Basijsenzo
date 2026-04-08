@@ -99,6 +99,8 @@
 - [x] Step 12: Adjust the deployment compose defaults so the application is exposed on host port `3001` by default while the container continues listening on port `3000`.
 - [x] Step 13: Add beginner-friendly inline documentation to `deploy/deploy.sh` so the VPS deployment flow is easier to understand without changing its behavior.
 - [x] Step 14: Update the GitHub workflow checkout action versions to a Node 24-compatible release so the repository no longer relies on `actions/checkout@v4`.
+- [x] Step 15: Remove `aidlc-docs` references from `README.md` so the repository README stays focused on the application and deployment surface.
+- [x] Step 16: Refresh `README.md` so its overview, structure, scripts, and deployment notes match the current application, CMS, and VPS workflow.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.
