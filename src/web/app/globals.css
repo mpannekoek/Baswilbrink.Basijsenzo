@@ -244,6 +244,7 @@ button:focus-visible {
 }
 
 .gallery-main-media {
+  width: 100%;
   min-height: 20rem;
 }
 
@@ -313,7 +314,7 @@ button:focus-visible {
   }
 
   .gallery-main-embla__slide {
-    flex-basis: 66%;
+    flex-basis: 80%;
   }
 
   .gallery-main-media {
@@ -331,13 +332,13 @@ button:focus-visible {
   }
 
   .gallery-main-embla__slide {
-    flex-basis: 58%;
+    flex-basis: 74%;
   }
 
   .gallery-main-media {
-    min-height: 24rem;
-    height: min(34vw, 30rem);
-    max-height: 30rem;
+    min-height: 26rem;
+    height: min(36vw, 32rem);
+    max-height: 32rem;
   }
 }
 

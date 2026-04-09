@@ -1630,3 +1630,95 @@ Maak de cta knop Plan je route orange en zet deze voor Bel direct. De bel direct
 **Context**: Repository - Commit completed
 
 ---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:31:10Z
+**User Input**: "Request Changes: in the slider I get the following message:
+
+Image with src \"/basijs3.jpg\" has \"fill\" prop and \"sizes\" prop of \"100vw\", but image is not rendered at full viewport width. Please adjust \"sizes\" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+
+the images does not render very well in terms of the width. Fix this."
+**AI Response**: "Accepted the slider performance/rendering request and started a targeted fix for image `sizes` plus slide width behavior in the gallery section."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:32:40Z
+**User Input**: "Request Changes: in the slider I get the following message: Image with src \"/basijs3.jpg\" has \"fill\" prop and \"sizes\" prop of \"100vw\" ... Fix this."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:32:40Z
+**User Input**: "Request Changes: in the slider I get the following message: Image with src \"/basijs3.jpg\" has \"fill\" prop and \"sizes\" prop of \"100vw\" ... Fix this."
+**AI Response**: "Updated `gallery-showcase-section.tsx` `Image` sizes to `(min-width: 1024px) 74vw, (min-width: 768px) 80vw, 90vw` and adjusted Embla slide widths in `globals.css` (80% tablet / 74% desktop) to improve image rendering width and remove the Next.js `sizes` warning; also updated code-generation artifacts/checklists and ran npm test -- --run tests/landing-page/page.test.tsx plus npm run lint."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:34:35Z
+**User Input**: "Kan je ervoor zorgen dat op desktop de witte ruimte rechts van de foto ook opgevuld wordt?"
+**AI Response**: "Accepted the desktop gallery rendering request and started a targeted fix to remove the right-side white gap in the slider image area."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:35:54Z
+**User Input**: "Kan je ervoor zorgen dat op desktop de witte ruimte rechts van de foto ook opgevuld wordt?"
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:35:54Z
+**User Input**: "Kan je ervoor zorgen dat op desktop de witte ruimte rechts van de foto ook opgevuld wordt?"
+**AI Response**: "Fixed the desktop slider white-gap artifact by setting `.gallery-main-media { width: 100%; }` in `globals.css`, preserving existing responsive height behavior and ensuring image fill covers full card width; updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:36:41Z
+**User Input**: "De maximale hoogte van de slider op desktop mag wel iets hoger zijn"
+**AI Response**: "Accepted the request and started increasing the desktop gallery slider max-height to a slightly taller value while keeping the existing responsive behavior balanced."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:37:35Z
+**User Input**: "De maximale hoogte van de slider op desktop mag wel iets hoger zijn"
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:37:35Z
+**User Input**: "De maximale hoogte van de slider op desktop mag wel iets hoger zijn"
+**AI Response**: "Increased desktop gallery media height from `30rem` max to `32rem` with proportional responsive tuning (`min-height: 26rem`, `height: min(36vw, 32rem)`, `max-height: 32rem`) in `globals.css`, updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:38:18Z
+**User Input**: "Request Changes: npm geeft 4 moderate severity vulnerabilities. Fix deze."
+**AI Response**: "Accepted the dependency-security change request and started a targeted npm audit and remediation flow for the reported 4 moderate vulnerabilities."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:40:27Z
+**User Input**: "Request Changes: npm geeft 4 moderate severity vulnerabilities. Fix deze."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:40:27Z
+**User Input**: "Request Changes: npm geeft 4 moderate severity vulnerabilities. Fix deze."
+**AI Response**: "Resolved dependency audit findings by setting `drizzle-kit` to `0.31.10`, adding `overrides.esbuild = 0.28.0`, reinstalling dependencies, and refreshing `package-lock.json`; verified with `npm audit` (0 vulnerabilities), `npm test -- --run tests/content-management/content-services.test.ts tests/landing-page/page.test.tsx`, and `npm run lint`. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---

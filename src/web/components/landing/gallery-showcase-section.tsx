@@ -99,7 +99,7 @@ export function GalleryShowcaseSection({
                           className="object-cover"
                           fill
                           priority={index === 0}
-                          sizes="100vw"
+                          sizes="(min-width: 1024px) 74vw, (min-width: 768px) 80vw, 90vw"
                           src={image.src}
                         />
                       </div>

@@ -124,6 +124,10 @@
 - [x] Step 37: Refine admin form scroll behavior to always scroll to absolute page top only after successful save, not on generic status message display.
 - [x] Step 38: Remove the `Laatste CTA routelabel` field from grouped admin editing and remove the extra route CTA rendering from the landing-page `VisitContactSection`.
 - [x] Step 39: Reorder final section CTA buttons so `Plan je route` renders first with orange primary styling and `Bel direct` renders after it with non-orange secondary styling.
+- [x] Step 40: Fix gallery `next/image` `sizes` mismatch warning and improve slide width rendering by aligning `sizes` values with Embla slide basis breakpoints.
+- [x] Step 41: Remove desktop white-gap artifact in gallery slides by forcing `.gallery-main-media` to full card width while preserving existing height constraints.
+- [x] Step 42: Increase desktop gallery slider max-height slightly (`30rem` -> `32rem`) with proportional responsive height tuning.
+- [x] Step 43: Resolve npm audit moderate vulnerabilities by pinning `drizzle-kit` to `0.31.10`, overriding `esbuild` to `0.28.0`, and refreshing the lockfile.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

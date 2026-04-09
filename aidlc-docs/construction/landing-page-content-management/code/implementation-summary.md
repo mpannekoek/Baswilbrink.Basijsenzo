@@ -32,6 +32,10 @@
 - Refined grouped admin form scrolling so it now scrolls the full page to absolute top only when save succeeds, avoiding scroll jumps on non-success statuses.
 - Removed `visitContact.routeLabel` from both CMS editing and frontend rendering so the extra "Plan je route" CTA is no longer shown in the final landing-page section.
 - Updated final-section CTA presentation so `Plan je route` is shown first with primary orange styling, while `Bel direct` remains visible as a non-orange secondary action.
+- Updated gallery slider image sizing/rendering by aligning `next/image` `sizes` with Embla slide-width breakpoints and increasing slide basis on medium/large viewports.
+- Fixed a desktop gallery rendering artifact where right-side white space could appear inside the active slide by ensuring `.gallery-main-media` spans the full slide-card width.
+- Increased desktop gallery media height slightly so the slider appears more prominent while retaining the existing max-height cap behavior.
+- Resolved npm audit findings by updating dependency resolution for `drizzle-kit`/`esbuild`, removing the previously reported moderate vulnerabilities.
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
@@ -92,8 +96,11 @@
 - Upload action state types/defaults now live in `src/web/lib/content/content-image-upload-action-state.ts`, while `src/web/lib/content/content-actions.ts` only exports async server functions to satisfy Next.js server action constraints.
 - `navItems.*.label`, `primaryActions.*.label`, and `socialLinks.*.label` are no longer part of editable grouped-content fields, so runtime rendering always uses the static defaults from `default-site-content.ts`.
 - `metadata.*` and `brand.tagline` are no longer part of editable grouped-content fields, so public metadata/tagline rendering always uses the static defaults from `default-site-content.ts`.
-- `ContentSectionEditorForm` now scrolls itself into view when a new save message appears, improving visibility of post-submit feedback on longer admin pages.
 - `ContentSectionEditorForm` now uses `window.scrollTo({ top: 0 })` on successful save status, ensuring deterministic full-page top positioning.
 - The `VisitContactContent` contract no longer includes `routeLabel`, and `VisitContactSection` now renders only the configured `primaryActions`.
 - `VisitContactSection` now applies section-specific CTA ordering/styling: route action first (`header-visit-button` -> primary) and call action after it (`header-call-button` -> secondary).
+- Gallery slide `Image` components now use responsive `sizes` (`74vw/80vw/90vw`) that match actual layout width and remove the Next.js performance warning.
+- `.gallery-main-media` now has explicit `width: 100%`, preventing aspect-ratio/height interactions from shrinking media width inside wider desktop slides.
+- Desktop gallery media sizing now uses `min-height: 26rem`, `height: min(36vw, 32rem)`, and `max-height: 32rem` for a taller but still controlled presentation.
+- `package.json` now enforces `drizzle-kit: 0.31.10` plus `overrides.esbuild: 0.28.0`, and `package-lock.json` has been refreshed accordingly.
 - The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.
