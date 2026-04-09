@@ -51,12 +51,6 @@ export function toLandingPageContent(snapshot: StoredContentSnapshot): LandingPa
     setFieldValueInContent(content, field.name, values[field.name] ?? "");
   }
 
-  const legacyGalleryNavLabel = content.navItems[2]?.label.trim().toLowerCase();
-
-  if (legacyGalleryNavLabel === "reviews" && defaultSiteContent.navItems[2]) {
-    content.navItems[2].label = defaultSiteContent.navItems[2].label;
-  }
-
   return content;
 }
 

@@ -142,7 +142,7 @@ describe("content services", () => {
     expect(updatedContent.galleryShowcase.images[4]?.alt).toBe("Nieuwe vijfde sliderfoto");
   });
 
-  it("normalizes the legacy reviews nav label to sfeerimpressie", () => {
+  it("keeps navigation, SEO metadata, and quick-action labels static even when grouped content is saved", () => {
     const client = createContentDatabaseClient(":memory:");
 
     seedContentStore(buildDefaultPersistableValues(), client);
@@ -150,6 +150,13 @@ describe("content services", () => {
     const nextValues = {
       ...buildInitialFieldValues(GROUPED_CONTENT_FIELDS),
       "navItems.2.label": "Reviews",
+      "metadata.title": "Aangepaste SEO titel",
+      "metadata.description": "Aangepaste SEO omschrijving",
+      "metadata.openGraphTitle": "Aangepaste OG titel",
+      "metadata.openGraphDescription": "Aangepaste OG omschrijving",
+      "brand.tagline": "Aangepaste tagline",
+      "primaryActions.0.label": "Test call to action",
+      "socialLinks.0.label": "Test social link",
     };
 
     saveContentMutation(
@@ -168,6 +175,13 @@ describe("content services", () => {
 
     const updatedContent = toLandingPageContent(getStoredContentSnapshot(client));
 
+    expect(updatedContent.metadata.title).toBe(defaultSiteContent.metadata.title);
+    expect(updatedContent.metadata.description).toBe(defaultSiteContent.metadata.description);
+    expect(updatedContent.metadata.openGraphTitle).toBe(defaultSiteContent.metadata.openGraphTitle);
+    expect(updatedContent.metadata.openGraphDescription).toBe(defaultSiteContent.metadata.openGraphDescription);
+    expect(updatedContent.brand.tagline).toBe(defaultSiteContent.brand.tagline);
     expect(updatedContent.navItems[2]?.label).toBe(defaultSiteContent.navItems[2]?.label);
+    expect(updatedContent.primaryActions[0]?.label).toBe(defaultSiteContent.primaryActions[0]?.label);
+    expect(updatedContent.socialLinks[0]?.label).toBe(defaultSiteContent.socialLinks[0]?.label);
   });
 });

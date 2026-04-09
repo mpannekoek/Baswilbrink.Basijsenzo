@@ -107,7 +107,6 @@ export type GalleryShowcaseContent = SectionIntroContent & {
 
 export type VisitContactContent = SectionIntroContent & {
   bodyText: string;
-  routeLabel: string;
   contactTitle: string;
   followTitle: string;
 };

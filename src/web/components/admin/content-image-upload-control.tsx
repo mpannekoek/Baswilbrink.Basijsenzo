@@ -6,7 +6,7 @@ import { useActionState, useEffect } from "react";
 import {
   INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
   type ContentImageUploadActionState,
-} from "@/lib/content/content-actions";
+} from "@/lib/content/content-image-upload-action-state";
 import { FEATURED_TASTE_IMAGE_UPLOAD_ACCEPT } from "@/lib/content/featured-taste-image-upload-config";
 
 export function ContentImageUploadControl({

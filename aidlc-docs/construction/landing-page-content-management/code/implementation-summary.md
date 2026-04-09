@@ -25,6 +25,13 @@
 - Expanded the `Uit de vitrine` gallery to a full-width, full-bleed presentation and removed the remaining side spacing so the slider reaches the viewport edges.
 - Added a desktop max-height cap to the `Uit de vitrine` slider media so the gallery remains bold but no longer appears oversized on larger monitors.
 - Expanded the slider content model and admin gallery editor to 5 slides, including a fifth upload slot and fifth editable alt/src pair so editors can fully manage all 5 photos from the portal.
+- Resolved a Next.js server-actions runtime failure on the Overig content save flow by moving the image-upload action state object/type into a dedicated non-`"use server"` module.
+- Removed the grouped-admin "Navigatie en snelle acties" edit section so navigation labels, header CTA labels, and social-link labels are no longer user-editable and remain code-managed defaults.
+- Removed the grouped-admin `Homepage en SEO` edit section so homepage metadata and the brand tagline are no longer user-editable and remain code-managed defaults.
+- Added auto-scroll-to-top behavior for grouped admin content forms after save completion so editors always see the success/error status message without manual scrolling.
+- Refined grouped admin form scrolling so it now scrolls the full page to absolute top only when save succeeds, avoiding scroll jumps on non-success statuses.
+- Removed `visitContact.routeLabel` from both CMS editing and frontend rendering so the extra "Plan je route" CTA is no longer shown in the final landing-page section.
+- Updated final-section CTA presentation so `Plan je route` is shown first with primary orange styling, while `Bel direct` remains visible as a non-orange secondary action.
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
@@ -82,4 +89,11 @@
 - The featured-taste editor now includes upload buttons for both photos; uploads are validated to JPG, PNG, WEBP, or AVIF and stored under `public/uploads/featured-taste`.
 - Review cards and review summary content are removed from the app and replaced by gallery slider content plus a separate gallery image collection.
 - The homepage slider now uses Embla Carousel (`embla-carousel-react`) with `embla-carousel-autoplay`; slide prominence is handled through CSS opacity states, while navigation and progress controls are rendered in the section UI.
+- Upload action state types/defaults now live in `src/web/lib/content/content-image-upload-action-state.ts`, while `src/web/lib/content/content-actions.ts` only exports async server functions to satisfy Next.js server action constraints.
+- `navItems.*.label`, `primaryActions.*.label`, and `socialLinks.*.label` are no longer part of editable grouped-content fields, so runtime rendering always uses the static defaults from `default-site-content.ts`.
+- `metadata.*` and `brand.tagline` are no longer part of editable grouped-content fields, so public metadata/tagline rendering always uses the static defaults from `default-site-content.ts`.
+- `ContentSectionEditorForm` now scrolls itself into view when a new save message appears, improving visibility of post-submit feedback on longer admin pages.
+- `ContentSectionEditorForm` now uses `window.scrollTo({ top: 0 })` on successful save status, ensuring deterministic full-page top positioning.
+- The `VisitContactContent` contract no longer includes `routeLabel`, and `VisitContactSection` now renders only the configured `primaryActions`.
+- `VisitContactSection` now applies section-specific CTA ordering/styling: route action first (`header-visit-button` -> primary) and call action after it (`header-call-button` -> secondary).
 - The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.

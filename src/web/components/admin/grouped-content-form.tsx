@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
 import { INITIAL_CONTENT_ACTION_STATE, type ContentActionState } from "@/lib/content/content-action-state";
 import {
@@ -91,6 +91,21 @@ export function ContentSectionEditorForm({
   statusTestId,
 }: ContentSectionEditorFormProps) {
   const [state, formAction, isPending] = useActionState(action, INITIAL_CONTENT_ACTION_STATE);
+
+  useEffect(() => {
+    if (state.status !== "success") {
+      return;
+    }
+
+    try {
+      window.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+    } catch {
+      window.scrollTo(0, 0);
+    }
+  }, [state.status]);
 
   return (
     <form action={formAction} className="grid gap-8" data-testid={formTestId}>

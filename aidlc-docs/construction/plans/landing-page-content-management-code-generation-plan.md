@@ -117,6 +117,13 @@
 - [x] Step 30: Remove gallery thumbnails, switch to an opacity-driven Embla slide emphasis effect, add left/right navigation and progress dots, and remove the remaining viewport-edge spacing around the slider.
 - [x] Step 31: Add a desktop max-height cap for the `Uit de vitrine` slider media so the gallery remains visually prominent without becoming oversized on large screens.
 - [x] Step 32: Expand the gallery showcase model and admin workflow from 4 to 5 slides, including default content, editable field definitions, upload controls for slide 5, and content-service test coverage.
+- [x] Step 33: Resolve the Next.js `invalid-use-server-value` runtime error by moving non-async upload action state exports out of `src/web/lib/content/content-actions.ts` so the `"use server"` module exports only async server actions.
+- [x] Step 34: Remove navigation/quick-action label editing from the grouped admin page and keep nav items, primary action labels, and social labels static from `default-site-content.ts`.
+- [x] Step 35: Remove `Homepage en SEO` editing from the grouped admin page and keep metadata plus brand tagline values static from `default-site-content.ts`.
+- [x] Step 36: Auto-scroll grouped admin forms to the top after save completion so users immediately see success/error feedback messages.
+- [x] Step 37: Refine admin form scroll behavior to always scroll to absolute page top only after successful save, not on generic status message display.
+- [x] Step 38: Remove the `Laatste CTA routelabel` field from grouped admin editing and remove the extra route CTA rendering from the landing-page `VisitContactSection`.
+- [x] Step 39: Reorder final section CTA buttons so `Plan je route` renders first with orange primary styling and `Bel direct` renders after it with non-orange secondary styling.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

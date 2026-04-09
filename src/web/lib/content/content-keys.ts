@@ -78,32 +78,6 @@ function defineSection(
 
 export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
   defineSection(
-    "metadata",
-    "Homepage en SEO",
-    "Zichtbare introcopy en metadata voor de openbare homepage.",
-    [
-      input("metadata.title", "Paginatitel", 120),
-      textarea("metadata.description", "Paginaomschrijving", 240),
-      input("metadata.openGraphTitle", "Open Graph titel", 120),
-      textarea("metadata.openGraphDescription", "Open Graph omschrijving", 240),
-      input("brand.tagline", "Tagline", 120),
-    ],
-  ),
-  defineSection(
-    "navigation",
-    "Navigatie en snelle acties",
-    "Labels voor de hoofdnavigatie, CTA's en sociale links.",
-    [
-      input("navItems.0.label", "Navigatie: Openingstijden", 40),
-      input("navItems.1.label", "Navigatie: Smaak van de week", 40),
-      input("navItems.2.label", "Navigatie: Sfeerimpressie", 40),
-      input("primaryActions.0.label", "CTA: Bel direct", 40),
-      input("primaryActions.1.label", "CTA: Plan je route", 40),
-      input("socialLinks.0.label", "Social link 1", 40),
-      input("socialLinks.1.label", "Social link 2", 40),
-    ],
-  ),
-  defineSection(
     "hero",
     "Hero en snelle info",
     "De kop, introductietekst en de snelle samenvatting bovenaan de pagina.",
@@ -170,7 +144,6 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
       input("visitContact.title", "Laatste CTA titel", 140),
       textarea("visitContact.description", "Laatste CTA beschrijving", 220),
       textarea("visitContact.bodyText", "Laatste CTA hoofdtekst", 260),
-      input("visitContact.routeLabel", "Laatste CTA routelabel", 40),
       input("visitContact.contactTitle", "Contacttitel", 80),
       input("visitContact.followTitle", "Volgtitel", 80),
     ],

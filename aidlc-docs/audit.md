@@ -1359,3 +1359,267 @@ Request Changes: update the [README.md](README.md) and remove all the mentions a
 **Context**: Repository - Commit completed
 
 ---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:48:41Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- package-lock.json: src/web/package-lock.json
+- package.json: src/web/package.json
+- gallery-showcase-section.tsx: src/web/components/landing/gallery-showcase-section.tsx
+- page.test.tsx: src/web/tests/landing-page/page.test.tsx
+
+## My request for Codex:
+Request Changes: wanneer ik probeer op te slaan vanaf de Overig pagina krijg ik een foutmelding:
+
+A \"use server\" file can only export async functions, found object.
+Read more: https://nextjs.org/docs/messages/invalid-use-server-value
+
+Call Stack 10
+Hide 5 ignore-listed frame(s)
+module evaluation
+lib/content/content-actions.ts (328:1)
+module evaluation
+about://React/Server/file:///home/martijnpannekoek/dev/projects/baswilbrink/Baswilbrink.Basijsenzo/src/web/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__085mcym._.js (582:162)
+module evaluation
+about://React/Server/file:///home/martijnpannekoek/dev/projects/baswilbrink/Baswilbrink.Basijsenzo/src/web/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__085mcym._.js (592:404)
+resolveErrorDev
+node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js (3260:66)
+processFullStringRow
+node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js (4427:23)
+processFullBinaryRow
+node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js (4370:7)
+processBinaryChunk
+node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js (4593:19)
+progress
+node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js (4924:9)
+GroupedContentForm
+components/admin/grouped-content-form.tsx (164:5)
+AdminContentPage
+app/admin/(protected)/content/page.tsx (27:9)"
+**AI Response**: "Accepted the review change request, resumed the active AI-DLC construction workflow context, and started a targeted fix for the invalid non-async export in `src/web/lib/content/content-actions.ts` that breaks the Overig save flow."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T07:49:00Z
+**User Input**: "Request Changes: wanneer ik probeer op te slaan vanaf de Overig pagina krijg ik een foutmelding: A \"use server\" file can only export async functions, found object."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:49:00Z
+**User Input**: "Request Changes: wanneer ik probeer op te slaan vanaf de Overig pagina krijg ik een foutmelding: A \"use server\" file can only export async functions, found object."
+**AI Response**: "Moved non-async upload state exports from src/web/lib/content/content-actions.ts to src/web/lib/content/content-image-upload-action-state.ts, updated the admin upload control import, updated code-generation artifacts/checklists, ran npm test -- --run tests/content-management/content-actions.test.ts tests/content-management/gallery-showcase-image-upload.test.ts, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:53:49Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/lib/content/content-image-upload-action-state.ts
+
+## Open tabs:
+- content-image-upload-action-state.ts: src/web/lib/content/content-image-upload-action-state.ts
+- content-actions.ts: src/web/lib/content/content-actions.ts
+- content-image-upload-control.tsx: src/web/components/admin/content-image-upload-control.tsx
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: verwijder deze uit het admin portal en maak ze weer static. Dit hoeft niet door de user aangepast te worden."
+**AI Response**: "Accepted the requested admin-portal scope reduction and started reverting the highlighted navigation/CTA/social labels to static code-managed values while removing their edit controls from the grouped content admin form."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T07:55:45Z
+**User Input**: "Request Changes: verwijder deze uit het admin portal en maak ze weer static. Dit hoeft niet door de user aangepast te worden."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:55:45Z
+**User Input**: "Request Changes: verwijder deze uit het admin portal en maak ze weer static. Dit hoeft niet door de user aangepast te worden."
+**AI Response**: "Removed the grouped admin section for navigation/quick-action labels, kept nav/CTA/social labels static from default-site-content, tightened the mapper to apply only currently editable fields, added regression assertions in content-services tests, updated code-generation artifacts/checklists, ran npm test -- --run tests/content-management/content-services.test.ts tests/content-management/content-actions.test.ts, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:57:22Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/lib/content/content-image-upload-action-state.ts
+
+## Open tabs:
+- content-image-upload-action-state.ts: src/web/lib/content/content-image-upload-action-state.ts
+- content-actions.ts: src/web/lib/content/content-actions.ts
+- content-image-upload-control.tsx: src/web/components/admin/content-image-upload-control.tsx
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: doe het zelfde voor 'Homepage en SEO'."
+**AI Response**: "Accepted the follow-up review change and started removing the `Homepage en SEO` section from grouped admin editing so metadata and tagline values become static code-managed content again."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T07:58:29Z
+**User Input**: "Request Changes: doe het zelfde voor 'Homepage en SEO'."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:58:29Z
+**User Input**: "Request Changes: doe het zelfde voor 'Homepage en SEO'."
+**AI Response**: "Removed the grouped admin section for homepage SEO fields, kept metadata and brand tagline static from default-site-content, expanded regression assertions in content-services tests for metadata/tagline plus nav/CTA/social labels, updated code-generation artifacts/checklists, ran npm test -- --run tests/content-management/content-services.test.ts tests/content-management/content-actions.test.ts, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:59:24Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/lib/content/content-image-upload-action-state.ts
+
+## Open tabs:
+- content-image-upload-action-state.ts: src/web/lib/content/content-image-upload-action-state.ts
+- content-actions.ts: src/web/lib/content/content-actions.ts
+- content-image-upload-control.tsx: src/web/components/admin/content-image-upload-control.tsx
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: in het admin portal kan je na het opslaan de pagina naar top scrollen, zodat de grbuiker de melding ziet dat het opgeslagen is."
+**AI Response**: "Accepted the UX request and started implementing automatic scroll-to-top behavior in the admin content form after save feedback appears, so users immediately see the status message."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:00:16Z
+**User Input**: "Request Changes: in het admin portal kan je na het opslaan de pagina naar top scrollen, zodat de grbuiker de melding ziet dat het opgeslagen is."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:00:16Z
+**User Input**: "Request Changes: in het admin portal kan je na het opslaan de pagina naar top scrollen, zodat de grbuiker de melding ziet dat het opgeslagen is."
+**AI Response**: "Implemented auto-scroll behavior in the shared grouped admin form so the form scrolls to the top when save feedback appears, updated code-generation artifacts/checklists, ran npm test -- --run tests/content-management/content-actions.test.ts tests/content-management/content-services.test.ts tests/admin-portal/admin-portal.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:01:48Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/lib/content/content-image-upload-action-state.ts
+
+## Open tabs:
+- content-image-upload-action-state.ts: src/web/lib/content/content-image-upload-action-state.ts
+- content-actions.ts: src/web/lib/content/content-actions.ts
+- content-image-upload-control.tsx: src/web/components/admin/content-image-upload-control.tsx
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+ga niet op de save melding af mar scroll volledig naar top als het opslaan succesvol was."
+**AI Response**: "Accepted the refinement request and started updating the admin form behavior to scroll to absolute page top only when save completes successfully."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:02:33Z
+**User Input**: "ga niet op de save melding af mar scroll volledig naar top als het opslaan succesvol was."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:02:33Z
+**User Input**: "ga niet op de save melding af mar scroll volledig naar top als het opslaan succesvol was."
+**AI Response**: "Updated grouped admin form scroll behavior to trigger only on successful save status and to scroll the full page to absolute top via window.scrollTo, updated code-generation artifacts/checklists, ran npm test -- --run tests/admin-portal/admin-portal.test.tsx tests/content-management/content-actions.test.ts tests/content-management/content-services.test.ts, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:04:16Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- content-image-upload-action-state.ts: src/web/lib/content/content-image-upload-action-state.ts
+- content-actions.ts: src/web/lib/content/content-actions.ts
+- content-image-upload-control.tsx: src/web/components/admin/content-image-upload-control.tsx
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Request Changes: verwijder deze uit zowel de admin portal als de landings page."
+**AI Response**: "Accepted the request and started removing the `Laatste CTA routelabel` field from admin content editing and from landing-page rendering."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:06:00Z
+**User Input**: "Request Changes: verwijder deze uit zowel de admin portal als de landings page."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:06:00Z
+**User Input**: "Request Changes: verwijder deze uit zowel de admin portal als de landings page."
+**AI Response**: "Removed `visitContact.routeLabel` from grouped admin field definitions and from landing-page rendering, updated the shared site type and defaults accordingly, updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx tests/content-management/content-services.test.ts tests/content-management/content-actions.test.ts, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T08:06:46Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- content-image-upload-action-state.ts: src/web/lib/content/content-image-upload-action-state.ts
+- content-actions.ts: src/web/lib/content/content-actions.ts
+- content-image-upload-control.tsx: src/web/components/admin/content-image-upload-control.tsx
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- audit.md: aidlc-docs/audit.md
+
+## My request for Codex:
+Maak de cta knop Plan je route orange en zet deze voor Bel direct. De bel direct knop hoeft niet orange."
+**AI Response**: "Accepted the CTA ordering/styling change and started updating the final landing-page CTA button mapping so `Plan je route` is rendered first in orange and `Bel direct` is rendered after it in a non-orange style."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T08:07:49Z
+**User Input**: "Maak de cta knop Plan je route orange en zet deze voor Bel direct. De bel direct knop hoeft niet orange."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T08:07:49Z
+**User Input**: "Maak de cta knop Plan je route orange en zet deze voor Bel direct. De bel direct knop hoeft niet orange."
+**AI Response**: "Updated `VisitContactSection` to render CTA actions with route-first ordering and section-specific variants (`Plan je route` primary/orange, `Bel direct` secondary/non-orange), updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Commit Request
+**Timestamp**: 2026-04-09T08:08:45Z
+**User Input**: "commit alles"
+**AI Response**: "Accepted the request to commit all pending workspace changes and started a full `git add -A` plus single-commit flow."
+**Context**: Repository - Commit all pending changes
+
+---

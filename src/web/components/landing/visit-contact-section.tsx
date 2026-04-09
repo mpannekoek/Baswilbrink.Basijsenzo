@@ -22,6 +22,17 @@ export function VisitContactSection({
   actions,
   socialLinks,
 }: VisitContactSectionProps) {
+  const orderedActions = [...actions].sort((left, right) => {
+    if (left.dataTestId === "header-visit-button") {
+      return -1;
+    }
+
+    if (right.dataTestId === "header-visit-button") {
+      return 1;
+    }
+
+    return 0;
+  });
   const creamyPanelClass =
     "rounded-[32px] border border-[rgba(200,101,34,0.14)] bg-[linear-gradient(135deg,rgba(255,246,237,0.96)_0%,rgba(246,228,205,0.9)_100%)] p-7 text-[var(--brand-black)] shadow-[0_16px_34px_rgba(17,17,17,0.08)]";
 
@@ -40,15 +51,13 @@ export function VisitContactSection({
               {visitContact.bodyText}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {actions.map((action) => (
-                <ActionPill key={action.label} {...action} />
+              {orderedActions.map((action) => (
+                <ActionPill
+                  key={action.label}
+                  {...action}
+                  variant={action.dataTestId === "header-visit-button" ? "primary" : "secondary"}
+                />
               ))}
-              <ActionPill
-                dataTestId="visit-route-button"
-                href={contact.routeHref}
-                label={visitContact.routeLabel}
-                variant="ghost"
-              />
             </div>
           </div>
         </Reveal>

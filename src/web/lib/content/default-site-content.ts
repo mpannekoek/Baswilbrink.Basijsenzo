@@ -170,7 +170,6 @@ export const defaultSiteContent: LandingPageContent = {
       "Voor bezoekers die eigenlijk al bijna onderweg zijn, mag het laatste blok vooral duidelijk en uitnodigend zijn.",
     bodyText:
       "Bel direct voor een vraag, open je route en stap daarna gewoon binnen. Bas IJs & Zo is bedoeld als een fijne dorpsstop: makkelijk, warm en zonder gedoe.",
-    routeLabel: "Plan je route",
     contactTitle: "Adres & contact",
     followTitle: "Volg ons",
   },

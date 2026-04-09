@@ -25,6 +25,10 @@ import { storeFeaturedTasteImageUpload } from "./featured-taste-image-upload";
 import { getStoredContentSnapshot, saveContentMutation } from "./content-repository";
 import { ensureContentSeeded } from "./content-seed";
 import { validateContentFieldValues } from "./content-validation";
+import {
+  INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
+  type ContentImageUploadActionState,
+} from "./content-image-upload-action-state";
 
 function readFormValues(fields: ContentFieldConfig[], formData: FormData): Record<string, string> {
   return Object.fromEntries(
@@ -184,20 +188,6 @@ export async function getLatestGalleryShowcaseValues() {
   await ensureContentSeeded();
   return toGalleryShowcaseFormValues(getStoredContentSnapshot());
 }
-
-export interface ContentImageUploadActionState {
-  fieldName: string | null;
-  message: string | null;
-  status: "error" | "idle" | "success";
-  uploadedPath: string | null;
-}
-
-export const INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE: ContentImageUploadActionState = {
-  fieldName: null,
-  message: null,
-  status: "idle",
-  uploadedPath: null,
-};
 
 export async function uploadFeaturedTasteImageAction(
   previousState: ContentImageUploadActionState = INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
