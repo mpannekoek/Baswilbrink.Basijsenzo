@@ -6,19 +6,32 @@ type SectionShellProps = {
   eyebrow?: string;
   title: string;
   description?: string;
-  tone?: "light" | "dark" | "accent" | "split";
+  tone?:
+    | "light"
+    | "dark"
+    | "accent"
+    | "split"
+    | "split-reverse"
+    | "dark-split"
+    | "dark-split-reverse";
   children: ReactNode;
 };
 
 const toneClasses: Record<NonNullable<SectionShellProps["tone"]>, string> = {
   light:
-    "bg-[linear-gradient(180deg,rgba(255,248,241,0.98),rgba(250,241,232,0.96))] text-[var(--brand-black)]",
+    "section-shell-light text-[var(--brand-black)]",
   dark:
-    "bg-[radial-gradient(circle_at_top_left,rgba(200,101,34,0.08),transparent_24%),linear-gradient(180deg,#141311_0%,#101010_100%)] text-[var(--surface)]",
+    "section-shell-dark text-[var(--surface)]",
   accent:
-    "bg-[radial-gradient(circle_at_top_right,rgba(200,101,34,0.12),transparent_22%),linear-gradient(180deg,#f8efe5_0%,#fff7f0_100%)] text-[var(--brand-black)]",
+    "section-shell-accent text-[var(--brand-black)]",
   split:
-    "bg-[linear-gradient(135deg,#fff9f3_0%,#fff9f3_58%,#f1e2d1_58%,#f1e2d1_100%)] text-[var(--brand-black)]",
+    "section-shell-soft-warm text-[var(--brand-black)]",
+  "split-reverse":
+    "section-shell-soft-warm-alt text-[var(--brand-black)]",
+  "dark-split":
+    "section-shell-soft-dark text-[var(--surface)]",
+  "dark-split-reverse":
+    "section-shell-soft-dark-alt text-[var(--surface)]",
 };
 
 const eyebrowToneClasses: Record<NonNullable<SectionShellProps["tone"]>, string> = {
@@ -26,6 +39,9 @@ const eyebrowToneClasses: Record<NonNullable<SectionShellProps["tone"]>, string>
   dark: "text-[var(--brand-orange)]",
   accent: "text-[rgba(17,17,17,0.7)]",
   split: "text-[var(--brand-orange)]",
+  "split-reverse": "text-[var(--brand-orange)]",
+  "dark-split": "text-[var(--brand-orange)]",
+  "dark-split-reverse": "text-[var(--brand-orange)]",
 };
 
 export function SectionShell({

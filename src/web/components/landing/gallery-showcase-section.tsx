@@ -28,7 +28,7 @@ export function GalleryShowcaseSection({
       eyebrow={galleryShowcase.eyebrow}
       id="impressie"
       title={galleryShowcase.title}
-      tone="split"
+      tone="accent"
     >
       <Reveal delayMs={140}>
         <div

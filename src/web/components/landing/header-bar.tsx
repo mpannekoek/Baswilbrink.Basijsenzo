@@ -42,6 +42,17 @@ export function HeaderBar({
   socialLinks,
 }: HeaderBarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobilePrimaryActions = [...primaryActions].sort((left, right) => {
+    if (left.dataTestId === "header-visit-button") {
+      return -1;
+    }
+
+    if (right.dataTestId === "header-visit-button") {
+      return 1;
+    }
+
+    return 0;
+  });
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -171,14 +182,14 @@ export function HeaderBar({
               </button>
             </div>
 
-            <div className="mt-6 flex flex-1 flex-col overflow-y-auto rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.05)] p-4 shadow-[0_24px_60px_rgba(0,0,0,0.34)]">
+            <div className="mt-6 flex flex-1 flex-col overflow-y-auto rounded-[32px] border border-white/10 bg-[rgba(255,255,255,0.05)] px-5 py-6 shadow-[0_24px_60px_rgba(0,0,0,0.34)] sm:px-6 sm:py-7">
               <nav
                 aria-label={header.mobileNavAriaLabel}
-                className="flex flex-col gap-2 text-sm text-white/82"
+                className="flex flex-1 flex-col justify-center gap-4 text-white/88"
               >
                 {navItems.map((item) => (
                   <a
-                    className="rounded-2xl px-4 py-3 transition hover:bg-white/8 hover:text-white"
+                    className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] px-5 py-5 text-[1.55rem] font-semibold leading-tight tracking-[-0.02em] text-white transition hover:bg-white/10 hover:text-white sm:px-6 sm:py-6 sm:text-[1.8rem]"
                     href={item.href}
                     key={item.href}
                     onClick={closeMobileMenu}
@@ -188,13 +199,18 @@ export function HeaderBar({
                 ))}
               </nav>
 
-              <div className="mt-4 flex flex-col gap-3">
-                {primaryActions.map((action) => (
-                  <ActionPill key={action.label} {...action} onClick={closeMobileMenu} />
+              <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
+                {mobilePrimaryActions.map((action) => (
+                  <ActionPill
+                    key={action.label}
+                    {...action}
+                    onClick={closeMobileMenu}
+                    variant={action.dataTestId === "header-visit-button" ? "primary" : "secondary"}
+                  />
                 ))}
               </div>
 
-              <div className="mt-6 flex justify-center border-t border-white/10 pt-5">
+              <div className="mt-8 flex justify-center border-t border-white/10 pt-6">
                 <SocialRail bare bareColor="orange" iconOnly socialLinks={socialLinks} />
               </div>
             </div>

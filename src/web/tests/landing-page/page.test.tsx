@@ -7,7 +7,7 @@ import { siteContent } from "@/lib/content/site-content";
 const escapeForRegex = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 describe("LandingPage", () => {
-  it("renders the main hero messaging", () => {
+  it("renders the simplified hero messaging", () => {
     render(<LandingPage content={siteContent} />);
 
     expect(
@@ -15,11 +15,9 @@ describe("LandingPage", () => {
         name: new RegExp(escapeForRegex(siteContent.hero.title), "i"),
       }),
     ).toBeInTheDocument();
-
-    expect(screen.getByAltText(siteContent.hero.featureImageAlt)).toHaveAttribute(
-      "loading",
-      "eager",
-    );
+    expect(screen.queryByAltText(siteContent.hero.featureImageAlt)).not.toBeInTheDocument();
+    expect(screen.getAllByTestId("header-visit-button").length).toBeGreaterThan(0);
+    expect(screen.getByTestId("hero-background-image")).toBeInTheDocument();
   });
 
   it("renders practical information and the gallery showcase", () => {

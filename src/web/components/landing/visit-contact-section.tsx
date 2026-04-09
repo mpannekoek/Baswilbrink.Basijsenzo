@@ -31,7 +31,7 @@ export function VisitContactSection({
       eyebrow={visitContact.eyebrow}
       id="bezoek"
       title={visitContact.title}
-      tone="dark"
+      tone="dark-split"
     >
       <div className="grid gap-6 lg:grid-cols-[1.18fr_0.82fr]">
         <Reveal>

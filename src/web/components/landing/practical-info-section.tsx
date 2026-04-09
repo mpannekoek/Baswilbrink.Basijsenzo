@@ -36,7 +36,7 @@ export function PracticalInfoSection({
       eyebrow={practicalInfo.eyebrow}
       id="openingstijden"
       title={practicalInfo.title}
-      tone="light"
+      tone="split"
     >
       <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
         <Reveal>

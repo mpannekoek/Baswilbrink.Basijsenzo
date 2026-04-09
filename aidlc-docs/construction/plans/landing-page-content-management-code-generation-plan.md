@@ -101,6 +101,18 @@
 - [x] Step 14: Update the GitHub workflow checkout action versions to a Node 24-compatible release so the repository no longer relies on `actions/checkout@v4`.
 - [x] Step 15: Remove `aidlc-docs` references from `README.md` so the repository README stays focused on the application and deployment surface.
 - [x] Step 16: Refresh `README.md` so its overview, structure, scripts, and deployment notes match the current application, CMS, and VPS workflow.
+- [x] Step 17: Simplify the public hero by showing only the route CTA in the orange style, removing the hero-side image and featured-taste teaser card, and hiding the now-unused hero aside fields from the grouped admin editor.
+- [x] Step 18: Apply `src/web/public/hero-bg1.png` as the hero background and strengthen the overlay treatment so the hero copy, CTA, and social links remain readable across the full image.
+- [x] Step 19: Refine the hero background treatment by reducing the overlay intensity so the image is more visible and removing the border around the hero text panel while preserving readability.
+- [x] Step 20: Remove the remaining background fill and blur from the hero text container so the copy sits directly on the hero image while relying on the section overlays for contrast.
+- [x] Step 21: Expand the mobile navigation presentation by giving the menu links much larger tap targets and typography, redistributing the empty vertical space, and spacing the CTA/social sections more generously.
+- [x] Step 22: Reorder the mobile-menu CTA stack so `Plan je route` appears first and keeps the orange primary styling, while `Bel direct` moves below it as the secondary action.
+- [x] Step 23: Apply the same diagonal `split` section background used by `Uit de vitrine` to the `Praktisch & duidelijk` section through the shared `SectionShell` tone.
+- [x] Step 24: Add a mirrored diagonal `split-reverse` tone to the shared `SectionShell` and apply it to `Uit de vitrine` so the gallery section gets a playful reflected diagonal without affecting `Praktisch & duidelijk`.
+- [x] Step 25: Extend the alternating diagonal section treatment to `Smaak van de week` and `Laatste zetje`, using opposite split directions to keep the landing page rhythm playful.
+- [x] Step 26: Restore the black look for the dark sections by introducing dark split variants, remove the diagonal from `Uit de vitrine`, and rebalance the page-wide alternating split rhythm around that gallery exception.
+- [x] Step 27: Remove all diagonal section treatments and replace them with softer gradient, glow, and subtle grain textures in the shared section background system so the page feels calmer.
+- [x] Step 28: Keep `Smaak van de week` and `Laatste zetje` black while increasing the visibility of the blur/noise treatment in the shared dark section background variants.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

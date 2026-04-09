@@ -5,6 +5,18 @@
 - Added protected admin content-management pages for grouped homepage text, opening hours, and the featured taste workflow.
 - Extended the featured taste workflow so the two homepage photos can also be updated from the admin page via public image paths.
 - Added upload controls for the two featured-taste photos so editors can upload replacement images directly from the admin page and then save the updated content without hand-editing paths.
+- Simplified the homepage hero so it now emphasizes only the orange route CTA, without the previous hero-side photo or the small featured-taste teaser card.
+- Updated the homepage hero to use `public/hero-bg1.png` as a full background image, combined with darker layered overlays and a translucent content panel to keep the text and actions readable.
+- Refined that hero background treatment by softening the overlays so more of the photo remains visible and removing the border around the text panel.
+- Removed the remaining background fill behind the hero copy so the text now sits directly on the image, with readability handled by the hero-wide overlays.
+- Reworked the mobile menu layout so the main navigation links are substantially larger, use more of the available height, and give the CTA/social areas more breathing room.
+- Reordered the mobile menu CTA stack so `Plan je route` is now the top orange button and `Bel direct` appears beneath it as the secondary action.
+- Updated `Praktisch & duidelijk` to use the same shared diagonal `split` section background treatment as `Uit de vitrine`.
+- Added a mirrored `split-reverse` section tone and applied it to `Uit de vitrine`, so the gallery section now uses the reflected diagonal for a more playful rhythm next to `Praktisch & duidelijk`.
+- Extended that alternating diagonal background system to `Smaak van de week` and `Laatste zetje`, so those sections now also participate in the playful split-direction rhythm.
+- Corrected that treatment so the formerly dark sections stay black via new `dark-split` variants, removed the diagonal from `Uit de vitrine`, and rebalanced the alternating split rhythm across the rest of the page.
+- Removed all diagonal section backgrounds and replaced the shared section tones with softer layered gradients, glows, and a subtle grain texture so the landing page feels calmer and less busy.
+- Strengthened the visible grain/glow treatment for the black section backgrounds so `Smaak van de week` and `Laatste zetje` keep their dark look while showing more atmospheric blur/noise.
 - Added a dedicated sticky black mobile topbar in the admin portal so the sidebar visual identity also stays present on smaller screens.
 - Refined the mobile admin shell so the hamburger and close controls share the exact same fixed position, while the light dashboard header also stays sticky beneath the black topbar.
 - Replaced the complete reviews section with a Swiper-based image slider while keeping the green introduction block as editable homepage copy.
@@ -42,6 +54,7 @@
   - `src/web/components/admin/*content*`
   - `src/web/components/admin/admin-dashboard-home.tsx`
   - `src/web/lib/auth/navigation.ts`
+  - `src/web/lib/content/content-keys.ts`
 - Tests:
   - `src/web/tests/content-management/*`
   - `src/web/tests/admin-portal/admin-portal.test.tsx`

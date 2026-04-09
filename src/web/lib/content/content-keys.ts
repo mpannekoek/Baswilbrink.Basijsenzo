@@ -112,8 +112,6 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
       input("hero.title", "Hero titel", 120),
       input("hero.highlight", "Hero highlight", 160),
       textarea("hero.description", "Hero beschrijving", 360),
-      input("hero.asideTitle", "Aside titel", 80),
-      textarea("hero.asideText", "Aside tekst", 220),
       input("hero.quickInfo.eyebrow", "Quick info eyebrow", 80),
       input("hero.quickInfo.questionLabel", "Quick info label vraag", 80),
       input("hero.quickInfo.question", "Quick info vraag", 120),

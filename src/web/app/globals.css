@@ -118,6 +118,81 @@ button:focus-visible {
   background-size: 24px 24px;
 }
 
+.section-shell-light,
+.section-shell-dark,
+.section-shell-accent,
+.section-shell-soft-warm,
+.section-shell-soft-warm-alt,
+.section-shell-soft-dark,
+.section-shell-soft-dark-alt {
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+}
+
+.section-shell-light {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(17, 17, 17, 0.04) 1px, transparent 0),
+    radial-gradient(circle at top left, rgba(200, 101, 34, 0.12), transparent 24%),
+    radial-gradient(circle at 82% 14%, rgba(255, 255, 255, 0.46), transparent 22%),
+    linear-gradient(180deg, rgba(255, 248, 241, 0.98), rgba(250, 241, 232, 0.96));
+  background-size: 16px 16px, auto, auto, auto;
+}
+
+.section-shell-dark {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.035) 1px, transparent 0),
+    radial-gradient(circle at top left, rgba(200, 101, 34, 0.09), transparent 24%),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.05), transparent 20%),
+    linear-gradient(180deg, #141311 0%, #101010 100%);
+  background-size: 16px 16px, auto, auto, auto;
+}
+
+.section-shell-accent {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(17, 17, 17, 0.035) 1px, transparent 0),
+    radial-gradient(circle at top right, rgba(200, 101, 34, 0.13), transparent 22%),
+    radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.45), transparent 20%),
+    linear-gradient(180deg, #f8efe5 0%, #fff7f0 100%);
+  background-size: 16px 16px, auto, auto, auto;
+}
+
+.section-shell-soft-warm {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(17, 17, 17, 0.032) 1px, transparent 0),
+    radial-gradient(circle at 14% 16%, rgba(200, 101, 34, 0.11), transparent 24%),
+    radial-gradient(circle at 84% 82%, rgba(255, 255, 255, 0.38), transparent 24%),
+    linear-gradient(180deg, #fff9f3 0%, #f2e5d6 100%);
+  background-size: 16px 16px, auto, auto, auto;
+}
+
+.section-shell-soft-warm-alt {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(17, 17, 17, 0.032) 1px, transparent 0),
+    radial-gradient(circle at 84% 16%, rgba(200, 101, 34, 0.11), transparent 24%),
+    radial-gradient(circle at 14% 82%, rgba(255, 255, 255, 0.38), transparent 24%),
+    linear-gradient(180deg, #fff9f3 0%, #f2e5d6 100%);
+  background-size: 16px 16px, auto, auto, auto;
+}
+
+.section-shell-soft-dark {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.055) 1.1px, transparent 0),
+    radial-gradient(circle at 18% 18%, rgba(200, 101, 34, 0.18), transparent 28%),
+    radial-gradient(circle at 78% 74%, rgba(255, 255, 255, 0.085), transparent 26%),
+    radial-gradient(circle at 52% 42%, rgba(255, 255, 255, 0.045), transparent 32%),
+    linear-gradient(180deg, #141311 0%, #1a1512 100%);
+  background-size: 14px 14px, auto, auto, auto, auto;
+}
+
+.section-shell-soft-dark-alt {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.055) 1.1px, transparent 0),
+    radial-gradient(circle at 82% 18%, rgba(200, 101, 34, 0.18), transparent 28%),
+    radial-gradient(circle at 22% 74%, rgba(255, 255, 255, 0.085), transparent 26%),
+    radial-gradient(circle at 48% 42%, rgba(255, 255, 255, 0.045), transparent 32%),
+    linear-gradient(180deg, #141311 0%, #1a1512 100%);
+  background-size: 14px 14px, auto, auto, auto, auto;
+}
+
 .gallery-showcase-shell {
   display: flex;
   flex-direction: column;

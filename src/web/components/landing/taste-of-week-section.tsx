@@ -17,7 +17,7 @@ export function TasteOfWeekSection({
       eyebrow={featuredTaste.eyebrow}
       id="smaak"
       title={featuredTaste.title}
-      tone="dark"
+      tone="dark-split-reverse"
     >
       <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr]">
         <Reveal>

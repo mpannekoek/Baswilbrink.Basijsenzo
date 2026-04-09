@@ -1039,3 +1039,211 @@ Request Changes: update the [README.md](README.md) and remove all the mentions a
 **Context**: Repository - Local commit requested
 
 ---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T05:59:03Z
+**User Input**: "Request Change: in the hero remove the 'Bel direct' button and make 'Plan je route' the orange one. Remove the image and the 'smaak van de week' card as well."
+**AI Response**: "Resumed the existing AI-DLC workflow at CONSTRUCTION > Code Generation Review for landing-page-content-management, loaded the mandatory workflow context and active unit plan, analyzed the public landing-page hero implementation, and scoped the requested review change."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Scope Confirmation
+**Timestamp**: 2026-04-09T06:00:22Z
+**User Input**: "Continue this one."
+**AI Response**: "Confirmed the review change applies to the hero-specific image and featured-taste teaser card, then proceeded to simplify the hero CTA layout and related admin editor configuration without removing the standalone taste-of-the-week section."
+**Context**: CONSTRUCTION - Code Generation review scope confirmed
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:00:22Z
+**User Input**: "Continue this one."
+**AI Response**: "Updated the public hero so it now shows only the orange route CTA, removed the hero-side image and teaser card, hid the now-unused hero aside fields from the grouped content editor, updated the code-generation plan and implementation summary, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:05:19Z
+**User Input**: "Reuest Changes: Kan je nu al background voor de hero [hero-bg1.png](src/web/public/hero-bg1.png) gebruiken? Zorg ervoor dat alles goed leesbaar blijft."
+**AI Response**: "Accepted the review request, verified the provided `hero-bg1.png` asset in `src/web/public`, and started adapting the hero styling so the image could be used as the new background while preserving text readability."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:05:19Z
+**User Input**: "Reuest Changes: Kan je nu al background voor de hero [hero-bg1.png](src/web/public/hero-bg1.png) gebruiken? Zorg ervoor dat alles goed leesbaar blijft."
+**AI Response**: "Updated the hero to use `public/hero-bg1.png` as a full background image, added stronger layered dark overlays plus a translucent content panel to keep the copy and orange CTA readable, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:08:53Z
+**User Input**: "Maak de afbeelding maar meer zichtbaar. Daarnaast wil ik de border om de tekst weg hebben."
+**AI Response**: "Accepted the hero refinement request and started reducing the overlay intensity while removing the border from the hero text panel so the background image would read more clearly."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:08:53Z
+**User Input**: "Maak de afbeelding maar meer zichtbaar. Daarnaast wil ik de border om de tekst weg hebben."
+**AI Response**: "Refined the hero background treatment by softening the dark overlays so more of the image is visible, removed the text-panel border, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:14:17Z
+**User Input**: "Haal de achergrond van de tekst ook maar weg, ik denk dat het wel duidelijk genoeg blijft."
+**AI Response**: "Accepted the follow-up review request and started removing the remaining background fill from the hero text container while keeping the section-level image overlays in place for readability."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:14:17Z
+**User Input**: "Haal de achergrond van de tekst ook maar weg, ik denk dat het wel duidelijk genoeg blijft."
+**AI Response**: "Removed the remaining hero text-container background and blur so the copy now sits directly on the image, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:17:18Z
+**User Input**: "Request Changes: maak de linkjes Openingstijden, Smaak van de week en Sfeerimpressie in het mobiele menu. Een stuk groter en geef alles meer ruimte. Er is veel ruimte in het menu over. Benut dat goed!"
+**AI Response**: "Accepted the mobile navigation refinement request and started reworking the mobile menu layout so the primary navigation could use the unused vertical space with much larger link blocks and roomier spacing."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:17:18Z
+**User Input**: "Request Changes: maak de linkjes Openingstijden, Smaak van de week en Sfeerimpressie in het mobiele menu. Een stuk groter en geef alles meer ruimte. Er is veel ruimte in het menu over. Benut dat goed!"
+**AI Response**: "Expanded the mobile menu presentation by making the three main navigation links substantially larger, redistributing the unused menu height, and spacing the CTA/social sections more generously, then updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:26:35Z
+**User Input**: "Kan je de knoppen in het mobile menu omdraaien? Plan je route oranje en boven aan?"
+**AI Response**: "Accepted the mobile-menu CTA request and started updating the mobile action stack so `Plan je route` would be rendered first and retain the orange primary styling."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:26:35Z
+**User Input**: "Kan je de knoppen in het mobile menu omdraaien? Plan je route oranje en boven aan?"
+**AI Response**: "Reordered the mobile-menu CTA stack so `Plan je route` is now the top orange button and `Bel direct` sits beneath it as the secondary action, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:30:44Z
+**User Input**: "Gebruik de achtergrond (met de schuine diagonaal) bij 'Uit de vitrine' ook voor 'Praktisch & duidelijk'"
+**AI Response**: "Accepted the visual consistency request and traced the diagonal background treatment to the shared `SectionShell` `split` tone before applying it to the practical-info section."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:30:44Z
+**User Input**: "Gebruik de achtergrond (met de schuine diagonaal) bij 'Uit de vitrine' ook voor 'Praktisch & duidelijk'"
+**AI Response**: "Updated `Praktisch & duidelijk` to use the same shared diagonal `split` section background as `Uit de vitrine`, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:33:15Z
+**User Input**: "Zouden we die diagonaal bij 'Uit de virtrine' ook kunnen spiegelen? Dat geeft een leuk speels effect."
+**AI Response**: "Accepted the request for a mirrored diagonal treatment and updated the shared section-shell design system so the gallery section could use a reflected split background without changing the practical-info section."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:33:15Z
+**User Input**: "Zouden we die diagonaal bij 'Uit de virtrine' ook kunnen spiegelen? Dat geeft een leuk speels effect."
+**AI Response**: "Added a mirrored `split-reverse` tone to the shared `SectionShell`, applied it to `Uit de vitrine`, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:34:55Z
+**User Input**: "Kunnen we dat ook 'Smaak van de week' en 'Laatste zetje' doen?"
+**AI Response**: "Accepted the request to extend the diagonal background treatment and applied the alternating split-direction pattern to the taste-of-the-week and visit-contact sections."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:34:55Z
+**User Input**: "Kunnen we dat ook 'Smaak van de week' en 'Laatste zetje' doen?"
+**AI Response**: "Updated `Smaak van de week` and `Laatste zetje` to use the alternating diagonal `split` and `split-reverse` section treatments, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:39:39Z
+**User Input**: "het had wel zwart moeten blijven en de split moet over de gehele pagina om en om komen voor het speelse effect. Bij 'Uit de vitrine' moet de diagonaal weggelaten worden."
+**AI Response**: "Accepted the correction, restored black-based split variants for the dark sections, removed the diagonal treatment from `Uit de vitrine`, and rebalanced the alternating split rhythm across the remaining sections."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:39:39Z
+**User Input**: "het had wel zwart moeten blijven en de split moet over de gehele pagina om en om komen voor het speelse effect. Bij 'Uit de vitrine' moet de diagonaal weggelaten worden."
+**AI Response**: "Added dark split variants to the shared `SectionShell`, applied them to the formerly dark sections so they stay black, removed the diagonal from `Uit de vitrine` by switching it to a non-split tone, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:44:23Z
+**User Input**: "Remove all the diagonals. It makes it too busy. Instead I want a little bit soft gradient with blur/noise backgrounds."
+**AI Response**: "Accepted the design simplification request and started replacing the diagonal section-background system with a softer shared gradient-and-grain treatment."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:44:23Z
+**User Input**: "Remove all the diagonals. It makes it too busy. Instead I want a little bit soft gradient with blur/noise backgrounds."
+**AI Response**: "Removed all diagonal section backgrounds by converting the shared `SectionShell` tones to softer layered gradients, glows, and subtle grain textures in `globals.css`, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T06:47:32Z
+**User Input**: "Keep Smaak van de week and Laatstje zetje black but with blur/noise backgrounds. Make the blur/noise more visible."
+**AI Response**: "Accepted the dark-section refinement request and increased the visibility of the glow and grain treatment specifically for the shared black section background variants."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T06:47:32Z
+**User Input**: "Keep Smaak van de week and Laatstje zetje black but with blur/noise backgrounds. Make the blur/noise more visible."
+**AI Response**: "Kept `Smaak van de week` and `Laatste zetje` black while strengthening the visible grain and glow in the shared dark section background classes, updated the code-generation plan, implementation summary, and workflow state, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-09T06:49:09Z
+**User Input**: "commit"
+**AI Response**: "Preparing a local commit of the current landing-page review changes and the rest of the current working tree."
+**Context**: Repository - Local commit requested
+
+---
