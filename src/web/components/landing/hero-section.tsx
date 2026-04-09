@@ -1,3 +1,4 @@
+import { HeroAnimatedHighlight } from "@/components/landing/hero-animated-highlight";
 import { SocialRail } from "@/components/landing/social-rail";
 import { ActionPill } from "@/components/ui/action-pill";
 import type { ActionLink, HeroContent, SocialLink } from "@/types/site";
@@ -32,7 +33,8 @@ export function HeroSection({ hero, actions, socialLinks }: HeroSectionProps) {
             {hero.eyebrow}
           </p>
           <h1 className="display-font balanced-text max-w-[15ch] text-5xl leading-[0.9] text-white sm:text-6xl md:max-w-[11ch] lg:text-[5.2rem]">
-            {hero.title} <span className="text-[var(--brand-orange)]">{hero.highlight}</span>
+            {hero.title}{" "}
+            <HeroAnimatedHighlight className="text-[var(--brand-orange)]" text={hero.highlight} />
           </h1>
           <p className="mt-8 max-w-[34rem] text-lg leading-8 text-white/82">{hero.description}</p>
 

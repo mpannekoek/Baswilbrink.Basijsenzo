@@ -113,6 +113,10 @@
 - [x] Step 26: Restore the black look for the dark sections by introducing dark split variants, remove the diagonal from `Uit de vitrine`, and rebalance the page-wide alternating split rhythm around that gallery exception.
 - [x] Step 27: Remove all diagonal section treatments and replace them with softer gradient, glow, and subtle grain textures in the shared section background system so the page feels calmer.
 - [x] Step 28: Keep `Smaak van de week` and `Laatste zetje` black while increasing the visibility of the blur/noise treatment in the shared dark section background variants.
+- [x] Step 29: Replace the `Uit de vitrine` Swiper slider with an Embla Carousel implementation that supports synced thumbnails, autoplay, fade transitions, no navigation buttons, and a full-width presentation.
+- [x] Step 30: Remove gallery thumbnails, switch to an opacity-driven Embla slide emphasis effect, add left/right navigation and progress dots, and remove the remaining viewport-edge spacing around the slider.
+- [x] Step 31: Add a desktop max-height cap for the `Uit de vitrine` slider media so the gallery remains visually prominent without becoming oversized on large screens.
+- [x] Step 32: Expand the gallery showcase model and admin workflow from 4 to 5 slides, including default content, editable field definitions, upload controls for slide 5, and content-service test coverage.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

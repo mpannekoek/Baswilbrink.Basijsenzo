@@ -1247,3 +1247,107 @@ Request Changes: update the [README.md](README.md) and remove all the mentions a
 **Context**: Repository - Local commit requested
 
 ---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:06:50Z
+**User Input**: "Request Changes: inplaats van swiper.js voor de slider in sectie 'Uit de vitrine' wil ik Embla Carousel gebruiken. Ik wil de slider met: Thumbnails, Autoplay en fade effect. Ik hoef geen navigatie knoppen. De slider moet op de volledig breedte van de page komen, zodat het er echt uitspringt."
+**AI Response**: "Accepted the gallery slider change request and started migrating the `Uit de vitrine` section from Swiper to Embla with thumbnails, autoplay, fade transitions, no navigation controls, and a full-width layout."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:06:51Z
+**User Input**: "continue"
+**AI Response**: "Continued execution of the same approved review change and proceeded with implementation, dependency migration, styling updates, test compatibility fixes, and verification."
+**Context**: CONSTRUCTION - Code Generation review continuation
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:06:52Z
+**User Input**: "continue"
+**AI Response**: "Replaced Swiper with Embla Carousel for `Uit de vitrine`, added synced thumbnail navigation, autoplay, and fade transitions, removed Swiper dependencies and CSS imports, made the slider full-width across the viewport, added test-environment polyfills required by Embla, updated the code-generation plan/summary/state documents, ran `npm test -- --run tests/landing-page/page.test.tsx`, and prepared the next code generation review prompt."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:15:59Z
+**User Input**: "Verwijder toch maar de thumbs en gebruik opacity als effect. Voeg daarnat toch maar navigatie en progress toe, zoals in de afbeelding die ik bij deze prompt voeg. Daarnaast zit er nog ruimte tussen de rand van de browser en de slider. Die ruimte moet ook weg."
+**AI Response**: "Accepted the follow-up gallery request and started converting the Embla section to an opacity-focused slide style with no thumbs, while adding navigation buttons, progress indicators, and removing the remaining viewport-edge spacing."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:16:00Z
+**User Input**: "Verwijder toch maar de thumbs en gebruik opacity als effect. Voeg daarnat toch maar navigatie en progress toe, zoals in de afbeelding die ik bij deze prompt voeg. Daarnaast zit er nog ruimte tussen de rand van de browser en de slider. Die ruimte moet ook weg."
+**AI Response**: "Removed thumbnail navigation from the `Uit de vitrine` Embla slider, applied an opacity-based active-slide emphasis, added previous/next controls and progress dots styled after the provided reference, removed the remaining side padding so the slider sits flush to the viewport edges, removed the unused `embla-carousel-fade` dependency, updated code-generation plan/summary/state tracking, and ran `npm test -- --run tests/landing-page/page.test.tsx` plus `npm run lint`."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:21:54Z
+**User Input**: "Kan je de slider op desktop een max hoogte geven. Het is nu veel te groot."
+**AI Response**: "Accepted the sizing refinement request and applied a desktop max-height cap to the `Uit de vitrine` slider media so it remains prominent but no longer oversized."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:21:55Z
+**User Input**: "Kan je de slider op desktop een max hoogte geven. Het is nu veel te groot."
+**AI Response**: "Added a desktop max-height cap for the `Uit de vitrine` gallery media (`min-height: 24rem; height: min(34vw, 30rem); max-height: 30rem;`), updated the code-generation plan/summary/state tracking, and ran `npm test -- --run tests/landing-page/page.test.tsx`."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T07:35:31Z
+**User Input**: "Request Changes: ik wil graag 5 foto's in mijn slider. Dit wil ik ook via de admin portal kunnen uploaden. Implementeer dit."
+**AI Response**: "Accepted the request to expand the gallery slider to 5 photos and started updating the content model, admin fields, and upload controls so slide 5 can be managed through the admin portal."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T07:35:32Z
+**User Input**: "Request Changes: ik wil graag 5 foto's in mijn slider. Dit wil ik ook via de admin portal kunnen uploaden. Implementeer dit."
+**AI Response**: "Expanded the gallery showcase defaults and editable schema from 4 to 5 slides, added the fifth upload slot in the admin gallery form, updated tests to validate five-slide defaults and persistence, updated code-generation plan/summary/state tracking, and ran `npm test -- --run tests/content-management/content-services.test.ts tests/content-management/content-actions.test.ts tests/content-management/gallery-showcase-image-upload.test.ts tests/landing-page/page.test.tsx` plus `npm run lint`."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-09T07:37:28Z
+**User Input**: "commit"
+**AI Response**: "Prepared to create a commit of the current working tree, then paused commit execution when a new workflow-direction input arrived."
+**Context**: Repository - Local commit requested
+
+---
+
+## Build and Test Stage Transition
+**Timestamp**: 2026-04-09T07:37:47Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Accepted the Code Generation approval and transitioned to the Build and Test stage by generating build/unit/integration/performance instruction artifacts and stage summary under `aidlc-docs/construction/build-and-test/`, then updated workflow state to Build and Test review."
+**Context**: CONSTRUCTION - Build and Test stage started
+
+---
+
+## Build and Test Approval Prompt
+**Timestamp**: 2026-04-09T07:40:50Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Build and test instructions complete. Ready to proceed to Operations stage?"
+**Context**: CONSTRUCTION - Waiting for explicit Operations-stage approval
+
+---
+
+## Commit Request
+**Timestamp**: 2026-04-09T07:42:15Z
+**User Input**: "commit everything"
+**AI Response**: "Accepted the request to commit the complete current working tree and started a full `git add -A` + single commit flow."
+**Context**: Repository - Commit all pending changes
+
+---

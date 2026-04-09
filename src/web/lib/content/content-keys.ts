@@ -239,6 +239,8 @@ export const GALLERY_SHOWCASE_SECTIONS: ContentSectionConfig[] = [
       input("galleryShowcase.images.2.alt", "Slide 3 alt-tekst", 160),
       input("galleryShowcase.images.3.src", "Slide 4 foto", 160),
       input("galleryShowcase.images.3.alt", "Slide 4 alt-tekst", 160),
+      input("galleryShowcase.images.4.src", "Slide 5 foto", 160),
+      input("galleryShowcase.images.4.alt", "Slide 5 alt-tekst", 160),
     ],
   ),
 ];

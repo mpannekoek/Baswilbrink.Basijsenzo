@@ -16,6 +16,7 @@ const galleryImageFieldNames = [
   "galleryShowcase.images.1.src",
   "galleryShowcase.images.2.src",
   "galleryShowcase.images.3.src",
+  "galleryShowcase.images.4.src",
 ] as const;
 
 export function GalleryShowcaseForm({

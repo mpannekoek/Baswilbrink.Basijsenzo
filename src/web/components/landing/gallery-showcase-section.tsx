@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-
-import type { Swiper as SwiperInstance } from "swiper";
-import { A11y, Autoplay, FreeMode, Thumbs } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 
 import { Reveal } from "@/components/ui/reveal";
 import { SectionShell } from "@/components/ui/section-shell";
@@ -18,9 +16,55 @@ type GalleryShowcaseSectionProps = {
 export function GalleryShowcaseSection({
   galleryShowcase,
 }: GalleryShowcaseSectionProps) {
-  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperInstance | null>(null);
-  const activeThumbsSwiper =
-    thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null;
+  const autoplayPlugin = useRef(
+    Autoplay({
+      delay: 4200,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+    }),
+  );
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [mainEmblaRef, mainEmblaApi] = useEmblaCarousel(
+    { align: "center", loop: true },
+    [autoplayPlugin.current],
+  );
+
+  const handleSelect = useCallback(() => {
+    if (!mainEmblaApi) {
+      return;
+    }
+
+    const nextIndex = mainEmblaApi.selectedScrollSnap();
+    setSelectedIndex(nextIndex);
+  }, [mainEmblaApi]);
+
+  useEffect(() => {
+    if (!mainEmblaApi) {
+      return;
+    }
+
+    handleSelect();
+    mainEmblaApi.on("select", handleSelect);
+    mainEmblaApi.on("reInit", handleSelect);
+
+    return () => {
+      mainEmblaApi.off("select", handleSelect);
+      mainEmblaApi.off("reInit", handleSelect);
+    };
+  }, [mainEmblaApi, handleSelect]);
+
+  const handleDotClick = useCallback(
+    (index: number) => {
+      mainEmblaApi?.scrollTo(index);
+    },
+    [mainEmblaApi],
+  );
+  const handlePrev = useCallback(() => {
+    mainEmblaApi?.scrollPrev();
+  }, [mainEmblaApi]);
+  const handleNext = useCallback(() => {
+    mainEmblaApi?.scrollNext();
+  }, [mainEmblaApi]);
 
   return (
     <SectionShell
@@ -32,76 +76,104 @@ export function GalleryShowcaseSection({
     >
       <Reveal delayMs={140}>
         <div
-          className="gallery-showcase-shell rounded-[2rem] border border-[rgba(17,17,17,0.08)] bg-white/[0.38] p-4 shadow-[0_18px_36px_rgba(17,17,17,0.07)] md:p-6"
+          className="gallery-showcase-breakout"
           data-testid="gallery-showcase-slider"
         >
-          <Swiper
-            className="gallery-main-swiper"
-            autoplay={{
-              delay: 4200,
-              disableOnInteraction: false,
-            }}
-            loop
-            modules={[Autoplay, A11y, Thumbs]}
-            slidesPerView={1}
-            spaceBetween={16}
-            thumbs={{ swiper: activeThumbsSwiper }}
-          >
-            {galleryShowcase.images.map((image, index) => (
-              <SwiperSlide key={`${image.src}-${index}`}>
-                <div className="gallery-main-card">
-                  <div className="gallery-main-media relative aspect-[16/10]">
-                    <Image
-                      alt={image.alt}
-                      className="object-cover"
-                      fill
-                      priority={index === 0}
-                      sizes="(min-width: 1280px) 70rem, (min-width: 768px) 88vw, 92vw"
-                      src={image.src}
-                    />
+          <div className="gallery-showcase-shell">
+            <div
+              aria-label={`${galleryShowcase.title} slider`}
+              className="gallery-main-embla"
+              ref={mainEmblaRef}
+              role="region"
+            >
+              <div className="gallery-main-embla__container">
+                {galleryShowcase.images.map((image, index) => (
+                  <div
+                    className={`gallery-main-embla__slide${index === selectedIndex ? " is-active" : ""}`}
+                    key={`${image.src}-${index}`}
+                  >
+                    <div className="gallery-main-card">
+                      <div className="gallery-main-media relative aspect-[16/10]">
+                        <Image
+                          alt={image.alt}
+                          className="object-cover"
+                          fill
+                          priority={index === 0}
+                          sizes="100vw"
+                          src={image.src}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                ))}
+              </div>
+            </div>
 
-          <Swiper
-            breakpoints={{
-              640: {
-                slidesPerView: 3.2,
-              },
-              768: {
-                slidesPerView: 4,
-              },
-              1024: {
-                slidesPerView: 4,
-              },
-            }}
-            className="gallery-thumbs-swiper"
-            freeMode
-            loop
-            modules={[FreeMode, Thumbs, A11y]}
-            onSwiper={setThumbsSwiper}
-            slidesPerView={2.2}
-            spaceBetween={12}
-            watchSlidesProgress
-          >
-            {galleryShowcase.images.map((image, index) => (
-              <SwiperSlide key={`thumb-${image.src}-${index}`}>
-                <div className="gallery-thumb-card">
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      alt={image.alt}
-                      className="object-cover"
-                      fill
-                      sizes="(min-width: 1024px) 18rem, (min-width: 768px) 22vw, 42vw"
-                      src={image.src}
+            <div className="gallery-controls">
+              <div className="gallery-nav">
+                <button
+                  aria-label="Vorige slide"
+                  className="gallery-nav-button"
+                  data-testid="gallery-showcase-prev-button"
+                  onClick={handlePrev}
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                  >
+                    <path
+                      d="M15 18L9 12L15 6"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.9"
                     />
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                  </svg>
+                </button>
+                <button
+                  aria-label="Volgende slide"
+                  className="gallery-nav-button"
+                  data-testid="gallery-showcase-next-button"
+                  onClick={handleNext}
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                  >
+                    <path
+                      d="M9 18L15 12L9 6"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.9"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="gallery-progress" role="tablist">
+                {galleryShowcase.images.map((image, index) => (
+                  <button
+                    aria-label={`Ga naar slide ${index + 1}`}
+                    aria-selected={index === selectedIndex}
+                    className={`gallery-progress-dot${index === selectedIndex ? " is-active" : ""}`}
+                    data-testid="gallery-showcase-progress-dot"
+                    key={`progress-${image.src}-${index}`}
+                    onClick={() => handleDotClick(index)}
+                    role="tab"
+                    type="button"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </Reveal>
     </SectionShell>

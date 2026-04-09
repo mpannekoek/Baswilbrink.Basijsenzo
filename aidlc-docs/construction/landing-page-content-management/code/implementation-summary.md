@@ -19,9 +19,12 @@
 - Strengthened the visible grain/glow treatment for the black section backgrounds so `Smaak van de week` and `Laatste zetje` keep their dark look while showing more atmospheric blur/noise.
 - Added a dedicated sticky black mobile topbar in the admin portal so the sidebar visual identity also stays present on smaller screens.
 - Refined the mobile admin shell so the hamburger and close controls share the exact same fixed position, while the light dashboard header also stays sticky beneath the black topbar.
-- Replaced the complete reviews section with a Swiper-based image slider while keeping the green introduction block as editable homepage copy.
-- Refined the homepage gallery into a Swiper thumbs gallery loop so the main slide and thumbnail strip stay synchronized and render correctly across screen sizes.
-- Removed the extra arrow and pagination controls from the homepage gallery so only the main slide and thumbnail strip remain visible.
+- Replaced the complete reviews section with an image slider while keeping the green introduction block as editable homepage copy.
+- Migrated the homepage gallery from Swiper to Embla Carousel with autoplay and an opacity-based active-slide emphasis effect.
+- Removed gallery thumbnails, added left/right navigation buttons plus progress dots, and kept the interactions in the same full-width gallery module.
+- Expanded the `Uit de vitrine` gallery to a full-width, full-bleed presentation and removed the remaining side spacing so the slider reaches the viewport edges.
+- Added a desktop max-height cap to the `Uit de vitrine` slider media so the gallery remains bold but no longer appears oversized on larger monitors.
+- Expanded the slider content model and admin gallery editor to 5 slides, including a fifth upload slot and fifth editable alt/src pair so editors can fully manage all 5 photos from the portal.
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
@@ -78,5 +81,5 @@
 - The featured-taste editor now manages the two photo sources as public paths such as `/basijs2.jpg`; external image URLs are rejected by validation to stay compatible with the current Next.js image setup.
 - The featured-taste editor now includes upload buttons for both photos; uploads are validated to JPG, PNG, WEBP, or AVIF and stored under `public/uploads/featured-taste`.
 - Review cards and review summary content are removed from the app and replaced by gallery slider content plus a separate gallery image collection.
-- The homepage slider now uses Swiper React's `Thumbs` pattern together with FreeMode, A11y, and Autoplay, following the official Swiper React docs: `https://swiperjs.com/react`.
+- The homepage slider now uses Embla Carousel (`embla-carousel-react`) with `embla-carousel-autoplay`; slide prominence is handled through CSS opacity states, while navigation and progress controls are rendered in the section UI.
 - The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.

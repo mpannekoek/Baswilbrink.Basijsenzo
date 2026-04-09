@@ -157,6 +157,10 @@ export const defaultSiteContent: LandingPageContent = {
         alt: "Extra sfeerfoto van de toonbank met ambachtelijk ijs",
         src: "/basijs2.jpg",
       },
+      {
+        alt: "Vijfde sfeerfoto van de vitrine met vers schepijs",
+        src: "/basijs1.jpg",
+      },
     ],
   },
   visitContact: {

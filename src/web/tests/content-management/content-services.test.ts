@@ -33,6 +33,7 @@ describe("content services", () => {
     expect(content.hero.title).toBe(defaultSiteContent.hero.title);
     expect(content.featuredTaste.flavor).toBe(defaultSiteContent.featuredTaste.flavor);
     expect(content.galleryShowcase.images[0]?.src).toBe(defaultSiteContent.galleryShowcase.images[0]?.src);
+    expect(content.galleryShowcase.images).toHaveLength(5);
     expect(content.openingHours[0]?.hours).toBe(defaultSiteContent.openingHours[0]?.hours);
   });
 
@@ -113,6 +114,8 @@ describe("content services", () => {
       ...buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS),
       "galleryShowcase.images.0.src": "/basijs3.jpg",
       "galleryShowcase.images.0.alt": "Nieuwe eerste sliderfoto",
+      "galleryShowcase.images.4.src": "/basijs2.jpg",
+      "galleryShowcase.images.4.alt": "Nieuwe vijfde sliderfoto",
       "galleryShowcase.title": "Nieuwe galerijtitel",
     };
 
@@ -135,6 +138,8 @@ describe("content services", () => {
     expect(updatedContent.galleryShowcase.title).toBe("Nieuwe galerijtitel");
     expect(updatedContent.galleryShowcase.images[0]?.src).toBe("/basijs3.jpg");
     expect(updatedContent.galleryShowcase.images[0]?.alt).toBe("Nieuwe eerste sliderfoto");
+    expect(updatedContent.galleryShowcase.images[4]?.src).toBe("/basijs2.jpg");
+    expect(updatedContent.galleryShowcase.images[4]?.alt).toBe("Nieuwe vijfde sliderfoto");
   });
 
   it("normalizes the legacy reviews nav label to sfeerimpressie", () => {

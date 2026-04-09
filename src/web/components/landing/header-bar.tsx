@@ -64,7 +64,7 @@ export function HeaderBar({
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-white/8 bg-[rgba(12,12,12,0.78)] px-4 py-3 text-white shadow-[0_14px_34px_rgba(0,0,0,0.18)] backdrop-blur-xl md:px-6">
+      <header className="sticky top-0 z-50 w-full border-b border-white/8 bg-black px-4 py-3 text-white shadow-[0_14px_34px_rgba(0,0,0,0.18)] md:px-6">
         <div className="mx-auto w-full max-w-[76rem]">
           <div className="flex items-center justify-between gap-4 lg:hidden">
             <a
