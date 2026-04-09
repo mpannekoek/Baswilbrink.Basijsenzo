@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import useEmblaCarousel from "embla-carousel-react";
 
 import { Reveal } from "@/components/ui/reveal";
@@ -16,6 +17,7 @@ export function GalleryShowcaseSection({
   galleryShowcase,
 }: GalleryShowcaseSectionProps) {
   const parallaxNodes = useRef<Array<HTMLElement | null>>([]);
+  const prefersReducedMotion = useReducedMotion();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mainEmblaRef, mainEmblaApi] = useEmblaCarousel({
     align: "center",
@@ -148,10 +150,24 @@ export function GalleryShowcaseSection({
               <div className="gallery-main-embla__container">
                 {galleryShowcase.images.map((image, index) => (
                   <div
-                    className="gallery-main-embla__slide"
+                    className={`gallery-main-embla__slide${index === selectedIndex ? " is-current" : ""}`}
                     key={`${image.src}-${index}`}
                   >
-                    <div className="gallery-main-card">
+                    <motion.div
+                      className="gallery-main-card"
+                      transition={{
+                        duration: 0.28,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      whileHover={
+                        !prefersReducedMotion && index === selectedIndex
+                          ? {
+                              scale: 1.02,
+                              y: -6,
+                            }
+                          : undefined
+                      }
+                    >
                       <div className="gallery-main-media relative aspect-[16/10]">
                         <div className="gallery-main-parallax">
                           <Image
@@ -164,7 +180,7 @@ export function GalleryShowcaseSection({
                           />
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 ))}
               </div>

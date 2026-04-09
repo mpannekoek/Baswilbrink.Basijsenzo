@@ -41,6 +41,7 @@
 - Applied an explicit final pass on slider navigation layout/style to eliminate residual old appearance and force exact centered pill behavior.
 - Replaced the slider's opacity-emphasis transition with Embla parallax motion and normalized inter-slide spacing for seamless infinite-loop behavior.
 - Disabled gallery autoplay so slide changes happen only via user interaction and increased desktop gallery height again for a more prominent visual block.
+- Added a Motion.js hover effect on the currently active gallery slide (subtle lift/scale) while keeping inactive slides static.
 - Resolved npm audit findings by updating dependency resolution for `drizzle-kit`/`esbuild`, removing the previously reported moderate vulnerabilities.
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
@@ -117,5 +118,6 @@
 - Gallery spacing now uses Embla-safe slide padding + container negative margin (`--gallery-slide-spacing`) instead of `gap`, ensuring consistent spacing including the wrap from slide 5 to 1.
 - Parallax is applied per slide using Embla scroll progress and loop-point correction so the loop transition remains visually smooth.
 - The gallery no longer imports/configures `embla-carousel-autoplay`; carousel motion now remains manual (buttons/swipe) while preserving looped navigation.
+- `GalleryShowcaseSection` now uses `motion/react` to animate only the active slide card on hover; animation respects reduced-motion preference and avoids transform conflicts with the parallax layer.
 - `package.json` now enforces `drizzle-kit: 0.31.10` plus `overrides.esbuild: 0.28.0`, and `package-lock.json` has been refreshed accordingly.
 - The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.

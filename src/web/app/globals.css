@@ -233,6 +233,15 @@ button:focus-visible {
   border-radius: 1.75rem;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 22px 48px rgba(17, 17, 17, 0.12);
+  transition: box-shadow 220ms ease;
+}
+
+.gallery-main-embla__slide.is-current .gallery-main-card {
+  cursor: pointer;
+}
+
+.gallery-main-embla__slide.is-current .gallery-main-card:hover {
+  box-shadow: 0 30px 62px rgba(17, 17, 17, 0.2);
 }
 
 .gallery-main-media {
