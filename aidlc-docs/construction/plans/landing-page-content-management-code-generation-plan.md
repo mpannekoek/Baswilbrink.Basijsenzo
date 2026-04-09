@@ -128,6 +128,12 @@
 - [x] Step 41: Remove desktop white-gap artifact in gallery slides by forcing `.gallery-main-media` to full card width while preserving existing height constraints.
 - [x] Step 42: Increase desktop gallery slider max-height slightly (`30rem` -> `32rem`) with proportional responsive height tuning.
 - [x] Step 43: Resolve npm audit moderate vulnerabilities by pinning `drizzle-kit` to `0.31.10`, overriding `esbuild` to `0.28.0`, and refreshing the lockfile.
+- [x] Step 44: Increase desktop gallery height again to a taller profile (`max-height: 34rem`) with corresponding responsive `height/min-height` updates.
+- [x] Step 45: Replace gallery navigation dots with a centered pill-style prev/counter/next control and raise desktop slider height slightly again (`max-height: 35rem`).
+- [x] Step 46: Tighten gallery navigation styling to exactly match the reference (compact dark pill, centered container, white arrows and `1 / N` counter).
+- [x] Step 47: Enforce exact centered slider-nav reference styling with intrinsic-width controls (`fit-content`), tighter dark-pill spacing, and compact white-icon/counter treatment.
+- [x] Step 48: Replace gallery opacity transition treatment with Embla-driven parallax motion and switch to loop-safe uniform slide spacing for consistent 5→1 transitions.
+- [x] Step 49: Disable gallery autoplay and increase desktop slider media height again to a taller profile for stronger visual presence.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

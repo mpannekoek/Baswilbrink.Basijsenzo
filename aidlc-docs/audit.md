@@ -1722,3 +1722,141 @@ the images does not render very well in terms of the width. Fix this."
 **Context**: CONSTRUCTION - Code Generation review response prepared
 
 ---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T13:07:36Z
+**User Input**: "Request Changes: kan je de hoogte van de slider op desktop nog wat ophogen?"
+**AI Response**: "Accepted the follow-up sizing request and started increasing desktop gallery slider height further while preserving responsive layout balance."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T13:08:40Z
+**User Input**: "Request Changes: kan je de hoogte van de slider op desktop nog wat ophogen?"
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T13:08:40Z
+**User Input**: "Request Changes: kan je de hoogte van de slider op desktop nog wat ophogen?"
+**AI Response**: "Increased desktop gallery media sizing from `min-height: 26rem / height: min(36vw, 32rem) / max-height: 32rem` to `min-height: 27rem / height: min(38vw, 34rem) / max-height: 34rem`, updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T13:10:05Z
+**User Input**: "Request Changes: hoog het nog maar iets op en kan je de navigatie van de slider maken zoals de image in deze prompt. Ik wil de navigatie ook gecentreerd hebben. De cirkeltjes in de slider die nu rechts staan moeten weg."
+**AI Response**: "Accepted the slider UX refinement request and started implementing a slightly taller desktop gallery plus centered pill-style navigation with slide count, while removing the right-side progress dots."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T13:11:23Z
+**User Input**: "Request Changes: hoog het nog maar iets op en kan je de navigatie van de slider maken zoals de image in deze prompt. Ik wil de navigatie ook gecentreerd hebben. De cirkeltjes in de slider die nu rechts staan moeten weg."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T13:11:23Z
+**User Input**: "Request Changes: hoog het nog maar iets op en kan je de navigatie van de slider maken zoals de image in deze prompt. Ik wil de navigatie ook gecentreerd hebben. De cirkeltjes in de slider die nu rechts staan moeten weg."
+**AI Response**: "Updated gallery slider UX by removing right-side progress dots, introducing centered pill-style navigation with prev/next and a `current / total` counter, and increasing desktop slider sizing to `min-height: 28rem`, `height: min(40vw, 35rem)`, `max-height: 35rem`; updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T13:12:56Z
+**User Input**: "De navigatie staat nog niet gecentreerd en is ngog in de oude stijl. Ik wil exacte dezelfde stijl zoals ik die in mijn vorige bericht aangaf."
+**AI Response**: "Accepted the correction request and started a targeted investigation for CSS/style overrides so the slider navigation can match the exact centered pill style from the provided reference."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T13:14:03Z
+**User Input**: "De navigatie staat nog niet gecentreerd en is ngog in de oude stijl. Ik wil exacte dezelfde stijl zoals ik die in mijn vorige bericht aangaf."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T13:14:03Z
+**User Input**: "De navigatie staat nog niet gecentreerd en is ngog in de oude stijl. Ik wil exacte dezelfde stijl zoals ik die in mijn vorige bericht aangaf."
+**AI Response**: "Refined gallery control styling to match the provided reference exactly by enforcing `fit-content` + centered container, compact dark-pill nav, smaller white arrow buttons, and tighter `1 / N` counter spacing/typography; updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T13:15:16Z
+**User Input**: "Request Changes: Als de slider vanaf afbeelding 5 naar 1 gaat. Doet die vreemd. Daarnaast is de ruimte tussen afbeelding 5 en 1 ook niet hetzelfde als bij de anderen. De slider moet oneidig door kunnen lopen. De ruimte tussen de afbeeldingen moeten gelijk zijn aan elkaar."
+**AI Response**: "Accepted the loop/spacing bug report and started a structural carousel spacing fix to ensure seamless infinite looping and consistent inter-slide spacing across the 5->1 transition."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T13:16:08Z
+**User Input**: "De navigatie staat nog niet gecentreerd en is ngog in de oude stijl. Ik wil exacte dezelfde stijl zoals ik die in mijn vorige bericht aangaf."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T13:16:08Z
+**User Input**: "De navigatie staat nog niet gecentreerd en is ngog in de oude stijl. Ik wil exacte dezelfde stijl zoals ik die in mijn vorige bericht aangaf."
+**AI Response**: "Applied a stricter reference-match pass to slider nav styling by forcing intrinsic centered controls (`fit-content` + `margin-inline: auto`), tightening dark-pill spacing/geometry, and preserving white-icon `1 / N` presentation; updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T13:18:52Z
+**User Input**: "Request Changes: Implementeer voor de slider Parallax inplaats van opacity overgangen. Fix darnaast de ruimte tussen de foto's, zodat dat overal gelijk is aan elkaar."
+**AI Response**: "Accepted the slider behavior request and started replacing opacity transitions with parallax motion while refactoring slide spacing to a loop-safe equal-spacing layout."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T13:20:46Z
+**User Input**: "Request Changes: Implementeer voor de slider Parallax inplaats van opacity overgangen. Fix darnaast de ruimte tussen de foto's, zodat dat overal gelijk is aan elkaar."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T13:20:46Z
+**User Input**: "Request Changes: Implementeer voor de slider Parallax inplaats van opacity overgangen. Fix darnaast de ruimte tussen de foto's, zodat dat overal gelijk is aan elkaar."
+**AI Response**: "Replaced opacity-based slider emphasis with Embla-driven parallax transforms (including loop-point correction), removed `gap`-based spacing, and introduced loop-safe uniform spacing via slide padding plus container negative margin (`--gallery-slide-spacing`) to keep spacing identical across all transitions including 5→1; updated code-generation artifacts/checklists, ran npm test -- --run tests/landing-page/page.test.tsx, and ran npm run lint. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-09T13:24:37Z
+**User Input**: "Request Changes: maak de min-height van de slider op desktop hoger en zet autoplay uit."
+**AI Response**: "Accepted the update request and started a targeted pass to increase desktop slider height and disable Embla autoplay while preserving current loop/parallax behavior."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-09T13:24:37Z
+**User Input**: "Request Changes: maak de min-height van de slider op desktop hoger en zet autoplay uit."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-09T13:25:18Z
+**User Input**: "Request Changes: maak de min-height van de slider op desktop hoger en zet autoplay uit."
+**AI Response**: "Disabled slider autoplay by removing the Embla autoplay plugin wiring from `gallery-showcase-section.tsx`, increased desktop gallery media sizing to `min-height: 32rem`, `height: min(43vw, 38rem)`, `max-height: 38rem`, updated plan/implementation artifacts, and validated with `npm run lint` plus `npm test -- --run tests/landing-page/page.test.tsx`. Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## User Request - Commit
+**Timestamp**: 2026-04-09T13:26:23Z
+**User Input**: "commit alles maar"
+**AI Response**: "Preparing a full-repo commit of all current tracked changes as requested."
+**Context**: Repository operation - commit all changes
+
+---

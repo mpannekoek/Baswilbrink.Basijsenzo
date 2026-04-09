@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 
 import { Reveal } from "@/components/ui/reveal";
@@ -16,18 +15,12 @@ type GalleryShowcaseSectionProps = {
 export function GalleryShowcaseSection({
   galleryShowcase,
 }: GalleryShowcaseSectionProps) {
-  const autoplayPlugin = useRef(
-    Autoplay({
-      delay: 4200,
-      stopOnInteraction: false,
-      stopOnMouseEnter: true,
-    }),
-  );
+  const parallaxNodes = useRef<Array<HTMLElement | null>>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [mainEmblaRef, mainEmblaApi] = useEmblaCarousel(
-    { align: "center", loop: true },
-    [autoplayPlugin.current],
-  );
+  const [mainEmblaRef, mainEmblaApi] = useEmblaCarousel({
+    align: "center",
+    loop: true,
+  });
 
   const handleSelect = useCallback(() => {
     if (!mainEmblaApi) {
@@ -43,7 +36,6 @@ export function GalleryShowcaseSection({
       return;
     }
 
-    handleSelect();
     mainEmblaApi.on("select", handleSelect);
     mainEmblaApi.on("reInit", handleSelect);
 
@@ -53,18 +45,85 @@ export function GalleryShowcaseSection({
     };
   }, [mainEmblaApi, handleSelect]);
 
-  const handleDotClick = useCallback(
-    (index: number) => {
-      mainEmblaApi?.scrollTo(index);
-    },
-    [mainEmblaApi],
-  );
   const handlePrev = useCallback(() => {
     mainEmblaApi?.scrollPrev();
   }, [mainEmblaApi]);
   const handleNext = useCallback(() => {
     mainEmblaApi?.scrollNext();
   }, [mainEmblaApi]);
+
+  const setParallaxNodes = useCallback(() => {
+    if (!mainEmblaApi) {
+      return;
+    }
+
+    parallaxNodes.current = mainEmblaApi
+      .slideNodes()
+      .map((slideNode) => slideNode.querySelector<HTMLElement>(".gallery-main-parallax"));
+  }, [mainEmblaApi]);
+
+  const applyParallax = useCallback(() => {
+    if (!mainEmblaApi) {
+      return;
+    }
+
+    const progress = mainEmblaApi.scrollProgress();
+    const engine = mainEmblaApi.internalEngine();
+    const snaps = mainEmblaApi.scrollSnapList();
+    const parallaxAmount = 20;
+
+    snaps.forEach((snapPoint, snapIndex) => {
+      let distanceToSnap = snapPoint - progress;
+      const slideIndexes = engine.slideRegistry[snapIndex];
+
+      slideIndexes.forEach((slideIndex) => {
+        if (engine.options.loop) {
+          engine.slideLooper.loopPoints.forEach((loopPoint) => {
+            const loopTarget = loopPoint.target();
+
+            if (slideIndex === loopPoint.index && loopTarget !== 0) {
+              const direction = Math.sign(loopTarget);
+
+              if (direction === -1) {
+                distanceToSnap = snapPoint - (1 + progress);
+              } else if (direction === 1) {
+                distanceToSnap = snapPoint + (1 - progress);
+              }
+            }
+          });
+        }
+
+        const targetNode = parallaxNodes.current[slideIndex];
+
+        if (!targetNode) {
+          return;
+        }
+
+        targetNode.style.transform = `translateX(${distanceToSnap * -parallaxAmount}%)`;
+      });
+    });
+  }, [mainEmblaApi]);
+
+  useEffect(() => {
+    if (!mainEmblaApi) {
+      return;
+    }
+
+    setParallaxNodes();
+    applyParallax();
+
+    mainEmblaApi.on("reInit", setParallaxNodes);
+    mainEmblaApi.on("reInit", applyParallax);
+    mainEmblaApi.on("scroll", applyParallax);
+    mainEmblaApi.on("slideFocus", applyParallax);
+
+    return () => {
+      mainEmblaApi.off("reInit", setParallaxNodes);
+      mainEmblaApi.off("reInit", applyParallax);
+      mainEmblaApi.off("scroll", applyParallax);
+      mainEmblaApi.off("slideFocus", applyParallax);
+    };
+  }, [mainEmblaApi, setParallaxNodes, applyParallax]);
 
   return (
     <SectionShell
@@ -89,19 +148,21 @@ export function GalleryShowcaseSection({
               <div className="gallery-main-embla__container">
                 {galleryShowcase.images.map((image, index) => (
                   <div
-                    className={`gallery-main-embla__slide${index === selectedIndex ? " is-active" : ""}`}
+                    className="gallery-main-embla__slide"
                     key={`${image.src}-${index}`}
                   >
                     <div className="gallery-main-card">
                       <div className="gallery-main-media relative aspect-[16/10]">
-                        <Image
-                          alt={image.alt}
-                          className="object-cover"
-                          fill
-                          priority={index === 0}
-                          sizes="(min-width: 1024px) 74vw, (min-width: 768px) 80vw, 90vw"
-                          src={image.src}
-                        />
+                        <div className="gallery-main-parallax">
+                          <Image
+                            alt={image.alt}
+                            className="gallery-main-parallax-layer object-cover"
+                            fill
+                            priority={index === 0}
+                            sizes="(min-width: 1024px) 74vw, (min-width: 768px) 80vw, 90vw"
+                            src={image.src}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -110,7 +171,7 @@ export function GalleryShowcaseSection({
             </div>
 
             <div className="gallery-controls">
-              <div className="gallery-nav">
+              <div className="gallery-nav" role="group">
                 <button
                   aria-label="Vorige slide"
                   className="gallery-nav-button"
@@ -134,6 +195,9 @@ export function GalleryShowcaseSection({
                     />
                   </svg>
                 </button>
+                <span className="gallery-nav-counter" data-testid="gallery-showcase-counter">
+                  {selectedIndex + 1} / {galleryShowcase.images.length}
+                </span>
                 <button
                   aria-label="Volgende slide"
                   className="gallery-nav-button"
@@ -157,20 +221,6 @@ export function GalleryShowcaseSection({
                     />
                   </svg>
                 </button>
-              </div>
-              <div className="gallery-progress" role="tablist">
-                {galleryShowcase.images.map((image, index) => (
-                  <button
-                    aria-label={`Ga naar slide ${index + 1}`}
-                    aria-selected={index === selectedIndex}
-                    className={`gallery-progress-dot${index === selectedIndex ? " is-active" : ""}`}
-                    data-testid="gallery-showcase-progress-dot"
-                    key={`progress-${image.src}-${index}`}
-                    onClick={() => handleDotClick(index)}
-                    role="tab"
-                    type="button"
-                  />
-                ))}
               </div>
             </div>
           </div>

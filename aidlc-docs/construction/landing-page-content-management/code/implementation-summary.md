@@ -35,6 +35,12 @@
 - Updated gallery slider image sizing/rendering by aligning `next/image` `sizes` with Embla slide-width breakpoints and increasing slide basis on medium/large viewports.
 - Fixed a desktop gallery rendering artifact where right-side white space could appear inside the active slide by ensuring `.gallery-main-media` spans the full slide-card width.
 - Increased desktop gallery media height slightly so the slider appears more prominent while retaining the existing max-height cap behavior.
+- Increased desktop gallery media height again for a visibly taller presentation while keeping proportionate responsive constraints.
+- Increased desktop gallery media height once more and switched slider controls to a centered compact pill navigation with slide counter.
+- Refined that navigation to match the provided reference exactly: tighter centered dark pill, smaller white arrow buttons, and compact `1 / N` counter typography.
+- Applied an explicit final pass on slider navigation layout/style to eliminate residual old appearance and force exact centered pill behavior.
+- Replaced the slider's opacity-emphasis transition with Embla parallax motion and normalized inter-slide spacing for seamless infinite-loop behavior.
+- Disabled gallery autoplay so slide changes happen only via user interaction and increased desktop gallery height again for a more prominent visual block.
 - Resolved npm audit findings by updating dependency resolution for `drizzle-kit`/`esbuild`, removing the previously reported moderate vulnerabilities.
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
@@ -102,5 +108,14 @@
 - Gallery slide `Image` components now use responsive `sizes` (`74vw/80vw/90vw`) that match actual layout width and remove the Next.js performance warning.
 - `.gallery-main-media` now has explicit `width: 100%`, preventing aspect-ratio/height interactions from shrinking media width inside wider desktop slides.
 - Desktop gallery media sizing now uses `min-height: 26rem`, `height: min(36vw, 32rem)`, and `max-height: 32rem` for a taller but still controlled presentation.
+- Desktop gallery media sizing now uses `min-height: 27rem`, `height: min(38vw, 34rem)`, and `max-height: 34rem`.
+- Desktop gallery media sizing now uses `min-height: 28rem`, `height: min(40vw, 35rem)`, and `max-height: 35rem`.
+- Desktop gallery media sizing now uses `min-height: 32rem`, `height: min(43vw, 38rem)`, and `max-height: 38rem`.
+- Gallery controls now render as a centered prev/`{current} / {total}`/next dark pill; the right-side progress dots were removed.
+- The slider controls container now uses intrinsic width (`fit-content`) with automatic horizontal centering to prevent left alignment drift.
+- Slider navigation now enforces compact geometry (`2.35rem` buttons, tighter intra-pill spacing, darker gradient shell, brighter white icon/counter colors) to mirror the provided visual reference.
+- Gallery spacing now uses Embla-safe slide padding + container negative margin (`--gallery-slide-spacing`) instead of `gap`, ensuring consistent spacing including the wrap from slide 5 to 1.
+- Parallax is applied per slide using Embla scroll progress and loop-point correction so the loop transition remains visually smooth.
+- The gallery no longer imports/configures `embla-carousel-autoplay`; carousel motion now remains manual (buttons/swipe) while preserving looped navigation.
 - `package.json` now enforces `drizzle-kit: 0.31.10` plus `overrides.esbuild: 0.28.0`, and `package-lock.json` has been refreshed accordingly.
 - The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.
