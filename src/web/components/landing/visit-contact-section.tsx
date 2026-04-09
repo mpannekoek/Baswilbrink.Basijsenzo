@@ -85,6 +85,18 @@ export function VisitContactSection({
           </div>
         </Reveal>
       </div>
+      <div className="mt-8 flex justify-center -mb-12 lg:mt-10 lg:-mb-[3.5rem]">
+        <a
+          className="inline-flex items-center gap-2.5 text-lg font-medium tracking-[-0.01em] text-white/94 transition hover:text-white md:text-xl"
+          data-testid="back-to-top-link"
+          href="#top"
+        >
+          <span>Back to top</span>
+          <span aria-hidden="true" className="text-xl leading-none md:text-2xl">
+            ↑
+          </span>
+        </a>
+      </div>
     </SectionShell>
   );
 }

@@ -135,6 +135,10 @@
 - [x] Step 48: Replace gallery opacity transition treatment with Embla-driven parallax motion and switch to loop-safe uniform slide spacing for consistent 5→1 transitions.
 - [x] Step 49: Disable gallery autoplay and increase desktop slider media height again to a taller profile for stronger visual presence.
 - [x] Step 50: Add a Motion.js hover interaction on the currently active gallery slide only, keeping parallax behavior intact for non-active slides.
+- [x] Step 51: Increase the mobile `Uit de vitrine` slider media `min-height` to give the carousel a larger visual presence on small screens.
+- [x] Step 52: Fix mobile gallery height behavior by removing the enforced aspect-ratio constraint on the slider media container and applying an explicit mobile `height` clamp.
+- [x] Step 53: Add a centered `Back to top` anchor with an upward arrow at the bottom of the dark `Laatste zetje` section, linking to `#top`.
+- [x] Step 54: Reduce the `Back to top` typography size and rebalance the bottom spacing in the dark final section so it visually matches the spacing above the control.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

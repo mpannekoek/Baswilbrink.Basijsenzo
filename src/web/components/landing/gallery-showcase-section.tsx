@@ -168,7 +168,7 @@ export function GalleryShowcaseSection({
                           : undefined
                       }
                     >
-                      <div className="gallery-main-media relative aspect-[16/10]">
+                      <div className="gallery-main-media relative">
                         <div className="gallery-main-parallax">
                           <Image
                             alt={image.alt}

@@ -248,7 +248,8 @@ button:focus-visible {
   position: relative;
   overflow: hidden;
   width: 100%;
-  min-height: 20rem;
+  min-height: 26rem;
+  height: clamp(26rem, 92vw, 34rem);
 }
 
 .gallery-main-parallax {
@@ -332,6 +333,7 @@ button:focus-visible {
 
   .gallery-main-media {
     min-height: 30rem;
+    height: auto;
   }
 }
 
