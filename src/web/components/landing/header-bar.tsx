@@ -199,7 +199,7 @@ export function HeaderBar({
                 ))}
               </nav>
 
-              <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
+              <div className="mt-6 flex flex-col gap-3 pt-6">
                 {mobilePrimaryActions.map((action) => (
                   <ActionPill
                     key={action.label}
