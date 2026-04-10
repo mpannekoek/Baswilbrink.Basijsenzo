@@ -39,6 +39,7 @@
 - Increased desktop gallery media height once more and switched slider controls to a centered compact pill navigation with slide counter.
 - Refined that navigation to match the provided reference exactly: tighter centered dark pill, smaller white arrow buttons, and compact `1 / N` counter typography.
 - Applied an explicit final pass on slider navigation layout/style to eliminate residual old appearance and force exact centered pill behavior.
+- Moved the admin-header `Uitloggen` control into the same profile row as the logged-in name/email so the top section uses less vertical space and leaves more room for dashboard content.
 - Replaced the slider's opacity-emphasis transition with Embla parallax motion and normalized inter-slide spacing for seamless infinite-loop behavior.
 - Disabled gallery autoplay so slide changes happen only via user interaction and increased desktop gallery height again for a more prominent visual block.
 - Added a Motion.js hover effect on the currently active gallery slide (subtle lift/scale) while keeping inactive slides static.
@@ -88,6 +89,8 @@
 - `npm run db:seed`
 - `npm run lint`
 - `npm test`
+- `npm test -- --run tests/admin-portal/admin-portal.test.tsx`
+- `npx playwright screenshot http://127.0.0.1:3000/admin /tmp/admin-page.png`
 - `npm run build`
 - `bash -n deploy/deploy.sh`
 - `docker compose -f deploy/compose.yml config` with placeholder env values

@@ -139,6 +139,7 @@
 - [x] Step 52: Fix mobile gallery height behavior by removing the enforced aspect-ratio constraint on the slider media container and applying an explicit mobile `height` clamp.
 - [x] Step 53: Add a centered `Back to top` anchor with an upward arrow at the bottom of the dark `Laatste zetje` section, linking to `#top`.
 - [x] Step 54: Reduce the `Back to top` typography size and rebalance the bottom spacing in the dark final section so it visually matches the spacing above the control.
+- [x] Step 55: Move the admin `Uitloggen` control into the profile row (behind name/email) to reduce header height and free vertical space for dashboard content; verify placement with admin portal tests plus Playwright CLI browser check.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

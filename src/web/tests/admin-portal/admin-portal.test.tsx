@@ -163,7 +163,11 @@ describe("admin portal helpers and components", () => {
       "href",
       "/admin/content/gallery",
     );
-    expect(screen.getByTestId("admin-signout-button")).toBeInTheDocument();
+    const profileCard = screen.getByTestId("admin-profile-card");
+    const signOutButton = screen.getByTestId("admin-signout-button");
+
+    expect(signOutButton).toBeInTheDocument();
+    expect(profileCard).toContainElement(signOutButton);
     expect(navigation[1]).toMatchObject({
       href: "/admin/content/opening-hours",
       testId: "admin-nav-opening-hours-link",

@@ -1,10 +1,11 @@
 import type { AdminSessionViewModel } from "@/types/admin";
 
 interface AdminProfileCardProps {
+  action?: React.ReactNode;
   session: AdminSessionViewModel;
 }
 
-export function AdminProfileCard({ session }: AdminProfileCardProps) {
+export function AdminProfileCard({ action, session }: AdminProfileCardProps) {
   return (
     <section
       aria-label="Ingelogd profiel"
@@ -17,12 +18,13 @@ export function AdminProfileCard({ session }: AdminProfileCardProps) {
       >
         {session.initials}
       </div>
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <p className="break-words text-sm font-semibold text-black">
           {session.displayName}
         </p>
         <p className="break-all text-xs text-black/56">{session.email}</p>
       </div>
+      {action ? <div className="shrink-0">{action}</div> : null}
     </section>
   );
 }

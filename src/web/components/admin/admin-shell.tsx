@@ -106,11 +106,15 @@ export function AdminShell({
 
             <div className="flex w-full flex-col items-start gap-3 lg:w-auto lg:flex-row lg:flex-wrap lg:items-center lg:justify-end">
               <p className="text-sm font-medium text-black/56">{currentDateTime}</p>
-              <AdminProfileCard session={session} />
-              <SignOutButton
-                callbackUrl={ADMIN_SIGN_OUT_REDIRECT_PATH}
-                className="rounded-full border border-[color:var(--brand-black)] bg-[color:var(--brand-black)] px-4 py-2 text-sm font-semibold text-white transition hover:border-[color:var(--brand-orange)] hover:bg-[color:var(--brand-orange)]"
-                label="Uitloggen"
+              <AdminProfileCard
+                action={
+                  <SignOutButton
+                    callbackUrl={ADMIN_SIGN_OUT_REDIRECT_PATH}
+                    className="rounded-full border border-[color:var(--brand-black)] bg-[color:var(--brand-black)] px-4 py-2 text-sm font-semibold text-white transition hover:border-[color:var(--brand-orange)] hover:bg-[color:var(--brand-orange)]"
+                    label="Uitloggen"
+                  />
+                }
+                session={session}
               />
             </div>
           </header>
