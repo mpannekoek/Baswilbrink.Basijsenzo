@@ -113,9 +113,7 @@ describe("content services", () => {
     const nextValues = {
       ...buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS),
       "galleryShowcase.images.0.src": "/basijs3.jpg",
-      "galleryShowcase.images.0.alt": "Nieuwe eerste sliderfoto",
       "galleryShowcase.images.4.src": "/basijs2.jpg",
-      "galleryShowcase.images.4.alt": "Nieuwe vijfde sliderfoto",
       "galleryShowcase.title": "Nieuwe galerijtitel",
     };
 
@@ -137,9 +135,9 @@ describe("content services", () => {
 
     expect(updatedContent.galleryShowcase.title).toBe("Nieuwe galerijtitel");
     expect(updatedContent.galleryShowcase.images[0]?.src).toBe("/basijs3.jpg");
-    expect(updatedContent.galleryShowcase.images[0]?.alt).toBe("Nieuwe eerste sliderfoto");
     expect(updatedContent.galleryShowcase.images[4]?.src).toBe("/basijs2.jpg");
-    expect(updatedContent.galleryShowcase.images[4]?.alt).toBe("Nieuwe vijfde sliderfoto");
+    expect(updatedContent.galleryShowcase.images[0]?.alt).toBe(defaultSiteContent.galleryShowcase.images[0]?.alt);
+    expect(updatedContent.galleryShowcase.images[4]?.alt).toBe(defaultSiteContent.galleryShowcase.images[4]?.alt);
   });
 
   it("keeps navigation, SEO metadata, and quick-action labels static even when grouped content is saved", () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState, useEffect, useTransition } from "react";
+import { useActionState, useEffect, useState, useTransition } from "react";
 
 import {
   INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
@@ -29,26 +29,52 @@ export function ContentImageUploadControl({
 }) {
   const [state, formAction, isPending] = useActionState(action, INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE);
   const [isAutoUploading, startAutoUpload] = useTransition();
+  const [localPreviewSrc, setLocalPreviewSrc] = useState<string | null>(null);
 
   useEffect(() => {
     if (state.status === "success" && state.fieldName === fieldName && state.uploadedPath) {
+      setLocalPreviewSrc((current) => {
+        if (current) {
+          URL.revokeObjectURL(current);
+        }
+
+        return null;
+      });
       onUploaded(state.uploadedPath);
     }
   }, [fieldName, onUploaded, state.fieldName, state.status, state.uploadedPath]);
 
+  useEffect(
+    () => () => {
+      if (localPreviewSrc) {
+        URL.revokeObjectURL(localPreviewSrc);
+      }
+    },
+    [localPreviewSrc],
+  );
+
   const isUploading = isPending || isAutoUploading;
+  const previewSrc = localPreviewSrc ?? currentValue;
+  const hasPreview = previewSrc.trim().length > 0;
 
   return (
     <div className="grid gap-3 rounded-2xl border border-black/8 bg-black/[0.02] p-4">
       <div className="grid gap-2 sm:grid-cols-[8rem_1fr] sm:items-center">
         <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
-          <Image
-            alt={previewAlt}
-            className="h-24 w-full object-cover"
-            height={96}
-            src={currentValue}
-            width={128}
-          />
+          {hasPreview ? (
+            <Image
+              alt={previewAlt}
+              className="h-24 w-full object-cover"
+              height={96}
+              src={previewSrc}
+              unoptimized={previewSrc.startsWith("blob:")}
+              width={128}
+            />
+          ) : (
+            <div className="flex h-24 w-full items-center justify-center px-3 text-center text-xs text-black/55">
+              Nog geen foto geselecteerd
+            </div>
+          )}
         </div>
       </div>
 
@@ -67,6 +93,16 @@ export function ContentImageUploadControl({
               if (!selectedFile) {
                 return;
               }
+
+              const localObjectUrl = URL.createObjectURL(selectedFile);
+
+              setLocalPreviewSrc((current) => {
+                if (current) {
+                  URL.revokeObjectURL(current);
+                }
+
+                return localObjectUrl;
+              });
 
               const formData = new FormData();
               formData.set("uploadFieldName", fieldName);

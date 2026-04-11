@@ -16,6 +16,12 @@ describe("featured taste image upload", () => {
     expect(validateFeaturedTasteImageUpload(file)).toBe("Gebruik een JPG, PNG, WEBP of AVIF afbeelding.");
   });
 
+  it("accepts jpg uploads when mobile browsers omit the mime type", () => {
+    const file = new File([new Uint8Array([1, 2, 3])], "vitrine.jpg", { type: "" });
+
+    expect(validateFeaturedTasteImageUpload(file)).toBeNull();
+  });
+
   it("stores a valid upload in the public uploads directory", async () => {
     const rootDirectory = mkdtempSync(path.join(os.tmpdir(), "featured-taste-upload-"));
     const file = new File([new Uint8Array([1, 2, 3, 4])], "gelato.jpg", { type: "image/jpeg" });

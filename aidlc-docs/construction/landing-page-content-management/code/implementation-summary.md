@@ -45,6 +45,8 @@
 - Added a Motion.js hover effect on the currently active gallery slide (subtle lift/scale) while keeping inactive slides static.
 - Resolved npm audit findings by updating dependency resolution for `drizzle-kit`/`esbuild`, removing the previously reported moderate vulnerabilities.
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
+- Fixed mobile admin image-upload UX/reliability by showing an immediate local preview after file selection and accepting JPG uploads even when mobile browsers omit or vary MIME metadata.
+- Removed gallery slide alt-text editing inputs from the admin portal so image alt labels/values are no longer editable through the CMS form.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
 - Added repo-root deployment artifacts for VPS rollout: a `deploy/compose.yml`, a `deploy/deploy.sh` runner, and a `deploy-azure-vps.yml` workflow that syncs those files to the server and deploys a specific GHCR image tag.
@@ -124,3 +126,6 @@
 - `GalleryShowcaseSection` now uses `motion/react` to animate only the active slide card on hover; animation respects reduced-motion preference and avoids transform conflicts with the parallax layer.
 - `package.json` now enforces `drizzle-kit: 0.31.10` plus `overrides.esbuild: 0.28.0`, and `package-lock.json` has been refreshed accordingly.
 - The VPS deployment flow expects a server-local `deploy/.env` file that is not committed; `.gitignore` now ignores `deploy/.env*` to reduce accidental secret commits.
+- `ContentImageUploadControl` now shows an immediate `blob:` preview after file selection and falls back to a clear placeholder label when no image path is present.
+- Upload validation for featured-taste and gallery images now accepts both MIME and filename-extension detection, including `image/jpg` and empty-MIME `.jpg` files from mobile upload flows.
+- `GALLERY_SHOWCASE_FIELDS` no longer includes `galleryShowcase.images.{index}.alt` entries, so admin gallery forms now only render upload/path controls for slide image sources.

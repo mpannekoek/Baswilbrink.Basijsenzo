@@ -150,6 +150,8 @@
 - [x] Step 63: Fix upload-triggered render loop (`Maximum update depth exceeded`) by making featured-taste and gallery upload state updates idempotent (return current state when uploaded path is unchanged).
 - [x] Step 64: Replace manual upload button flow with direct upload on file browse/selection and introduce the new upload filename convention `basijsenzo-{section}-{slot}-{YYYYMMDD}-{HHmmss}-{shortId}.{ext}` for gallery and featured-taste images.
 - [x] Step 65: Simplify image upload UI by removing the visible image-path line and removing the editable src textbox above the upload control for image fields, while keeping values submitted via hidden inputs.
+- [x] Step 66: Fix Android/mobile admin image uploads by showing an immediate local preview after file selection and making upload validation tolerant of mobile browsers that omit or vary JPG MIME metadata.
+- [x] Step 67: Remove gallery alt-text labels and text inputs from the admin portal so slide alt values are no longer editable through the CMS form UI.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

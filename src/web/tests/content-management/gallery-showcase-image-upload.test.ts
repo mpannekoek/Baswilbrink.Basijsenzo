@@ -16,6 +16,12 @@ describe("gallery showcase image upload", () => {
     expect(validateGalleryShowcaseImageUpload(file)).toBe("Gebruik een JPG, PNG, WEBP of AVIF afbeelding.");
   });
 
+  it("accepts jpg uploads when mobile browsers omit the mime type", () => {
+    const file = new File([new Uint8Array([1, 2, 3])], "phone-photo.jpg", { type: "" });
+
+    expect(validateGalleryShowcaseImageUpload(file)).toBeNull();
+  });
+
   it("stores a valid upload in the gallery uploads directory", async () => {
     const rootDirectory = mkdtempSync(path.join(os.tmpdir(), "gallery-showcase-upload-"));
     const file = new File([new Uint8Array([1, 2, 3, 4])], "counter.jpg", { type: "image/jpeg" });

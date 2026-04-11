@@ -2141,3 +2141,77 @@ components/admin/gallery-showcase-form.tsx (61:17) @ onUploaded"
 **Context**: CONSTRUCTION - Code Generation review response prepared
 
 ---
+## Construction Phase - Change Request Intake
+**Timestamp**: 2026-04-11T15:04:28Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/components/admin/gallery-showcase-form.tsx
+
+## Open tabs:
+- gallery-showcase-form.tsx: src/web/components/admin/gallery-showcase-form.tsx
+
+## My request for Codex:
+Request Changes: on mobile (android) the image upload in the admin portal is not working. After selecting an image, the preview shows a white box instead of the selected image. Looks like the uploading isn't working on phones."
+**AI Response**: "Resumed AI-DLC session context, loaded mandatory common and extension rules, and started investigation of Android image upload preview behavior in admin gallery form."
+**Context**: Construction - Request changes handling for existing unit
+
+---
+## Code Generation Change Request - Android Upload Fix
+**Timestamp**: 2026-04-11T15:06:51Z
+**User Input**: "Request Changes: on mobile (android) the image upload in the admin portal is not working. After selecting an image, the preview shows a white box instead of the selected image. Looks like the uploading isn't working on phones."
+**AI Response**: "Implemented mobile upload robustness fixes: immediate local blob preview in ContentImageUploadControl, safe empty-preview placeholder state, broader accept list (including file extensions and image/jpg), and MIME fallback validation by filename extension for featured-taste/gallery upload handlers. Added regression tests for empty-MIME JPG uploads and verified with targeted Vitest suite (2 files, 6 tests passing). Updated code-generation plan checklist with completed Step 66."
+**Context**: CONSTRUCTION - Code Generation request-changes implementation and verification
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T15:07:16Z
+**User Input**: "Request Changes: on mobile (android) the image upload in the admin portal is not working. After selecting an image, the preview shows a white box instead of the selected image. Looks like the uploading isn't working on phones."
+**AI Response**: "Applied Android/mobile upload fixes and prepared updated code-generation review prompt with verification results and extension compliance summary."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T17:11:38Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/components/admin/gallery-showcase-form.tsx
+
+## Open tabs:
+- gallery-showcase-form.tsx: src/web/components/admin/gallery-showcase-form.tsx
+
+## My request for Codex:
+Request Changes: kan je in het admin portaal de labels en text inputs alt-tekst weghalen?"
+**AI Response**: "Accepted request to remove alt-text labels and text inputs from admin portal forms; starting targeted implementation while preserving upload and save behavior."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Code Generation Change Request - Remove Alt Inputs
+**Timestamp**: 2026-04-11T17:12:48Z
+**User Input**: "Request Changes: kan je in het admin portaal de labels en text inputs alt-tekst weghalen?"
+**AI Response**: "Removed gallery alt-text labels/inputs from admin form configuration, updated gallery persistence test expectations to keep alt text code-managed defaults, updated code-generation plan with completed Step 67, and verified via targeted Vitest run (2 files, 13 tests passing)."
+**Context**: CONSTRUCTION - Code Generation request-changes implementation and verification
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T17:12:48Z
+**User Input**: "Request Changes: kan je in het admin portaal de labels en text inputs alt-tekst weghalen?"
+**AI Response**: "Prepared updated code-generation review response with changed files, test results, and extension compliance summary."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Git Commit Request
+**Timestamp**: 2026-04-11T17:14:06Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/components/admin/gallery-showcase-form.tsx
+
+## Open tabs:
+- gallery-showcase-form.tsx: src/web/components/admin/gallery-showcase-form.tsx
+
+## My request for Codex:
+commit alles maar"
+**AI Response**: "Preparing a full commit of all current workspace changes as requested."
+**Context**: Repository operation - commit all pending changes
+
+---

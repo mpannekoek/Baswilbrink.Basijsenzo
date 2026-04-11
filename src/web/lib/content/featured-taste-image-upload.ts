@@ -8,9 +8,18 @@ const MAX_UPLOAD_SIZE_BYTES = 5 * 1024 * 1024;
 
 const MIME_TYPE_TO_EXTENSION: Record<(typeof FEATURED_TASTE_IMAGE_UPLOAD_ACCEPTED_TYPES)[number], string> = {
   "image/avif": ".avif",
+  "image/jpg": ".jpg",
   "image/jpeg": ".jpg",
   "image/png": ".png",
   "image/webp": ".webp",
+};
+
+const FILE_NAME_EXTENSION_TO_OUTPUT_EXTENSION: Record<string, string> = {
+  ".avif": ".avif",
+  ".jpeg": ".jpg",
+  ".jpg": ".jpg",
+  ".png": ".png",
+  ".webp": ".webp",
 };
 
 function sanitizeFieldName(fieldName: string): "primary" | "secondary" {
@@ -21,8 +30,22 @@ function resolveFeaturedTasteUploadDirectory(root = process.cwd()): string {
   return path.join(/* turbopackIgnore: true */ root, "public", "uploads", "featured-taste");
 }
 
+function resolveUploadExtension(file: File): string | null {
+  const normalizedMimeType = file.type.trim().toLowerCase();
+  const extensionFromMime = MIME_TYPE_TO_EXTENSION[normalizedMimeType as keyof typeof MIME_TYPE_TO_EXTENSION];
+
+  if (extensionFromMime) {
+    return extensionFromMime;
+  }
+
+  const fileName = file.name.trim().toLowerCase();
+  const extensionFromName = path.extname(fileName);
+
+  return FILE_NAME_EXTENSION_TO_OUTPUT_EXTENSION[extensionFromName] ?? null;
+}
+
 export function validateFeaturedTasteImageUpload(file: File): string | null {
-  const extension = MIME_TYPE_TO_EXTENSION[file.type as keyof typeof MIME_TYPE_TO_EXTENSION];
+  const extension = resolveUploadExtension(file);
 
   if (file.size === 0) {
     return "Kies eerst een afbeelding om te uploaden.";
@@ -56,7 +79,12 @@ export async function storeFeaturedTasteImageUpload({
 
   const uploadDirectory = resolveFeaturedTasteUploadDirectory(rootDirectory);
   const slot = sanitizeFieldName(fieldName);
-  const extension = MIME_TYPE_TO_EXTENSION[file.type as keyof typeof MIME_TYPE_TO_EXTENSION];
+  const extension = resolveUploadExtension(file);
+
+  if (!extension) {
+    throw new Error("Gebruik een JPG, PNG, WEBP of AVIF afbeelding.");
+  }
+
   const fileName = buildContentUploadFileName({
     extension,
     sectionSlug: "featured-taste",

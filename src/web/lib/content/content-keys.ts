@@ -205,15 +205,10 @@ export const GALLERY_SHOWCASE_SECTIONS: ContentSectionConfig[] = [
     "Beheer hier de afbeeldingen die in de homepage-slider verschijnen.",
     [
       input("galleryShowcase.images.0.src", "Slide 1 foto", 160),
-      input("galleryShowcase.images.0.alt", "Slide 1 alt-tekst", 160),
       input("galleryShowcase.images.1.src", "Slide 2 foto", 160),
-      input("galleryShowcase.images.1.alt", "Slide 2 alt-tekst", 160),
       input("galleryShowcase.images.2.src", "Slide 3 foto", 160),
-      input("galleryShowcase.images.2.alt", "Slide 3 alt-tekst", 160),
       input("galleryShowcase.images.3.src", "Slide 4 foto", 160),
-      input("galleryShowcase.images.3.alt", "Slide 4 alt-tekst", 160),
       input("galleryShowcase.images.4.src", "Slide 5 foto", 160),
-      input("galleryShowcase.images.4.alt", "Slide 5 alt-tekst", 160),
     ],
   ),
 ];
