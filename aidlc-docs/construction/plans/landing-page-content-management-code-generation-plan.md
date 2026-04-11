@@ -145,6 +145,11 @@
 - [x] Step 58: Add a quick `Open hoofdpagina` action in the admin shell header so editors can jump from the admin portal to the public homepage in a new tab for fast content verification.
 - [x] Step 59: Move the `Open hoofdpagina` action into the profile action group so it renders directly left of `Uitloggen` on both mobile and desktop.
 - [x] Step 60: Rename the admin quick-link button label from `Open hoofdpagina` to `Bekijk site` while keeping the existing link behavior and placement.
+- [x] Step 61: Fix admin image upload persistence by resolving the correct upload field when multiple `uploadFieldName` form entries are submitted, and add regression tests for featured-taste and gallery uploads with duplicated field-name payloads.
+- [x] Step 62: Resolve hydration mismatch in `ContentImageUploadControl` by removing SSR-sensitive submit button marker attributes and deriving the uploaded field server-side from the posted `*.file` form entries, with regression coverage for uploads without `uploadFieldName`.
+- [x] Step 63: Fix upload-triggered render loop (`Maximum update depth exceeded`) by making featured-taste and gallery upload state updates idempotent (return current state when uploaded path is unchanged).
+- [x] Step 64: Replace manual upload button flow with direct upload on file browse/selection and introduce the new upload filename convention `basijsenzo-{section}-{slot}-{YYYYMMDD}-{HHmmss}-{shortId}.{ext}` for gallery and featured-taste images.
+- [x] Step 65: Simplify image upload UI by removing the visible image-path line and removing the editable src textbox above the upload control for image fields, while keeping values submitted via hidden inputs.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

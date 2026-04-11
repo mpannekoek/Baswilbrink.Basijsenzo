@@ -2049,3 +2049,95 @@ the images does not render very well in terms of the width. Fix this."
 **Context**: Repository operation - commit requested
 
 ---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T12:07:06Z
+**User Input**: "Request Changes: wanneer ik in het admin portaal een foto probeer up te loaden onder bijv 'Afbeeldingen', werkt dit niet. Na het opslaan staat de oude foto er nog. Fix deze bug."
+**AI Response**: "Accepted the admin image-upload persistence bug report and started a targeted investigation across upload controls, server actions, and content persistence mapping to identify why saved images keep reverting to old paths."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-11T12:07:06Z
+**User Input**: "Request Changes: wanneer ik in het admin portaal een foto probeer up te loaden onder bijv 'Afbeeldingen', werkt dit niet. Na het opslaan staat de oude foto er nog. Fix deze bug."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T12:08:31Z
+**User Input**: "Request Changes: wanneer ik in het admin portaal een foto probeer up te loaden onder bijv 'Afbeeldingen', werkt dit niet. Na het opslaan staat de oude foto er nog. Fix deze bug."
+**AI Response**: "Fixed image-upload persistence by making server upload actions choose the field that actually contains the selected file when duplicate uploadFieldName entries are present, updated the upload control to submit uploadFieldName via the clicked button, added regression tests for featured-taste and gallery duplicate-field submissions, and validated with npm test -- --run tests/content-management/content-actions.test.ts tests/content-management/featured-taste-image-upload.test.ts tests/content-management/gallery-showcase-image-upload.test.ts plus npm test -- --run tests/admin-portal/admin-portal.test.tsx (all passing). Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T12:53:13Z
+**User Input**: "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+components/admin/content-image-upload-control.tsx (70:9) @ ContentImageUploadControl"
+**AI Response**: "Accepted the hydration mismatch report for ContentImageUploadControl and started a targeted fix to remove SSR/client attribute drift while preserving the upload-field selection behavior."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T12:54:05Z
+**User Input**: "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+components/admin/content-image-upload-control.tsx (70:9) @ ContentImageUploadControl"
+**AI Response**: "Resolved the hydration mismatch by removing upload marker attributes from the upload submit button and updating server-side upload field resolution to derive the target from posted *.file inputs (with backward-compatible uploadFieldName fallback), then validated via content-management and admin-portal tests (24/24 passing). Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T12:55:45Z
+**User Input**: "when I try to upload an image: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+
+components/admin/gallery-showcase-form.tsx (61:17) @ onUploaded"
+**AI Response**: "Accepted the upload render-loop bug report and started a targeted fix to make image upload state updates idempotent so repeated success effects cannot trigger an infinite render/update cycle."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T12:56:43Z
+**User Input**: "when I try to upload an image: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+
+components/admin/gallery-showcase-form.tsx (61:17) @ onUploaded"
+**AI Response**: "Fixed the upload render loop by making gallery and featured-taste upload state updates idempotent (return existing state when uploaded path is unchanged), preventing repeated onUploaded effects from triggering infinite setState cycles; validated with admin/content test suites (24/24 passing). Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T13:11:04Z
+**User Input**: "Request Changes: Haal de upload foto knop weg. Ik wil dat de foto direct na het browsen wordt geupload. Geef de foto een nieuwe naam. Verzin een mooie naam conventie."
+**AI Response**: "Accepted the request to remove the upload button, switch to direct upload after file selection, and introduce a clearer file naming convention for uploaded images."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Extension Enforcement Check
+**Timestamp**: 2026-04-11T13:11:04Z
+**User Input**: "Request Changes: Haal de upload foto knop weg. Ik wil dat de foto direct na het browsen wordt geupload. Geef de foto een nieuwe naam. Verzin een mooie naam conventie."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T13:12:09Z
+**User Input**: "Request Changes: Haal de upload foto knop weg. Ik wil dat de foto direct na het browsen wordt geupload. Geef de foto een nieuwe naam. Verzin een mooie naam conventie."
+**AI Response**: "Removed the upload button and switched to direct upload immediately after file browse/selection, added uploading feedback state in the upload control, introduced a unified filename convention `basijsenzo-{section}-{slot}-{YYYYMMDD}-{HHmmss}-{shortId}.{ext}` for featured-taste and gallery uploads, updated upload tests accordingly, and validated with targeted admin/content test suites (24/24 passing). Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T13:18:00Z
+**User Input**: "haal de label met het file path maar weg. Haal de tekstbox er boven ook maar weg."
+**AI Response**: "Accepted the UI cleanup request to remove the visible file-path label and the textbox above it for image upload fields in the admin gallery flow."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T13:19:05Z
+**User Input**: "haal de label met het file path maar weg. Haal de tekstbox er boven ook maar weg."
+**AI Response**: "Removed the visible file-path text from image upload controls and removed the editable src text input above upload controls for image fields (gallery + featured taste), while preserving save behavior via hidden field values; validated with admin/content tests (25/25 passing). Ready for review and explicit approval gate response."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---

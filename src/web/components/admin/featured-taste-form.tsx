@@ -20,6 +20,12 @@ export function FeaturedTasteForm({
 }) {
   const [imagePrimarySrc, setImagePrimarySrc] = useState(initialValues["featuredTaste.imagePrimarySrc"] ?? "");
   const [imageSecondarySrc, setImageSecondarySrc] = useState(initialValues["featuredTaste.imageSecondarySrc"] ?? "");
+  const updateImagePrimarySrc = (uploadedPath: string) => {
+    setImagePrimarySrc((current) => (current === uploadedPath ? current : uploadedPath));
+  };
+  const updateImageSecondarySrc = (uploadedPath: string) => {
+    setImageSecondarySrc((current) => (current === uploadedPath ? current : uploadedPath));
+  };
 
   return (
     <ContentSectionEditorForm
@@ -40,9 +46,8 @@ export function FeaturedTasteForm({
             action={uploadFeaturedTasteImageAction}
             currentValue={imagePrimarySrc}
             fieldName="featuredTaste.imagePrimarySrc"
-            helperText="Upload hier de hoofdafbeelding voor de smaak van de week. Het pad wordt automatisch ingevuld."
             inputId="featured-taste-image-primary-upload"
-            onUploaded={setImagePrimarySrc}
+            onUploaded={updateImagePrimarySrc}
             previewAlt="Voorvertoning van de geselecteerde smaakfoto"
           />
         ),
@@ -51,9 +56,8 @@ export function FeaturedTasteForm({
             action={uploadFeaturedTasteImageAction}
             currentValue={imageSecondarySrc}
             fieldName="featuredTaste.imageSecondarySrc"
-            helperText="Upload hier de tweede sfeerfoto. Ook deze vult daarna automatisch het veld hieronder."
             inputId="featured-taste-image-secondary-upload"
-            onUploaded={setImageSecondarySrc}
+            onUploaded={updateImageSecondarySrc}
             previewAlt="Voorvertoning van de tweede geselecteerde smaakfoto"
           />
         ),

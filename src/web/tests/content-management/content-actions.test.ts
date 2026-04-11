@@ -10,12 +10,16 @@ import {
 
 const {
   ensureContentSeededMock,
+  storeFeaturedTasteImageUploadMock,
+  storeGalleryShowcaseImageUploadMock,
   getStoredContentSnapshotMock,
   revalidatePathMock,
   requireContentAdminActorMock,
   saveContentMutationMock,
 } = vi.hoisted(() => ({
   ensureContentSeededMock: vi.fn(),
+  storeFeaturedTasteImageUploadMock: vi.fn(),
+  storeGalleryShowcaseImageUploadMock: vi.fn(),
   getStoredContentSnapshotMock: vi.fn(),
   revalidatePathMock: vi.fn(),
   requireContentAdminActorMock: vi.fn(),
@@ -33,6 +37,14 @@ vi.mock("@/lib/content/content-seed", () => ({
 vi.mock("@/lib/content/content-repository", () => ({
   getStoredContentSnapshot: (...args: unknown[]) => getStoredContentSnapshotMock(...args),
   saveContentMutation: (...args: unknown[]) => saveContentMutationMock(...args),
+}));
+
+vi.mock("@/lib/content/featured-taste-image-upload", () => ({
+  storeFeaturedTasteImageUpload: (...args: unknown[]) => storeFeaturedTasteImageUploadMock(...args),
+}));
+
+vi.mock("@/lib/content/gallery-showcase-image-upload", () => ({
+  storeGalleryShowcaseImageUpload: (...args: unknown[]) => storeGalleryShowcaseImageUploadMock(...args),
 }));
 
 vi.mock("@/lib/content/admin-content", async () => {
@@ -58,6 +70,12 @@ describe("content actions", () => {
     requireContentAdminActorMock.mockResolvedValue({
       displayName: "Beheerder Bas",
       email: "admin@example.com",
+    });
+    storeFeaturedTasteImageUploadMock.mockReset();
+    storeGalleryShowcaseImageUploadMock.mockReset();
+    storeFeaturedTasteImageUploadMock.mockResolvedValue({ publicPath: "/uploads/featured-taste/primary-demo.jpg" });
+    storeGalleryShowcaseImageUploadMock.mockResolvedValue({
+      publicPath: "/uploads/gallery-showcase/slide-1-demo.jpg",
     });
     getStoredContentSnapshotMock.mockReturnValue({
       entries: [],
@@ -136,5 +154,73 @@ describe("content actions", () => {
     expect(result.status).toBe("success");
     expect(saveContentMutationMock).toHaveBeenCalledTimes(1);
     expect(revalidatePathMock).toHaveBeenCalledWith("/admin/content/gallery");
+  });
+
+  it("uses the selected featured-taste upload field when multiple field-name entries are present", async () => {
+    const { uploadFeaturedTasteImageAction } = await import("@/lib/content/content-actions");
+    const formData = new FormData();
+    const selectedFile = new File([new Uint8Array([1, 2, 3])], "secondary.jpg", { type: "image/jpeg" });
+
+    formData.append("uploadFieldName", "featuredTaste.imagePrimarySrc");
+    formData.append("uploadFieldName", "featuredTaste.imageSecondarySrc");
+    formData.set("featuredTaste.imageSecondarySrc.file", selectedFile);
+
+    const result = await uploadFeaturedTasteImageAction(undefined, formData);
+
+    expect(result.status).toBe("success");
+    expect(storeFeaturedTasteImageUploadMock).toHaveBeenCalledWith({
+      fieldName: "featuredTaste.imageSecondarySrc",
+      file: selectedFile,
+    });
+  });
+
+  it("detects the selected featured-taste upload field from file inputs without uploadFieldName", async () => {
+    const { uploadFeaturedTasteImageAction } = await import("@/lib/content/content-actions");
+    const formData = new FormData();
+    const selectedFile = new File([new Uint8Array([7, 8, 9])], "primary.jpg", { type: "image/jpeg" });
+
+    formData.set("featuredTaste.imagePrimarySrc.file", selectedFile);
+
+    const result = await uploadFeaturedTasteImageAction(undefined, formData);
+
+    expect(result.status).toBe("success");
+    expect(storeFeaturedTasteImageUploadMock).toHaveBeenCalledWith({
+      fieldName: "featuredTaste.imagePrimarySrc",
+      file: selectedFile,
+    });
+  });
+
+  it("uses the selected gallery upload field when multiple field-name entries are present", async () => {
+    const { uploadGalleryShowcaseImageAction } = await import("@/lib/content/content-actions");
+    const formData = new FormData();
+    const selectedFile = new File([new Uint8Array([4, 5, 6])], "slide4.jpg", { type: "image/jpeg" });
+
+    formData.append("uploadFieldName", "galleryShowcase.images.0.src");
+    formData.append("uploadFieldName", "galleryShowcase.images.3.src");
+    formData.set("galleryShowcase.images.3.src.file", selectedFile);
+
+    const result = await uploadGalleryShowcaseImageAction(undefined, formData);
+
+    expect(result.status).toBe("success");
+    expect(storeGalleryShowcaseImageUploadMock).toHaveBeenCalledWith({
+      fieldName: "galleryShowcase.images.3.src",
+      file: selectedFile,
+    });
+  });
+
+  it("detects the selected gallery upload field from file inputs without uploadFieldName", async () => {
+    const { uploadGalleryShowcaseImageAction } = await import("@/lib/content/content-actions");
+    const formData = new FormData();
+    const selectedFile = new File([new Uint8Array([10, 11, 12])], "slide2.jpg", { type: "image/jpeg" });
+
+    formData.set("galleryShowcase.images.1.src.file", selectedFile);
+
+    const result = await uploadGalleryShowcaseImageAction(undefined, formData);
+
+    expect(result.status).toBe("success");
+    expect(storeGalleryShowcaseImageUploadMock).toHaveBeenCalledWith({
+      fieldName: "galleryShowcase.images.1.src",
+      file: selectedFile,
+    });
   });
 });

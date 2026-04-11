@@ -27,7 +27,9 @@ describe("gallery showcase image upload", () => {
         rootDirectory,
       });
 
-      expect(result.publicPath.startsWith("/uploads/gallery-showcase/slide-2-")).toBe(true);
+      expect(result.publicPath.startsWith("/uploads/gallery-showcase/basijsenzo-gallery-showcase-slide-2-")).toBe(
+        true,
+      );
       expect(existsSync(path.join(rootDirectory, "public", result.publicPath.slice(1)))).toBe(true);
     } finally {
       rmSync(rootDirectory, { force: true, recursive: true });

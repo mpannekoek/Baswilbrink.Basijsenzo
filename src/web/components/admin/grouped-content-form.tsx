@@ -41,32 +41,39 @@ function FieldControl({
   initialValue: string;
 }) {
   const testId = getFieldTestId(field.name);
+  const renderUploadOnlyField = Boolean(controlledField && fieldExtension);
 
   return (
     <label className="grid content-start gap-2 self-start" htmlFor={field.name}>
-      <span className="text-sm font-semibold text-[color:var(--admin-ink-strong)]">{field.label}</span>
-      {field.multiline ? (
-        <textarea
-          className="min-h-28 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm leading-6 text-black outline-none transition focus:border-[color:var(--brand-orange)] focus:ring-2 focus:ring-[rgba(255,117,24,0.16)]"
-          data-testid={testId}
-          id={field.name}
-          maxLength={field.maxLength}
-          name={field.name}
-          onChange={controlledField ? (event) => controlledField.onChange(event.target.value) : undefined}
-          rows={5}
-          {...(controlledField ? { value: controlledField.value } : { defaultValue: initialValue })}
-        />
+      {renderUploadOnlyField ? (
+        <input name={field.name} type="hidden" value={controlledField?.value ?? initialValue} />
       ) : (
-        <input
-          className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition focus:border-[color:var(--brand-orange)] focus:ring-2 focus:ring-[rgba(255,117,24,0.16)]"
-          data-testid={testId}
-          id={field.name}
-          maxLength={field.maxLength}
-          name={field.name}
-          onChange={controlledField ? (event) => controlledField.onChange(event.target.value) : undefined}
-          type="text"
-          {...(controlledField ? { value: controlledField.value } : { defaultValue: initialValue })}
-        />
+        <>
+          <span className="text-sm font-semibold text-[color:var(--admin-ink-strong)]">{field.label}</span>
+          {field.multiline ? (
+            <textarea
+              className="min-h-28 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm leading-6 text-black outline-none transition focus:border-[color:var(--brand-orange)] focus:ring-2 focus:ring-[rgba(255,117,24,0.16)]"
+              data-testid={testId}
+              id={field.name}
+              maxLength={field.maxLength}
+              name={field.name}
+              onChange={controlledField ? (event) => controlledField.onChange(event.target.value) : undefined}
+              rows={5}
+              {...(controlledField ? { value: controlledField.value } : { defaultValue: initialValue })}
+            />
+          ) : (
+            <input
+              className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition focus:border-[color:var(--brand-orange)] focus:ring-2 focus:ring-[rgba(255,117,24,0.16)]"
+              data-testid={testId}
+              id={field.name}
+              maxLength={field.maxLength}
+              name={field.name}
+              onChange={controlledField ? (event) => controlledField.onChange(event.target.value) : undefined}
+              type="text"
+              {...(controlledField ? { value: controlledField.value } : { defaultValue: initialValue })}
+            />
+          )}
+        </>
       )}
       {fieldExtension ? <div>{fieldExtension}</div> : null}
       {fieldError ? (

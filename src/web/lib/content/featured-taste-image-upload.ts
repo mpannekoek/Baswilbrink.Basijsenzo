@@ -1,8 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { randomUUID } from "node:crypto";
 
 import { FEATURED_TASTE_IMAGE_UPLOAD_ACCEPTED_TYPES } from "./featured-taste-image-upload-config";
+import { buildContentUploadFileName } from "./upload-file-name";
 
 const MAX_UPLOAD_SIZE_BYTES = 5 * 1024 * 1024;
 
@@ -57,7 +57,11 @@ export async function storeFeaturedTasteImageUpload({
   const uploadDirectory = resolveFeaturedTasteUploadDirectory(rootDirectory);
   const slot = sanitizeFieldName(fieldName);
   const extension = MIME_TYPE_TO_EXTENSION[file.type as keyof typeof MIME_TYPE_TO_EXTENSION];
-  const fileName = `${slot}-${Date.now()}-${randomUUID()}${extension}`;
+  const fileName = buildContentUploadFileName({
+    extension,
+    sectionSlug: "featured-taste",
+    slotSlug: slot,
+  });
   const outputPath = path.join(uploadDirectory, fileName);
   const publicPath = `/uploads/featured-taste/${fileName}`;
   const fileBuffer = Buffer.from(await file.arrayBuffer());

@@ -54,14 +54,19 @@ export function GalleryShowcaseForm({
               action={uploadGalleryShowcaseImageAction}
               currentValue={imageValues[fieldName] ?? ""}
               fieldName={fieldName}
-              helperText={`Upload hier slide ${index + 1} voor de homepage-slider. Het pad wordt automatisch ingevuld.`}
               inputId={`gallery-showcase-image-${index + 1}-upload`}
               key={fieldName}
               onUploaded={(uploadedPath) =>
-                setImageValues((current) => ({
-                  ...current,
-                  [fieldName]: uploadedPath,
-                }))
+                setImageValues((current) => {
+                  if (current[fieldName] === uploadedPath) {
+                    return current;
+                  }
+
+                  return {
+                    ...current,
+                    [fieldName]: uploadedPath,
+                  };
+                })
               }
               previewAlt={`Voorvertoning van sliderafbeelding ${index + 1}`}
             />

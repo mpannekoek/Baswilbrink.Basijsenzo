@@ -39,6 +39,45 @@ function readFormValues(fields: ContentFieldConfig[], formData: FormData): Recor
   );
 }
 
+function resolveUploadFieldName(
+  formData: FormData,
+  isExpectedFieldName: (candidate: string) => boolean,
+): string | null {
+  // Prefer the field that actually contains a selected file in this submit payload.
+  // This avoids relying on extra marker attributes that can drift between SSR and hydration.
+  const fileFieldCandidates = Array.from(formData.keys())
+    .filter((key) => key.endsWith(".file"))
+    .map((key) => key.slice(0, -".file".length))
+    .filter((candidate) => isExpectedFieldName(candidate));
+
+  for (const candidate of fileFieldCandidates) {
+    const fileValue = formData.get(`${candidate}.file`);
+
+    if (fileValue instanceof File && fileValue.size > 0) {
+      return candidate;
+    }
+  }
+
+  // Backward-compatible fallback for payloads that still post uploadFieldName.
+  const candidates = formData
+    .getAll("uploadFieldName")
+    .filter((value): value is string => typeof value === "string" && isExpectedFieldName(value));
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  for (const candidate of candidates) {
+    const fileValue = formData.get(`${candidate}.file`);
+
+    if (fileValue instanceof File && fileValue.size > 0) {
+      return candidate;
+    }
+  }
+
+  return candidates[0] ?? null;
+}
+
 async function saveContentSection(options: {
   currentPath: string;
   fields: ContentFieldConfig[];
@@ -195,11 +234,11 @@ export async function uploadFeaturedTasteImageAction(
 ): Promise<ContentImageUploadActionState> {
   void previousState;
 
-  const fieldNameValue = formData.get("uploadFieldName");
-  const fieldName =
-    fieldNameValue === "featuredTaste.imagePrimarySrc" || fieldNameValue === "featuredTaste.imageSecondarySrc"
-      ? fieldNameValue
-      : null;
+  const fieldName = resolveUploadFieldName(
+    formData,
+    (candidate) =>
+      candidate === "featuredTaste.imagePrimarySrc" || candidate === "featuredTaste.imageSecondarySrc",
+  );
   const fileValue = fieldName ? formData.get(`${fieldName}.file`) : null;
 
   if (!fieldName || !(fileValue instanceof File)) {
@@ -259,11 +298,10 @@ export async function uploadGalleryShowcaseImageAction(
 ): Promise<ContentImageUploadActionState> {
   void previousState;
 
-  const fieldNameValue = formData.get("uploadFieldName");
-  const fieldName =
-    typeof fieldNameValue === "string" && /^galleryShowcase\.images\.\d+\.src$/.test(fieldNameValue)
-      ? fieldNameValue
-      : null;
+  const fieldName = resolveUploadFieldName(
+    formData,
+    (candidate) => /^galleryShowcase\.images\.\d+\.src$/.test(candidate),
+  );
   const fileValue = fieldName ? formData.get(`${fieldName}.file`) : null;
 
   if (!fieldName || !(fileValue instanceof File)) {

@@ -27,7 +27,9 @@ describe("featured taste image upload", () => {
         rootDirectory,
       });
 
-      expect(result.publicPath.startsWith("/uploads/featured-taste/primary-")).toBe(true);
+      expect(result.publicPath.startsWith("/uploads/featured-taste/basijsenzo-featured-taste-primary-")).toBe(
+        true,
+      );
       expect(existsSync(path.join(rootDirectory, "public", result.publicPath.slice(1)))).toBe(true);
     } finally {
       rmSync(rootDirectory, { force: true, recursive: true });

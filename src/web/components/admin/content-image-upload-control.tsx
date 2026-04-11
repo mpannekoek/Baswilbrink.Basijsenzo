@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useTransition } from "react";
 
 import {
   INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE,
@@ -13,7 +13,6 @@ export function ContentImageUploadControl({
   action,
   currentValue,
   fieldName,
-  helperText,
   inputId,
   onUploaded,
   previewAlt,
@@ -24,18 +23,20 @@ export function ContentImageUploadControl({
   ) => Promise<ContentImageUploadActionState>;
   currentValue: string;
   fieldName: string;
-  helperText: string;
   inputId: string;
   onUploaded: (uploadedPath: string) => void;
   previewAlt: string;
 }) {
   const [state, formAction, isPending] = useActionState(action, INITIAL_CONTENT_IMAGE_UPLOAD_ACTION_STATE);
+  const [isAutoUploading, startAutoUpload] = useTransition();
 
   useEffect(() => {
     if (state.status === "success" && state.fieldName === fieldName && state.uploadedPath) {
       onUploaded(state.uploadedPath);
     }
   }, [fieldName, onUploaded, state.fieldName, state.status, state.uploadedPath]);
+
+  const isUploading = isPending || isAutoUploading;
 
   return (
     <div className="grid gap-3 rounded-2xl border border-black/8 bg-black/[0.02] p-4">
@@ -49,14 +50,9 @@ export function ContentImageUploadControl({
             width={128}
           />
         </div>
-        <div className="text-sm leading-6 text-[color:var(--admin-ink-soft)]">
-          <p>{helperText}</p>
-          <p className="mt-1 font-mono text-xs text-black/55">{currentValue}</p>
-        </div>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
-        <input name="uploadFieldName" type="hidden" value={fieldName} />
         <label className="grid gap-2" htmlFor={inputId}>
           <span className="text-sm font-semibold text-[color:var(--admin-ink-strong)]">Nieuwe foto uploaden</span>
           <input
@@ -65,21 +61,34 @@ export function ContentImageUploadControl({
             data-testid={`${fieldName}-upload-input`}
             id={inputId}
             name={`${fieldName}.file`}
+            onChange={(event) => {
+              const selectedFile = event.currentTarget.files?.[0];
+
+              if (!selectedFile) {
+                return;
+              }
+
+              const formData = new FormData();
+              formData.set("uploadFieldName", fieldName);
+              formData.set(`${fieldName}.file`, selectedFile);
+              event.currentTarget.value = "";
+
+              startAutoUpload(() => {
+                formAction(formData);
+              });
+            }}
             type="file"
           />
         </label>
-        <button
-          className="rounded-full border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-[color:var(--admin-ink-strong)] transition hover:border-[color:var(--brand-orange)] hover:text-[color:var(--brand-orange)] disabled:cursor-not-allowed disabled:opacity-60"
-          data-testid={`${fieldName}-upload-button`}
-          disabled={isPending}
-          formAction={formAction}
-          type="submit"
-        >
-          {isPending ? "Uploaden..." : "Upload foto"}
-        </button>
       </div>
 
-      {state.message ? (
+      {isUploading ? (
+        <p className="text-sm text-[color:var(--admin-ink-soft)]" data-testid={`${fieldName}-upload-status`}>
+          Uploaden...
+        </p>
+      ) : null}
+
+      {!isUploading && state.message ? (
         <p
           className={`text-sm ${state.status === "success" ? "text-[#1e5c28]" : "text-[#8a2f11]"}`}
           data-testid={`${fieldName}-upload-status`}
