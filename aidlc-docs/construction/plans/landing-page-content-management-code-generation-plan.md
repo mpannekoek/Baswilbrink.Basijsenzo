@@ -152,6 +152,8 @@
 - [x] Step 65: Simplify image upload UI by removing the visible image-path line and removing the editable src textbox above the upload control for image fields, while keeping values submitted via hidden inputs.
 - [x] Step 66: Fix Android/mobile admin image uploads by showing an immediate local preview after file selection and making upload validation tolerant of mobile browsers that omit or vary JPG MIME metadata.
 - [x] Step 67: Remove gallery alt-text labels and text inputs from the admin portal so slide alt values are no longer editable through the CMS form UI.
+- [x] Step 68: Fix production Docker upload serving by introducing API-backed upload file delivery (`/api/uploads/...`) and mapping legacy `/uploads/...` image paths to the runtime API route.
+- [x] Step 69: Add server-side binary signature validation for uploaded image files (JPG/PNG/WEBP/AVIF) to reject malformed payloads even when extension/MIME appears valid.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

@@ -3,6 +3,8 @@ import path from "node:path";
 
 import { FEATURED_TASTE_IMAGE_UPLOAD_ACCEPTED_TYPES } from "./featured-taste-image-upload-config";
 import { buildContentUploadFileName } from "./upload-file-name";
+import { buildUploadApiPath } from "./upload-public-path";
+import { validateUploadBinarySignature } from "./upload-signature-validation";
 
 const MAX_UPLOAD_SIZE_BYTES = 5 * 1024 * 1024;
 
@@ -91,8 +93,13 @@ export async function storeFeaturedTasteImageUpload({
     slotSlug: slot,
   });
   const outputPath = path.join(uploadDirectory, fileName);
-  const publicPath = `/uploads/featured-taste/${fileName}`;
+  const publicPath = buildUploadApiPath("featured-taste", fileName);
   const fileBuffer = Buffer.from(await file.arrayBuffer());
+  const signatureValidationError = validateUploadBinarySignature(fileBuffer, extension);
+
+  if (signatureValidationError) {
+    throw new Error(signatureValidationError);
+  }
 
   await mkdir(uploadDirectory, { recursive: true });
   await writeFile(outputPath, fileBuffer);

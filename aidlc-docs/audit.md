@@ -2215,3 +2215,93 @@ commit alles maar"
 **Context**: Repository operation - commit all pending changes
 
 ---
+## Production Upload Investigation Request
+**Timestamp**: 2026-04-11T17:24:06Z
+**User Input**: "# Context from my IDE setup:
+
+## Active file: src/web/components/admin/gallery-showcase-form.tsx
+
+## Open tabs:
+- gallery-showcase-form.tsx: src/web/components/admin/gallery-showcase-form.tsx
+
+## My request for Codex:
+uploading in production (docker) still goes wrong. Do you have any clue? I host my docker image on an ubuntu vps"
+**AI Response**: "Started production upload failure investigation focused on Docker runtime paths, writable permissions, and VPS volume mapping."
+**Context**: CONSTRUCTION - Production issue triage
+
+---
+## Production Upload Investigation Findings
+**Timestamp**: 2026-04-11T17:24:51Z
+**User Input**: "uploading in production (docker) still goes wrong. Do you have any clue? I host my docker image on an ubuntu vps"
+**AI Response**: "Identified likely root causes: Next.js Server Actions default 1MB request body limit for uploads and potential reverse-proxy body-size limit on VPS (e.g., Nginx default 1MB). Confirmed current app config does not set serverActions.bodySizeLimit. Prepared concrete verification and remediation guidance."
+**Context**: CONSTRUCTION - Production issue triage findings
+
+---
+## Production Upload Investigation - Container Check Result
+**Timestamp**: 2026-04-11T17:44:35Z
+**User Input**: "martijnpannekoek@vm-portfolio-prod-westeu-001:~/apps/basijsenzo$ docker exec -it basijsenzo-app sh -lc 'ls -lah /app/public/uploads/gallery-showcase | grep 9d735a50 || true'
+-rw-r--r--    1 root     root      139.4K Apr 11 17:31 basijsenzo-gallery-showcase-slide-5-20260411-173114-9d735a50.png
+martijnpannekoek@vm-portfolio-prod-westeu-001:~/apps/basijsenzo$ docker exec -it basijsenzo-app sh -lc 'curl -I http://127.0.0.1:3000/uploads/gallery-showcase/basijsenzo-gallery-showcase-slide-5-20260411-173114-9d735a50.png'
+sh: curl: not found"
+**AI Response**: "Confirmed file exists in container filesystem; next diagnostic step is validating HTTP response for the file from the same container/port and host port to detect routing or static serving mismatch."
+**Context**: CONSTRUCTION - Production issue triage follow-up
+
+---
+## Production Upload Investigation - Port/Pipeline Deep Dive
+**Timestamp**: 2026-04-11T17:47:52Z
+**User Input**: "[User provided docker ps/curl/wget outputs showing 404 for /uploads on 127.0.0.1:3001 and connection refused on 127.0.0.1:3000 inside basijsenzo-app]"
+**AI Response**: "Investigating standalone packaging and runtime port/static serving assumptions to explain mismatch between existing upload file and runtime 404 response."
+**Context**: CONSTRUCTION - Production issue triage deep analysis
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T17:52:16Z
+**User Input**: "yes implement"
+**AI Response**: "Implemented production-safe upload serving by adding an API route for uploaded files, switched new upload paths to /api/uploads, added legacy /uploads to /api/uploads mapper normalization, and updated/regressed tests."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T17:52:16Z
+**User Input**: "yes implement"
+**AI Response**: "Prepared updated code-generation review response with production upload-serving fix details, verification results, and extension compliance summary."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Security Validation Question
+**Timestamp**: 2026-04-11T17:54:52Z
+**User Input**: "are the mime checks etc still there? With other words do we safe and secure code for uploading files? I don't want that the user per accidentally uploads a malformed file"
+**AI Response**: "Reviewed current upload validation/security controls and summarized what is protected today versus remaining hardening gaps for malformed files."
+**Context**: CONSTRUCTION - Upload security clarification
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T17:56:48Z
+**User Input**: "implement the server-side binary signature validation. Skip the re-encode."
+**AI Response**: "Started implementation of server-side binary signature validation for upload files (without re-encode), including regression tests for malformed payloads."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+## Code Generation Change Request - Binary Signature Validation
+**Timestamp**: 2026-04-11T17:58:03Z
+**User Input**: "implement the server-side binary signature validation. Skip the re-encode."
+**AI Response**: "Implemented server-side binary signature validation helper for JPG/PNG/WEBP/AVIF, integrated checks in featured-taste and gallery upload storage flows, updated upload tests with valid signatures, and added malformed-file rejection regression coverage. Verified with targeted content-management test suite (4 files, 23 tests passing)."
+**Context**: CONSTRUCTION - Code Generation request-changes implementation and verification
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T17:58:03Z
+**User Input**: "implement the server-side binary signature validation. Skip the re-encode."
+**AI Response**: "Prepared updated code-generation review response with binary signature validation changes, test verification, and extension compliance summary."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Git Commit Request
+**Timestamp**: 2026-04-11T17:59:51Z
+**User Input**: "commit alles"
+**AI Response**: "Preparing full commit of all current workspace changes, including production upload serving and binary signature validation updates."
+**Context**: Repository operation - commit all pending changes
+
+---

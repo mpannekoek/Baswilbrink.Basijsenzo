@@ -24,7 +24,9 @@ describe("featured taste image upload", () => {
 
   it("stores a valid upload in the public uploads directory", async () => {
     const rootDirectory = mkdtempSync(path.join(os.tmpdir(), "featured-taste-upload-"));
-    const file = new File([new Uint8Array([1, 2, 3, 4])], "gelato.jpg", { type: "image/jpeg" });
+    const file = new File([new Uint8Array([0xff, 0xd8, 0xff, 0xdb, 0x00, 0x43, 0x00])], "gelato.jpg", {
+      type: "image/jpeg",
+    });
 
     try {
       const result = await storeFeaturedTasteImageUpload({
@@ -33,10 +35,28 @@ describe("featured taste image upload", () => {
         rootDirectory,
       });
 
-      expect(result.publicPath.startsWith("/uploads/featured-taste/basijsenzo-featured-taste-primary-")).toBe(
+      expect(result.publicPath.startsWith("/api/uploads/featured-taste/basijsenzo-featured-taste-primary-")).toBe(
         true,
       );
-      expect(existsSync(path.join(rootDirectory, "public", result.publicPath.slice(1)))).toBe(true);
+      const storedFilePath = path.join(rootDirectory, "public", "uploads", "featured-taste", path.basename(result.publicPath));
+      expect(existsSync(storedFilePath)).toBe(true);
+    } finally {
+      rmSync(rootDirectory, { force: true, recursive: true });
+    }
+  });
+
+  it("rejects malformed payloads even when extension and mime look valid", async () => {
+    const rootDirectory = mkdtempSync(path.join(os.tmpdir(), "featured-taste-upload-malformed-"));
+    const file = new File([new Uint8Array([1, 2, 3, 4, 5, 6])], "broken.jpg", { type: "image/jpeg" });
+
+    try {
+      await expect(
+        storeFeaturedTasteImageUpload({
+          fieldName: "featuredTaste.imagePrimarySrc",
+          file,
+          rootDirectory,
+        }),
+      ).rejects.toThrow("Het bestand lijkt geen geldige JPG-afbeelding te zijn.");
     } finally {
       rmSync(rootDirectory, { force: true, recursive: true });
     }

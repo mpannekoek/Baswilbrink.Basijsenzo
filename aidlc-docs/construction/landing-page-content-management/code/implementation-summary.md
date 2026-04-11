@@ -47,6 +47,8 @@
 - Tightened the shared admin form field alignment so multiline text areas and neighboring controls line up consistently across the content pages.
 - Fixed mobile admin image-upload UX/reliability by showing an immediate local preview after file selection and accepting JPG uploads even when mobile browsers omit or vary MIME metadata.
 - Removed gallery slide alt-text editing inputs from the admin portal so image alt labels/values are no longer editable through the CMS form.
+- Added an API-backed upload delivery endpoint (`/api/uploads/{section}/{filename}`) so runtime-served uploads are no longer dependent on Next.js static `public/` file routing behavior in standalone Docker environments.
+- Added server-side binary signature validation for uploaded image payloads to block malformed files that spoof MIME type or file extension.
 - Added a dedicated admin page to manage the slider intro text and gallery images separately from the other homepage content.
 - Added server-side validation, authorization re-checks, audit logging, default seeding, and route revalidation around content writes.
 - Added repo-root deployment artifacts for VPS rollout: a `deploy/compose.yml`, a `deploy/deploy.sh` runner, and a `deploy-azure-vps.yml` workflow that syncs those files to the server and deploys a specific GHCR image tag.
@@ -129,3 +131,5 @@
 - `ContentImageUploadControl` now shows an immediate `blob:` preview after file selection and falls back to a clear placeholder label when no image path is present.
 - Upload validation for featured-taste and gallery images now accepts both MIME and filename-extension detection, including `image/jpg` and empty-MIME `.jpg` files from mobile upload flows.
 - `GALLERY_SHOWCASE_FIELDS` no longer includes `galleryShowcase.images.{index}.alt` entries, so admin gallery forms now only render upload/path controls for slide image sources.
+- Upload storage helpers now return `/api/uploads/...` paths, and content mappers normalize legacy `/uploads/...` values to `/api/uploads/...` at runtime for both public rendering and admin form hydration.
+- Upload handlers now validate image signatures (magic bytes/container headers) for JPG, PNG, WEBP, and AVIF before writing files to disk.

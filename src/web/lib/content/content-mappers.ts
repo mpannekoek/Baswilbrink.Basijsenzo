@@ -14,6 +14,7 @@ import {
 } from "./content-keys";
 import { defaultSiteContent } from "./default-site-content";
 import type { StoredContentSnapshot } from "./content-repository";
+import { toRuntimeImagePath } from "./upload-public-path";
 
 export type ContentFieldValues = Record<string, string>;
 
@@ -51,6 +52,13 @@ export function toLandingPageContent(snapshot: StoredContentSnapshot): LandingPa
     setFieldValueInContent(content, field.name, values[field.name] ?? "");
   }
 
+  content.featuredTaste.imagePrimarySrc = toRuntimeImagePath(content.featuredTaste.imagePrimarySrc);
+  content.featuredTaste.imageSecondarySrc = toRuntimeImagePath(content.featuredTaste.imageSecondarySrc);
+  content.galleryShowcase.images = content.galleryShowcase.images.map((image) => ({
+    ...image,
+    src: toRuntimeImagePath(image.src),
+  }));
+
   return content;
 }
 
@@ -63,11 +71,27 @@ export function toOpeningHoursFormValues(snapshot: StoredContentSnapshot): Conte
 }
 
 export function toFeaturedTasteFormValues(snapshot: StoredContentSnapshot): ContentFieldValues {
-  return buildFieldValuesFromSnapshot(FEATURED_TASTE_FIELDS, snapshot);
+  const values = buildFieldValuesFromSnapshot(FEATURED_TASTE_FIELDS, snapshot);
+
+  return {
+    ...values,
+    "featuredTaste.imagePrimarySrc": toRuntimeImagePath(values["featuredTaste.imagePrimarySrc"] ?? ""),
+    "featuredTaste.imageSecondarySrc": toRuntimeImagePath(values["featuredTaste.imageSecondarySrc"] ?? ""),
+  };
 }
 
 export function toGalleryShowcaseFormValues(snapshot: StoredContentSnapshot): ContentFieldValues {
-  return buildFieldValuesFromSnapshot(GALLERY_SHOWCASE_FIELDS, snapshot);
+  const values = buildFieldValuesFromSnapshot(GALLERY_SHOWCASE_FIELDS, snapshot);
+
+  return Object.fromEntries(
+    Object.entries(values).map(([fieldName, value]) => {
+      if (/^galleryShowcase\.images\.\d+\.src$/.test(fieldName)) {
+        return [fieldName, toRuntimeImagePath(value)];
+      }
+
+      return [fieldName, value];
+    }),
+  );
 }
 
 export function buildDefaultPersistableValues() {

@@ -12,6 +12,8 @@ import {
 import { defaultSiteContent } from "@/lib/content/default-site-content";
 import {
   buildDefaultPersistableValues,
+  toFeaturedTasteFormValues,
+  toGalleryShowcaseFormValues,
   toGroupedContentFormValues,
   toLandingPageContent,
 } from "@/lib/content/content-mappers";
@@ -181,5 +183,73 @@ describe("content services", () => {
     expect(updatedContent.navItems[2]?.label).toBe(defaultSiteContent.navItems[2]?.label);
     expect(updatedContent.primaryActions[0]?.label).toBe(defaultSiteContent.primaryActions[0]?.label);
     expect(updatedContent.socialLinks[0]?.label).toBe(defaultSiteContent.socialLinks[0]?.label);
+  });
+
+  it("maps legacy /uploads image paths to /api/uploads for runtime rendering", () => {
+    const client = createContentDatabaseClient(":memory:");
+
+    seedContentStore(buildDefaultPersistableValues(), client);
+
+    const nextValues = {
+      ...buildInitialFieldValues(FEATURED_TASTE_FIELDS),
+      "featuredTaste.imagePrimarySrc": "/uploads/featured-taste/legacy-primary.jpg",
+      "featuredTaste.imageSecondarySrc": "/uploads/featured-taste/legacy-secondary.jpg",
+    };
+
+    saveContentMutation(
+      {
+        actor: {
+          displayName: "Beheerder Bas",
+          email: "admin@example.com",
+        },
+        afterSnapshot: JSON.stringify(nextValues),
+        beforeSnapshot: JSON.stringify(buildInitialFieldValues(FEATURED_TASTE_FIELDS)),
+        fieldValues: buildPersistableFieldValues(FEATURED_TASTE_FIELDS, nextValues),
+        targetSection: "featured-taste",
+      },
+      client,
+    );
+
+    const content = toLandingPageContent(getStoredContentSnapshot(client));
+    const formValues = toFeaturedTasteFormValues(getStoredContentSnapshot(client));
+
+    expect(content.featuredTaste.imagePrimarySrc).toBe("/api/uploads/featured-taste/legacy-primary.jpg");
+    expect(content.featuredTaste.imageSecondarySrc).toBe("/api/uploads/featured-taste/legacy-secondary.jpg");
+    expect(formValues["featuredTaste.imagePrimarySrc"]).toBe("/api/uploads/featured-taste/legacy-primary.jpg");
+    expect(formValues["featuredTaste.imageSecondarySrc"]).toBe("/api/uploads/featured-taste/legacy-secondary.jpg");
+  });
+
+  it("maps legacy gallery /uploads paths to /api/uploads for runtime rendering", () => {
+    const client = createContentDatabaseClient(":memory:");
+
+    seedContentStore(buildDefaultPersistableValues(), client);
+
+    const nextValues = {
+      ...buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS),
+      "galleryShowcase.images.1.src": "/uploads/gallery-showcase/legacy-slide-2.jpg",
+      "galleryShowcase.images.4.src": "/uploads/gallery-showcase/legacy-slide-5.jpg",
+    };
+
+    saveContentMutation(
+      {
+        actor: {
+          displayName: "Beheerder Bas",
+          email: "admin@example.com",
+        },
+        afterSnapshot: JSON.stringify(nextValues),
+        beforeSnapshot: JSON.stringify(buildInitialFieldValues(GALLERY_SHOWCASE_FIELDS)),
+        fieldValues: buildPersistableFieldValues(GALLERY_SHOWCASE_FIELDS, nextValues),
+        targetSection: "gallery-showcase",
+      },
+      client,
+    );
+
+    const content = toLandingPageContent(getStoredContentSnapshot(client));
+    const formValues = toGalleryShowcaseFormValues(getStoredContentSnapshot(client));
+
+    expect(content.galleryShowcase.images[1]?.src).toBe("/api/uploads/gallery-showcase/legacy-slide-2.jpg");
+    expect(content.galleryShowcase.images[4]?.src).toBe("/api/uploads/gallery-showcase/legacy-slide-5.jpg");
+    expect(formValues["galleryShowcase.images.1.src"]).toBe("/api/uploads/gallery-showcase/legacy-slide-2.jpg");
+    expect(formValues["galleryShowcase.images.4.src"]).toBe("/api/uploads/gallery-showcase/legacy-slide-5.jpg");
   });
 });
