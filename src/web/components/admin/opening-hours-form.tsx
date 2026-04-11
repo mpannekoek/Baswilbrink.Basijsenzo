@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
 import { INITIAL_CONTENT_ACTION_STATE } from "@/lib/content/content-action-state";
 import { getFieldTestId, type ContentFieldConfig } from "@/lib/content/content-keys";
@@ -17,6 +17,21 @@ export function OpeningHoursForm({
     saveOpeningHoursAction,
     INITIAL_CONTENT_ACTION_STATE,
   );
+
+  useEffect(() => {
+    if (state.status !== "success") {
+      return;
+    }
+
+    try {
+      window.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+    } catch {
+      window.scrollTo(0, 0);
+    }
+  }, [state.status]);
 
   return (
     <form action={formAction} className="grid gap-6" data-testid="admin-opening-hours-form">

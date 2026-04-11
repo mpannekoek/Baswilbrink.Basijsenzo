@@ -156,7 +156,7 @@ export function AdminSidebar({
 
   return (
     <aside
-      className={`admin-shell-panel border-b border-[color:var(--admin-sidebar-border)] bg-[color:var(--admin-sidebar-bg)] px-4 py-6 text-white lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:flex-col lg:border-r lg:border-b-0 lg:px-5 lg:py-6 ${isMobile ? "min-h-screen pt-[5.5rem]" : ""}`}
+      className={`admin-shell-panel flex flex-col border-b border-[color:var(--admin-sidebar-border)] bg-[color:var(--admin-sidebar-bg)] px-4 py-6 text-white lg:sticky lg:top-0 lg:min-h-screen lg:border-r lg:border-b-0 lg:px-5 lg:py-6 ${isMobile ? "min-h-screen pt-[5.5rem]" : ""}`}
       id={isMobile ? "admin-mobile-sidebar" : undefined}
     >
       <div className="flex items-center justify-between gap-3">
