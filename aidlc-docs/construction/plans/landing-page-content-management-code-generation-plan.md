@@ -142,6 +142,9 @@
 - [x] Step 55: Move the admin `Uitloggen` control into the profile row (behind name/email) to reduce header height and free vertical space for dashboard content; verify placement with admin portal tests plus Playwright CLI browser check.
 - [x] Step 56: Align admin `Openingstijden` save behavior with other admin forms by scrolling to absolute page top after a successful save so status feedback is immediately visible.
 - [x] Step 57: Keep the `Powered by` section pinned at the bottom of the admin mobile sidebar by switching the sidebar container to a mobile+desktop flex-column layout.
+- [x] Step 58: Add a quick `Open hoofdpagina` action in the admin shell header so editors can jump from the admin portal to the public homepage in a new tab for fast content verification.
+- [x] Step 59: Move the `Open hoofdpagina` action into the profile action group so it renders directly left of `Uitloggen` on both mobile and desktop.
+- [x] Step 60: Rename the admin quick-link button label from `Open hoofdpagina` to `Bekijk site` while keeping the existing link behavior and placement.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import Link from "next/link";
+
 import type { AdminNavItem, AdminSessionViewModel } from "@/types/admin";
 
 import { ADMIN_SIGN_OUT_REDIRECT_PATH } from "@/lib/auth/config";
@@ -108,11 +110,22 @@ export function AdminShell({
               <p className="text-sm font-medium text-black/56">{currentDateTime}</p>
               <AdminProfileCard
                 action={
-                  <SignOutButton
-                    callbackUrl={ADMIN_SIGN_OUT_REDIRECT_PATH}
-                    className="rounded-full border border-[color:var(--brand-black)] bg-[color:var(--brand-black)] px-4 py-2 text-sm font-semibold text-white transition hover:border-[color:var(--brand-orange)] hover:bg-[color:var(--brand-orange)]"
-                    label="Uitloggen"
-                  />
+                  <div className="flex items-center gap-2">
+                    <Link
+                      className="rounded-full border border-[color:var(--brand-orange)] px-4 py-2 text-sm font-semibold text-[color:var(--brand-orange)] transition hover:bg-[color:var(--brand-orange)] hover:text-white"
+                      data-testid="admin-open-homepage-link"
+                      href="/"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Bekijk site
+                    </Link>
+                    <SignOutButton
+                      callbackUrl={ADMIN_SIGN_OUT_REDIRECT_PATH}
+                      className="rounded-full border border-[color:var(--brand-black)] bg-[color:var(--brand-black)] px-4 py-2 text-sm font-semibold text-white transition hover:border-[color:var(--brand-orange)] hover:bg-[color:var(--brand-orange)]"
+                      label="Uitloggen"
+                    />
+                  </div>
                 }
                 session={session}
               />

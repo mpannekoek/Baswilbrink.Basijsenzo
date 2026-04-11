@@ -144,6 +144,8 @@ describe("admin portal helpers and components", () => {
     expect(screen.queryByTestId("admin-nav-orders-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("admin-nav-analytics-link")).not.toBeInTheDocument();
     expect(screen.getByTestId("admin-profile-card")).toBeInTheDocument();
+    expect(screen.getByTestId("admin-open-homepage-link")).toHaveAttribute("href", "/");
+    expect(screen.getByTestId("admin-open-homepage-link")).toHaveAttribute("target", "_blank");
     expect(screen.getByTestId("admin-dashboard-summary")).toBeInTheDocument();
     expect(screen.getAllByTestId("admin-mobile-topbar").length).toBeGreaterThan(0);
     expect(screen.getByTestId("admin-dashboard-gallery-panel")).toBeInTheDocument();
@@ -165,8 +167,11 @@ describe("admin portal helpers and components", () => {
     );
     const profileCard = screen.getByTestId("admin-profile-card");
     const signOutButton = screen.getByTestId("admin-signout-button");
+    const openHomepageLink = screen.getByTestId("admin-open-homepage-link");
 
     expect(signOutButton).toBeInTheDocument();
+    expect(openHomepageLink).toBeInTheDocument();
+    expect(profileCard).toContainElement(openHomepageLink);
     expect(profileCard).toContainElement(signOutButton);
     expect(navigation[1]).toMatchObject({
       href: "/admin/content/opening-hours",

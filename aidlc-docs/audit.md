@@ -1989,3 +1989,63 @@ the images does not render very well in terms of the width. Fix this."
 **Context**: Repository operation - commit requested
 
 ---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T09:27:54Z
+**User Input**: "Request Changes: ik wil vanaf de admin portal een mogelijkheid om de hoofdpagina te openen. Dan kan ik snel even wijzigingen checken. Bouw dit en test het met playwright cli."
+**AI Response**: "Accepted the request and implemented a new `Open hoofdpagina` quick action in the admin shell header that links to `/` in a new tab for fast content verification from the admin portal."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Extension Enforcement Check
+**Timestamp**: 2026-04-11T09:27:54Z
+**User Input**: "Request Changes: ik wil vanaf de admin portal een mogelijkheid om de hoofdpagina te openen. Dan kan ik snel even wijzigingen checken. Bouw dit en test het met playwright cli."
+**AI Response**: "Applied conditional extension enforcement for this code-generation change: Security Baseline = enabled and enforced; Property-Based Testing = disabled in aidlc-state and skipped for this stage."
+**Context**: CONSTRUCTION - Code Generation extension applicability
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T09:27:54Z
+**User Input**: "Request Changes: ik wil vanaf de admin portal een mogelijkheid om de hoofdpagina te openen. Dan kan ik snel even wijzigingen checken. Bouw dit en test het met playwright cli."
+**AI Response**: "Added `admin-open-homepage-link` to `AdminShell` as an `Open hoofdpagina` action (`href='/'`, `target='_blank'`), added test assertions in `admin-portal.test.tsx`, and validated with `npm test -- --run tests/admin-portal/admin-portal.test.tsx` (12/12 tests passed). Playwright CLI was executed with Firefox (`playwright-cli open http://localhost:3000/admin --browser firefox`), but the app redirected to `/admin/sign-in` without an authenticated session, so protected-shell UI could not be visually clicked in that environment."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T09:30:18Z
+**User Input**: "Zet de nieuwe knop links naast de uitloggen knop in zowel desktop als mobiel"
+**AI Response**: "Moved the `Open hoofdpagina` action into the `AdminProfileCard` action slot and grouped it directly left of `Uitloggen`, so both controls now render side-by-side in the same profile action row on desktop and mobile."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T09:30:18Z
+**User Input**: "Zet de nieuwe knop links naast de uitloggen knop in zowel desktop als mobiel"
+**AI Response**: "Updated `admin-shell.tsx` so `Open hoofdpagina` and `Uitloggen` are rendered together inside the profile action group, extended admin portal tests to assert the homepage link is inside `admin-profile-card`, and validated with `npm test -- --run tests/admin-portal/admin-portal.test.tsx` (12/12 tests passed)."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## Code Generation Change Request
+**Timestamp**: 2026-04-11T09:30:59Z
+**User Input**: "Hernoem de knop naar 'Bekijk site'"
+**AI Response**: "Renamed the admin quick-link button label to `Bekijk site` while keeping its position and behavior unchanged."
+**Context**: CONSTRUCTION - Code Generation review changes requested
+
+---
+
+## Code Generation Review Prompt
+**Timestamp**: 2026-04-11T09:30:59Z
+**User Input**: "Hernoem de knop naar 'Bekijk site'"
+**AI Response**: "Updated `admin-shell.tsx` button text from `Open hoofdpagina` to `Bekijk site` and validated with `npm test -- --run tests/admin-portal/admin-portal.test.tsx` (12/12 tests passed)."
+**Context**: CONSTRUCTION - Code Generation review response prepared
+
+---
+## User Request - Commit
+**Timestamp**: 2026-04-11T09:31:59Z
+**User Input**: "commit"
+**AI Response**: "Preparing a commit for the current tracked admin portal and workflow documentation updates."
+**Context**: Repository operation - commit requested
+
+---
