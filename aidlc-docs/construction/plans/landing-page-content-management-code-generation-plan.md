@@ -156,6 +156,7 @@
 - [x] Step 69: Add server-side binary signature validation for uploaded image files (JPG/PNG/WEBP/AVIF) to reject malformed payloads even when extension/MIME appears valid.
 - [x] Step 70: Update `.github/workflows/deploy-azure-vps.yml` to support encrypted SSH key auth with `VPS_SSH_PASSPHRASE` and rename the workflow display name from Azure-specific wording to `Deploy To Linux VPS`.
 - [x] Step 71: Update `src/web/Dockerfile` base images from `node:24.11.0-alpine` to `node:24.14.0-alpine` across deps, builder, and runner stages.
+- [x] Step 72: Fix VPS SSH auth in `.github/workflows/deploy-linux-vps.yml` by explicitly passing `-i "${key_file}"` to each `ssh`/`scp` command while keeping `IdentitiesOnly=yes` and passphrase-backed `ssh-agent` loading.
 
 ## Story Traceability
 - **Story 1** is primarily delivered by Steps 3, 4, 5, and 9.
