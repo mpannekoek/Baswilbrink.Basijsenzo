@@ -2305,3 +2305,53 @@ sh: curl: not found"
 **Context**: Repository operation - commit all pending changes
 
 ---
+## Build and Test Review - Change Request
+**Timestamp**: 2026-04-19T11:41:46Z
+**User Input**: "Request Changes: I want to use a VPS_SSH_PASSPHRASE as github secret for my github actions to deploy to vps. I want a rename for 'deploy-azure-vps.yml' to 'Deploy To Linux VPS' as well."
+**AI Response**: "Resumed the active AI-DLC session, applied the requested GitHub Actions changes in `.github/workflows/deploy-azure-vps.yml` (workflow name/concurrency rename and SSH passphrase secret support), updated the code-generation plan with completed Step 70, and prepared review details for user confirmation."
+**Context**: CONSTRUCTION - Build and Test review change request implementation
+
+---
+
+## Code Generation Plan Progress Update
+**Timestamp**: 2026-04-19T11:41:46Z
+**User Input**: "Request Changes: I want to use a VPS_SSH_PASSPHRASE as github secret for my github actions to deploy to vps. I want a rename for 'deploy-azure-vps.yml' to 'Deploy To Linux VPS' as well."
+**AI Response**: "Marked `aidlc-docs/construction/plans/landing-page-content-management-code-generation-plan.md` Step 70 as completed in the same interaction as the code change to satisfy mandatory plan-level checkbox enforcement."
+**Context**: CONSTRUCTION - Code Generation plan tracking compliance
+
+---
+## Build and Test Review - Change Request
+**Timestamp**: 2026-04-19T11:44:28Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- deploy-linux-vps.yml: .github/workflows/deploy-linux-vps.yml
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- audit.md: aidlc-docs/audit.md
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- Dockerfile: src/web/Dockerfile
+
+## My request for Codex:
+update [Dockerfile](src/web/Dockerfile) to use the node:24.14.0-alpine"
+**AI Response**: "Updated `src/web/Dockerfile` to use `node:24.14.0-alpine` for all stages (deps, builder, runner), updated aidlc state, and recorded plan progress with a completed Step 71."
+**Context**: CONSTRUCTION - Build and Test review change request implementation
+
+---
+
+## Code Generation Plan Progress Update
+**Timestamp**: 2026-04-19T11:44:28Z
+**User Input**: "# Context from my IDE setup:
+
+## Open tabs:
+- deploy-linux-vps.yml: .github/workflows/deploy-linux-vps.yml
+- deploy-azure-vps.yml: .github/workflows/deploy-azure-vps.yml
+- audit.md: aidlc-docs/audit.md
+- aidlc-state.md: aidlc-docs/aidlc-state.md
+- Dockerfile: src/web/Dockerfile
+
+## My request for Codex:
+update [Dockerfile](src/web/Dockerfile) to use the node:24.14.0-alpine"
+**AI Response**: "Marked `aidlc-docs/construction/plans/landing-page-content-management-code-generation-plan.md` Step 71 as completed in the same interaction as the Dockerfile change to satisfy mandatory plan-level checkbox enforcement."
+**Context**: CONSTRUCTION - Code Generation plan tracking compliance
+
+---

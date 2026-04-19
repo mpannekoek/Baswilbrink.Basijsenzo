@@ -1,4 +1,4 @@
-name: Deploy To Azure VPS
+name: Deploy To Linux VPS
 
 on:
   workflow_run:
@@ -20,7 +20,7 @@ env:
   IMAGE_NAME: mpannekoek/baswilbrink.basijsenzo
 
 concurrency:
-  group: deploy-azure-vps-production
+  group: deploy-linux-vps-production
   cancel-in-progress: false
 
 jobs:
@@ -68,6 +68,7 @@ jobs:
         shell: bash
         env:
           VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          VPS_SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
         run: |
           set -euo pipefail
           : "${VPS_HOST:?VPS_HOST repository variable is required}"
@@ -75,25 +76,36 @@ jobs:
           : "${VPS_PORT:?VPS_PORT repository variable is required}"
           : "${VPS_APP_PATH:?VPS_APP_PATH repository variable is required}"
           : "${VPS_SSH_PRIVATE_KEY:?VPS_SSH_PRIVATE_KEY repository secret is required}"
+          : "${VPS_SSH_PASSPHRASE:?VPS_SSH_PASSPHRASE repository secret is required}"
 
       - name: Copy deploy files to VPS
         shell: bash
         env:
           VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          VPS_SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
         run: |
           set -euo pipefail
 
           key_file="$(mktemp)"
           known_hosts_file="$(mktemp)"
-          trap 'rm -f "${key_file}" "${known_hosts_file}"' EXIT
+          askpass_file="$(mktemp)"
+          trap 'rm -f "${key_file}" "${known_hosts_file}" "${askpass_file}"; if [ -n "${SSH_AGENT_PID:-}" ]; then ssh-agent -k >/dev/null; fi' EXIT
 
           printf '%s\n' "${VPS_SSH_PRIVATE_KEY}" | tr -d '\r' > "${key_file}"
           chmod 600 "${key_file}"
 
+          cat > "${askpass_file}" <<'EOF'
+          #!/usr/bin/env bash
+          printf '%s\n' "${VPS_SSH_PASSPHRASE}"
+          EOF
+          chmod 700 "${askpass_file}"
+
+          eval "$(ssh-agent -s)"
+          SSH_ASKPASS="${askpass_file}" SSH_ASKPASS_REQUIRE=force DISPLAY=dummy setsid ssh-add "${key_file}" < /dev/null
+
           ssh-keyscan -p "${VPS_PORT}" -H "${VPS_HOST}" > "${known_hosts_file}"
 
           ssh \
-            -i "${key_file}" \
             -p "${VPS_PORT}" \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
@@ -105,7 +117,6 @@ jobs:
           EOF
 
           scp \
-            -i "${key_file}" \
             -P "${VPS_PORT}" \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
@@ -118,20 +129,30 @@ jobs:
         shell: bash
         env:
           VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          VPS_SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
         run: |
           set -euo pipefail
 
           key_file="$(mktemp)"
           known_hosts_file="$(mktemp)"
-          trap 'rm -f "${key_file}" "${known_hosts_file}"' EXIT
+          askpass_file="$(mktemp)"
+          trap 'rm -f "${key_file}" "${known_hosts_file}" "${askpass_file}"; if [ -n "${SSH_AGENT_PID:-}" ]; then ssh-agent -k >/dev/null; fi' EXIT
 
           printf '%s\n' "${VPS_SSH_PRIVATE_KEY}" | tr -d '\r' > "${key_file}"
           chmod 600 "${key_file}"
 
+          cat > "${askpass_file}" <<'EOF'
+          #!/usr/bin/env bash
+          printf '%s\n' "${VPS_SSH_PASSPHRASE}"
+          EOF
+          chmod 700 "${askpass_file}"
+
+          eval "$(ssh-agent -s)"
+          SSH_ASKPASS="${askpass_file}" SSH_ASKPASS_REQUIRE=force DISPLAY=dummy setsid ssh-add "${key_file}" < /dev/null
+
           ssh-keyscan -p "${VPS_PORT}" -H "${VPS_HOST}" > "${known_hosts_file}"
 
           ssh \
-            -i "${key_file}" \
             -p "${VPS_PORT}" \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \

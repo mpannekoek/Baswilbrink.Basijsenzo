@@ -9,7 +9,7 @@
 
 ## Current Status
 - **Unit**: `landing-page-content-management`
-- **State**: Build and test instruction artifacts are generated for the `landing-page-content-management` unit and the workflow is awaiting explicit approval to proceed to Operations
+- **State**: Build and test instruction artifacts are generated, deployment/runtime refinements (Linux VPS workflow naming, `VPS_SSH_PASSPHRASE` handling, and Docker base image bump to `node:24.14.0-alpine`) are applied, and the workflow is awaiting explicit approval to proceed to Operations
 
 ## Workspace State
 - **Existing Code**: Yes
