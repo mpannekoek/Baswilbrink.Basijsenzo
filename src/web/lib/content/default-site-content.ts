@@ -177,7 +177,7 @@ export const defaultSiteContent: LandingPageContent = {
     copyrightText: "© 2026 Bas IJs & Zo. Alle rechten voorbehouden.",
     creatorIntro: "Website gemaakt door",
     creatorName: "Martijn Pannekoek",
-    creatorHref: "https://martijnpannekoek.duckdns.org/",
+    creatorHref: "https://martijnpannekoek.nl",
     creatorCta: "Ook een applicatie of website nodig?",
   },
 };

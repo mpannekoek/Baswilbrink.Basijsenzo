@@ -221,7 +221,7 @@ export function AdminSidebar({
           Website gemaakt door{" "}
           <a
             className="font-semibold text-white underline decoration-white/40 underline-offset-4 transition hover:decoration-white"
-            href="https://martijnpannekoek.duckdns.org"
+            href="https://martijnpannekoek.nl"
             rel="noreferrer"
             target="_blank"
           >
