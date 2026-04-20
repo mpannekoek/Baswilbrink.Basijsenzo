@@ -49,6 +49,8 @@ describe("content services", () => {
     const nextValues = {
       ...currentValues,
       "contact.phoneLabel": "024 - 111 22 33",
+      "contact.phoneHref": "tel:+31241112233",
+      "contact.routeHref": "https://maps.google.com/?q=Nieuwe+Straat+1+Voorbeeld",
       "hero.title": "Vers schepijs voor elke omweg",
     };
 
@@ -71,6 +73,12 @@ describe("content services", () => {
 
     expect(updatedContent.hero.title).toBe("Vers schepijs voor elke omweg");
     expect(updatedContent.contact.phoneLabel).toBe("024 - 111 22 33");
+    expect(updatedContent.contact.phoneHref).toBe("tel:+31241112233");
+    expect(updatedContent.contact.routeHref).toBe("https://maps.google.com/?q=Nieuwe+Straat+1+Voorbeeld");
+    expect(updatedContent.primaryActions[0]?.href).toBe("tel:+31241112233");
+    expect(updatedContent.primaryActions[1]?.href).toBe(
+      "https://maps.google.com/?q=Nieuwe+Straat+1+Voorbeeld",
+    );
     expect(auditEntries).toHaveLength(1);
     expect(auditEntries[0]?.targetSection).toBe("grouped-content");
     expect(auditEntries[0]?.actorIdentifier).toBe("admin@example.com");

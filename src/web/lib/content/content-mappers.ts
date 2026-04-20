@@ -52,6 +52,16 @@ export function toLandingPageContent(snapshot: StoredContentSnapshot): LandingPa
     setFieldValueInContent(content, field.name, values[field.name] ?? "");
   }
 
+  const callAction = content.primaryActions.find((action) => action.dataTestId === "header-call-button");
+  if (callAction) {
+    callAction.href = content.contact.phoneHref;
+  }
+
+  const routeAction = content.primaryActions.find((action) => action.dataTestId === "header-visit-button");
+  if (routeAction) {
+    routeAction.href = content.contact.routeHref;
+  }
+
   content.featuredTaste.imagePrimarySrc = toRuntimeImagePath(content.featuredTaste.imagePrimarySrc);
   content.featuredTaste.imageSecondarySrc = toRuntimeImagePath(content.featuredTaste.imageSecondarySrc);
   content.galleryShowcase.images = content.galleryShowcase.images.map((image) => ({

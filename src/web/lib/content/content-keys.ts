@@ -130,7 +130,9 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
     "Zichtbare contactcopy op de homepage.",
     [
       input("contact.phoneLabel", "Telefoonlabel", 40),
+      input("contact.phoneHref", "Telefoonlink (bijv. tel:+31240000000)", 80),
       input("contact.address", "Adres", 140),
+      input("contact.routeHref", "Google Maps route link", 240),
       textarea("contact.townLabel", "Korte omschrijving locatie", 180),
       textarea("contact.note", "Contactnotitie", 180),
     ],
