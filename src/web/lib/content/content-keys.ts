@@ -150,6 +150,15 @@ export const GROUPED_CONTENT_SECTIONS: ContentSectionConfig[] = [
       input("visitContact.followTitle", "Volgtitel", 80),
     ],
   ),
+  defineSection(
+    "social-links",
+    "Social links",
+    "Beheer de URL's van Instagram en Facebook voor de social knoppen op de homepage.",
+    [
+      input("socialLinks.0.href", "Instagram URL", 240),
+      input("socialLinks.1.href", "Facebook URL", 240),
+    ],
+  ),
 ];
 
 export const FEATURED_TASTE_SECTIONS: ContentSectionConfig[] = [

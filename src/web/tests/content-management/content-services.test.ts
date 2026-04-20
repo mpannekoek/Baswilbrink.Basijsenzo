@@ -150,7 +150,7 @@ describe("content services", () => {
     expect(updatedContent.galleryShowcase.images[4]?.alt).toBe(defaultSiteContent.galleryShowcase.images[4]?.alt);
   });
 
-  it("keeps navigation, SEO metadata, and quick-action labels static even when grouped content is saved", () => {
+  it("keeps navigation, SEO metadata, and quick-action labels static while allowing social URLs from grouped content", () => {
     const client = createContentDatabaseClient(":memory:");
 
     seedContentStore(buildDefaultPersistableValues(), client);
@@ -165,6 +165,8 @@ describe("content services", () => {
       "brand.tagline": "Aangepaste tagline",
       "primaryActions.0.label": "Test call to action",
       "socialLinks.0.label": "Test social link",
+      "socialLinks.0.href": "https://instagram.com/test-account",
+      "socialLinks.1.href": "https://facebook.com/test-page",
     };
 
     saveContentMutation(
@@ -191,6 +193,8 @@ describe("content services", () => {
     expect(updatedContent.navItems[2]?.label).toBe(defaultSiteContent.navItems[2]?.label);
     expect(updatedContent.primaryActions[0]?.label).toBe(defaultSiteContent.primaryActions[0]?.label);
     expect(updatedContent.socialLinks[0]?.label).toBe(defaultSiteContent.socialLinks[0]?.label);
+    expect(updatedContent.socialLinks[0]?.href).toBe("https://instagram.com/test-account");
+    expect(updatedContent.socialLinks[1]?.href).toBe("https://facebook.com/test-page");
   });
 
   it("maps legacy /uploads image paths to /api/uploads for runtime rendering", () => {

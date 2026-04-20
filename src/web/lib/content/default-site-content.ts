@@ -28,12 +28,12 @@ export const defaultSiteContent: LandingPageContent = {
   ],
   socialLinks: [
     {
-      href: "https://www.instagram.com/basijsenzo",
+      href: "https://www.instagram.com/basijsenz",
       label: "Instagram",
       dataTestId: "social-instagram-link",
     },
     {
-      href: "https://www.facebook.com/basijsenzo",
+      href: "https://www.facebook.com/profile.php?id=100057594933642",
       label: "Facebook",
       dataTestId: "social-facebook-link",
     },
@@ -46,7 +46,7 @@ export const defaultSiteContent: LandingPageContent = {
       dataTestId: "header-call-button",
     },
     {
-      href: "https://maps.google.com/?q=Dorpsstraat+12+6678+AB+Voorbeelddorp",
+      href: "https://maps.google.com/?q=Dorpsstraat+11+8181+HL+Heerde",
       label: "Plan je route",
       variant: "secondary",
       dataTestId: "header-visit-button",
