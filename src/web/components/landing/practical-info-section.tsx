@@ -111,6 +111,7 @@ export function PracticalInfoSection({
                   dataTestId="practical-route-button"
                   href={contact.routeHref}
                   label={practicalInfo.routeLabel}
+                  openInNewTab
                   variant="ghost"
                 />
               </div>

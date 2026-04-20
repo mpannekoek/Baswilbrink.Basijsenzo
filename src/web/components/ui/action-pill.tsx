@@ -18,6 +18,7 @@ export function ActionPill({
   label,
   variant,
   dataTestId,
+  openInNewTab,
   onClick,
 }: ActionPillProps) {
   return (
@@ -26,6 +27,8 @@ export function ActionPill({
       data-testid={dataTestId}
       href={href}
       onClick={onClick}
+      rel={openInNewTab ? "noopener noreferrer" : undefined}
+      target={openInNewTab ? "_blank" : undefined}
     >
       {label}
     </a>

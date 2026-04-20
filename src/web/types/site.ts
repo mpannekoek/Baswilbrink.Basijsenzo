@@ -3,6 +3,7 @@ export type ActionLink = {
   label: string;
   variant: "primary" | "secondary" | "ghost";
   dataTestId: string;
+  openInNewTab?: boolean;
 };
 
 export type NavItem = {

@@ -50,6 +50,7 @@ export const defaultSiteContent: LandingPageContent = {
       label: "Plan je route",
       variant: "secondary",
       dataTestId: "header-visit-button",
+      openInNewTab: true,
     },
   ],
   hero: {

@@ -36,6 +36,18 @@ describe("LandingPage", () => {
     expect(screen.getAllByTestId("site-footer-credit-link")[0]).toBeInTheDocument();
   });
 
+  it("opens route actions in a new tab", () => {
+    render(<LandingPage content={siteContent} />);
+
+    const headerRouteButton = screen.getAllByTestId("header-visit-button")[0];
+    const practicalRouteButton = screen.getAllByTestId("practical-route-button")[0];
+
+    expect(headerRouteButton).toHaveAttribute("target", "_blank");
+    expect(headerRouteButton).toHaveAttribute("rel", "noopener noreferrer");
+    expect(practicalRouteButton).toHaveAttribute("target", "_blank");
+    expect(practicalRouteButton).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
   it("opens the mobile navigation menu", () => {
     render(<LandingPage content={siteContent} />);
 
